@@ -1,16 +1,20 @@
-import plugin from './src/plugin';
+import prismic from 'prismic-javascript';
 
-import EditButton from './src/components/EditButton';
-import Embed from './src/components/Embed';
-import Image from './src/components/Image';
-import Link from './src/components/Link';
-import RichText from './src/components/RichText';
+import EditButton from './components/EditButton';
+import Embed from './components/Embed';
+import Image from './components/Image';
+import Link from './components/Link';
+import RichText from './components/RichText';
 
 export default {
-  plugin,
-  EditButton,
-  Embed,
-  Image,
-  Link,
-  RichText
+  install: function (Vue, options = {}) {
+    Vue.prototype.$prismic = prismic;
+    Vue.prototype.$prismic.endpoint = options.endpoint;
+
+    Vue.component('PrismicEditButton', EditButton);
+    Vue.component('PrismicEmbed', Embed);
+    Vue.component('PrismicImage', Image);
+    Vue.component('PrismicLink', Link);
+    Vue.component('PrismicRichText', RichText);
+  }
 };
