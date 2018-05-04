@@ -18,8 +18,7 @@ export default {
     },
     htmlSerializer: {
       type: Function,
-      required: false,
-      default: this.$prismic.defaultHtmlSerializer
+      required: false
     }
   },
   computed: {
@@ -33,7 +32,7 @@ export default {
       if (this.isPlain === false) {
         template = (`
           <div>
-            ${prismicDOM.RichText.asHtml(this.field, this.$prismic.linkResolver, this.htmlSerializer )}
+            ${prismicDOM.RichText.asHtml(this.field, this.$prismic.linkResolver, this.htmlSerializer || this.$prismic.defaultHtmlSerializer )}
           </div>
         `);
       } else {
