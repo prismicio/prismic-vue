@@ -20,7 +20,8 @@ export default {
     },
     htmlSerializer: {
       type: Function,
-      required: false
+      required: false,
+      default: null
     }
   },
   data () {
