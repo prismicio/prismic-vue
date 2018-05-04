@@ -10,6 +10,7 @@ export default {
   install: function (Vue, options = {}) {
     Vue.prototype.$prismic = prismic;
     Vue.prototype.$prismic.endpoint = options.endpoint;
+    Vue.prototype.$prismic.linkResolver = options.linkResolver;
 
     Vue.component('PrismicEditButton', EditButton);
     Vue.component('PrismicEmbed', Embed);

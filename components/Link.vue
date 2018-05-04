@@ -6,7 +6,6 @@
 
 <script>
 import prismicDOM from 'prismic-dom';
-import linkResolver from '../link-resolver';
 
 export default {
   name: 'PrismicLink',
@@ -22,7 +21,7 @@ export default {
       }
 
       let template = '';
-      const url = prismicDOM.Link.url(this.field, linkResolver);
+      const url = prismicDOM.Link.url(this.field, this.$prismic.linkResolver);
 
       if (this.field.link_type === 'Document') {
         template = (`
