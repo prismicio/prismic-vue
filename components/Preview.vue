@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import Cookie from 'js-cookie';
+
 export default {
   name: 'PrismicPreview',
   beforeCreate () {
@@ -12,7 +14,7 @@ export default {
 
     this.$prismic.getApi(this.$prismic.endpoint).then((api) => {
       api.previewSession(previewToken, this.$prismic.linkResolver, '/').then((url) => {
-        this.$cookie.set(this.$prismic.previewCookie, previewToken, { expires: '30m' });
+        Cookie.set(this.$prismic.previewCookie, previewToken, { expires: '30m' });
         window.location.replace(url);
       });
     });
