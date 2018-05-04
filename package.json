@@ -1,10 +1,14 @@
 {
-  "name": "prismic-vue",
+  "name": "prismic-vue-test",
   "version": "0.0.0",
   "description": "Prismic package for Vue.js",
   "author": "Prismic",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "prismic-dom": "^2.0.6",
+    "prismic-javascript": "^1.5.0-beta.2"
   },
   "engines": {
     "node": ">= 6.0.0",

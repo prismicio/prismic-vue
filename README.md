@@ -1,1 +1,1 @@
-# prismic-vue
+# prismic-vue-test
