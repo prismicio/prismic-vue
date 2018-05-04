@@ -5,6 +5,8 @@
 <script>
 import prismicDOM from 'prismic-dom';
 
+const Elements = prismicDOM.RichText.Elements;
+
 export default {
   name: 'PrismicRichText',
   props: {
@@ -18,15 +20,12 @@ export default {
     },
     htmlSerializer: {
       type: Function,
-      required: false,
-      default: this.defaultHtmlSerializer
+      required: false
     }
   },
   data () {
     return {
       defaultHtmlSerializer (type, element, content, children) {
-        const Elements = prismicDOM.RichText.Elements;
-
         if (type === Elements.hyperlink) {
           let result = '';
           const url = prismicDOM.Link.url(element.data, this.$prismic.linkResolver);
@@ -73,7 +72,7 @@ export default {
       if (this.isPlain === false) {
         template = (`
           <div>
-            ${prismicDOM.RichText.asHtml(this.field, this.$prismic.linkResolver, this.htmlSerializer)}
+            ${prismicDOM.RichText.asHtml(this.field, this.$prismic.linkResolver, this.htmlSerializer || this.defaultHtmlSerializer )}
           </div>
         `);
       } else {
