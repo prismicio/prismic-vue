@@ -5,8 +5,6 @@
 <script>
 import prismicDOM from 'prismic-dom';
 
-const Elements = prismicDOM.RichText.Elements;
-
 export default {
   name: 'PrismicRichText',
   props: {
@@ -21,46 +19,8 @@ export default {
     htmlSerializer: {
       type: Function,
       required: false,
-      default: null
+      default: this.$prismic.defaultHtmlSerializer
     }
-  },
-  data () {
-    return {
-      defaultHtmlSerializer (type, element, content, children) {
-        if (type === Elements.hyperlink) {
-          let result = '';
-          const url = prismicDOM.Link.url(element.data, this.$prismic.linkResolver);
-
-          if (element.data.link_type === 'Document') {
-            result = `<router-link to="${url}">${content}</router-link>`;
-          } else {
-            const target = element.data.target ? `target="'${element.data.target}'" rel="noopener"` : '';
-            result = `<a href="${url}" ${target}>${content}</a>`;
-          }
-          return result;
-        }
-
-        if (type === Elements.image) {
-          let result = `<img src="${element.url}" alt="${element.alt || ''}" copyright="${element.copyright || ''}">`;
-
-          if (element.linkTo) {
-            const url = prismicDOM.Link.url(element.linkTo, this.$prismic.linkResolver);
-
-            if (element.linkTo.link_type === 'Document') {
-              result = `<router-link to="${url}">${result}</router-link>`;
-            } else {
-              const target = element.linkTo.target ? `target="${element.linkTo.target}" rel="noopener"` : '';
-              result = `<a href="${url}" ${target}>${result}</a>`;
-            }
-          }
-          const wrapperClassList = [element.label || '', 'block-img'];
-          result = `<p class="${wrapperClassList.join(' ')}">${result}</p>`;
-          return result;
-        }
-
-        return null;
-      }
-    };
   },
   computed: {
     richTextComponent () {
@@ -73,7 +33,7 @@ export default {
       if (this.isPlain === false) {
         template = (`
           <div>
-            ${prismicDOM.RichText.asHtml(this.field, this.$prismic.linkResolver, this.htmlSerializer || this.defaultHtmlSerializer )}
+            ${prismicDOM.RichText.asHtml(this.field, this.$prismic.linkResolver, this.htmlSerializer )}
           </div>
         `);
       } else {
