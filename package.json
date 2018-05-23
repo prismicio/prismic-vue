@@ -1,7 +1,7 @@
 {
   "name": "prismic-vue-test",
   "version": "0.10.0",
-  "description": "Prismic package for Vue.js",
+  "description": "Vue.js plugin to facilitate integration of content managed on Prismic",
   "author": "Prismic",
   "dependencies": {
     "prismic-dom": "^2.1.0",

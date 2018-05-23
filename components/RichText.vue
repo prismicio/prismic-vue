@@ -32,7 +32,7 @@ export default {
       if (this.isPlain === false) {
         template = (`
           <div>
-            ${prismicDOM.RichText.asHtml(this.field, this.$prismic.linkResolver, this.htmlSerializer || this.$prismic.defaultHtmlSerializer )}
+            ${prismicDOM.RichText.asHtml(this.field, this.$prismic.linkResolver, this.htmlSerializer || this.$prismic.htmlSerializer )}
           </div>
         `);
       } else {
