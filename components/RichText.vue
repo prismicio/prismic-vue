@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import prismicDOM from 'prismic-dom';
+import prismicDOM from 'prismic-dom'
 
 export default {
   name: 'PrismicRichText',
@@ -24,22 +24,22 @@ export default {
   computed: {
     richTextComponent () {
       if (!this.field) {
-        return null;
+        return null
       }
 
-      let template = '';
+      let template = ''
 
       if (this.isPlain === false) {
         template = (`
           <div>
             ${prismicDOM.RichText.asHtml(this.field, this.$prismic.linkResolver, this.htmlSerializer || this.$prismic.htmlSerializer )}
           </div>
-        `);
+        `)
       } else {
-        template = `<span>${prismicDOM.RichText.asText(this.field)}</span>`;
+        template = `<span>${prismicDOM.RichText.asText(this.field)}</span>`
       }
-      return { template };
+      return { template }
     }
   }
-};
+}
 </script>

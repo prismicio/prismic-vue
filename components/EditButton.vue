@@ -14,22 +14,22 @@ export default {
   computed: {
     editButtonComponent () {
       if (!this.documentId) {
-        return null;
+        return null
       }
 
       return {
         template: `<div data-wio-id="${this.documentId}"/>`
-      };
+      }
     }
   },
   watch: {
     documentId () {
       if (window.PrismicToolbar) {
-        window.PrismicToolbar.setupEditButton();
+        window.PrismicToolbar.setupEditButton()
       } else {
-        console.error("If you want to add a Prismic Edit Button in your website, you need to have included the Prismic Toolbar script, please read the documentation at https://prismic.io/docs/vuejs/beyond-the-api/in-website-edit-button");
+        console.error("If you want to add a Prismic Edit Button in your website, you need to have included the Prismic Toolbar script, please read the documentation at https://prismic.io/docs/vuejs/beyond-the-api/in-website-edit-button")
       }
     }
   }
-};
+}
 </script>

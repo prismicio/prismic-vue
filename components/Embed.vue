@@ -13,12 +13,12 @@ export default {
   computed: {
     EmbedComponent () {
       if (!this.field) {
-        return null;
+        return null
       }
 
-      const urlAttr = this.field.embed_url ? `data-oembed="${this.field.embed_url}"` : '';
-      const typeAttr = this.field.type ? `data-oembed-type="${this.field.type}"` : '';
-      const providerNameAttr = this.field.provider_name ? `data-oembed-provider="${this.field.provider_name}"` : '';
+      const urlAttr = this.field.embed_url ? `data-oembed="${this.field.embed_url}"` : ''
+      const typeAttr = this.field.type ? `data-oembed-type="${this.field.type}"` : ''
+      const providerNameAttr = this.field.provider_name ? `data-oembed-provider="${this.field.provider_name}"` : ''
 
       return {
         template: (`
@@ -26,8 +26,8 @@ export default {
             ${this.field.html}
           </div>
         `)
-      };
+      }
     }
   }
-};
+}
 </script>
