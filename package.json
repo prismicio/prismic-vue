@@ -1,11 +1,13 @@
 {
-  "name": "prismic-vue-test",
+  "name": "prismic-vue",
   "version": "1.0.0",
-  "description": "Vue.js plugin to facilitate integration of content managed on Prismic",
+  "description": "Vue.js plugin to facilitate integration of content managed with Prismic",
+  "license": "Apache-2.0",
+  "repository": "github:prismicio/prismic-vue",
   "author": "Prismic",
   "dependencies": {
     "prismic-dom": "^2.1.0",
-    "prismic-javascript": "^1.5.0-beta.3"
+    "prismic-javascript": "^1.5.0-beta.4"
   },
   "engines": {
     "node": ">= 6.0.0",
