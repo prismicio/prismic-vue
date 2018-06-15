@@ -2,11 +2,17 @@
 
 > [Vue.js](https://vuejs.org) plugin to facilitate integration of content managed with [Prismic](https://prismic.io)
 
-https://prismic.io/docs/vuejs/getting-started/integrating-with-existing-project
+## Install
+
+For adding the prismic-vue plugin as dependency, just run in your terminal:
+
+``` bash
+npm install prismic-vue
+```
 
 ## Usage
 
-Read our dedicated [Vue.js documentation](https://prismic.io/docs/vuejs) to learn how to use the prismic-vue plugin into your project.
+Read our dedicated [Vue.js documentation](https://prismic.io/docs/vuejs/getting-started/integrating-with-existing-project-esm) to learn how to use the prismic-vue plugin into your project.
 
 ## License
 
