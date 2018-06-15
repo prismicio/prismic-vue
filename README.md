@@ -4,6 +4,10 @@
 
 https://prismic.io/docs/vuejs/getting-started/integrating-with-existing-project
 
+## Usage
+
+Read our dedicated [Vue.js documentation](https://prismic.io/docs/vuejs) to learn how to use the prismic-vue plugin into your project.
+
 ## License
 
 This software is licensed under the Apache 2 license, quoted below.
