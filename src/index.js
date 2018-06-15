@@ -1,12 +1,12 @@
 import prismic from 'prismic-javascript'
 
-import EditButton from './components/EditButton'
-import Embed from './components/Embed'
-import Image from './components/Image'
-import Link from './components/Link'
-import RichText from './components/RichText'
+import EditButton from './components/EditButton.vue'
+import Embed from './components/Embed.vue'
+import Image from './components/Image.vue'
+import Link from './components/Link.vue'
+import RichText from './components/RichText.vue'
 
-export default {
+const PrismicVue = {
   install: function (Vue, options = {}) {
     Vue.prototype.$prismic = prismic
     Vue.prototype.$prismic.endpoint = options.endpoint
@@ -20,3 +20,5 @@ export default {
     Vue.component('PrismicRichText', RichText)
   }
 }
+
+export default PrismicVue
