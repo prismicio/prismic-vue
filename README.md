@@ -4,7 +4,7 @@
 
 ## Install
 
-For adding the prismic-vue plugin as dependency, just run in your terminal:
+To add the prismic-vue plugin as dependency, open your terminal and run the following command from your project folder:
 
 ``` bash
 npm install prismic-vue
@@ -12,7 +12,7 @@ npm install prismic-vue
 
 ## Usage
 
-Read our dedicated [Vue.js documentation](https://prismic.io/docs/vuejs/getting-started/integrating-with-existing-project-esm) to learn how to use the prismic-vue plugin into your project.
+Read our dedicated [Vue.js documentation](https://prismic.io/docs/vuejs/getting-started/integrating-with-existing-project-esm) to learn how to use the prismic-vue plugin in your project.
 
 ## License
 
