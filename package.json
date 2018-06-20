@@ -1,6 +1,6 @@
 {
   "name": "prismic-vue",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Vue.js plugin to facilitate integration of content managed with Prismic",
   "license": "Apache-2.0",
   "repository": "github:prismicio/prismic-vue",
