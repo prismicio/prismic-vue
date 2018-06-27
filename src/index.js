@@ -1,4 +1,5 @@
 import prismic from 'prismic-javascript'
+import prismicDOM from 'prismic-dom'
 
 import EditButton from './components/EditButton.vue'
 import Embed from './components/Embed.vue'
@@ -7,11 +8,14 @@ import Link from './components/Link.vue'
 import RichText from './components/RichText.vue'
 
 const PrismicVue = {
-  install: function (Vue, options = {}) {
+  install: (Vue, options = {}) => {
     Vue.prototype.$prismic = prismic
     Vue.prototype.$prismic.endpoint = options.endpoint
     Vue.prototype.$prismic.linkResolver = options.linkResolver
     Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer
+    Vue.prototype.$prismic.richTextAsPlain = (field) => {
+      return prismicDOM.RichText.asText(field)
+    }
 
     Vue.component('PrismicEditButton', EditButton)
     Vue.component('PrismicEmbed', Embed)
