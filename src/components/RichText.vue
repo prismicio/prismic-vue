@@ -11,6 +11,14 @@ export default {
     field: {
       required: true
     },
+    /**
+     * @deprecated since version 1.1.0
+     * The isPlain prop is deprecated, please use the richTextAsPlain instance method instead.
+     * Example:
+     * ```
+     * const plainText = this.$prismic.richTextAsPlain(document.data.rich_text_field)
+     * ```
+     */
     isPlain: {
       type: Boolean,
       required: false,

@@ -14,6 +14,9 @@ const PrismicVue = {
     Vue.prototype.$prismic.linkResolver = options.linkResolver
     Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer
     Vue.prototype.$prismic.richTextAsPlain = (field) => {
+      if (!field) {
+        return ''
+      }
       return prismicDOM.RichText.asText(field)
     }
 

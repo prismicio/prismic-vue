@@ -560,7 +560,7 @@
 	/* style */
 	var __vue_inject_styles__ = undefined;
 	/* scoped */
-	var __vue_scope_id__ = "data-v-1522ac60";
+	var __vue_scope_id__ = undefined;
 	/* module identifier */
 	var __vue_module_identifier__ = undefined;
 	/* functional template */
@@ -686,7 +686,7 @@
 	/* style */
 	var __vue_inject_styles__$1 = undefined;
 	/* scoped */
-	var __vue_scope_id__$1 = "data-v-01ec5498";
+	var __vue_scope_id__$1 = undefined;
 	/* module identifier */
 	var __vue_module_identifier__$1 = undefined;
 	/* functional template */
@@ -811,7 +811,7 @@
 	/* style */
 	var __vue_inject_styles__$2 = undefined;
 	/* scoped */
-	var __vue_scope_id__$2 = "data-v-25047fe6";
+	var __vue_scope_id__$2 = undefined;
 	/* module identifier */
 	var __vue_module_identifier__$2 = undefined;
 	/* functional template */
@@ -938,7 +938,7 @@
 	/* style */
 	var __vue_inject_styles__$3 = undefined;
 	/* scoped */
-	var __vue_scope_id__$3 = "data-v-8c9eec66";
+	var __vue_scope_id__$3 = undefined;
 	/* module identifier */
 	var __vue_module_identifier__$3 = undefined;
 	/* functional template */
@@ -1027,6 +1027,14 @@
 	    field: {
 	      required: true
 	    },
+	    /**
+	     * @deprecated since version 1.1.0
+	     * The isPlain prop is deprecated, please use the richTextAsPlain instance method instead.
+	     * Example:
+	     * ```
+	     * const plainText = this.$prismic.richTextAsPlain(document.data.rich_text_field)
+	     * ```
+	     */
 	    isPlain: {
 	      type: Boolean,
 	      required: false,
@@ -1071,7 +1079,7 @@
 	/* style */
 	var __vue_inject_styles__$4 = undefined;
 	/* scoped */
-	var __vue_scope_id__$4 = "data-v-c6f72e78";
+	var __vue_scope_id__$4 = undefined;
 	/* module identifier */
 	var __vue_module_identifier__$4 = undefined;
 	/* functional template */
@@ -1161,6 +1169,9 @@
 	    Vue.prototype.$prismic.linkResolver = options.linkResolver;
 	    Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer;
 	    Vue.prototype.$prismic.richTextAsPlain = function (field) {
+	      if (!field) {
+	        return '';
+	      }
 	      return prismicDOM.RichText.asText(field);
 	    };
 
