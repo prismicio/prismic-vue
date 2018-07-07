@@ -8,12 +8,12 @@ import Link from './components/Link.vue'
 import RichText from './components/RichText.vue'
 
 const PrismicVue = {
-  install: (Vue, options = {}) => {
+  install: function (Vue, options = {}) {
     Vue.prototype.$prismic = prismic
     Vue.prototype.$prismic.endpoint = options.endpoint
     Vue.prototype.$prismic.linkResolver = options.linkResolver
     Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer
-    Vue.prototype.$prismic.richTextAsPlain = (field) => {
+    Vue.prototype.$prismic.richTextAsPlain = function (field) {
       if (!field) {
         return ''
       }

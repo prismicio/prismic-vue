@@ -1,5 +1,5 @@
 <template>
-  <component :is="EmbedComponent"/>
+  <component :is="embedComponent"/>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
     }
   },
   computed: {
-    EmbedComponent () {
+    embedComponent () {
       if (!this.field) {
         return null
       }
