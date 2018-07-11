@@ -1,4 +1,4 @@
-import prismic from 'prismic-javascript'
+import prismicJS from 'prismic-javascript'
 import prismicDOM from 'prismic-dom'
 
 import EditButton from './components/EditButton.vue'
@@ -9,10 +9,11 @@ import RichText from './components/RichText.vue'
 
 const PrismicVue = {
   install: function (Vue, options = {}) {
-    Vue.prototype.$prismic = prismic
+    Vue.prototype.$prismic = prismicJS
     Vue.prototype.$prismic.endpoint = options.endpoint
     Vue.prototype.$prismic.linkResolver = options.linkResolver
     Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer
+    Vue.prototype.$prismic.api = prismicJS.client(options.endpoint, options.apiOptions)
     Vue.prototype.$prismic.richTextAsPlain = function (field) {
       if (!field) {
         return ''
