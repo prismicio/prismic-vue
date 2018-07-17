@@ -13,7 +13,7 @@ const PrismicVue = {
     Vue.prototype.$prismic.endpoint = options.endpoint
     Vue.prototype.$prismic.linkResolver = options.linkResolver
     Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer
-    Vue.prototype.$prismic.api = prismicJS.client(options.endpoint, options.apiOptions)
+    Vue.prototype.$prismic.client = prismicJS.client(options.endpoint, options.apiOptions)
     Vue.prototype.$prismic.richTextAsPlain = function (field) {
       if (!field) {
         return ''

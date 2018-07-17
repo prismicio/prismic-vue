@@ -562,7 +562,7 @@ function __vue_normalize__(template, style, script$$1, scope, functional, module
   var component = (typeof script$$1 === 'function' ? script$$1.options : script$$1) || {};
 
   {
-    component.__file = "/Users/jbdebiasio/Code/prismic-vue/src/components/EditButton.vue";
+    component.__file = "/Users/jbdebiasio/dev/prismic-vue/src/components/EditButton.vue";
   }
 
   if (!component.render) {
@@ -688,7 +688,7 @@ function __vue_normalize__$1(template, style, script, scope, functional, moduleI
   var component = (typeof script === 'function' ? script.options : script) || {};
 
   {
-    component.__file = "/Users/jbdebiasio/Code/prismic-vue/src/components/Embed.vue";
+    component.__file = "/Users/jbdebiasio/dev/prismic-vue/src/components/Embed.vue";
   }
 
   if (!component.render) {
@@ -813,7 +813,7 @@ function __vue_normalize__$2(template, style, script, scope, functional, moduleI
   var component = (typeof script === 'function' ? script.options : script) || {};
 
   {
-    component.__file = "/Users/jbdebiasio/Code/prismic-vue/src/components/Image.vue";
+    component.__file = "/Users/jbdebiasio/dev/prismic-vue/src/components/Image.vue";
   }
 
   if (!component.render) {
@@ -940,7 +940,7 @@ function __vue_normalize__$3(template, style, script, scope, functional, moduleI
   var component = (typeof script === 'function' ? script.options : script) || {};
 
   {
-    component.__file = "/Users/jbdebiasio/Code/prismic-vue/src/components/Link.vue";
+    component.__file = "/Users/jbdebiasio/dev/prismic-vue/src/components/Link.vue";
   }
 
   if (!component.render) {
@@ -1081,7 +1081,7 @@ function __vue_normalize__$4(template, style, script, scope, functional, moduleI
   var component = (typeof script === 'function' ? script.options : script) || {};
 
   {
-    component.__file = "/Users/jbdebiasio/Code/prismic-vue/src/components/RichText.vue";
+    component.__file = "/Users/jbdebiasio/dev/prismic-vue/src/components/RichText.vue";
   }
 
   if (!component.render) {
@@ -1160,7 +1160,7 @@ var PrismicVue = {
     Vue.prototype.$prismic.endpoint = options.endpoint;
     Vue.prototype.$prismic.linkResolver = options.linkResolver;
     Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer;
-    Vue.prototype.$prismic.api = prismicJS.client(options.endpoint, options.apiOptions);
+    Vue.prototype.$prismic.client = prismicJS.client(options.endpoint, options.apiOptions);
     Vue.prototype.$prismic.richTextAsPlain = function (field) {
       if (!field) {
         return '';
