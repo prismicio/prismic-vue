@@ -7,7 +7,7 @@
 To add the prismic-vue plugin as dependency, open your terminal and run the following command from your project folder:
 
 ``` bash
-npm install prismic-vue
+yarn add prismic-vue
 ```
 
 ## License

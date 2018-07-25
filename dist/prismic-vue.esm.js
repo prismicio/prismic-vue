@@ -560,7 +560,7 @@ function __vue_normalize__(template, style, script$$1, scope, functional, module
   var component = (typeof script$$1 === 'function' ? script$$1.options : script$$1) || {};
 
   {
-    component.__file = "/Users/jbdebiasio/dev/prismic-vue/src/components/EditButton.vue";
+    component.__file = "/Users/jbdebiasio/Code/prismic-vue/src/components/EditButton.vue";
   }
 
   if (!component.render) {
@@ -686,7 +686,7 @@ function __vue_normalize__$1(template, style, script, scope, functional, moduleI
   var component = (typeof script === 'function' ? script.options : script) || {};
 
   {
-    component.__file = "/Users/jbdebiasio/dev/prismic-vue/src/components/Embed.vue";
+    component.__file = "/Users/jbdebiasio/Code/prismic-vue/src/components/Embed.vue";
   }
 
   if (!component.render) {
@@ -757,30 +757,101 @@ function __vue_create_injector__$1() {
 
 var Embed = __vue_normalize__$1({ render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 }, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, __vue_create_injector__$1, undefined);
 
-//
-//
-//
-//
-
-var script$2 = {
+var Image = {
   name: 'PrismicImage',
   props: {
     field: {
+      type: Object | null,
       required: true
     }
   },
+  render: function render(h) {
+    if (!this.field) {
+      return h('img');
+    }
+    var attrs = {};
+    attrs.src = this.field.url;
+    if (this.field.alt) {
+      attrs.alt = this.field.alt;
+    }
+    if (this.field.copyright) {
+      attrs.copyright = this.field.copyright;
+    }
+    return h('img', { attrs: attrs });
+  }
+};
+
+var Link = {
+  name: 'PrismicLink',
+  props: {
+    field: {
+      type: Object | null,
+      required: true
+    }
+  },
+  render: function render(h) {
+    if (!this.field) {
+      return h('a', this.$slots.default);
+    }
+    var url = prismicDOM.Link.url(this.field, this.$prismic.linkResolver);
+    if (this.field.link_type === 'Document') {
+      var attrs = {
+        to: url
+      };
+      return h('router-link', { attrs: attrs }, this.$slots.default);
+    } else {
+      var _attrs = {
+        href: url
+      };
+      if (this.field.target) {
+        _attrs.target = this.field.target;
+        _attrs.rel = 'noopener';
+      }
+      return h('a', { attrs: _attrs }, this.$slots.default);
+    }
+  }
+};
+
+//
+
+var script$2 = {
+  name: 'PrismicRichText',
+  props: {
+    field: {
+      required: true
+    },
+    /**
+     * @deprecated since version 1.1.0
+     * The isPlain prop is deprecated, please use the richTextAsPlain instance method instead.
+     * Example:
+     * ```
+     * const plainText = this.$prismic.richTextAsPlain(document.data.rich_text_field)
+     * ```
+     */
+    isPlain: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    htmlSerializer: {
+      type: Function,
+      required: false
+    }
+  },
   computed: {
-    imageComponent: function imageComponent() {
+    richTextComponent: function richTextComponent() {
       if (!this.field) {
         return null;
       }
 
-      var altAttr = this.field.alt ? 'alt="' + this.field.alt + '"' : '';
-      var copyrightAttr = this.field.copyright ? 'copyright="' + this.field.copyright + '"' : '';
+      var template = '';
 
-      return {
-        template: '<img src="' + this.field.url + '" ' + altAttr + ' ' + copyrightAttr + '>'
-      };
+      if (this.isPlain === false) {
+        template = '\n          <div>\n            ' + prismicDOM.RichText.asHtml(this.field, this.$prismic.linkResolver, this.htmlSerializer || this.$prismic.htmlSerializer) + '\n          </div>\n        ';
+      } else {
+        template = '<span>' + prismicDOM.RichText.asText(this.field) + '</span>';
+      }
+      return { template: template };
     }
   }
 };
@@ -793,7 +864,7 @@ var __vue_render__$2 = function __vue_render__() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
-  return _c(_vm.imageComponent, { tag: "component" });
+  return _c(_vm.richTextComponent, { tag: "component" });
 };
 var __vue_staticRenderFns__$2 = [];
 __vue_render__$2._withStripped = true;
@@ -811,7 +882,7 @@ function __vue_normalize__$2(template, style, script, scope, functional, moduleI
   var component = (typeof script === 'function' ? script.options : script) || {};
 
   {
-    component.__file = "/Users/jbdebiasio/dev/prismic-vue/src/components/Image.vue";
+    component.__file = "/Users/jbdebiasio/Code/prismic-vue/src/components/RichText.vue";
   }
 
   if (!component.render) {
@@ -880,275 +951,7 @@ function __vue_create_injector__$2() {
 }
 /* style inject SSR */
 
-var Image = __vue_normalize__$2({ render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 }, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, __vue_create_injector__$2, undefined);
-
-//
-
-var script$3 = {
-  name: 'PrismicLink',
-  props: {
-    field: {
-      required: true
-    }
-  },
-  computed: {
-    linkComponent: function linkComponent() {
-      if (!this.field) {
-        return null;
-      }
-
-      var template = '';
-      var url = prismicDOM.Link.url(this.field, this.$prismic.linkResolver);
-
-      if (this.field.link_type === 'Document') {
-        template = '\n          <router-link to="' + url + '">\n            <slot/>\n          </router-link>\n        ';
-      } else {
-        var target = this.field.target ? 'target="\'' + this.field.target + '\'" rel="noopener"' : '';
-
-        template = '\n          <a href="' + url + '" ' + target + '>\n            <slot/>\n          </a>\n        ';
-      }
-      return { template: template };
-    }
-  }
-};
-
-/* script */
-var __vue_script__$3 = script$3;
-
-/* template */
-var __vue_render__$3 = function __vue_render__() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c(_vm.linkComponent, { tag: "component" }, [_vm._t("default")], 2);
-};
-var __vue_staticRenderFns__$3 = [];
-__vue_render__$3._withStripped = true;
-
-/* style */
-var __vue_inject_styles__$3 = undefined;
-/* scoped */
-var __vue_scope_id__$3 = undefined;
-/* module identifier */
-var __vue_module_identifier__$3 = undefined;
-/* functional template */
-var __vue_is_functional_template__$3 = false;
-/* component normalizer */
-function __vue_normalize__$3(template, style, script, scope, functional, moduleIdentifier, createInjector, createInjectorSSR) {
-  var component = (typeof script === 'function' ? script.options : script) || {};
-
-  {
-    component.__file = "/Users/jbdebiasio/dev/prismic-vue/src/components/Link.vue";
-  }
-
-  if (!component.render) {
-    component.render = template.render;
-    component.staticRenderFns = template.staticRenderFns;
-    component._compiled = true;
-
-    if (functional) component.functional = true;
-  }
-
-  component._scopeId = scope;
-
-  return component;
-}
-/* style inject */
-function __vue_create_injector__$3() {
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var styles = __vue_create_injector__$3.styles || (__vue_create_injector__$3.styles = {});
-  var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
-  return function addStyle(id, css) {
-    if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return; // SSR styles are present.
-
-    var group = isOldIE ? css.media || 'default' : id;
-    var style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
-
-    if (!style.ids.includes(id)) {
-      var code = css.source;
-      var index = style.ids.length;
-
-      style.ids.push(id);
-
-      if (isOldIE) {
-        style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-      }
-
-      if (!style.element) {
-        var el = style.element = document.createElement('style');
-        el.type = 'text/css';
-
-        if (css.media) el.setAttribute('media', css.media);
-        if (isOldIE) {
-          el.setAttribute('data-group', group);
-          el.setAttribute('data-next-index', '0');
-        }
-
-        head.appendChild(el);
-      }
-
-      if (isOldIE) {
-        index = parseInt(style.element.getAttribute('data-next-index'));
-        style.element.setAttribute('data-next-index', index + 1);
-      }
-
-      if (style.element.styleSheet) {
-        style.parts.push(code);
-        style.element.styleSheet.cssText = style.parts.filter(Boolean).join('\n');
-      } else {
-        var textNode = document.createTextNode(code);
-        var nodes = style.element.childNodes;
-        if (nodes[index]) style.element.removeChild(nodes[index]);
-        if (nodes.length) style.element.insertBefore(textNode, nodes[index]);else style.element.appendChild(textNode);
-      }
-    }
-  };
-}
-/* style inject SSR */
-
-var Link = __vue_normalize__$3({ render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 }, __vue_inject_styles__$3, __vue_script__$3, __vue_scope_id__$3, __vue_is_functional_template__$3, __vue_module_identifier__$3, __vue_create_injector__$3, undefined);
-
-//
-
-var script$4 = {
-  name: 'PrismicRichText',
-  props: {
-    field: {
-      required: true
-    },
-    /**
-     * @deprecated since version 1.1.0
-     * The isPlain prop is deprecated, please use the richTextAsPlain instance method instead.
-     * Example:
-     * ```
-     * const plainText = this.$prismic.richTextAsPlain(document.data.rich_text_field)
-     * ```
-     */
-    isPlain: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    htmlSerializer: {
-      type: Function,
-      required: false
-    }
-  },
-  computed: {
-    richTextComponent: function richTextComponent() {
-      if (!this.field) {
-        return null;
-      }
-
-      var template = '';
-
-      if (this.isPlain === false) {
-        template = '\n          <div>\n            ' + prismicDOM.RichText.asHtml(this.field, this.$prismic.linkResolver, this.htmlSerializer || this.$prismic.htmlSerializer) + '\n          </div>\n        ';
-      } else {
-        template = '<span>' + prismicDOM.RichText.asText(this.field) + '</span>';
-      }
-      return { template: template };
-    }
-  }
-};
-
-/* script */
-var __vue_script__$4 = script$4;
-
-/* template */
-var __vue_render__$4 = function __vue_render__() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c(_vm.richTextComponent, { tag: "component" });
-};
-var __vue_staticRenderFns__$4 = [];
-__vue_render__$4._withStripped = true;
-
-/* style */
-var __vue_inject_styles__$4 = undefined;
-/* scoped */
-var __vue_scope_id__$4 = undefined;
-/* module identifier */
-var __vue_module_identifier__$4 = undefined;
-/* functional template */
-var __vue_is_functional_template__$4 = false;
-/* component normalizer */
-function __vue_normalize__$4(template, style, script, scope, functional, moduleIdentifier, createInjector, createInjectorSSR) {
-  var component = (typeof script === 'function' ? script.options : script) || {};
-
-  {
-    component.__file = "/Users/jbdebiasio/dev/prismic-vue/src/components/RichText.vue";
-  }
-
-  if (!component.render) {
-    component.render = template.render;
-    component.staticRenderFns = template.staticRenderFns;
-    component._compiled = true;
-
-    if (functional) component.functional = true;
-  }
-
-  component._scopeId = scope;
-
-  return component;
-}
-/* style inject */
-function __vue_create_injector__$4() {
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var styles = __vue_create_injector__$4.styles || (__vue_create_injector__$4.styles = {});
-  var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
-  return function addStyle(id, css) {
-    if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return; // SSR styles are present.
-
-    var group = isOldIE ? css.media || 'default' : id;
-    var style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
-
-    if (!style.ids.includes(id)) {
-      var code = css.source;
-      var index = style.ids.length;
-
-      style.ids.push(id);
-
-      if (isOldIE) {
-        style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-      }
-
-      if (!style.element) {
-        var el = style.element = document.createElement('style');
-        el.type = 'text/css';
-
-        if (css.media) el.setAttribute('media', css.media);
-        if (isOldIE) {
-          el.setAttribute('data-group', group);
-          el.setAttribute('data-next-index', '0');
-        }
-
-        head.appendChild(el);
-      }
-
-      if (isOldIE) {
-        index = parseInt(style.element.getAttribute('data-next-index'));
-        style.element.setAttribute('data-next-index', index + 1);
-      }
-
-      if (style.element.styleSheet) {
-        style.parts.push(code);
-        style.element.styleSheet.cssText = style.parts.filter(Boolean).join('\n');
-      } else {
-        var textNode = document.createTextNode(code);
-        var nodes = style.element.childNodes;
-        if (nodes[index]) style.element.removeChild(nodes[index]);
-        if (nodes.length) style.element.insertBefore(textNode, nodes[index]);else style.element.appendChild(textNode);
-      }
-    }
-  };
-}
-/* style inject SSR */
-
-var RichText = __vue_normalize__$4({ render: __vue_render__$4, staticRenderFns: __vue_staticRenderFns__$4 }, __vue_inject_styles__$4, __vue_script__$4, __vue_scope_id__$4, __vue_is_functional_template__$4, __vue_module_identifier__$4, __vue_create_injector__$4, undefined);
+var RichText = __vue_normalize__$2({ render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 }, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, __vue_create_injector__$2, undefined);
 
 var PrismicVue = {
   install: function install(Vue) {
@@ -1166,11 +969,11 @@ var PrismicVue = {
       return prismicDOM.RichText.asText(field);
     };
 
-    Vue.component('PrismicEditButton', EditButton);
-    Vue.component('PrismicEmbed', Embed);
-    Vue.component('PrismicImage', Image);
-    Vue.component('PrismicLink', Link);
-    Vue.component('PrismicRichText', RichText);
+    Vue.component(EditButton.name, EditButton);
+    Vue.component(Embed.name, Embed);
+    Vue.component(Image.name, Image);
+    Vue.component(Link.name, Link);
+    Vue.component(RichText.name, RichText);
   }
 };
 

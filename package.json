@@ -10,16 +10,11 @@
   "unpkg": "dist/prismic-vue.min.js",
   "jsdelivr": "dist/prismic-vue.min.js",
   "scripts": {
-    "start": "npm run build",
     "build": "rollup -c && uglifyjs dist/prismic-vue.js -o dist/prismic-vue.min.js"
   },
   "dependencies": {
     "prismic-dom": "^2.1.0",
     "prismic-javascript": "^1.5.0"
-  },
-  "engines": {
-    "node": ">= 6.0.0",
-    "npm": ">= 3.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -31,5 +26,9 @@
     "rollup-plugin-vue": "^4.3.0",
     "uglify-js": "^3.4.3",
     "vue-template-compiler": "^2.5.16"
+  },
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
   }
 }
