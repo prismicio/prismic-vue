@@ -14,8 +14,7 @@
   },
   "dependencies": {
     "prismic-dom": "^2.1.0",
-    "prismic-javascript": "^1.5.0",
-    "vue-html": "^0.3.0"
+    "prismic-javascript": "^1.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

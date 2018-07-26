@@ -1,8 +1,3 @@
-<template>
-  <component :is="editButtonComponent"/>
-</template>
-
-<script>
 export default {
   name: 'PrismicEditButton',
   props: {
@@ -11,16 +6,15 @@ export default {
       required: true
     }
   },
-  computed: {
-    editButtonComponent () {
-      if (!this.documentId) {
-        return null
-      }
-
-      return {
-        template: `<div data-wio-id="${this.documentId}"/>`
-      }
+  render (h) {
+    if (!this.documentId) {
+      return h('div')
     }
+    const attrs = {}
+    if (this.documentId) {
+      attrs['data-wio-id'] = this.documentId
+    }
+    return h('div', { attrs })
   },
   watch: {
     documentId () {
@@ -32,4 +26,3 @@ export default {
     }
   }
 }
-</script>

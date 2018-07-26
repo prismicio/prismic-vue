@@ -792,16 +792,6 @@ home-or-tmp@^2.0.0:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.1"
 
-hyperscript-attribute-to-property@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/hyperscript-attribute-to-property/-/hyperscript-attribute-to-property-1.0.1.tgz#06ecb885bd64424de889df545899fcf0015e4787"
-
-hyperx@^2.0.5:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/hyperx/-/hyperx-2.4.0.tgz#397d6815d25785fee3c9f4968cbaafc1d8b36d39"
-  dependencies:
-    hyperscript-attribute-to-property "^1.0.0"
-
 icss-replace-symbols@^1.0.2:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/icss-replace-symbols/-/icss-replace-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
@@ -1368,12 +1358,6 @@ uuid@^3.1.0:
 vlq@^0.2.2:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/vlq/-/vlq-0.2.3.tgz#8f3e4328cf63b1540c0d67e1b2778386f8975b26"
-
-vue-html@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/vue-html/-/vue-html-0.3.0.tgz#f13a3e5ffa6896be43a0eefd5b81ea076d51a538"
-  dependencies:
-    hyperx "^2.0.5"
 
 vue-template-compiler@^2.5.16:
   version "2.5.16"

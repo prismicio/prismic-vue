@@ -1,7 +1,7 @@
 import prismicJS from 'prismic-javascript'
 import prismicDOM from 'prismic-dom'
 
-import EditButton from './components/EditButton.vue'
+import EditButton from './components/EditButton'
 import Embed from './components/Embed'
 import Image from './components/Image'
 import Link from './components/Link'
