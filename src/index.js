@@ -2,7 +2,7 @@ import prismicJS from 'prismic-javascript'
 import prismicDOM from 'prismic-dom'
 
 import EditButton from './components/EditButton.vue'
-import Embed from './components/Embed.vue'
+import Embed from './components/Embed'
 import Image from './components/Image'
 import Link from './components/Link'
 import RichText from './components/RichText.vue'
