@@ -540,7 +540,7 @@ var Embed = {
     }
   },
   render: function render(h) {
-    if (!this.field) {
+    if (!this.field || !this.field.html) {
       return h('div');
     }
     var attrs = {};

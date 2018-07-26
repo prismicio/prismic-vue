@@ -7,7 +7,7 @@ export default {
     }
   },
   render (h) {
-    if (!this.field) {
+    if (!this.field || !this.field.html) {
       return h('div')
     }
     const attrs = {}
