@@ -10,7 +10,7 @@ export const PrismicEditButton: ComponentOptions<Vue> = {
   },
   render(createElement: CreateElement) {
     return createElement('div', {
-      domProps: {
+      attrs: {
         'data-wio-id': this.documentId
       }
     })

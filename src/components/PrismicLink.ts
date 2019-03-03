@@ -24,12 +24,12 @@ export const PrismicLink: ComponentOptions<Vue> = {
         }
       })
     } else {
-      const domProps: { [key: string]: string } = {}
+      const attrs: { [key: string]: string } = {}
 
       if (this.field.target)
-        domProps.target = this.field.target
+        attrs.target = this.field.target
 
-      return createElement('a', {domProps}, [
+      return createElement('a', {attrs}, [
         createElement('slot')
       ])
     }

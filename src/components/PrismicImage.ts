@@ -11,18 +11,18 @@ export const PrismicImage: ComponentOptions<Vue> = {
     if (!this.field)
       return null
 
-    const domProps: { [key: string]: string } = {}
+    const attrs: { [key: string]: string } = {}
 
-    domProps.src = this.field.url
+    attrs.src = this.field.url
 
     if (this.field.alt)
-      domProps.alt = this.field.alt
+      attrs.alt = this.field.alt
 
     if (this.field.copyright)
-      domProps.copyright = this.field.copyright
+      attrs.copyright = this.field.copyright
 
     return createElement('img', {
-      domProps
+      attrs
     })
   }
 }

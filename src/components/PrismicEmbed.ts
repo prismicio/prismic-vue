@@ -8,19 +8,19 @@ export const PrismicEmbed: ComponentOptions<Vue> = {
     }
   },
   render(createElement: CreateElement) {
-    const domProps: { [key: string]: string } = {}
+    const attrs: { [key: string]: string } = {}
 
     if (this.field.embed_url)
-      domProps['data-oembed'] = this.field.embed_url
+      attrs['data-oembed'] = this.field.embed_url
 
     if (this.field.type)
-      domProps['data-oembed-type'] = this.field.type
+      attrs['data-oembed-type'] = this.field.type
 
     if (this.field.provider_name)
-      domProps['data-oembed-provider'] = this.field.provider_name
+      attrs['data-oembed-provider'] = this.field.provider_name
 
     return createElement('div', {
-      domProps
+      attrs
     }, [
       this.field.html
     ])
