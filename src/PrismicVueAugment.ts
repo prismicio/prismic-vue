@@ -1,4 +1,4 @@
-import * as prismicJS from 'prismic-javascript'
+import * as PrismicJS from 'prismic-javascript'
 import {DefaultClient} from 'prismic-javascript/d.ts/client'
 
 // Augment Vue
@@ -6,12 +6,12 @@ declare module 'vue/types/vue' {
   // tslint:disable-next-line:interface-name
   interface Vue {
     $prismic: {
-      Predicates: typeof prismicJS.Predicates,
-      Experiments: typeof prismicJS.Experiments
-      Api: typeof prismicJS.Api
+      Predicates: typeof PrismicJS.Predicates,
+      Experiments: typeof PrismicJS.Experiments
+      Api: typeof PrismicJS.Api
       client: DefaultClient,
-      getApi: typeof prismicJS.getApi
-      api: typeof prismicJS.api
+      getApi: typeof PrismicJS.getApi
+      api: typeof PrismicJS.api
     }
   }
 }
