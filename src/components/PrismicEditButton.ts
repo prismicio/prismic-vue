@@ -1,6 +1,6 @@
-import Vue, {CreateElement} from 'vue'
+import Vue, {ComponentOptions, CreateElement, VueConstructor} from 'vue'
 
-export const PrismicEditButton = new Vue({
+export const PrismicEditButton: ComponentOptions<Vue> = {
   name: 'PrismicEditButton',
   props: {
     documentId: {
@@ -15,4 +15,4 @@ export const PrismicEditButton = new Vue({
       }
     })
   }
-})
+}

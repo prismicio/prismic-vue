@@ -1,6 +1,6 @@
-import Vue, {CreateElement} from 'vue'
+import Vue, {ComponentOptions, CreateElement} from 'vue'
 
-export const PrismicEmbed = new Vue({
+export const PrismicEmbed: ComponentOptions<Vue> = {
   name: 'PrismicEmbed',
   props: {
     field: {
@@ -25,4 +25,4 @@ export const PrismicEmbed = new Vue({
       this.field.html
     ])
   }
-})
+}

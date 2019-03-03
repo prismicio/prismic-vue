@@ -1,7 +1,7 @@
 import {Link as PrismicDomLink} from 'prismic-dom'
-import Vue, {CreateElement} from 'vue'
+import Vue, {ComponentOptions, CreateElement} from 'vue'
 
-export const PrismicLink = new Vue({
+export const PrismicLink: ComponentOptions<Vue> = {
   name: 'PrismicLink',
   props: {
     field: {
@@ -34,4 +34,4 @@ export const PrismicLink = new Vue({
       ])
     }
   }
-})
+}

@@ -1,7 +1,7 @@
 import {RichText as PrismicDomRichText} from 'prismic-dom'
-import Vue, {CreateElement} from 'vue'
+import Vue, {ComponentOptions, CreateElement} from 'vue'
 
-export const PrismicRichText = new Vue({
+export const PrismicRichText: ComponentOptions<Vue> = {
   name: 'PrismicRichText',
   props: {
     field: {
@@ -33,4 +33,4 @@ export const PrismicRichText = new Vue({
       return createElement('div', [html])
     }
   }
-})
+}

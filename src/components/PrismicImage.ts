@@ -1,6 +1,6 @@
-import Vue, {CreateElement} from 'vue'
+import Vue, {ComponentOptions, CreateElement} from 'vue'
 
-export const PrismicImage = new Vue({
+export const PrismicImage: ComponentOptions<Vue> = {
   name: 'PrismicImage',
   props: {
     field: {
@@ -25,4 +25,4 @@ export const PrismicImage = new Vue({
       domProps
     })
   }
-})
+}
