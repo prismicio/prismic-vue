@@ -1,11 +1,13 @@
+/* tslint:disable */
 import path from 'path'
 import nodeResolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import vue from 'rollup-plugin-vue'
 import babel from 'rollup-plugin-babel'
+import typescript from 'rollup-plugin-typescript'
 
 export default {
-  input: 'src/index.js',
+  input: 'src/PrismicVue.ts',
   output: [
     {
       file: path.resolve('./dist/prismic-vue.common.js'),
@@ -22,6 +24,7 @@ export default {
     }
   ],
   plugins: [
+    typescript(),
     nodeResolve({
       browser: true
     }),
