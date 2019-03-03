@@ -1,13 +1,11 @@
-// @ts-ignore
-import prismicDOM from 'prismic-dom'
 import * as prismicJS from 'prismic-javascript'
 import {DefaultClient} from 'prismic-javascript/d.ts/client'
 import _Vue from 'vue'
-import EditButton from './components/EditButton.vue'
-import Embed from './components/Embed.vue'
-import Image from './components/Image.vue'
-import Link from './components/Link.vue'
-import RichText from './components/RichText.vue'
+import {PrismicEditButton} from './components/EditButton'
+import {PrismicEmbed} from './components/Embed'
+import {PrismicImage} from './components/Image'
+import {PrismicLink} from './components/Link'
+import {PrismicRichText} from './components/RichText'
 import {IPrismicVueOptions} from './IPrismicVueOptions'
 
 export function PrismicVue(Vue: typeof _Vue, options: IPrismicVueOptions) {
@@ -18,19 +16,12 @@ export function PrismicVue(Vue: typeof _Vue, options: IPrismicVueOptions) {
   Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer
   Vue.prototype.$prismic.client = prismicJS.client(options.endpoint, options.apiOptions)
 
-  // TODO: Type?
-  Vue.prototype.$prismic.richTextAsPlain = (field: any) => {
-    if (!field)
-      return ''
-    return prismicDOM.richTextAsPlain.asText(field)
-  }
-
   // Register components
-  Vue.component('PrismicEditButton', EditButton)
-  Vue.component('PrismicEmbed', Embed)
-  Vue.component('PrismicImage', Image)
-  Vue.component('PrismicLink', Link)
-  Vue.component('PrismicRichText', RichText)
+  Vue.component('PrismicEditButton', PrismicEditButton)
+  Vue.component('PrismicEmbed', PrismicEmbed)
+  Vue.component('PrismicImage', PrismicImage)
+  Vue.component('PrismicLink', PrismicLink)
+  Vue.component('PrismicRichText', PrismicRichText)
 }
 
 // Augment Vue
