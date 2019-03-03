@@ -2,21 +2,33 @@
   "name": "@auritylab/prismic-vue",
   "version": "1.3.0",
   "description": "Vue.js plugin to facilitate integration of content managed with Prismic",
-  "license": "Apache-2.0",
   "repository": "github:prismicio/prismic-vue",
+  "license": "Apache-2.0",
   "author": "Prismic",
   "main": "dist/PrismicVue.common.js",
-  "types": "dist/PrismicVue.d.ts",
   "module": "dist/PrismicVue.esm.js",
-  "unpkg": "dist/PrismicVue.min.js",
   "jsdelivr": "dist/PrismicVue.min.js",
+  "unpkg": "dist/PrismicVue.min.js",
+  "types": "dist/PrismicVue.d.ts",
   "scripts": {
-    "start": "npm run build",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "start": "npm run build"
   },
   "dependencies": {
     "prismic-dom": "^2.1.0",
     "prismic-javascript": "^1.5.0"
+  },
+  "devDependencies": {
+    "@types/prismic-dom": "^2.0.2",
+    "rollup": "^0.62.0",
+    "rollup-plugin-commonjs": "^9.1.3",
+    "rollup-plugin-typescript2": "^0.19.3",
+    "tslint": "^5.13.1",
+    "typescript": "^3.3.3333",
+    "uglify-js": "^3.4.3",
+    "vue": "^2.6.0",
+    "vue-template-compiler": "^2.6.8",
+    "vue-typescript-import-dts": "^4.0.0"
   },
   "peerDependencies": {
     "vue": "^2.6.0"
@@ -24,17 +36,5 @@
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"
-  },
-  "devDependencies": {
-    "@types/prismic-dom": "^2.0.2",
-    "rollup-plugin-typescript2": "^0.19.3",
-    "rollup": "^0.62.0",
-    "rollup-plugin-commonjs": "^9.1.3",
-    "tslint": "^5.13.1",
-    "typescript": "^3.3.3333",
-    "uglify-js": "^3.4.3",
-    "vue": "^2.6.0",
-    "vue-template-compiler": "^2.6.8",
-    "vue-typescript-import-dts": "^4.0.0"
   }
 }
