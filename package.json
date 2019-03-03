@@ -7,8 +7,8 @@
   "author": "Prismic",
   "main": "dist/PrismicVue.common.js",
   "module": "dist/PrismicVue.esm.js",
-  "jsdelivr": "dist/PrismicVue.min.js",
-  "unpkg": "dist/PrismicVue.min.js",
+  "jsdelivr": "dist/PrismicVue.js",
+  "unpkg": "dist/PrismicVue.js",
   "types": "dist/PrismicVue.d.ts",
   "scripts": {
     "build": "rollup -c",
