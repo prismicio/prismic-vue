@@ -6,12 +6,13 @@
   "repository": "github:prismicio/prismic-vue",
   "author": "Prismic",
   "main": "dist/prismic-vue.common.js",
+  "types": "dist/PrismicVue.d.ts",
   "module": "dist/prismic-vue.esm.js",
   "unpkg": "dist/prismic-vue.min.js",
   "jsdelivr": "dist/prismic-vue.min.js",
   "scripts": {
     "start": "npm run build",
-    "build": "rollup -c && uglifyjs dist/prismic-vue.js -o dist/prismic-vue.min.js"
+    "build": "rollup -c"
   },
   "dependencies": {
     "prismic-dom": "^2.1.0",
@@ -19,7 +20,7 @@
     "rollup-plugin-typescript2": "^0.19.3"
   },
   "peerDependencies": {
-    "vue": "^2.5.0"
+    "vue": "^2.6.0"
   },
   "engines": {
     "node": ">= 6.0.0",
@@ -36,7 +37,7 @@
     "tslint": "^5.13.1",
     "typescript": "^3.3.3333",
     "uglify-js": "^3.4.3",
-    "vue": "^2.5.0",
+    "vue": "^2.6.0",
     "vue-template-compiler": "^2.6.8",
     "vue-typescript-import-dts": "^4.0.0"
   }
