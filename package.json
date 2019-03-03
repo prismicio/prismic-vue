@@ -5,11 +5,11 @@
   "license": "Apache-2.0",
   "repository": "github:prismicio/prismic-vue",
   "author": "Prismic",
-  "main": "dist/prismic-vue.common.js",
+  "main": "dist/PrismicVue.common.js",
   "types": "dist/PrismicVue.d.ts",
-  "module": "dist/prismic-vue.esm.js",
-  "unpkg": "dist/prismic-vue.min.js",
-  "jsdelivr": "dist/prismic-vue.min.js",
+  "module": "dist/PrismicVue.esm.js",
+  "unpkg": "dist/PrismicVue.min.js",
+  "jsdelivr": "dist/PrismicVue.min.js",
   "scripts": {
     "start": "npm run build",
     "build": "rollup -c"
