@@ -16,8 +16,7 @@
   "dependencies": {
     "prismic-dom": "^2.1.0",
     "prismic-javascript": "^1.5.0",
-    "rollup-plugin-typescript": "^1.0.0",
-    "typescript": "^3.3.3333"
+    "rollup-plugin-typescript": "^1.0.0"
   },
   "peerDependencies": {
     "vue": "^2.5.0"
@@ -27,6 +26,7 @@
     "npm": ">= 3.0.0"
   },
   "devDependencies": {
+    "vue": "^2.5.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "rollup": "^0.62.0",
@@ -35,6 +35,9 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-vue": "^4.3.0",
     "uglify-js": "^3.4.3",
-    "vue-template-compiler": "^2.5.16"
+    "vue-template-compiler": "^2.5.16",
+    "tslint": "^5.13.1",
+    "typescript": "^3.3.3333",
+    "vue-typescript-import-dts": "^4.0.0"
   }
 }
