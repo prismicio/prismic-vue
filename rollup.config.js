@@ -2,6 +2,7 @@
 import path from 'path'
 import commonjs from 'rollup-plugin-commonjs'
 import typescript2 from 'rollup-plugin-typescript2'
+import {terser} from 'rollup-plugin-terser'
 
 export default {
   input: 'src/PrismicVue.ts',
@@ -22,6 +23,7 @@ export default {
   ],
   plugins: [
     typescript2(),
-    commonjs()
+    commonjs(),
+    terser()
   ]
 }
