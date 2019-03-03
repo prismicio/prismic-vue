@@ -19,6 +19,9 @@
     "rollup-plugin-typescript": "^1.0.0",
     "typescript": "^3.3.3333"
   },
+  "peerDependencies": {
+    "vue": "^2.5.0"
+  },
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"
