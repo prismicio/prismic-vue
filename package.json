@@ -1,5 +1,5 @@
 {
-  "name": "prismic-vue",
+  "name": "@auritylab/prismic-vue",
   "version": "1.3.0",
   "description": "Vue.js plugin to facilitate integration of content managed with Prismic",
   "license": "Apache-2.0",
@@ -16,7 +16,7 @@
   "dependencies": {
     "prismic-dom": "^2.1.0",
     "prismic-javascript": "^1.5.0",
-    "rollup-plugin-typescript": "^1.0.0"
+    "rollup-plugin-typescript2": "^0.19.3"
   },
   "peerDependencies": {
     "vue": "^2.5.0"
