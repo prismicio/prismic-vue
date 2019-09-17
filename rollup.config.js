@@ -1,34 +1,70 @@
 import path from 'path'
-import nodeResolve from 'rollup-plugin-node-resolve'
+// import nodeResolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import vue from 'rollup-plugin-vue'
 import babel from 'rollup-plugin-babel'
+import visualizer from 'rollup-plugin-visualizer';
 
-export default {
-  input: 'src/index.js',
-  output: [
-    {
-      file: path.resolve('./dist/prismic-vue.common.js'),
-      format: 'cjs'
-    },
-    {
-      file: path.resolve('./dist/prismic-vue.esm.js'),
-      format: 'es'
-    },
-    {
-      file: path.resolve('./dist/prismic-vue.js'),
-      format: 'umd',
-      name: 'PrismicVue'
-    }
-  ],
-  plugins: [
-    nodeResolve({
-      browser: true
-    }),
-    commonjs(),
-    vue(),
-    babel({
-      exclude: 'node_modules/**'
-    })
-  ]
+const globals = {
+  'prismic-dom': 'prismicDOM',
+  'prismic-javascript': 'prismicJS'
+};
+
+const plugins = (visualize = false) => [
+  commonjs(),
+  vue(),
+  babel({
+    exclude: 'node_modules/**'
+  }),
+  // nodeResolve({ browser: true }),
+  ...(visualize ? [visualizer({ open: true })] : [])
+];
+
+const external = ['prismic-dom', 'prismic-javascript'];
+
+export default function makeConfig(commandOptions) {
+  return [{
+    external,
+    input: 'src/index.js',
+    output: [
+      {
+        file: path.resolve('./dist/prismic-vue.common.js'),
+        format: 'cjs'
+      },
+      {
+        file: path.resolve('./dist/prismic-vue.esm.js'),
+        globals,
+        format: 'es'
+      },
+      {
+        file: path.resolve('./dist/prismic-vue.js'),
+        globals,
+        format: 'umd',
+        name: 'PrismicVue'
+      }
+    ],
+    plugins: plugins(commandOptions['config-visualize'])
+  }, {
+    external,
+    input: 'src/components-bundler.js',
+    output: [
+      {
+        file: path.resolve('./components/common.js'),
+        format: 'cjs'
+      },
+      {
+        file: path.resolve('./components/index.js'),
+        globals,
+        format: 'es'
+      },
+      {
+        file: path.resolve('./components/umd.js'),
+        globals,
+        browser: true,
+        format: 'umd',
+        name: 'PrismicVueComponents'
+      }
+    ],
+    plugins: plugins()
+  }]
 }
