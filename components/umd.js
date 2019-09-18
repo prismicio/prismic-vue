@@ -2,666 +2,238 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('prismic-dom')) :
   typeof define === 'function' && define.amd ? define(['exports', 'prismic-dom'], factory) :
   (factory((global.PrismicVueComponents = {}),global.prismicDOM));
-}(this, (function (exports,prismicDOM) { 'use strict';
+}(this, (function (exports,PrismicDom) { 'use strict';
 
-  prismicDOM = prismicDOM && prismicDOM.hasOwnProperty('default') ? prismicDOM['default'] : prismicDOM;
+  var PrismicDom__default = 'default' in PrismicDom ? PrismicDom['default'] : PrismicDom;
 
-  //
-  //
-  //
-  //
-
-  var script = {
-    name: 'PrismicEditButton',
-    props: {
-      documentId: {
-        type: String,
-        required: true
-      }
-    },
-    computed: {
-      editButtonComponent: function editButtonComponent() {
-        if (!this.documentId) {
-          return null;
-        }
-
-        return {
-          template: '<div data-wio-id="' + this.documentId + '"/>'
-        };
-      }
-    },
-    watch: {
-      documentId: function documentId() {
-        if (window.PrismicToolbar) {
-          window.PrismicToolbar.setupEditButton();
-        } else {
-          console.error('If you want to add a Prismic Edit Button in your website, you need to have included the Prismic Toolbar script, please read the documentation at https://prismic.io/docs/vuejs/beyond-the-api/in-website-edit-button');
-        }
-      }
-    }
-  };
-
-  /* script */
-  var __vue_script__ = script;
-
-  /* template */
-  var __vue_render__ = function __vue_render__() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c(_vm.editButtonComponent, { tag: "component" });
-  };
-  var __vue_staticRenderFns__ = [];
-  __vue_render__._withStripped = true;
-
-  /* style */
-  var __vue_inject_styles__ = undefined;
-  /* scoped */
-  var __vue_scope_id__ = undefined;
-  /* module identifier */
-  var __vue_module_identifier__ = undefined;
-  /* functional template */
-  var __vue_is_functional_template__ = false;
-  /* component normalizer */
-  function __vue_normalize__(template, style, script$$1, scope, functional, moduleIdentifier, createInjector, createInjectorSSR) {
-    var component = (typeof script$$1 === 'function' ? script$$1.options : script$$1) || {};
-
-    {
-      component.__file = "/Users/hvillain/Libs/prismic-vue/src/components/EditButton.vue";
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
     }
 
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component;
+    return obj;
   }
-  /* style inject */
-  function __vue_create_injector__() {
-    var head = document.head || document.getElementsByTagName('head')[0];
-    var styles = __vue_create_injector__.styles || (__vue_create_injector__.styles = {});
-    var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
 
-    return function addStyle(id, css) {
-      if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return; // SSR styles are present.
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
 
-      var group = isOldIE ? css.media || 'default' : id;
-      var style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      if (enumerableOnly) symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+      keys.push.apply(keys, symbols);
+    }
 
-      if (!style.ids.includes(id)) {
-        var code = css.source;
-        var index = style.ids.length;
-
-        style.ids.push(id);
-
-        if (isOldIE) {
-          style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-        }
-
-        if (!style.element) {
-          var el = style.element = document.createElement('style');
-          el.type = 'text/css';
-
-          if (css.media) el.setAttribute('media', css.media);
-          if (isOldIE) {
-            el.setAttribute('data-group', group);
-            el.setAttribute('data-next-index', '0');
-          }
-
-          head.appendChild(el);
-        }
-
-        if (isOldIE) {
-          index = parseInt(style.element.getAttribute('data-next-index'));
-          style.element.setAttribute('data-next-index', index + 1);
-        }
-
-        if (style.element.styleSheet) {
-          style.parts.push(code);
-          style.element.styleSheet.cssText = style.parts.filter(Boolean).join('\n');
-        } else {
-          var textNode = document.createTextNode(code);
-          var nodes = style.element.childNodes;
-          if (nodes[index]) style.element.removeChild(nodes[index]);
-          if (nodes.length) style.element.insertBefore(textNode, nodes[index]);else style.element.appendChild(textNode);
-        }
-      }
-    };
+    return keys;
   }
-  /* style inject SSR */
 
-  var EditButton = __vue_normalize__({ render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, __vue_create_injector__, undefined);
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
 
-  //
-  //
-  //
-  //
+      if (i % 2) {
+        ownKeys(source, true).forEach(function (key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(source).forEach(function (key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
+      }
+    }
 
-  var script$1 = {
+    return target;
+  }
+
+  var Embed = {
     name: 'PrismicEmbed',
+    functional: true,
     props: {
       field: {
-        required: true
-      }
-    },
-    computed: {
-      embedComponent: function embedComponent() {
-        if (!this.field) {
-          return null;
-        }
-
-        var urlAttr = this.field.embed_url ? 'data-oembed="' + this.field.embed_url + '"' : '';
-        var typeAttr = this.field.type ? 'data-oembed-type="' + this.field.type + '"' : '';
-        var providerNameAttr = this.field.provider_name ? 'data-oembed-provider="' + this.field.provider_name + '"' : '';
-
-        return {
-          template: '\n          <div ' + urlAttr + ' ' + typeAttr + ' ' + providerNameAttr + '>\n            ' + this.field.html + '\n          </div>\n        '
-        };
-      }
-    }
-  };
-
-  /* script */
-  var __vue_script__$1 = script$1;
-
-  /* template */
-  var __vue_render__$1 = function __vue_render__() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c(_vm.embedComponent, { tag: "component" });
-  };
-  var __vue_staticRenderFns__$1 = [];
-  __vue_render__$1._withStripped = true;
-
-  /* style */
-  var __vue_inject_styles__$1 = undefined;
-  /* scoped */
-  var __vue_scope_id__$1 = undefined;
-  /* module identifier */
-  var __vue_module_identifier__$1 = undefined;
-  /* functional template */
-  var __vue_is_functional_template__$1 = false;
-  /* component normalizer */
-  function __vue_normalize__$1(template, style, script, scope, functional, moduleIdentifier, createInjector, createInjectorSSR) {
-    var component = (typeof script === 'function' ? script.options : script) || {};
-
-    {
-      component.__file = "/Users/hvillain/Libs/prismic-vue/src/components/Embed.vue";
-    }
-
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component;
-  }
-  /* style inject */
-  function __vue_create_injector__$1() {
-    var head = document.head || document.getElementsByTagName('head')[0];
-    var styles = __vue_create_injector__$1.styles || (__vue_create_injector__$1.styles = {});
-    var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
-    return function addStyle(id, css) {
-      if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return; // SSR styles are present.
-
-      var group = isOldIE ? css.media || 'default' : id;
-      var style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
-
-      if (!style.ids.includes(id)) {
-        var code = css.source;
-        var index = style.ids.length;
-
-        style.ids.push(id);
-
-        if (isOldIE) {
-          style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-        }
-
-        if (!style.element) {
-          var el = style.element = document.createElement('style');
-          el.type = 'text/css';
-
-          if (css.media) el.setAttribute('media', css.media);
-          if (isOldIE) {
-            el.setAttribute('data-group', group);
-            el.setAttribute('data-next-index', '0');
-          }
-
-          head.appendChild(el);
-        }
-
-        if (isOldIE) {
-          index = parseInt(style.element.getAttribute('data-next-index'));
-          style.element.setAttribute('data-next-index', index + 1);
-        }
-
-        if (style.element.styleSheet) {
-          style.parts.push(code);
-          style.element.styleSheet.cssText = style.parts.filter(Boolean).join('\n');
-        } else {
-          var textNode = document.createTextNode(code);
-          var nodes = style.element.childNodes;
-          if (nodes[index]) style.element.removeChild(nodes[index]);
-          if (nodes.length) style.element.insertBefore(textNode, nodes[index]);else style.element.appendChild(textNode);
-        }
-      }
-    };
-  }
-  /* style inject SSR */
-
-  var Embed = __vue_normalize__$1({ render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 }, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, __vue_create_injector__$1, undefined);
-
-  //
-  //
-  //
-  //
-
-  var script$2 = {
-    name: 'PrismicImage',
-    props: {
-      field: {
-        required: true
-      }
-    },
-    computed: {
-      imageComponent: function imageComponent() {
-        if (!this.field) {
-          return null;
-        }
-
-        var altAttr = this.field.alt ? 'alt="' + this.field.alt + '"' : '';
-        var copyrightAttr = this.field.copyright ? 'copyright="' + this.field.copyright + '"' : '';
-
-        return {
-          template: '<img src="' + this.field.url + '" ' + altAttr + ' ' + copyrightAttr + '>'
-        };
-      }
-    }
-  };
-
-  /* script */
-  var __vue_script__$2 = script$2;
-
-  /* template */
-  var __vue_render__$2 = function __vue_render__() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c(_vm.imageComponent, { tag: "component" });
-  };
-  var __vue_staticRenderFns__$2 = [];
-  __vue_render__$2._withStripped = true;
-
-  /* style */
-  var __vue_inject_styles__$2 = undefined;
-  /* scoped */
-  var __vue_scope_id__$2 = undefined;
-  /* module identifier */
-  var __vue_module_identifier__$2 = undefined;
-  /* functional template */
-  var __vue_is_functional_template__$2 = false;
-  /* component normalizer */
-  function __vue_normalize__$2(template, style, script, scope, functional, moduleIdentifier, createInjector, createInjectorSSR) {
-    var component = (typeof script === 'function' ? script.options : script) || {};
-
-    {
-      component.__file = "/Users/hvillain/Libs/prismic-vue/src/components/Image.vue";
-    }
-
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component;
-  }
-  /* style inject */
-  function __vue_create_injector__$2() {
-    var head = document.head || document.getElementsByTagName('head')[0];
-    var styles = __vue_create_injector__$2.styles || (__vue_create_injector__$2.styles = {});
-    var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
-    return function addStyle(id, css) {
-      if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return; // SSR styles are present.
-
-      var group = isOldIE ? css.media || 'default' : id;
-      var style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
-
-      if (!style.ids.includes(id)) {
-        var code = css.source;
-        var index = style.ids.length;
-
-        style.ids.push(id);
-
-        if (isOldIE) {
-          style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-        }
-
-        if (!style.element) {
-          var el = style.element = document.createElement('style');
-          el.type = 'text/css';
-
-          if (css.media) el.setAttribute('media', css.media);
-          if (isOldIE) {
-            el.setAttribute('data-group', group);
-            el.setAttribute('data-next-index', '0');
-          }
-
-          head.appendChild(el);
-        }
-
-        if (isOldIE) {
-          index = parseInt(style.element.getAttribute('data-next-index'));
-          style.element.setAttribute('data-next-index', index + 1);
-        }
-
-        if (style.element.styleSheet) {
-          style.parts.push(code);
-          style.element.styleSheet.cssText = style.parts.filter(Boolean).join('\n');
-        } else {
-          var textNode = document.createTextNode(code);
-          var nodes = style.element.childNodes;
-          if (nodes[index]) style.element.removeChild(nodes[index]);
-          if (nodes.length) style.element.insertBefore(textNode, nodes[index]);else style.element.appendChild(textNode);
-        }
-      }
-    };
-  }
-  /* style inject SSR */
-
-  var Image = __vue_normalize__$2({ render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 }, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, __vue_create_injector__$2, undefined);
-
-  //
-
-  var script$3 = {
-    name: 'PrismicLink',
-    props: {
-      field: {
-        required: true
-      }
-    },
-    computed: {
-      linkComponent: function linkComponent() {
-        if (!this.field) {
-          return null;
-        }
-
-        var template = '';
-        var url = prismicDOM.Link.url(this.field, this.$prismic.linkResolver);
-
-        if (this.field.link_type === 'Document') {
-          template = '\n          <router-link to="' + url + '">\n            <slot/>\n          </router-link>\n        ';
-        } else {
-          var target = this.field.target ? 'target="\'' + this.field.target + '\'" rel="noopener"' : '';
-
-          template = '\n          <a href="' + url + '" ' + target + '>\n            <slot/>\n          </a>\n        ';
-        }
-        return { template: template };
-      }
-    }
-  };
-
-  /* script */
-  var __vue_script__$3 = script$3;
-
-  /* template */
-  var __vue_render__$3 = function __vue_render__() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c(_vm.linkComponent, { tag: "component" }, [_vm._t("default")], 2);
-  };
-  var __vue_staticRenderFns__$3 = [];
-  __vue_render__$3._withStripped = true;
-
-  /* style */
-  var __vue_inject_styles__$3 = undefined;
-  /* scoped */
-  var __vue_scope_id__$3 = undefined;
-  /* module identifier */
-  var __vue_module_identifier__$3 = undefined;
-  /* functional template */
-  var __vue_is_functional_template__$3 = false;
-  /* component normalizer */
-  function __vue_normalize__$3(template, style, script, scope, functional, moduleIdentifier, createInjector, createInjectorSSR) {
-    var component = (typeof script === 'function' ? script.options : script) || {};
-
-    {
-      component.__file = "/Users/hvillain/Libs/prismic-vue/src/components/Link.vue";
-    }
-
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component;
-  }
-  /* style inject */
-  function __vue_create_injector__$3() {
-    var head = document.head || document.getElementsByTagName('head')[0];
-    var styles = __vue_create_injector__$3.styles || (__vue_create_injector__$3.styles = {});
-    var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
-    return function addStyle(id, css) {
-      if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return; // SSR styles are present.
-
-      var group = isOldIE ? css.media || 'default' : id;
-      var style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
-
-      if (!style.ids.includes(id)) {
-        var code = css.source;
-        var index = style.ids.length;
-
-        style.ids.push(id);
-
-        if (isOldIE) {
-          style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-        }
-
-        if (!style.element) {
-          var el = style.element = document.createElement('style');
-          el.type = 'text/css';
-
-          if (css.media) el.setAttribute('media', css.media);
-          if (isOldIE) {
-            el.setAttribute('data-group', group);
-            el.setAttribute('data-next-index', '0');
-          }
-
-          head.appendChild(el);
-        }
-
-        if (isOldIE) {
-          index = parseInt(style.element.getAttribute('data-next-index'));
-          style.element.setAttribute('data-next-index', index + 1);
-        }
-
-        if (style.element.styleSheet) {
-          style.parts.push(code);
-          style.element.styleSheet.cssText = style.parts.filter(Boolean).join('\n');
-        } else {
-          var textNode = document.createTextNode(code);
-          var nodes = style.element.childNodes;
-          if (nodes[index]) style.element.removeChild(nodes[index]);
-          if (nodes.length) style.element.insertBefore(textNode, nodes[index]);else style.element.appendChild(textNode);
-        }
-      }
-    };
-  }
-  /* style inject SSR */
-
-  var Link = __vue_normalize__$3({ render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 }, __vue_inject_styles__$3, __vue_script__$3, __vue_scope_id__$3, __vue_is_functional_template__$3, __vue_module_identifier__$3, __vue_create_injector__$3, undefined);
-
-  //
-
-  var script$4 = {
-    name: 'PrismicRichText',
-    props: {
-      field: {
+        type: Object,
         required: true
       },
-      /**
-       * @deprecated since version 1.1.0
-       * The isPlain prop is deprecated, please use the richTextAsPlain instance method instead.
-       * Example:
-       * ```
-       * const plainText = this.$prismic.richTextAsPlain(document.data.rich_text_field)
-       * ```
-       */
-      isPlain: {
-        type: Boolean,
+      wrapper: {
+        type: String,
         required: false,
-        default: false
+        "default": 'div'
+      }
+    },
+    render: function render(h, _ref) {
+      var props = _ref.props,
+          data = _ref.data,
+          children = _ref.children,
+          parent = _ref.parent;
+      var field = props.field;
+
+      if (!field || !field.html) {
+        return null;
+      }
+
+      var embed_url = field.embed_url,
+          type = field.type,
+          provider_name = field.provider_name;
+
+      var attrs = _objectSpread2({}, embed_url && {
+        'data-oembed': embed_url
+      }, {}, type && {
+        'data-oembed-type': type
+      }, {}, provider_name && {
+        'data-oembed-provider': provider_name
+      });
+
+      return h(wrapper, {
+        attrs: attrs,
+        domProps: {
+          innerHTML: field.html
+        }
+      });
+    }
+  };
+
+  var Image = {
+    name: 'PrismicImage',
+    functional: true,
+    props: {
+      field: {
+        type: Object,
+        required: true
+      }
+    },
+    render: function render(h, _ref) {
+      var props = _ref.props,
+          data = _ref.data;
+      var _props$field = props.field,
+          url = _props$field.url,
+          alt = _props$field.alt,
+          copyright = _props$field.copyright; // See https://vuejs.org/v2/guide/render-function.html#Functional-Components
+
+      data.attrs = data.attrs || {};
+      data.attrs.src = url;
+
+      if (alt) {
+        data.attrs.alt = alt;
+      }
+
+      if (copyright) {
+        data.attrs.copyright = copyright;
+      }
+
+      return h('img', data);
+    }
+  };
+
+  var Link = (function () {
+    var linkComponent = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'router-link';
+    return {
+      name: 'PrismicLink',
+      functional: true,
+      props: {
+        field: {
+          type: Object,
+          required: true
+        }
+      },
+      render: function render(h, _ref) {
+        var props = _ref.props,
+            data = _ref.data,
+            children = _ref.children,
+            parent = _ref.parent;
+        var field = props.field;
+
+        if (!field) {
+          return null;
+        } // Is this check enough to make Link work with both Vue-router and Nuxt?
+
+
+        var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : PrismicDom__default.Link.url(field, parent.$prismic.linkResolver); // Internal link
+
+        if (field.link_type === 'Document') {
+          data.props = data.props || {};
+          data.props.to = url;
+          return h(linkComponent, data, children);
+        }
+
+        data.attrs = _objectSpread2({}, data.attrs, {
+          href: url
+        }, field.target && {
+          target: field.target,
+          rel: 'noopener'
+        });
+        return h('a', data, children);
+      }
+    };
+  });
+
+  var RichText = {
+    name: 'PrismicRichText',
+    functional: true,
+    props: {
+      field: {
+        type: Array,
+        required: true
       },
       htmlSerializer: {
         type: Function,
         required: false
+      },
+      wrapper: {
+        type: String,
+        required: false,
+        "default": 'div'
       }
     },
-    computed: {
-      richTextComponent: function richTextComponent() {
-        if (!this.field) {
-          return null;
+    render: function render(h, _ref) {
+      var props = _ref.props,
+          data = _ref.data,
+          children = _ref.children,
+          parent = _ref.parent;
+      var field = props.field,
+          htmlSerializer = props.htmlSerializer,
+          wrapper = props.wrapper;
+      var innerHTML = PrismicDom.RichText.asHtml(field, parent.$prismic.linkResolver, htmlSerializer || parent.$prismic.htmlSerializer);
+      return h(wrapper, _objectSpread2({}, data, {
+        domProps: {
+          innerHTML: innerHTML
         }
-
-        var template = '';
-
-        if (this.isPlain === false) {
-          template = '\n          <div>\n            ' + prismicDOM.RichText.asHtml(this.field, this.$prismic.linkResolver, this.htmlSerializer || this.$prismic.htmlSerializer) + '\n          </div>\n        ';
-        } else {
-          template = '<span>' + prismicDOM.RichText.asText(this.field) + '</span>';
-        }
-        return { template: template };
-      }
+      }));
     }
   };
 
-  /* script */
-  var __vue_script__$4 = script$4;
-
-  /* template */
-  var __vue_render__$4 = function __vue_render__() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c(_vm.richTextComponent, { tag: "component" });
+  var NuxtLink = Link('nuxt-link', 'PrismicNuxtLink');
+  var VueRouterLink = Link();
+  var exp = {
+    common: {
+      Embed: Embed,
+      Image: Image,
+      RichText: RichText
+    },
+    nuxt: {
+      Link: NuxtLink
+    },
+    vueRouter: {
+      Link: VueRouterLink
+    }
   };
-  var __vue_staticRenderFns__$4 = [];
-  __vue_render__$4._withStripped = true;
 
-  /* style */
-  var __vue_inject_styles__$4 = undefined;
-  /* scoped */
-  var __vue_scope_id__$4 = undefined;
-  /* module identifier */
-  var __vue_module_identifier__$4 = undefined;
-  /* functional template */
-  var __vue_is_functional_template__$4 = false;
-  /* component normalizer */
-  function __vue_normalize__$4(template, style, script, scope, functional, moduleIdentifier, createInjector, createInjectorSSR) {
-    var component = (typeof script === 'function' ? script.options : script) || {};
+  var common$1 = exp.common;
+  var nuxt$1 = exp.nuxt;
+  var vueRouter$1 = exp.vueRouter;
 
-    {
-      component.__file = "/Users/hvillain/Libs/prismic-vue/src/components/RichText.vue";
-    }
-
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component;
-  }
-  /* style inject */
-  function __vue_create_injector__$4() {
-    var head = document.head || document.getElementsByTagName('head')[0];
-    var styles = __vue_create_injector__$4.styles || (__vue_create_injector__$4.styles = {});
-    var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
-    return function addStyle(id, css) {
-      if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return; // SSR styles are present.
-
-      var group = isOldIE ? css.media || 'default' : id;
-      var style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
-
-      if (!style.ids.includes(id)) {
-        var code = css.source;
-        var index = style.ids.length;
-
-        style.ids.push(id);
-
-        if (isOldIE) {
-          style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-        }
-
-        if (!style.element) {
-          var el = style.element = document.createElement('style');
-          el.type = 'text/css';
-
-          if (css.media) el.setAttribute('media', css.media);
-          if (isOldIE) {
-            el.setAttribute('data-group', group);
-            el.setAttribute('data-next-index', '0');
-          }
-
-          head.appendChild(el);
-        }
-
-        if (isOldIE) {
-          index = parseInt(style.element.getAttribute('data-next-index'));
-          style.element.setAttribute('data-next-index', index + 1);
-        }
-
-        if (style.element.styleSheet) {
-          style.parts.push(code);
-          style.element.styleSheet.cssText = style.parts.filter(Boolean).join('\n');
-        } else {
-          var textNode = document.createTextNode(code);
-          var nodes = style.element.childNodes;
-          if (nodes[index]) style.element.removeChild(nodes[index]);
-          if (nodes.length) style.element.insertBefore(textNode, nodes[index]);else style.element.appendChild(textNode);
-        }
-      }
-    };
-  }
-  /* style inject SSR */
-
-  var RichText = __vue_normalize__$4({ render: __vue_render__$4, staticRenderFns: __vue_staticRenderFns__$4 }, __vue_inject_styles__$4, __vue_script__$4, __vue_scope_id__$4, __vue_is_functional_template__$4, __vue_module_identifier__$4, __vue_create_injector__$4, undefined);
-
-  exports.EditButton = EditButton;
-  exports.Embed = Embed;
-  exports.Image = Image;
-  exports.Link = Link;
-  exports.RichText = RichText;
+  exports.common = common$1;
+  exports.nuxt = nuxt$1;
+  exports.vueRouter = vueRouter$1;
+  exports.default = exp;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
