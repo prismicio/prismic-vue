@@ -23,6 +23,10 @@ const PrismicVue = {
       ...Components[linkType]
     }
 
+    /**
+     * Global registration of common components + stack specific components.
+     * Currently, only Nuxt links differ though. Use `linkType: 'nuxt'` in that case.
+     */
     Object.entries(components)
     .forEach(([_, c]) => {
       Vue.component(c.name, c)
