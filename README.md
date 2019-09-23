@@ -120,7 +120,9 @@ Obviously, `prismic-image` works the same way on image fields, stored in your Pr
 
 # List of components
 
-List of available components and use case:
+List of available components and use cases:
+
+
 | Component         	| Prismic type      	| Use case                                                         	| Example use                                                                                         	|
 |-------------------	|-------------------	|------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------	|
 | prismic-rich-text 	| Rich Text, Title 	| Used when you need formatting fir text (bold, italic, embeds...) 	| `<prismic-rich-text :field="field.description" wrapper="div" :htmlSerializer="myLocalSerializer"/>` 	|
