@@ -64,6 +64,8 @@ Vue.use(PrismicVue, {
 ```
 
 When registering the plugin, you may pass these options. Although `linkResolver` and `htmlSerializer` are not required, they are usually pretty useful. Make sure to check them out! ✌️
+
+
 | Option name    	| Type     	| Required 	| Default value 	| Description                                                                                                          	|
 |----------------	|----------	|----------	|---------------	|----------------------------------------------------------------------------------------------------------------------	|
 | endpoint       	| string   	| yes      	| none          	| Your Prismic api endpoint                                                                                            	|
