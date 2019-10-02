@@ -1,5 +1,11 @@
-import prismicDOM, { RichText } from 'prismic-dom';
-import prismicJS from 'prismic-javascript';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var PrismicDom = require('prismic-dom');
+var PrismicDom__default = _interopDefault(PrismicDom);
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -48,48 +54,6 @@ function _objectSpread2(target) {
   }
 
   return target;
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-    return;
-  }
-
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
 }
 
 var Embed = {
@@ -193,7 +157,7 @@ var Link = (function () {
       } // Is this check enough to make Link work with both Vue-router and Nuxt?
 
 
-      var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : prismicDOM.Link.url(field, parent.$prismic.linkResolver); // Internal link
+      var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : PrismicDom__default.Link.url(field, parent.$prismic.linkResolver); // Internal link
 
       if (field.link_type === 'Document') {
         data.props = data.props || {};
@@ -212,7 +176,7 @@ var Link = (function () {
   };
 });
 
-var RichText$1 = {
+var RichText = {
   name: 'PrismicRichText',
   functional: true,
   props: {
@@ -238,7 +202,7 @@ var RichText$1 = {
     var field = props.field,
         htmlSerializer = props.htmlSerializer,
         wrapper = props.wrapper;
-    var innerHTML = RichText.asHtml(field, parent.$prismic.linkResolver, htmlSerializer || parent.$prismic.htmlSerializer);
+    var innerHTML = PrismicDom.RichText.asHtml(field, parent.$prismic.linkResolver, htmlSerializer || parent.$prismic.htmlSerializer);
     return h(wrapper, _objectSpread2({}, data, {
       domProps: {
         innerHTML: innerHTML
@@ -253,7 +217,7 @@ var exp = {
   common: {
     Embed: Embed,
     Image: Image,
-    RichText: RichText$1
+    RichText: RichText
   },
   nuxt: {
     Link: NuxtLink
@@ -263,34 +227,11 @@ var exp = {
   }
 };
 
-var PrismicVue = {
-  install: function install(Vue, options) {
-    var _options$linkType = options.linkType,
-        linkType = _options$linkType === void 0 ? 'vueRouter' : _options$linkType;
-    Vue.prototype.$prismic = prismicJS;
-    Vue.prototype.$prismic.endpoint = options.endpoint;
-    Vue.prototype.$prismic.linkResolver = options.linkResolver;
-    Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer;
-    Vue.prototype.$prismic.client = prismicJS.client(options.endpoint, options.apiOptions);
+var common$1 = exp.common;
+var nuxt$1 = exp.nuxt;
+var vueRouter$1 = exp.vueRouter;
 
-    Vue.prototype.$prismic.richTextAsPlain = function (field) {
-      if (!field) {
-        return '';
-      }
-
-      return prismicDOM.RichText.asText(field);
-    };
-
-    var components = _objectSpread2({}, exp.common, {}, exp[linkType]);
-
-    Object.entries(components).forEach(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 2),
-          _ = _ref2[0],
-          c = _ref2[1];
-
-      Vue.component(c.name, c);
-    });
-  }
-};
-
-export default PrismicVue;
+exports.common = common$1;
+exports.nuxt = nuxt$1;
+exports.vueRouter = vueRouter$1;
+exports.default = exp;

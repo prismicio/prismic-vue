@@ -1,11 +1,10 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('prismic-dom'), require('prismic-javascript')) :
-  typeof define === 'function' && define.amd ? define(['prismic-dom', 'prismic-javascript'], factory) :
-  (global.PrismicVue = factory(global.prismicDOM,global.prismicJS));
-}(this, (function (prismicDOM,prismicJS) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('prismic-dom')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'prismic-dom'], factory) :
+  (factory((global.PrismicVueComponents = {}),global.prismicDOM));
+}(this, (function (exports,PrismicDom) { 'use strict';
 
-  var prismicDOM__default = 'default' in prismicDOM ? prismicDOM['default'] : prismicDOM;
-  prismicJS = prismicJS && prismicJS.hasOwnProperty('default') ? prismicJS['default'] : prismicJS;
+  var PrismicDom__default = 'default' in PrismicDom ? PrismicDom['default'] : PrismicDom;
 
   function _defineProperty(obj, key, value) {
     if (key in obj) {
@@ -54,48 +53,6 @@
     }
 
     return target;
-  }
-
-  function _slicedToArray(arr, i) {
-    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
-  }
-
-  function _arrayWithHoles(arr) {
-    if (Array.isArray(arr)) return arr;
-  }
-
-  function _iterableToArrayLimit(arr, i) {
-    if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-      return;
-    }
-
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-    var _e = undefined;
-
-    try {
-      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-
-        if (i && _arr.length === i) break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"] != null) _i["return"]();
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-
-    return _arr;
-  }
-
-  function _nonIterableRest() {
-    throw new TypeError("Invalid attempt to destructure non-iterable instance");
   }
 
   var Embed = {
@@ -199,7 +156,7 @@
         } // Is this check enough to make Link work with both Vue-router and Nuxt?
 
 
-        var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : prismicDOM__default.Link.url(field, parent.$prismic.linkResolver); // Internal link
+        var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : PrismicDom__default.Link.url(field, parent.$prismic.linkResolver); // Internal link
 
         if (field.link_type === 'Document') {
           data.props = data.props || {};
@@ -244,7 +201,7 @@
       var field = props.field,
           htmlSerializer = props.htmlSerializer,
           wrapper = props.wrapper;
-      var innerHTML = prismicDOM.RichText.asHtml(field, parent.$prismic.linkResolver, htmlSerializer || parent.$prismic.htmlSerializer);
+      var innerHTML = PrismicDom.RichText.asHtml(field, parent.$prismic.linkResolver, htmlSerializer || parent.$prismic.htmlSerializer);
       return h(wrapper, _objectSpread2({}, data, {
         domProps: {
           innerHTML: innerHTML
@@ -269,36 +226,15 @@
     }
   };
 
-  var PrismicVue = {
-    install: function install(Vue, options) {
-      var _options$linkType = options.linkType,
-          linkType = _options$linkType === void 0 ? 'vueRouter' : _options$linkType;
-      Vue.prototype.$prismic = prismicJS;
-      Vue.prototype.$prismic.endpoint = options.endpoint;
-      Vue.prototype.$prismic.linkResolver = options.linkResolver;
-      Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer;
-      Vue.prototype.$prismic.client = prismicJS.client(options.endpoint, options.apiOptions);
+  var common$1 = exp.common;
+  var nuxt$1 = exp.nuxt;
+  var vueRouter$1 = exp.vueRouter;
 
-      Vue.prototype.$prismic.richTextAsPlain = function (field) {
-        if (!field) {
-          return '';
-        }
+  exports.common = common$1;
+  exports.nuxt = nuxt$1;
+  exports.vueRouter = vueRouter$1;
+  exports.default = exp;
 
-        return prismicDOM__default.RichText.asText(field);
-      };
-
-      var components = _objectSpread2({}, exp.common, {}, exp[linkType]);
-
-      Object.entries(components).forEach(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            _ = _ref2[0],
-            c = _ref2[1];
-
-        Vue.component(c.name, c);
-      });
-    }
-  };
-
-  return PrismicVue;
+  Object.defineProperty(exports, '__esModule', { value: true });
 
 })));

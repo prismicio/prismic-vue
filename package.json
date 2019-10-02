@@ -5,15 +5,17 @@
   "license": "Apache-2.0",
   "repository": "github:prismicio/prismic-vue",
   "author": "Prismic",
+  "components": "dist/components.esm.js",
   "main": "dist/prismic-vue.common.js",
   "module": "dist/prismic-vue.esm.js",
   "unpkg": "dist/prismic-vue.min.js",
   "jsdelivr": "dist/prismic-vue.min.js",
   "scripts": {
-    "start": "npm run build",
-    "build": "rollup -c && uglifyjs dist/prismic-vue.js -o dist/prismic-vue.min.js"
+    "build": "rollup -c && uglifyjs dist/prismic-vue.js -o dist/prismic-vue.min.js",
+    "beauty": "rollup -c",
+    "visualize": "rollup -c --config-visualize"
   },
-  "dependencies": {
+  "peerDependencies": {
     "prismic-dom": "^2.1.0",
     "prismic-javascript": "^1.5.0"
   },
@@ -22,12 +24,13 @@
     "npm": ">= 3.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
     "rollup": "^0.62.0",
-    "rollup-plugin-babel": "^3.0.7",
+    "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^9.1.3",
     "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-visualizer": "^2.6.0",
     "rollup-plugin-vue": "^4.3.0",
     "uglify-js": "^3.4.3",
     "vue-template-compiler": "^2.5.16"
