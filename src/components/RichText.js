@@ -1,4 +1,4 @@
-import { RichText } from 'prismic-dom'
+import { RichText } from 'prismic-dom'
 
 export default {
   name: 'PrismicRichText',
