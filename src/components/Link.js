@@ -18,12 +18,12 @@ export default (linkComponent = 'router-link') => ({
       return null
     }
 
-    // Is this check enough to make Link work with both Vue-router and Nuxt?
+    // Is this check enough to make Link work with Vue-router and Nuxt?
     const url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field)
     : PrismicDom.Link.url(field, parent.$prismic.linkResolver)
 
      // Internal link
-    if (field.link_type === 'Document') {
+    if (field.link_type === 'Link.Document') {
       data.props = data.props || {};
       data.props.to = url;
 

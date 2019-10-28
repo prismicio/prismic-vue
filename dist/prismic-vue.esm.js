@@ -190,12 +190,16 @@ var Link = (function () {
 
       if (!field) {
         return null;
-      } // Is this check enough to make Link work with both Vue-router and Nuxt?
+      } // console.log(props, data, children)
+      //
 
 
-      var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : prismicDOM.Link.url(field, parent.$prismic.linkResolver); // Internal link
+      console.log('linkRes', field, parent.$prismic.linkResolver); // Is this check enough to make Link work with both Vue-router and Nuxt?
 
-      if (field.link_type === 'Document') {
+      var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : prismicDOM.Link.url(field, parent.$prismic.linkResolver);
+      console.log('URL', url); // Internal link
+
+      if (field.link_type === 'Link.Document') {
         data.props = data.props || {};
         data.props.to = url;
         return h(linkComponent, data, children);
@@ -282,6 +286,11 @@ var PrismicVue = {
     };
 
     var components = _objectSpread2({}, exp.common, {}, exp[linkType]);
+    /**
+     * Global registration of common components + stack specific components.
+     * Currently, only Nuxt links differ though. Use `linkType: 'nuxt'` in that case.
+     */
+
 
     Object.entries(components).forEach(function (_ref) {
       var _ref2 = _slicedToArray(_ref, 2),
