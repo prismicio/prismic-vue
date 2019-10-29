@@ -196,14 +196,10 @@
 
         if (!field) {
           return null;
-        } // console.log(props, data, children)
-        //
+        } // Is this check enough to make Link work with Vue-router and Nuxt?
 
 
-        console.log('linkRes', field, parent.$prismic.linkResolver); // Is this check enough to make Link work with both Vue-router and Nuxt?
-
-        var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : prismicDOM__default.Link.url(field, parent.$prismic.linkResolver);
-        console.log('URL', url); // Internal link
+        var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : prismicDOM__default.Link.url(field, parent.$prismic.linkResolver); // Internal link
 
         if (field.link_type === 'Link.Document') {
           data.props = data.props || {};
