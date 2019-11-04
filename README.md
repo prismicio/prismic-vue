@@ -143,6 +143,12 @@ console.log(common) // { Embed, Image, RichText ...}
 console.log(nuxt) // { Link }
 // etc.
 
+Vue.prototype.$prismic = {
+  // because some components
+  // require a link resolver
+  linkResolver() { /* ... */}
+}
+
 // Register common components
 Object.entries(common).forEach(([_, component]) => {
     Vue.component(component.name, component)
