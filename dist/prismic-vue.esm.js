@@ -195,7 +195,7 @@ var Link = (function () {
 
       var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : prismicDOM.Link.url(field, parent.$prismic.linkResolver); // Internal link
 
-      if (field.link_type === 'Link.Document') {
+      if (['Link.Document', 'Document'].includes(field.link_type)) {
         data.props = data.props || {};
         data.props.to = url;
         return h(linkComponent, data, children);
