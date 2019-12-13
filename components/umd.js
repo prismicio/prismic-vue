@@ -71,33 +71,35 @@
     },
     render: function render(h, _ref) {
       var props = _ref.props,
-          data = _ref.data,
-          children = _ref.children,
-          parent = _ref.parent;
-      var field = props.field;
+          data = _ref.data;
+      var field = props.field,
+          wrapper = props.wrapper;
 
       if (!field || !field.html) {
         return null;
       }
 
-      var embed_url = field.embed_url,
+      var embedUrl = field.embed_url,
           type = field.type,
-          provider_name = field.provider_name;
+          providerName = field.provider_name;
 
-      var attrs = _objectSpread2({}, embed_url && {
-        'data-oembed': embed_url
+      var attrs = _objectSpread2({}, data.attrs, {}, embedUrl && {
+        'data-oembed': embedUrl
       }, {}, type && {
         'data-oembed-type': type
-      }, {}, provider_name && {
-        'data-oembed-provider': provider_name
+      }, {}, providerName && {
+        'data-oembed-provider': providerName
       });
 
-      return h(wrapper, {
+      return h(wrapper, _objectSpread2({}, Object.assign(data, {
+        staticClass: undefined,
+        "class": [data["class"], data.staticClass]
+      }), {
         attrs: attrs,
         domProps: {
           innerHTML: field.html
         }
-      });
+      }));
     }
   };
 
