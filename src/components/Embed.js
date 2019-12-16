@@ -28,11 +28,7 @@ export default {
     }
 
     return h(wrapper, {
-      ...Object.assign(data, {
-        staticClass: undefined,
-        class: [data.class, data.staticClass]
-      }),
-      attrs,
+      ...Object.assign(data, { attrs }),
       domProps: {
         innerHTML: field.html
       }
