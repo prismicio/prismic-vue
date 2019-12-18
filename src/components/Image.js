@@ -10,18 +10,16 @@ export default {
   render(h, { props, data }) {
     const { url, alt, copyright } = props.field;
 
-     // See https://vuejs.org/v2/guide/render-function.html#Functional-Components
-    data.attrs = data.attrs || {};
-    data.attrs.src = url;
-    if (alt) {
-      data.attrs.alt = alt;
-    }
-    if (copyright) {
-      data.attrs.copyright = copyright;
-    }
     return h(
       'img',
-      data,
+      Object.assign(data, {
+        attrs: {
+          ...data.attrs,
+          src: url,
+          alt,
+          copyright
+        }
+      })
     );
   },
 };
