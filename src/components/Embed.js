@@ -4,39 +4,34 @@ export default {
   props: {
     field: {
       type: Object,
-      required: true,
+      required: true
     },
     wrapper: {
       type: String,
-      required:false,
-      default: 'div',
-    },
+      required: false,
+      default: 'div'
+    }
   },
-  render (h, {
-    props, data, children, parent,
-  }) {
-    const { field } = props
+  render(h, { props, data }) {
+    const { field, wrapper } = props
     if (!field || !field.html) {
       return null
     }
 
-    const {
-      embed_url,
-      type,
-      provider_name,
-    } = field
+    const { embed_url: embedUrl, type, provider_name: providerName } = field
 
     const attrs = {
-      ...embed_url && { 'data-oembed': embed_url },
-      ...type && { 'data-oembed-type': type },
-      ...provider_name && { 'data-oembed-provider': provider_name },
+      ...data.attrs,
+      ...(embedUrl && { 'data-oembed': embedUrl }),
+      ...(type && { 'data-oembed-type': type }),
+      ...(providerName && { 'data-oembed-provider': providerName })
     }
 
     return h(wrapper, {
-      attrs,
+      ...Object.assign(data, { attrs }),
       domProps: {
         innerHTML: field.html
-      },
+      }
     })
   }
 }
