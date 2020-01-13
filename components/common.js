@@ -93,10 +93,8 @@ var Embed = {
     });
 
     return h(wrapper, _objectSpread2({}, Object.assign(data, {
-      staticClass: undefined,
-      "class": [data["class"], data.staticClass]
+      attrs: attrs
     }), {
-      attrs: attrs,
       domProps: {
         innerHTML: field.html
       }
@@ -119,20 +117,14 @@ var Image = {
     var _props$field = props.field,
         url = _props$field.url,
         alt = _props$field.alt,
-        copyright = _props$field.copyright; // See https://vuejs.org/v2/guide/render-function.html#Functional-Components
-
-    data.attrs = data.attrs || {};
-    data.attrs.src = url;
-
-    if (alt) {
-      data.attrs.alt = alt;
-    }
-
-    if (copyright) {
-      data.attrs.copyright = copyright;
-    }
-
-    return h('img', data);
+        copyright = _props$field.copyright;
+    return h('img', Object.assign(data, {
+      attrs: _objectSpread2({}, data.attrs, {
+        src: url,
+        alt: alt,
+        copyright: copyright
+      })
+    }));
   }
 };
 

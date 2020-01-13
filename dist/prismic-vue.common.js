@@ -2,8 +2,8 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var prismicDOM = require('prismic-dom');
-var prismicDOM__default = _interopDefault(prismicDOM);
+var PrismicDOM = require('prismic-dom');
+var PrismicDOM__default = _interopDefault(PrismicDOM);
 var prismicJS = _interopDefault(require('prismic-javascript'));
 
 function _defineProperty(obj, key, value) {
@@ -134,10 +134,8 @@ var Embed = {
     });
 
     return h(wrapper, _objectSpread2({}, Object.assign(data, {
-      staticClass: undefined,
-      "class": [data["class"], data.staticClass]
+      attrs: attrs
     }), {
-      attrs: attrs,
       domProps: {
         innerHTML: field.html
       }
@@ -160,20 +158,14 @@ var Image = {
     var _props$field = props.field,
         url = _props$field.url,
         alt = _props$field.alt,
-        copyright = _props$field.copyright; // See https://vuejs.org/v2/guide/render-function.html#Functional-Components
-
-    data.attrs = data.attrs || {};
-    data.attrs.src = url;
-
-    if (alt) {
-      data.attrs.alt = alt;
-    }
-
-    if (copyright) {
-      data.attrs.copyright = copyright;
-    }
-
-    return h('img', data);
+        copyright = _props$field.copyright;
+    return h('img', Object.assign(data, {
+      attrs: _objectSpread2({}, data.attrs, {
+        src: url,
+        alt: alt,
+        copyright: copyright
+      })
+    }));
   }
 };
 
@@ -200,7 +192,7 @@ var Link = (function () {
       } // Is this check enough to make Link work with Vue-router and Nuxt?
 
 
-      var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : prismicDOM__default.Link.url(field, parent.$prismic.linkResolver); // Internal link
+      var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : PrismicDOM__default.Link.url(field, parent.$prismic.linkResolver); // Internal link
 
       if (['Link.Document', 'Document'].includes(field.link_type)) {
         data.props = data.props || {};
@@ -245,7 +237,7 @@ var RichText = {
     var field = props.field,
         htmlSerializer = props.htmlSerializer,
         wrapper = props.wrapper;
-    var innerHTML = prismicDOM.RichText.asHtml(field, parent.$prismic.linkResolver, htmlSerializer || parent.$prismic.htmlSerializer);
+    var innerHTML = PrismicDOM.RichText.asHtml(field, parent.$prismic.linkResolver, htmlSerializer || parent.$prismic.htmlSerializer);
     return h(wrapper, _objectSpread2({}, data, {
       domProps: {
         innerHTML: innerHTML
@@ -270,8 +262,46 @@ var exp = {
   }
 };
 
+function asHtml(richText, linkResolver, htmlSerializer) {
+  if (richText) {
+    return PrismicDOM__default.RichText.asHtml(richText, linkResolver, htmlSerializer);
+  }
+}
+function asText(richText, joinString) {
+  if (richText) {
+    return PrismicDOM__default.RichText.asText(richText, joinString);
+  }
+
+  return '';
+}
+function asLink(link, linkResolver) {
+  if (link) {
+    return PrismicDOM__default.Link.url(link, linkResolver);
+  }
+}
+function asDate(date) {
+  if (date) {
+    return PrismicDOM__default.Date(date);
+  }
+}
+
+function attachMethods(Vue, options) {
+  Vue.prototype.$prismic.asHtml = function (richText, linkResolver, htmlSerializer) {
+    return asHtml(richText, linkResolver || options.linkResolver, htmlSerializer || options.htmlSerializer);
+  };
+
+  Vue.prototype.$prismic.asText = asText;
+  Vue.prototype.$prismic.richTextAsPlain = asText;
+  Vue.prototype.$prismic.asDate = asDate;
+
+  Vue.prototype.$prismic.asLink = function (link, linkResolver) {
+    return asLink(link, linkResolver || options.linkResolver);
+  };
+}
+
 var PrismicVue = {
   install: function install(Vue, options) {
+    console.log(options);
     var _options$linkType = options.linkType,
         linkType = _options$linkType === void 0 ? 'vueRouter' : _options$linkType;
     Vue.prototype.$prismic = prismicJS;
@@ -279,14 +309,7 @@ var PrismicVue = {
     Vue.prototype.$prismic.linkResolver = options.linkResolver;
     Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer;
     Vue.prototype.$prismic.client = prismicJS.client(options.endpoint, options.apiOptions);
-
-    Vue.prototype.$prismic.richTextAsPlain = function (field) {
-      if (!field) {
-        return '';
-      }
-
-      return prismicDOM__default.RichText.asText(field);
-    };
+    attachMethods(Vue, options);
 
     var components = _objectSpread2({}, exp.common, {}, exp[linkType]);
     /**

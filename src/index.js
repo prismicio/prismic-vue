@@ -1,7 +1,23 @@
 import prismicJS from 'prismic-javascript'
-import prismicDOM from 'prismic-dom'
 
 import Components from './components'
+import { asHtml, asText, asDate, asLink } from './methods'
+
+function attachMethods(Vue, options) {
+  Vue.prototype.$prismic.asHtml = function(richText, linkResolver, htmlSerializer) {
+    return asHtml(
+      richText,
+      linkResolver || options.linkResolver,
+      htmlSerializer || options.htmlSerializer
+    )
+  }
+  Vue.prototype.$prismic.asText = asText
+  Vue.prototype.$prismic.richTextAsPlain = asText
+  Vue.prototype.$prismic.asDate = asDate
+  Vue.prototype.$prismic.asLink = function(link, linkResolver) {
+    return asLink(link, linkResolver || options.linkResolver)
+  }
+}
 
 const PrismicVue = {
   install: function (Vue, options) {
@@ -11,12 +27,8 @@ const PrismicVue = {
     Vue.prototype.$prismic.linkResolver = options.linkResolver
     Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer
     Vue.prototype.$prismic.client = prismicJS.client(options.endpoint, options.apiOptions)
-    Vue.prototype.$prismic.richTextAsPlain = function (field) {
-      if (!field) {
-        return ''
-      }
-      return prismicDOM.RichText.asText(field)
-    }
+  
+    attachMethods(Vue, options)
 
     const components = {
       ...Components.common,
