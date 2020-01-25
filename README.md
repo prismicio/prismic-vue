@@ -107,7 +107,7 @@ Following the example above, let's write the associated template:
 ```html
 <template>
   <section>
-    <primsic-image :field="fields.logo" />
+    <prismic-image :field="fields.logo" />
     <prismic-rich-text :field="fields.title" />
     <prismic-rich-text :field="fields.somethingRich" />
   </section>
