@@ -7,8 +7,25 @@ export const camelize = str => {
 };
 
 const UnknownSlice = {
+  props: {
+    slice: {
+      type: Object,
+      required: true
+    }
+  },
   render(h) {
-    return h("div", [h("h1", "Unknown slice")]);
+    if (process.env.NODE_ENV === "development") {
+      return h(
+        "div",
+        {
+          style: "border: 1px solid #111"
+        },
+        [
+          h("h3", `Unknown slice "${camelize(this.slice.slice_type)}"`),
+          h("p", JSON.stringify(this.slice))
+        ]
+      );
+    }
   }
 };
 
@@ -27,7 +44,7 @@ export default {
     resolver: {
       required: true,
       type: Function,
-      description: "Resolver takes a `slice_type` and returns a component"
+      description: "Resolver takes slice information and returns a dynamic import"
     },
     wrapper: {
       required: false,
@@ -50,7 +67,7 @@ export default {
       const names = slices.map(e => camelize(e.slice_type));
       return (slices || []).map((_, i) => () => {
         const resolved = components[names[i]]
-          ? import(components[names[i]].__file)
+          ? () => components[names[i]]
           : resolver({ sliceName: names[i], index: i });
         const resolvedArr = Array.isArray(resolved) ? resolved : [resolved];
         return firstOf(resolvedArr).catch(() => UnknownSlice);

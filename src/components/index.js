@@ -1,6 +1,7 @@
 import Embed from './Embed'
 import Image from './Image'
 import Link from './Link'
+import SliceZone from './SliceZone'
 import RichText from './RichText'
 
 const NuxtLink = Link('nuxt-link', 'PrismicNuxtLink')
@@ -11,6 +12,7 @@ const exp = {
     Embed,
     Image,
     RichText,
+    SliceZone,
   },
   nuxt: {
     Link: NuxtLink,
