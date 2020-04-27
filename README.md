@@ -137,7 +137,7 @@ List of available components and use cases:
 If you are working on a `prismic-vue` integration (like Nuxt does for example), you might find the need to use the components, without using the actual `PrismicVue` plugin. We've got you covered:
 
 ```javascript
-import { common, vueRouter, nuxt } 'prismic-vue/components';
+import { common, vueRouter, nuxt } from 'prismic-vue/components';
 
 console.log(common) // { Embed, Image, RichText ...}
 console.log(nuxt) // { Link }
