@@ -38,5 +38,9 @@
     "rollup-plugin-vue": "^4.3.0",
     "uglify-js": "^3.4.3",
     "vue-template-compiler": "^2.5.16"
+  },
+  "dependencies": {
+    "imgix-core-js": "^2.3.1",
+    "imgix-url-params": "^11.4.3"
   }
 }
