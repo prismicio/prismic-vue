@@ -1,6 +1,6 @@
 ![alt text](https://prismic.io/...1b58998/images/logo-dark.svg)
 
-[![npm version](https://badge.fury.io/js/@prismicio/vue.svg)](http://badge.fury.io/js/@prismicio/vue)
+[![npm version](https://badge.fury.io/js/%40prismicio%2Fvue.svg)](http://badge.fury.io/js/@prismicio/vue)
 
 # @prismicio/vue V₂
 
@@ -9,7 +9,7 @@ Looking for a Nuxt solution? Here you go 👉 [@nuxtjs/prismic plugin](https://g
 
 # Install
 
-⚠️ We've moved `prismic-vue` to `@prismicio/vue`. You can safely delete the former and add the latter to your Vue/Nuxt project ✌️
+⚠️ We've moved `prismic-vue` to `@prismicio/vue`. You can safely replace the former with the latter to your node modules ✌️
 
 `@prismic/vue` relies on `prismic-javascript` and `prismic-dom`.
 If you are migrating from V1, make sure to install them too as they are now peer dependencies.
