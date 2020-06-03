@@ -1,6 +1,8 @@
 import PrismicDom from 'prismic-dom'
 
-export default (linkComponent = 'router-link') => ({
+export default ({
+  component = 'a'
+}) => ({
   name: 'PrismicLink',
   functional: true,
   props: {
@@ -8,30 +10,30 @@ export default (linkComponent = 'router-link') => ({
       type: Object,
       required: true,
     },
+    linkResolver: {
+      type: Function,
+      required: false,
+      default () {
+        return null
+      }
+    }
   },
-  render(h, {
-    props, data, children, parent,
-  }) {
-    const { field } = props;
+  render(h, { props, data, children, parent }) {
+    const { field, linkResolver } = props
 
     if (!field) {
       return null
     }
 
-    // Is this check enough to make Link work with Vue-router and Nuxt?
-    const url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field)
-    : PrismicDom.Link.url(field, parent.$prismic.linkResolver)
+    const url = parent.$prismic
+      ? parent.$prismic.asLink(field, linkResolver)
+      : PrismicDom.Link.url(field, linkResolver)
 
-     // Internal link
-    if (['Link.Document', 'Document'].includes(field.link_type)) {
+    if (url.indexOf('/') === 0) {
       data.props = data.props || {};
       data.props.to = url;
 
-       return h(
-        linkComponent,
-        data,
-        children,
-      );
+      return h(component, data, children);
     }
 
     data.attrs = {
@@ -43,10 +45,10 @@ export default (linkComponent = 'router-link') => ({
       },
     }
 
-     return h(
+    return h(
       'a',
       data,
       children,
     );
-  },
-});
+  }
+})

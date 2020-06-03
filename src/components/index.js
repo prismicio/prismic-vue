@@ -3,8 +3,8 @@ import Image from './Image'
 import Link from './Link'
 import RichText from './RichText'
 
-const NuxtLink = Link('nuxt-link', 'PrismicNuxtLink')
-const VueRouterLink = Link()
+const NuxtLink = Link({ component: 'nuxt-link' })
+const VueRouterLink = Link({ component: 'router-link' })
 
 const exp = {
   common: {

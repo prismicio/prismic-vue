@@ -40,13 +40,13 @@ function _objectSpread2(target) {
     var source = arguments[i] != null ? arguments[i] : {};
 
     if (i % 2) {
-      ownKeys(source, true).forEach(function (key) {
+      ownKeys(Object(source), true).forEach(function (key) {
         _defineProperty(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-      ownKeys(source).forEach(function (key) {
+      ownKeys(Object(source)).forEach(function (key) {
         Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
       });
     }
@@ -56,7 +56,7 @@ function _objectSpread2(target) {
 }
 
 function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
 function _arrayWithHoles(arr) {
@@ -64,10 +64,7 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-    return;
-  }
-
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -93,8 +90,25 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
 function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 var Embed = {
@@ -125,17 +139,17 @@ var Embed = {
         type = field.type,
         providerName = field.provider_name;
 
-    var attrs = _objectSpread2({}, data.attrs, {}, embedUrl && {
+    var attrs = _objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, data.attrs), embedUrl && {
       'data-oembed': embedUrl
-    }, {}, type && {
+    }), type && {
       'data-oembed-type': type
-    }, {}, providerName && {
+    }), providerName && {
       'data-oembed-provider': providerName
     });
 
-    return h(wrapper, _objectSpread2({}, Object.assign(data, {
+    return h(wrapper, _objectSpread2(_objectSpread2({}, Object.assign(data, {
       attrs: attrs
-    }), {
+    })), {}, {
       domProps: {
         innerHTML: field.html
       }
@@ -160,7 +174,7 @@ var Image = {
         alt = _props$field.alt,
         copyright = _props$field.copyright;
     return h('img', Object.assign(data, {
-      attrs: _objectSpread2({}, data.attrs, {
+      attrs: _objectSpread2(_objectSpread2({}, data.attrs), {}, {
         src: url,
         alt: alt,
         copyright: copyright
@@ -169,8 +183,9 @@ var Image = {
   }
 };
 
-var Link = (function () {
-  var linkComponent = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'router-link';
+var Link = (function (_ref) {
+  var _ref$component = _ref.component,
+      component = _ref$component === void 0 ? 'a' : _ref$component;
   return {
     name: 'PrismicLink',
     functional: true,
@@ -178,29 +193,36 @@ var Link = (function () {
       field: {
         type: Object,
         required: true
+      },
+      linkResolver: {
+        type: Function,
+        required: false,
+        "default": function _default() {
+          return null;
+        }
       }
     },
-    render: function render(h, _ref) {
-      var props = _ref.props,
-          data = _ref.data,
-          children = _ref.children,
-          parent = _ref.parent;
-      var field = props.field;
+    render: function render(h, _ref2) {
+      var props = _ref2.props,
+          data = _ref2.data,
+          children = _ref2.children,
+          parent = _ref2.parent;
+      var field = props.field,
+          linkResolver = props.linkResolver;
 
       if (!field) {
         return null;
-      } // Is this check enough to make Link work with Vue-router and Nuxt?
-
-
-      var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : PrismicDOM__default.Link.url(field, parent.$prismic.linkResolver); // Internal link
-
-      if (['Link.Document', 'Document'].includes(field.link_type)) {
-        data.props = data.props || {};
-        data.props.to = url;
-        return h(linkComponent, data, children);
       }
 
-      data.attrs = _objectSpread2({}, data.attrs, {
+      var url = parent.$prismic ? parent.$prismic.asLink(field, linkResolver) : PrismicDOM__default.Link.url(field, linkResolver);
+
+      if (url.indexOf('/') === 0) {
+        data.props = data.props || {};
+        data.props.to = url;
+        return h(component, data, children);
+      }
+
+      data.attrs = _objectSpread2(_objectSpread2({}, data.attrs), {}, {
         href: url
       }, field.target && {
         target: field.target,
@@ -238,7 +260,7 @@ var RichText = {
         htmlSerializer = props.htmlSerializer,
         wrapper = props.wrapper;
     var innerHTML = PrismicDOM.RichText.asHtml(field, parent.$prismic.linkResolver, htmlSerializer || parent.$prismic.htmlSerializer);
-    return h(wrapper, _objectSpread2({}, data, {
+    return h(wrapper, _objectSpread2(_objectSpread2({}, data), {}, {
       domProps: {
         innerHTML: innerHTML
       }
@@ -246,8 +268,12 @@ var RichText = {
   }
 };
 
-var NuxtLink = Link('nuxt-link', 'PrismicNuxtLink');
-var VueRouterLink = Link();
+var NuxtLink = Link({
+  component: 'nuxt-link'
+});
+var VueRouterLink = Link({
+  component: 'router-link'
+});
 var exp = {
   common: {
     Embed: Embed,
@@ -301,7 +327,6 @@ function attachMethods(Vue, options) {
 
 var PrismicVue = {
   install: function install(Vue, options) {
-    console.log(options);
     var _options$linkType = options.linkType,
         linkType = _options$linkType === void 0 ? 'vueRouter' : _options$linkType;
     Vue.prototype.$prismic = prismicJS;
@@ -311,7 +336,7 @@ var PrismicVue = {
     Vue.prototype.$prismic.client = prismicJS.client(options.endpoint, options.apiOptions);
     attachMethods(Vue, options);
 
-    var components = _objectSpread2({}, exp.common, {}, exp[linkType]);
+    var components = _objectSpread2(_objectSpread2({}, exp.common), exp[linkType]);
     /**
      * Global registration of common components + stack specific components.
      * Currently, only Nuxt links differ though. Use `linkType: 'nuxt'` in that case.

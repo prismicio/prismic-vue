@@ -27,7 +27,7 @@ const PrismicVue = {
     Vue.prototype.$prismic.linkResolver = options.linkResolver
     Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer
     Vue.prototype.$prismic.client = prismicJS.client(options.endpoint, options.apiOptions)
-  
+
     attachMethods(Vue, options)
 
     const components = {
