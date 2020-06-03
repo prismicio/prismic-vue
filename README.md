@@ -1,28 +1,30 @@
 ![alt text](https://prismic.io/...1b58998/images/logo-dark.svg)
 
-[![npm version](https://badge.fury.io/js/prismic-vue.svg)](http://badge.fury.io/js/prismic-vue)
+[![npm version](https://badge.fury.io/js/@prismicio/vue.svg)](http://badge.fury.io/js/@prismicio/vue)
 
-# prismic-vue V₂
+# @prismicio/vue V₂
 
 > Vue.js plugin to facilitate integration of content managed with [Prismic.io](https://prismic.io).
-Looking for a Nuxt solution? Here you go 👉 [prismic-nuxt plugin](https://github.com/jamespegg/prismic-nuxt)
+Looking for a Nuxt solution? Here you go 👉 [@nuxtjs/prismic plugin](https://github.com/nuxt-community/prismic)
 
 # Install
 
-`prismic-vue` relies on `prismic-javascript` and `prismic-dom`.
+⚠️ We've moved `prismic-vue` to `@prismicio/vue`. You can safely delete the former and add the latter to your Vue/Nuxt project ✌️
+
+`@prismic/vue` relies on `prismic-javascript` and `prismic-dom`.
 If you are migrating from V1, make sure to install them too as they are now peer dependencies.
 ``` bash
-npm install prismic-vue prismic-javascript prismic-dom
+npm install @prismicio/vue prismic-javascript prismic-dom
 ```
 👉 quick note: prismic-javascript is a library responsible for _making requests to your Prismic endpoint_,
 while prismic-dom is responsible for serializing html from RichText ([RichText you said?](https://user-guides.prismic.io/en/articles/383762-rich-text)).
 
 # What it does
 
-This package serves two purposes and can acutally but split into two different parts.
+This package serves two purposes and can actually be split into two different parts.
 
 #### 1- Queries
-The first purpose of `prismic-vue` is to offer an easy way to fetch your Prismic content. When registering `PrismicVue`, we directly inject a `prismic-javascript` instance, to be used anywhere in your Vue project.
+The first purpose of `@prismicio/vue` is to offer an easy way to fetch your Prismic content. When registering `PrismicVue`, we directly inject a `prismic-javascript` instance, to be used anywhere in your Vue project.
 
 ``` javascript
 import prismicJS from 'prismic-js';
@@ -32,7 +34,7 @@ const PrismicVue = {
     Vue.prototype.$prismic = prismicJS
     Vue.prototype.$prismic.endpoint = options.endpoint
     Vue.prototype.$prismic.linkResolver = options.linkResolver
-    Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer
+    Vue.prototype.$prismic.client = prismicJS.client(options.endpoint, options.apiOptions)
     ...
   }
 }
@@ -40,7 +42,7 @@ const PrismicVue = {
 
 ### 2 - Components
 
-The second purpose of `prismic-vue` is to globally register components that will help you _display content queried via your Prismic API_. Their purpose is (mostly) to serialize Prismic data into html. These components being used in other libraries (like `prismic-nuxt`), note that you can actually import them without registering `PrismicVue`.
+The second purpose of `@prismicio/vue` is to globally register components that will help you _display content queried via your Prismic API_. Their purpose is (mostly) to serialize Prismic data into html. These components being used in other libraries (like `@nuxtjs/prissmic`), note that you can actually import them without registering `PrismicVue`.
 
 
 # Usage
@@ -51,7 +53,7 @@ In case you're more into markdown, you can alternatevely keep reading ☺️
 ### 1/Register PrismicVue
 First, you should register the plugin:
 ```javascript
-import PrismicVue from 'prismic-vue'
+import PrismicVue from '@prismicio/vue'
 
 Vue.use(PrismicVue, {
   endpoint: 'https://your-api-endpoint.prismic.io/api/v2',
@@ -80,11 +82,13 @@ A bare bone example that fetches data from a `home` document and then sets a `fi
 ```javascript
 export default {
   name: 'MyComponent',
-  data: {
-    fields: {
-      title: null,
-      logo: null,
-      somethingRich: null
+  data() {
+    return {
+      fields: {
+        title: null,
+        logo: null,
+        somethingRich: null
+      }
     }
   },
   methods: {
@@ -132,12 +136,12 @@ List of available components and use cases:
 
 👆 Make sure to have a look at their source code: it is quite short, does simple things and might help you understand how we convert a Prismic API response into something that can actually be committed to the DOM.
 
-# Integrate prismic-vue components
+# Integrate @prismicio/vue components
 
-If you are working on a `prismic-vue` integration (like Nuxt does for example), you might find the need to use the components, without using the actual `PrismicVue` plugin. We've got you covered:
+If you are working on a `@prismicio/vue` integration (like Nuxt does for example), you might find the need to use the components, without using the actual `PrismicVue` plugin. We've got you covered:
 
 ```javascript
-import { common, vueRouter, nuxt } from 'prismic-vue/components';
+import { common, vueRouter, nuxt } from '@prismicio/vue/components';
 
 console.log(common) // { Embed, Image, RichText ...}
 console.log(nuxt) // { Link }

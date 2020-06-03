@@ -34,13 +34,13 @@ function _objectSpread2(target) {
     var source = arguments[i] != null ? arguments[i] : {};
 
     if (i % 2) {
-      ownKeys(source, true).forEach(function (key) {
+      ownKeys(Object(source), true).forEach(function (key) {
         _defineProperty(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-      ownKeys(source).forEach(function (key) {
+      ownKeys(Object(source)).forEach(function (key) {
         Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
       });
     }
@@ -77,17 +77,17 @@ var Embed = {
         type = field.type,
         providerName = field.provider_name;
 
-    var attrs = _objectSpread2({}, data.attrs, {}, embedUrl && {
+    var attrs = _objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, data.attrs), embedUrl && {
       'data-oembed': embedUrl
-    }, {}, type && {
+    }), type && {
       'data-oembed-type': type
-    }, {}, providerName && {
+    }), providerName && {
       'data-oembed-provider': providerName
     });
 
-    return h(wrapper, _objectSpread2({}, Object.assign(data, {
+    return h(wrapper, _objectSpread2(_objectSpread2({}, Object.assign(data, {
       attrs: attrs
-    }), {
+    })), {}, {
       domProps: {
         innerHTML: field.html
       }
@@ -112,7 +112,7 @@ var Image = {
         alt = _props$field.alt,
         copyright = _props$field.copyright;
     return h('img', Object.assign(data, {
-      attrs: _objectSpread2({}, data.attrs, {
+      attrs: _objectSpread2(_objectSpread2({}, data.attrs), {}, {
         src: url,
         alt: alt,
         copyright: copyright
@@ -121,8 +121,9 @@ var Image = {
   }
 };
 
-var Link = (function () {
-  var linkComponent = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'router-link';
+var Link = (function (_ref) {
+  var _ref$component = _ref.component,
+      component = _ref$component === void 0 ? 'a' : _ref$component;
   return {
     name: 'PrismicLink',
     functional: true,
@@ -130,29 +131,36 @@ var Link = (function () {
       field: {
         type: Object,
         required: true
+      },
+      linkResolver: {
+        type: Function,
+        required: false,
+        "default": function _default() {
+          return null;
+        }
       }
     },
-    render: function render(h, _ref) {
-      var props = _ref.props,
-          data = _ref.data,
-          children = _ref.children,
-          parent = _ref.parent;
-      var field = props.field;
+    render: function render(h, _ref2) {
+      var props = _ref2.props,
+          data = _ref2.data,
+          children = _ref2.children,
+          parent = _ref2.parent;
+      var field = props.field,
+          linkResolver = props.linkResolver;
 
       if (!field) {
         return null;
-      } // Is this check enough to make Link work with Vue-router and Nuxt?
-
-
-      var url = linkComponent === 'nuxt-link' ? parent.$prismic.asLink(field) : PrismicDom.Link.url(field, parent.$prismic.linkResolver); // Internal link
-
-      if (['Link.Document', 'Document'].includes(field.link_type)) {
-        data.props = data.props || {};
-        data.props.to = url;
-        return h(linkComponent, data, children);
       }
 
-      data.attrs = _objectSpread2({}, data.attrs, {
+      var url = parent.$prismic ? parent.$prismic.asLink(field, linkResolver) : PrismicDom.Link.url(field, linkResolver);
+
+      if (url.indexOf('/') === 0) {
+        data.props = data.props || {};
+        data.props.to = url;
+        return h(component, data, children);
+      }
+
+      data.attrs = _objectSpread2(_objectSpread2({}, data.attrs), {}, {
         href: url
       }, field.target && {
         target: field.target,
@@ -190,7 +198,7 @@ var RichText$1 = {
         htmlSerializer = props.htmlSerializer,
         wrapper = props.wrapper;
     var innerHTML = RichText.asHtml(field, parent.$prismic.linkResolver, htmlSerializer || parent.$prismic.htmlSerializer);
-    return h(wrapper, _objectSpread2({}, data, {
+    return h(wrapper, _objectSpread2(_objectSpread2({}, data), {}, {
       domProps: {
         innerHTML: innerHTML
       }
@@ -198,8 +206,12 @@ var RichText$1 = {
   }
 };
 
-var NuxtLink = Link('nuxt-link', 'PrismicNuxtLink');
-var VueRouterLink = Link();
+var NuxtLink = Link({
+  component: 'nuxt-link'
+});
+var VueRouterLink = Link({
+  component: 'router-link'
+});
 var exp = {
   common: {
     Embed: Embed,
