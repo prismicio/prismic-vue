@@ -18,7 +18,7 @@
   },
   "peerDependencies": {
     "prismic-dom": "^2.1.1",
-    "prismic-javascript": "^2.7.1"
+    "prismic-javascript": "^3.0.0"
   },
   "engines": {
     "node": ">= 6.0.0",
@@ -28,7 +28,7 @@
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "prismic-dom": "^2.1.1",
-    "prismic-javascript": "^2.7.1",
+    "prismic-javascript": "^3.0.0",
     "rollup": "^0.62.0",
     "rollup-plugin-auto-named-exports": "^1.0.0-beta.3",
     "rollup-plugin-babel": "^4.3.3",
