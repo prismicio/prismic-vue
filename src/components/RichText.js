@@ -23,6 +23,9 @@ export default {
   }) {
     const { field, htmlSerializer, wrapper } = props
 
+    if (!field) {
+      return null
+    }
     const innerHTML = RichText.asHtml(
       field,
       parent.$prismic.linkResolver,
