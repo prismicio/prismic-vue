@@ -42,7 +42,7 @@ const PrismicVue = {
 
 ### 2 - Components
 
-The second purpose of `@prismicio/vue` is to globally register components that will help you _display content queried via your Prismic API_. Their purpose is (mostly) to serialize Prismic data into html. These components being used in other libraries (like `@nuxtjs/prissmic`), note that you can actually import them without registering `PrismicVue`.
+The second purpose of `@prismicio/vue` is to globally register components that will help you _display content queried via your Prismic API_. Their purpose is (mostly) to serialize Prismic data into html. These components being used in other libraries (like `@nuxtjs/prismic`), note that you can actually import them without registering `PrismicVue`.
 
 
 # Usage
