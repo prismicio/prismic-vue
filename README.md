@@ -85,9 +85,9 @@ export default {
   data() {
     return {
       fields: {
-        title: null,
-        logo: null,
-        somethingRich: null
+        title: [],
+        logo: {},
+        somethingRich: []
       }
     }
   },
