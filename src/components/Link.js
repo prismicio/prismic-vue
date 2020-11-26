@@ -41,7 +41,7 @@ export default ({
       href: url,
       ...field.target && {
         target: field.target,
-        rel: 'noopener',
+        rel: 'noopener noreferrer',
       },
     }
 
