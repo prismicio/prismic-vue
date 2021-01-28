@@ -8,7 +8,7 @@ import autoNamedExports from 'rollup-plugin-auto-named-exports';
 
 const globals = {
   'prismic-dom': 'prismicDOM',
-  'prismic-javascript': 'prismicJS'
+  '@prismicio/client': 'prismicJS'
 };
 
 const plugins = (visualize = false, resolve = false) => [
@@ -22,7 +22,7 @@ const plugins = (visualize = false, resolve = false) => [
   ...(visualize ? [visualizer({ open: true })] : [])
 ];
 
-const external = ['prismic-dom', 'prismic-javascript'];
+const external = ['prismic-dom', '@prismicio/client'];
 
 export default function makeConfig(commandOptions) {
   return [{

@@ -11,12 +11,12 @@ Looking for a Nuxt solution? Here you go 👉 [@nuxtjs/prismic plugin](https://g
 
 ⚠️ We've moved `prismic-vue` to `@prismicio/vue`. You can safely replace the former with the latter to your node modules ✌️
 
-`@prismic/vue` relies on `prismic-javascript` and `prismic-dom`.
+`@prismic/vue` relies on `@prismicio/client` and `prismic-dom`.
 If you are migrating from V1, make sure to install them too as they are now peer dependencies.
 ``` bash
-npm install @prismicio/vue prismic-javascript prismic-dom
+npm install @prismicio/vue @prismicio/client prismic-dom
 ```
-👉 quick note: prismic-javascript is a library responsible for _making requests to your Prismic endpoint_,
+👉 quick note: @prismicio/client is a library responsible for _making requests to your Prismic endpoint_,
 while prismic-dom is responsible for serializing html from RichText ([RichText you said?](https://user-guides.prismic.io/en/articles/383762-rich-text)).
 
 # What it does
@@ -24,7 +24,7 @@ while prismic-dom is responsible for serializing html from RichText ([RichText y
 This package serves two purposes and can actually be split into two different parts.
 
 #### 1- Queries
-The first purpose of `@prismicio/vue` is to offer an easy way to fetch your Prismic content. When registering `PrismicVue`, we directly inject a `prismic-javascript` instance, to be used anywhere in your Vue project.
+The first purpose of `@prismicio/vue` is to offer an easy way to fetch your Prismic content. When registering `PrismicVue`, we directly inject a `@prismicio/client` instance, to be used anywhere in your Vue project.
 
 ``` javascript
 import prismicJS from 'prismic-js';
@@ -76,7 +76,7 @@ When registering the plugin, you may pass these options. Although `linkResolver`
 | linkType       	| string   	| no       	| vueRouter     	| Link components may be handled differently based on what you use. Currently accepted values: 'vueRouter' and 'nuxt'. 	|
 
 ### 2/Query your content
-Because we inject a `prismic-javascript` instance into Vue, each of its method are accessible from your components. Make sure to check [its documentation](https://github.com/prismicio/prismic-javascript)!
+Because we inject a `@prismicio/client` instance into Vue, each of its method are accessible from your components. Make sure to check [its documentation](https://github.com/prismicio/prismic-javascript)!
 
 A bare bone example that fetches data from a `home` document and then sets a `fields` data object:
 ```javascript
