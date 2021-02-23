@@ -118,6 +118,8 @@ Following the example above, let's write the associated template:
 </template>
 ```
 
+> :warning: In-dom templates don't support self-closing tags, close them manually instead, e.g.: `<prismic-image :field="fields.logo"></prismic-image>` 
+
 👆 If you were to log `document.data` in our previous query, you would notice that `title` and `somethingRich` are actually arrays instead of strings. This is because Prismic provides content writers with a WYSIWYG editor. It's awesome for formatting text but harder to deal with on client side. Fortunately, `prismic-rich-text` is a component made to deal with this format.
 
 Obviously, `prismic-image` works the same way on image fields, stored in your Prismic API.
