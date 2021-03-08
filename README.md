@@ -132,6 +132,10 @@ List of available components and use cases:
 
 👆 Make sure to have a look at their source code: it is quite short, does simple things and might help you understand how we convert a Prismic API response into something that can actually be committed to the DOM.
 
+# Imgix images
+based on the url builder described at [imgix](https://docs.imgix.com/libraries/imgix-core-js#imgixclientbuildurlpath-params)
+ALl parameters can be found here: https://docs.imgix.com/apis/url
+
 # Integrate prismic-vue components
 
 If you are working on a `prismic-vue` integration (like Nuxt does for example), you might find the need to use the components, without using the actual `PrismicVue` plugin. We've got you covered:
