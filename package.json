@@ -17,8 +17,8 @@
     "visualize": "rollup -c --config-visualize"
   },
   "peerDependencies": {
-    "prismic-dom": "^2.1.1",
-    "@prismicio/client": "^4.0.0"
+    "@prismicio/client": "^4.0.0",
+    "prismic-dom": "^2.1.1"
   },
   "engines": {
     "node": ">= 6.0.0",
@@ -27,8 +27,8 @@
   "devDependencies": {
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
-    "prismic-dom": "^2.1.1",
     "@prismicio/client": "^4.0.0",
+    "prismic-dom": "^2.1.1",
     "rollup": "^0.62.0",
     "rollup-plugin-auto-named-exports": "^1.0.0-beta.3",
     "rollup-plugin-babel": "^4.3.3",
