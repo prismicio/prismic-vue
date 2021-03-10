@@ -1,6 +1,6 @@
 {
   "name": "@prismicio/vue",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Vue.js plugin to facilitate integration of content managed with Prismic",
   "license": "Apache-2.0",
   "repository": "github:prismicio/prismic-vue",
@@ -18,7 +18,7 @@
   },
   "peerDependencies": {
     "@prismicio/client": "^4.0.0",
-    "prismic-dom": "^2.1.1"
+    "prismic-dom": "^2.2.5"
   },
   "engines": {
     "node": ">= 6.0.0",
@@ -28,7 +28,8 @@
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@prismicio/client": "^4.0.0",
-    "prismic-dom": "^2.1.1",
+    "postcss": "^7.0.35",
+    "prismic-dom": "^2.2.5",
     "rollup": "^0.62.0",
     "rollup-plugin-auto-named-exports": "^1.0.0-beta.3",
     "rollup-plugin-babel": "^4.3.3",
@@ -37,6 +38,6 @@
     "rollup-plugin-visualizer": "^2.6.0",
     "rollup-plugin-vue": "^4.3.0",
     "uglify-js": "^3.4.3",
-    "vue-template-compiler": "^2.5.16"
+    "vue-template-compiler": "^2.6.12"
   }
 }
