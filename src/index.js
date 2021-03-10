@@ -1,4 +1,4 @@
-import prismicJS from 'prismic-javascript'
+import prismicJS from '@prismicio/client'
 
 import Components from './components'
 import { asHtml, asText, asDate, asLink } from './methods'
