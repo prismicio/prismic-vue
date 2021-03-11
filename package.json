@@ -1,6 +1,6 @@
 {
   "name": "@prismicio/vue",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Vue.js plugin to facilitate integration of content managed with Prismic",
   "license": "Apache-2.0",
   "repository": "github:prismicio/prismic-vue",
@@ -10,6 +10,11 @@
   "module": "dist/prismic-vue.esm.js",
   "unpkg": "dist/prismic-vue.min.js",
   "jsdelivr": "dist/prismic-vue.min.js",
+  "files": [
+    "components",
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "rollup -c --environment BUILD:production && uglifyjs dist/prismic-vue.js -o dist/prismic-vue.min.js",
     "beauty": "rollup -c",
