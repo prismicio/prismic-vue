@@ -12,10 +12,7 @@ export default ({
     },
     linkResolver: {
       type: Function,
-      required: false,
-      default () {
-        return null
-      }
+      required: false
     }
   },
   render(h, { props, data, children, parent }) {
@@ -27,7 +24,7 @@ export default ({
 
     const url = parent.$prismic
       ? parent.$prismic.asLink(field, linkResolver)
-      : PrismicDom.Link.url(field, linkResolver)
+      : PrismicDom.Link.url(field, linkResolver || function() { return null; })
 
     if (url.indexOf('/') === 0) {
       data.props = data.props || {};
