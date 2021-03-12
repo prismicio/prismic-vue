@@ -1,3 +1,7 @@
+### **🚨 @prismicio/vue @ 2.0.8+ (currently 2.0.11) 🚨**
+
+**With version 2.0.8 (and above) we had to introduce a minor change by updating required peer dependencies for `@prismicio/vue`, moving from `prismic-javascript` to its new package name `@prismicio/client`, you might need to install it for this kit to keep working.**
+
 ![alt text](https://prismic.io/...1b58998/images/logo-dark.svg)
 
 [![npm version](https://badge.fury.io/js/%40prismicio%2Fvue.svg)](http://badge.fury.io/js/@prismicio/vue)
