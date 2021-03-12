@@ -1,6 +1,6 @@
 {
   "name": "@prismicio/vue",
-  "version": "2.0.9",
+  "version": "2.0.11",
   "description": "Vue.js plugin to facilitate integration of content managed with Prismic",
   "license": "Apache-2.0",
   "repository": "github:prismicio/prismic-vue",
@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "build": "rollup -c --environment BUILD:production && uglifyjs dist/prismic-vue.js -o dist/prismic-vue.min.js",
+    "release": "npm run build && npm publish",
     "beauty": "rollup -c",
     "dev": "rollup -c --watch --environment BUILD:development",
     "visualize": "rollup -c --config-visualize"
