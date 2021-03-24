@@ -4,8 +4,17 @@ module.exports = {
     browser: true,
     node: true
   },
-  parser: "babel-eslint",
-  extends: ["plugin:vue/recommended", "plugin:prettier/recommended"],
+  parserOptions: {
+    parser: "@typescript-eslint/parser",
+    ecmaVersion: 2020
+  },
+  extends: [
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:vue/vue3-recommended",
+    "@vue/typescript/recommended",
+    "plugin:prettier/recommended"
+  ],
   plugins: [],
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",

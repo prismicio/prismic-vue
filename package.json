@@ -34,15 +34,24 @@
     "lint": "eslint --ext .js,.ts,.vue .",
     "test": "yarn lint && jest"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@prismicio/client": "^4.0.0",
+    "prismic-dom": "^2.2.5"
+  },
   "devDependencies": {
-    "babel-eslint": "10.1.0",
+    "@typescript-eslint/eslint-plugin": "4.19.0",
+    "@typescript-eslint/parser": "4.19.0",
+    "@vue/eslint-config-typescript": "7.0.0",
     "eslint": "7.22.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-prettier": "3.3.1",
     "eslint-plugin-vue": "7.8.0",
     "prettier": "2.2.1",
-    "siroc": "0.8.0"
+    "siroc": "0.8.0",
+    "vue": "3.0.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
   },
   "engines": {
     "node": ">=12.0.0"
