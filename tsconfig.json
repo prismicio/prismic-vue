@@ -1,25 +1,28 @@
 {
   "compilerOptions": {
     "strict": true,
-    "target": "es2018",
+    "skipLibCheck": true,
+
+    "target": "esnext",
     "module": "esnext",
+    "declaration": false,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+    "jsx": "preserve",
     "lib": [
       "esnext",
       "dom"
     ],
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "declaration": false,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
     "types": [
+      "jest",
       "node"
     ]
   },
   "exclude": [
     "node_modules",
-    "examples",
     "dist"
   ]
 }
