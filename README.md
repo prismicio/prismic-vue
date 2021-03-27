@@ -1,4 +1,6 @@
-[WIP] Some changes has been commited already Lucie!
+# @prismicio/vue
+
+[WIP]
 
 ## License
 
