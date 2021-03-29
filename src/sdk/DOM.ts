@@ -1,16 +1,18 @@
 import PrismicDOM from "prismic-dom";
 import type {
-  HtmlSerializer,
-  SdkWithInterface,
-  LinkResolver,
   PrismicPluginOptions,
-  RichTextBlock
+  LinkResolver,
+  RichTextBlock,
+  HtmlSerializer
 } from "../types";
+import { SDK, SDKWithInterface, SDKWithInterfaceKeys } from "./SDK";
 
-export type DOMInterface = Omit<DOM, "interface" | "options">;
+export type DOMInterface = Omit<DOM, SDKWithInterfaceKeys>;
 
-export class DOM implements SdkWithInterface<DOMInterface> {
-  constructor(public options: Required<PrismicPluginOptions>) {}
+export class DOM extends SDK implements SDKWithInterface<DOMInterface> {
+  constructor(options: Required<PrismicPluginOptions>) {
+    super(options);
+  }
 
   get interface(): DOMInterface {
     return {

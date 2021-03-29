@@ -1,5 +1,12 @@
 import type { App } from "vue";
-import { Client, ClientInterface, DOM, DOMInterface } from "./sdk";
+import {
+  Client,
+  ClientInterface,
+  Components,
+  ComponentsInterface,
+  DOM,
+  DOMInterface
+} from "./sdk";
 import { PrismicKey, PrismicPluginError, PrismicPluginOptions } from "./types";
 
 const defaults: Required<PrismicPluginOptions> = {
@@ -15,12 +22,14 @@ export function createPrismic(options: PrismicPluginOptions): Prismic {
 
 export type PrismicPluginInterface = Required<PrismicPluginOptions> &
   ClientInterface &
-  DOMInterface;
+  DOMInterface &
+  ComponentsInterface;
 
 export class Prismic {
   options: Required<PrismicPluginOptions>;
   client: Client;
   dom: DOM;
+  components: Components;
 
   constructor(options: PrismicPluginOptions) {
     this.options = { ...defaults, ...options };
@@ -31,19 +40,25 @@ export class Prismic {
 
     this.client = new Client(this.options);
     this.dom = new DOM(this.options);
+    this.components = new Components(this.options);
   }
 
   get interface(): PrismicPluginInterface {
     return {
       ...this.options,
       ...this.client.interface,
-      ...this.dom.interface
+      ...this.dom.interface,
+      ...this.components.interface
     };
   }
 
   install(app: App, injectKey?: string): void {
     app.provide(injectKey || PrismicKey, this.interface);
     app.config.globalProperties.$prismic = this.interface;
+
+    this.client.install(app);
+    this.dom.install(app);
+    this.components.install(app);
   }
 }
 

@@ -1,4 +1,4 @@
-import { ApiOptions } from "@prismicio/client/types/Api";
+import type { ApiOptions } from "@prismicio/client/types/Api";
 
 export const PrismicKey = "prismic";
 
@@ -11,11 +11,6 @@ export interface PrismicPluginOptions {
 
 export enum PrismicPluginError {
   MissingEndpoint = "[@prismicio/vue] Property `endpoint` is mandatory"
-}
-
-export interface SdkWithInterface<T> {
-  options: Required<PrismicPluginOptions>;
-  interface: T;
 }
 
 // Missing types from underlying kits

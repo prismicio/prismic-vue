@@ -1,17 +1,27 @@
 <template>
-  {{ previewCookie }}
+  <nav>
+    <ul>
+      <li>
+        <router-link to="/">index</router-link>
+      </li>
+      <li>
+        components
+        <ul>
+          <li>
+            <router-link to="/components/image">image</router-link>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <router-view />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "App",
-  computed: {
-    previewCookie() {
-      return this.$prismic.previewCookie;
-    }
-  }
+  name: "App"
 });
 </script>
 
