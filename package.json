@@ -33,11 +33,13 @@
   "scripts": {
     "build": "siroc build",
     "dev": "vite playground",
+    "generate": "vite build playground",
     "lint": "eslint --ext .js,.ts,.vue .",
     "test": "yarn lint && jest"
   },
   "dependencies": {
     "@prismicio/client": "^4.0.0",
+    "defu": "3.2.2",
     "prismic-dom": "^2.2.5"
   },
   "devDependencies": {

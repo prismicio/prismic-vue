@@ -1,3 +1,4 @@
+import defu from "defu";
 import type { App } from "vue";
 import {
   Client,
@@ -9,11 +10,22 @@ import {
 } from "./sdk";
 import { PrismicKey, PrismicPluginError, PrismicPluginOptions } from "./types";
 
-const defaults: Required<PrismicPluginOptions> = {
+const DEFAULTS: Required<PrismicPluginOptions> = {
   endpoint: "",
   apiOptions: {},
   linkResolver: () => "/",
-  htmlSerializer: () => null
+  htmlSerializer: () => null,
+  sdkOptions: {
+    client: true,
+    dom: true,
+    components: {
+      link: {
+        anchorTag: "a",
+        frameworkLink: "router-link",
+        blankTargetRelAttribute: "noopener"
+      }
+    }
+  }
 };
 
 export function createPrismic(options: PrismicPluginOptions): Prismic {
@@ -32,7 +44,10 @@ export class Prismic {
   components: Components;
 
   constructor(options: PrismicPluginOptions) {
-    this.options = { ...defaults, ...options };
+    this.options = defu<
+      Required<PrismicPluginOptions>,
+      Required<PrismicPluginOptions>
+    >(options as Required<PrismicPluginOptions>, DEFAULTS);
 
     if (!this.options.endpoint) {
       throw new Error(PrismicPluginError.MissingEndpoint);
