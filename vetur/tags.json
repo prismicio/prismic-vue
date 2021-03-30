@@ -1,0 +1,10 @@
+{
+  "prismic-image": {
+    "attributes": ["field"],
+    "description": "Render an image field coming from Prismic."
+  },
+  "prismic-embed": {
+    "attributes": ["field", "wrapper"],
+    "description": "Render an embed field coming from Prismic."
+  }
+}

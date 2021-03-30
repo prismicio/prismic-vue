@@ -1,0 +1,9 @@
+{
+  "field": {
+    "description": "Prismic field for the component to use."
+  },
+  "wrapper": {
+    "type": "string",
+    "description": "Tag used to wrap content output, defaults to a div."
+  }
+}
