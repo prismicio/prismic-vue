@@ -8,7 +8,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import { simple } from "./image.json";
+import { simple } from "../../mocks/image.json";
 
 export default defineComponent({
   name: "ComponentsImage",

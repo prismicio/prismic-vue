@@ -22,6 +22,22 @@ const routes: Array<RouteRecordRaw> = [
       import(
         /* webpackChunkName: "components--embed" */ "../views/components/embed.vue"
       )
+  },
+  {
+    path: "/components/link",
+    name: "ComponentsLink",
+    component: () =>
+      import(
+        /* webpackChunkName: "components--link" */ "../views/components/link.vue"
+      )
+  },
+  {
+    path: "/components/richtext",
+    name: "ComponentsRichText",
+    component: () =>
+      import(
+        /* webpackChunkName: "components--richtext" */ "../views/components/richtext.vue"
+      )
   }
 ];
 

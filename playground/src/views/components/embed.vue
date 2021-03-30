@@ -8,7 +8,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import { youtube, twitter } from "./embed.json";
+import { youtube, twitter } from "../../mocks/embed.json";
 
 export default defineComponent({
   name: "ComponentsEmbed",

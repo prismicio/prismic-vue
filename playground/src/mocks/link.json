@@ -1,0 +1,25 @@
+{
+  "simple": {
+    "link_type": "Web",
+    "url": "https://en.wikipedia.org/wiki/Atlantic_puffin#Behaviour"
+  },
+  "blank": {
+    "link_type": "Web",
+    "url": "https://en.wikipedia.org/wiki/Atlantic_puffin#Behaviour",
+    "target": "_blank"
+  },
+  "internal": {
+    "link_type": "Link.document",
+    "value": {
+      "document": {
+        "id": "Xo2E3REAAB8AUz6K",
+        "type": "page",
+        "tags": [],
+        "lang": "en-us",
+        "slug": "blog",
+        "uid": "blog"
+      },
+      "isBroken": false
+    }
+  }
+}

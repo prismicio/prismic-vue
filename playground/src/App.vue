@@ -13,10 +13,17 @@
           <li>
             <router-link to="/components/embed">embed</router-link>
           </li>
+          <li>
+            <router-link to="/components/link">link</router-link>
+          </li>
+          <li>
+            <router-link to="/components/richtext">richtext</router-link>
+          </li>
         </ul>
       </li>
     </ul>
   </nav>
+  <hr />
   <router-view />
 </template>
 
