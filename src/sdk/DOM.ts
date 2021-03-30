@@ -3,7 +3,8 @@ import type {
   PrismicPluginOptions,
   LinkResolver,
   RichTextBlock,
-  HtmlSerializer
+  HtmlSerializer,
+  LinkField
 } from "../types";
 import { SDK, SDKWithInterface, SDKWithInterfaceKeys } from "./SDK";
 
@@ -23,31 +24,32 @@ export class DOM extends SDK implements SDKWithInterface<DOMInterface> {
     };
   }
 
-  asText(richText: RichTextBlock[] = [], joinString?: string): string {
+  asText = (richText: RichTextBlock[] = [], joinString?: string): string => {
     return PrismicDOM.RichText.asText(richText, joinString);
-  }
+  };
 
-  asHtml(
+  asHtml = (
     richText: RichTextBlock[] = [],
     linkResolver?: LinkResolver,
     htmlSerializer?: HtmlSerializer<string>
-  ): string {
+  ): string => {
     if (!linkResolver) {
       linkResolver = this.options.linkResolver;
     }
     return PrismicDOM.RichText.asHtml(richText, linkResolver, htmlSerializer);
-  }
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-  asLink(link: any, linkResolver?: LinkResolver): string {
+  asLink = (link: LinkField, linkResolver?: LinkResolver): string => {
     if (!linkResolver) {
+      console.log(this);
       linkResolver = this.options.linkResolver;
     }
     return PrismicDOM.Link.url(link, linkResolver);
-  }
+  };
 
-  asDate(date?: string): string {
+  asDate = (date?: string): string => {
     // PrismicDOM.Date() can return null
     return PrismicDOM.Date(date) || "";
-  }
+  };
 }
