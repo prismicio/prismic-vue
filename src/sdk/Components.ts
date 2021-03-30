@@ -1,6 +1,6 @@
 import type { App } from "vue";
 import type { PrismicPluginOptions } from "../types";
-import { PrismicImage } from "../components";
+import { PrismicEmbed, PrismicImage } from "../components";
 import { SDK, SDKWithInterface } from "./SDK";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -19,5 +19,6 @@ export class Components
 
   install(app: App): void {
     app.component(PrismicImage.name, PrismicImage);
+    app.component(PrismicEmbed.name, PrismicEmbed);
   }
 }
