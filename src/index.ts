@@ -3,6 +3,8 @@ export type { PrismicPluginInterface } from "./Prismic";
 
 export { usePrismic } from "./useApi";
 
+export { PrismicImage, PrismicEmbed } from "./components";
+
 export type {
   PrismicPluginOptions,
   LinkResolverDoc,

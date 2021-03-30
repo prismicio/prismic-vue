@@ -1,12 +1,18 @@
-import { defineComponent, h, PropType } from "vue";
+import {
+  AllowedComponentProps,
+  ComponentCustomProps,
+  defineComponent,
+  h,
+  PropType,
+  VNodeProps
+} from "vue";
+import { ImageField } from "../types";
 
-interface ImageField {
-  url: string;
-  alt?: string;
-  copyright?: string;
+interface PrismicImageProps {
+  field: ImageField;
 }
 
-export const PrismicImage = defineComponent({
+export const PrismicImageImpl = defineComponent({
   name: "PrismicImage",
   props: {
     field: {
@@ -15,8 +21,23 @@ export const PrismicImage = defineComponent({
     }
   },
   render() {
+    if (!this.field) {
+      return null;
+    }
+
     const { url: src, alt, copyright } = this.field;
 
     return h("img", { src, alt, copyright });
   }
 });
+
+// export the public type for h/tsx inference
+// also to avoid inline import() in generated d.ts files
+export const PrismicImage = (PrismicImageImpl as any) as {
+  new (): {
+    $props: AllowedComponentProps &
+      ComponentCustomProps &
+      VNodeProps &
+      PrismicImageProps;
+  };
+};

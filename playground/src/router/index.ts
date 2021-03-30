@@ -14,6 +14,14 @@ const routes: Array<RouteRecordRaw> = [
       import(
         /* webpackChunkName: "components--image" */ "../views/components/image.vue"
       )
+  },
+  {
+    path: "/components/embed",
+    name: "ComponentsEmbed",
+    component: () =>
+      import(
+        /* webpackChunkName: "components--embed" */ "../views/components/embed.vue"
+      )
   }
 ];
 

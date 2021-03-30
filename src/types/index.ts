@@ -13,6 +13,20 @@ export enum PrismicPluginError {
   MissingEndpoint = "[@prismicio/vue] Property `endpoint` is mandatory"
 }
 
+// Fields
+export interface ImageField {
+  url: string;
+  alt?: string;
+  copyright?: string;
+}
+
+export interface EmbedField {
+  html: string;
+  embed_url?: string;
+  type?: string;
+  provider_name?: string;
+}
+
 // Missing types from underlying kits
 export interface LinkResolverDoc {
   id: string;

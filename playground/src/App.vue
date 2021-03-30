@@ -10,6 +10,9 @@
           <li>
             <router-link to="/components/image">image</router-link>
           </li>
+          <li>
+            <router-link to="/components/embed">embed</router-link>
+          </li>
         </ul>
       </li>
     </ul>
