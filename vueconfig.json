@@ -1,0 +1,5 @@
+{
+  "globalComponents": [
+    "src/components/*.ts"
+  ]
+}
