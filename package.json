@@ -14,13 +14,6 @@
   },
   "license": "Apache-2.0",
   "author": "Prismic <contact@prismic.io> (https://prismic.io)",
-  "exports": {
-    ".": {
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.cjs.js"
-    },
-    "./package.json": "./package.json"
-  },
   "main": "dist/index.cjs.js",
   "jsdelivr": "dist/index.min.js",
   "unpkg": "dist/index.min.js",
@@ -62,7 +55,7 @@
     "siroc": "0.8.0",
     "standard-version": "9.1.1",
     "vite": "2.1.5",
-    "vue": "3.0.7",
+    "vue": "3.0.10",
     "vue-router": "4.0.5",
     "vue-tsc": "0.0.18"
   },

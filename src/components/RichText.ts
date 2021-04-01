@@ -23,12 +23,12 @@ export const PrismicRichTextImpl = defineComponent({
       required: true
     },
     linkResolver: {
-      type: Function as PropType<LinkResolver | undefined>,
+      type: Function as PropType<LinkResolver>,
       default: undefined,
       required: false
     },
     htmlSerializer: {
-      type: Function as PropType<HtmlSerializer<string> | undefined>,
+      type: Function as PropType<HtmlSerializer<string>>,
       default: undefined,
       required: false
     },

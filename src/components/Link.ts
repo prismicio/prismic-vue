@@ -35,7 +35,7 @@ export const PrismicLinkImpl = defineComponent({
       required: true
     },
     linkResolver: {
-      type: Function as PropType<LinkResolver | undefined>,
+      type: Function as PropType<LinkResolver>,
       default: undefined,
       required: false
     }
