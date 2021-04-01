@@ -1,27 +1,31 @@
 import type { ApiOptions } from "@prismicio/client/types/Api";
 
+export type DeepPartial<T> = {
+  [P in keyof T]?: DeepPartial<T[P]>;
+};
+
 export const PrismicKey = "prismic";
 
 export type DOMOptions = Record<string, never>;
 export type ClientOptions = Record<string, never>;
 export interface ComponentsOptions {
-  link?: {
-    anchorTag?: string;
-    frameworkLink?: string;
-    blankTargetRelAttribute?: string;
+  link: {
+    anchorTag: string;
+    frameworkLink: string;
+    blankTargetRelAttribute: string;
   };
 }
 
 export interface PrismicPluginOptions {
   endpoint: string;
   apiOptions?: ApiOptions;
+
   linkResolver?: LinkResolver;
   htmlSerializer?: HtmlSerializer<string>;
-  sdkOptions?: {
-    client?: boolean | ClientOptions;
-    dom?: boolean | DOMOptions;
-    components?: boolean | ComponentsOptions;
-  };
+
+  client?: boolean | DeepPartial<ClientOptions>;
+  dom?: boolean | DeepPartial<DOMOptions>;
+  components?: boolean | DeepPartial<ComponentsOptions>;
 }
 
 export enum PrismicPluginError {
@@ -53,6 +57,8 @@ export interface LinkField extends LinkFieldRaw {
   value?: { document: LinkFieldRaw; isBroken?: boolean };
   target?: string;
 }
+
+export type RichTextField = RichTextBlock[];
 
 // Missing types from underlying kits
 export interface LinkResolverDoc {

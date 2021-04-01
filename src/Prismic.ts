@@ -13,57 +13,80 @@ import { PrismicKey, PrismicPluginError, PrismicPluginOptions } from "./types";
 const DEFAULTS: Required<PrismicPluginOptions> = {
   endpoint: "",
   apiOptions: {},
+
+  // Default resolver and serializer
   linkResolver: () => "/",
   htmlSerializer: () => null,
-  sdkOptions: {
-    client: true,
-    dom: true,
-    components: {
-      link: {
-        anchorTag: "a",
-        frameworkLink: "router-link",
-        blankTargetRelAttribute: "noopener"
-      }
-    }
-  }
+
+  // All kits activated by default
+  client: {},
+  dom: {},
+  components: {}
 };
 
 export function createPrismic(options: PrismicPluginOptions): Prismic {
   return new Prismic(options);
 }
 
-export type PrismicPluginInterface = Required<PrismicPluginOptions> &
+export type PrismicPluginInterface = Pick<
+  Required<PrismicPluginOptions>,
+  "endpoint" | "apiOptions" | "linkResolver" | "htmlSerializer"
+> &
   ClientInterface &
   DOMInterface &
   ComponentsInterface;
 
+type PartialPrismicPluginInterface = Pick<
+  Required<PrismicPluginOptions>,
+  "endpoint" | "apiOptions" | "linkResolver" | "htmlSerializer"
+> &
+  Partial<ClientInterface> &
+  Partial<DOMInterface> &
+  Partial<ComponentsInterface>;
+
 export class Prismic {
   options: Required<PrismicPluginOptions>;
-  client: Client;
-  dom: DOM;
-  components: Components;
+
+  client?: Client;
+  dom?: DOM;
+  components?: Components;
 
   constructor(options: PrismicPluginOptions) {
+    if (!options.endpoint) {
+      throw new Error(PrismicPluginError.MissingEndpoint);
+    }
+
+    // Resolve options
     this.options = defu<
       Required<PrismicPluginOptions>,
       Required<PrismicPluginOptions>
     >(options as Required<PrismicPluginOptions>, DEFAULTS);
 
-    if (!this.options.endpoint) {
-      throw new Error(PrismicPluginError.MissingEndpoint);
+    // Create SDKs
+    if (this.options.client) {
+      this.client = new Client(this.options);
     }
-
-    this.client = new Client(this.options);
-    this.dom = new DOM(this.options);
-    this.components = new Components(this.options);
+    if (this.options.dom) {
+      this.dom = new DOM(this.options);
+    }
+    if (this.options.components) {
+      this.components = new Components(this.options);
+    }
   }
 
-  get interface(): PrismicPluginInterface {
+  get interface(): PartialPrismicPluginInterface {
+    const { endpoint, apiOptions, linkResolver, htmlSerializer } = this.options;
+
     return {
-      ...this.options,
-      ...this.client.interface,
-      ...this.dom.interface,
-      ...this.components.interface
+      endpoint,
+      apiOptions,
+
+      linkResolver,
+      htmlSerializer,
+
+      ...(this.client?.interface ?? {}),
+      ...(this.dom?.interface ?? {}),
+      ...(this.components?.interface ?? {})
     };
   }
 
@@ -71,12 +94,13 @@ export class Prismic {
     app.provide(injectKey || PrismicKey, this.interface);
     app.config.globalProperties.$prismic = this.interface;
 
-    this.client.install(app);
-    this.dom.install(app);
-    this.components.install(app);
+    this.client?.install(app);
+    this.dom?.install(app);
+    this.components?.install(app);
   }
 }
 
+// This might be potentially wrong when deactivating some kits
 declare module "@vue/runtime-core" {
   export interface ComponentCustomProperties {
     $prismic: PrismicPluginInterface;

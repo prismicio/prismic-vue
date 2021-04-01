@@ -1,19 +1,21 @@
 <template>
-  <div class="componentsRichText">richtext</div>
+  <div class="componentsRichText">
+    <prismic-rich-text :field="single" />
+    <prismic-rich-text :field="multi" />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import { simple, blank, internal } from "../../mocks/link.json";
+import { single, multi } from "../../mocks/richtext.json";
 
 export default defineComponent({
   name: "ComponentsRichText",
   data() {
     return {
-      simple,
-      blank,
-      internal
+      single,
+      multi
     };
   }
 });

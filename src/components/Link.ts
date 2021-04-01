@@ -49,7 +49,7 @@ export const PrismicLinkImpl = defineComponent({
       anchorTag,
       frameworkLink,
       blankTargetRelAttribute
-    } = this.$prismic.sdkOptions.components.link;
+    } = this.$prismic.components.link;
     const href = this.$prismic.asLink(this.field, this.linkResolver);
     const tag = getLinkTag(href, anchorTag, frameworkLink);
 
