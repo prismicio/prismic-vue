@@ -33,6 +33,7 @@ export const PrismicImageImpl = defineComponent({
 
 // export the public type for h/tsx inference
 // also to avoid inline import() in generated d.ts files
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const PrismicImage = (PrismicImageImpl as any) as {
   new (): {
     $props: AllowedComponentProps &

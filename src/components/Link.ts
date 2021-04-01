@@ -76,6 +76,7 @@ export const PrismicLinkImpl = defineComponent({
 
 // export the public type for h/tsx inference
 // also to avoid inline import() in generated d.ts files
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const PrismicLink = (PrismicLinkImpl as any) as {
   new (): {
     $props: AllowedComponentProps &
