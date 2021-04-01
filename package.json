@@ -34,6 +34,10 @@
     "build": "siroc build",
     "dev": "vite playground",
     "generate": "vite build playground",
+    "release": "yarn build && yarn test && standard-version && git push --follow-tags && yarn build && npm publish",
+    "release:dry": "standard-version --dry-run",
+    "release:alpha": "yarn build && yarn test && standard-version --release-as major --prerelease alpha && git push --follow-tags && yarn build && npm publish --tag alpha",
+    "release:alpha:dry": "standard-version --release-as major --prerelease alpha --dry-run",
     "lint": "eslint --ext .js,.ts,.vue .",
     "test": "yarn lint && jest"
   },
@@ -56,6 +60,7 @@
     "jest": "26.6.3",
     "prettier": "2.2.1",
     "siroc": "0.8.0",
+    "standard-version": "9.1.1",
     "vite": "2.1.5",
     "vue": "3.0.7",
     "vue-router": "4.0.5",
