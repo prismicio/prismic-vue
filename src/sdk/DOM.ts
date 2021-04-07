@@ -42,7 +42,6 @@ export class DOM extends SDK implements SDKWithInterface<DOMInterface> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   asLink = (link: LinkField, linkResolver?: LinkResolver): string => {
     if (!linkResolver) {
-      console.log(this);
       linkResolver = this.options.linkResolver;
     }
     return PrismicDOM.Link.url(link, linkResolver);
