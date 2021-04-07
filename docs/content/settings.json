@@ -1,7 +1,7 @@
 {
   "title": "@prismicio/vue",
   "description": "Prismic development kit for Vue.js 3",
-  "url": "https://prismic-vue.netlify.app",
+  "url": "https://prismic-vue-next.netlify.app",
   "layout": "docs",
   "logo": {
     "light": "/logo-light.svg",
