@@ -8,7 +8,7 @@ declare module "prismic-dom" {
     url: (link?: any, linkResolver?: LinkResolver) => string;
   };
 
-  function Date(date?: string): string | null;
+  function Date(date?: string): Date | null;
 
   interface Elements {
     heading1: "heading1";

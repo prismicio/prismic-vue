@@ -2,9 +2,9 @@ import PrismicDOM from "prismic-dom";
 import type {
   PrismicPluginOptions,
   LinkResolver,
-  RichTextBlock,
   HtmlSerializer,
-  LinkField
+  LinkField,
+  RichTextField
 } from "../types";
 import { SDK, SDKWithInterface, SDKWithInterfaceKeys } from "./SDK";
 
@@ -24,12 +24,12 @@ export class DOM extends SDK implements SDKWithInterface<DOMInterface> {
     };
   }
 
-  asText = (richText: RichTextBlock[] = [], joinString?: string): string => {
+  asText = (richText: RichTextField, joinString?: string): string => {
     return PrismicDOM.RichText.asText(richText, joinString);
   };
 
   asHtml = (
-    richText: RichTextBlock[] = [],
+    richText: RichTextField,
     linkResolver?: LinkResolver,
     htmlSerializer?: HtmlSerializer<string>
   ): string => {
@@ -47,8 +47,8 @@ export class DOM extends SDK implements SDKWithInterface<DOMInterface> {
     return PrismicDOM.Link.url(link, linkResolver);
   };
 
-  asDate = (date?: string): string => {
+  asDate = (date?: string): Date | undefined => {
     // PrismicDOM.Date() can return null
-    return PrismicDOM.Date(date) || "";
+    return PrismicDOM.Date(date) || undefined;
   };
 }
