@@ -7,6 +7,10 @@ export { PrismicImage, PrismicEmbed } from "./components";
 
 export type {
   PrismicPluginOptions,
+  RichTextField,
+  LinkField,
+  ImageField,
+  EmbedField,
   LinkResolverDoc,
   LinkResolver,
   RichTextSpan,

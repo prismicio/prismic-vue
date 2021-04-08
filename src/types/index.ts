@@ -6,8 +6,8 @@ export type DeepPartial<T> = {
 
 export const PrismicKey = "prismic";
 
-export type DOMOptions = Record<string, never>;
 export type ClientOptions = Record<string, never>;
+export type DOMOptions = Record<string, never>;
 export interface ComponentsOptions {
   link: {
     anchorTag: string;
@@ -33,18 +33,7 @@ export enum PrismicPluginError {
 }
 
 // Fields
-export interface ImageField {
-  url: string;
-  alt?: string;
-  copyright?: string;
-}
-
-export interface EmbedField {
-  html: string;
-  embed_url?: string;
-  type?: string;
-  provider_name?: string;
-}
+export type RichTextField = RichTextBlock[];
 
 interface LinkFieldRaw extends Partial<LinkResolverDoc> {
   url?: string;
@@ -58,7 +47,18 @@ export interface LinkField extends LinkFieldRaw {
   target?: string;
 }
 
-export type RichTextField = RichTextBlock[];
+export interface ImageField {
+  url: string;
+  alt?: string;
+  copyright?: string;
+}
+
+export interface EmbedField {
+  html: string;
+  embed_url?: string;
+  type?: string;
+  provider_name?: string;
+}
 
 // Missing types from underlying kits
 export interface LinkResolverDoc {
