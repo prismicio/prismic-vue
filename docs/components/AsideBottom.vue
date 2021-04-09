@@ -11,7 +11,7 @@
           href="https://github.com/prismicio/prismic-vue/issues/46"
           target="_blank"
           rel="noopener"
-          class="flex items-center py-2 group dark:hover:text-gray-100 hover:text-gray-900"
+          class="flex items-center transition duration-200 py-2 group dark:hover:text-gray-100 hover:text-gray-900"
         >
           <span>🎉 &nbsp;Vue 3 Kit RFC</span>
           <svg
@@ -34,7 +34,7 @@
           href="https://community.prismic.io"
           target="_blank"
           rel="noopener"
-          class="flex items-center py-2 group dark:hover:text-gray-100 hover:text-gray-900"
+          class="flex items-center transition duration-200 py-2 group dark:hover:text-gray-100 hover:text-gray-900"
         >
           <span>📣 &nbsp;Community Forum</span>
           <svg
@@ -57,7 +57,7 @@
           href="https://prismic.io/docs?utm_campaign=devexp&utm_source=vue3doc&utm_medium=doc"
           target="_blank"
           rel="noopener"
-          class="flex items-center py-2 group dark:hover:text-gray-100 hover:text-gray-900"
+          class="flex items-center transition duration-200 py-2 group dark:hover:text-gray-100 hover:text-gray-900"
         >
           <span>📚 &nbsp;Official Documentation</span>
           <svg

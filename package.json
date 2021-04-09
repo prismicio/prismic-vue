@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@prismicio/client": "^4.0.0",
-    "defu": "3.2.2",
+    "defu": "^3.2.2",
     "prismic-dom": "^2.2.5"
   },
   "devDependencies": {
