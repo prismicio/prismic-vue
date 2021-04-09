@@ -1,6 +1,6 @@
 {
   "name": "@prismicio/vue",
-  "version": "2.0.11",
+  "version": "3.0.0-alpha.0",
   "description": "Prismic development kit for Vue.js",
   "keywords": [
     "vue",
