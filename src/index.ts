@@ -1,7 +1,7 @@
 export { createPrismic, Prismic } from "./Prismic";
 export type { PrismicPluginInterface } from "./Prismic";
 
-export { usePrismic } from "./useApi";
+export { usePrismic } from "./usePrismic";
 
 export { PrismicImage, PrismicEmbed } from "./components";
 

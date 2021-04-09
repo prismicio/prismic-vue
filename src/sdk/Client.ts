@@ -18,8 +18,8 @@ export class Client extends SDK implements SDKWithInterface<ClientInterface> {
   get interface(): ClientInterface {
     return {
       client: this.client,
-      previewCookie: this.previewCookie,
-      Predicates: this.Predicates
+      Predicates: this.Predicates,
+      previewCookie: this.previewCookie
     };
   }
 }
