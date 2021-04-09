@@ -7,6 +7,22 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "index" */ "../views/index.vue")
   },
+
+  {
+    path: "/dom/options",
+    name: "DOMOptions",
+    component: () =>
+      import(/* webpackChunkName: "dom--options" */ "../views/dom/options.vue")
+  },
+  {
+    path: "/dom/composition",
+    name: "dDOMXomposition",
+    component: () =>
+      import(
+        /* webpackChunkName: "dom--composition" */ "../views/dom/composition.vue"
+      )
+  },
+
   {
     path: "/components/image",
     name: "ComponentsImage",

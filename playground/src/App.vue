@@ -5,6 +5,17 @@
         <router-link to="/">index</router-link>
       </li>
       <li>
+        dom
+        <ul>
+          <li>
+            <router-link to="/dom/options">options</router-link>
+          </li>
+          <li>
+            <router-link to="/dom/composition">composition</router-link>
+          </li>
+        </ul>
+      </li>
+      <li>
         components
         <ul>
           <li>
