@@ -1,17 +1,17 @@
 {
-  "field": {
-    "description": "Prismic field for the component to use."
-  },
-  "link-resolver": {
-    "type": "function",
-    "description": "When provided, will use this link resolver instead of the one provided to the plugin."
-  },
-  "html-serializer": {
-    "type": "function",
-    "description": "When provided, will use this HTML serializer instead of the one provided to the plugin."
-  },
-  "wrapper": {
-    "type": "string",
-    "description": "Tag used to wrap content output, defaults to a div."
-  }
+	"field": {
+		"description": "Prismic field for the component to use."
+	},
+	"link-resolver": {
+		"type": "function",
+		"description": "When provided, will use this link resolver instead of the one provided to the plugin."
+	},
+	"html-serializer": {
+		"type": "function",
+		"description": "When provided, will use this HTML serializer instead of the one provided to the plugin."
+	},
+	"wrapper": {
+		"type": "string",
+		"description": "Tag used to wrap content output, defaults to a div."
+	}
 }

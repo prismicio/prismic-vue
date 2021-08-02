@@ -6,20 +6,20 @@ import { SDK, SDKWithInterface, SDKWithInterfaceKeys } from "./SDK";
 export type ClientInterface = Omit<Client, SDKWithInterfaceKeys>;
 
 export class Client extends SDK implements SDKWithInterface<ClientInterface> {
-  client: DefaultClient;
-  previewCookie: string = Prismic.previewCookie;
-  Predicates = Prismic.Predicates;
+	client: DefaultClient;
+	previewCookie: string = Prismic.previewCookie;
+	Predicates = Prismic.Predicates;
 
-  constructor(options: Required<PrismicPluginOptions>) {
-    super(options);
-    this.client = Prismic.client(options.endpoint, options.apiOptions);
-  }
+	constructor(options: Required<PrismicPluginOptions>) {
+		super(options);
+		this.client = Prismic.client(options.endpoint, options.apiOptions);
+	}
 
-  get interface(): ClientInterface {
-    return {
-      client: this.client,
-      Predicates: this.Predicates,
-      previewCookie: this.previewCookie
-    };
-  }
+	get interface(): ClientInterface {
+		return {
+			client: this.client,
+			Predicates: this.Predicates,
+			previewCookie: this.previewCookie,
+		};
+	}
 }
