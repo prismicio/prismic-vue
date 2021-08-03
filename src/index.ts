@@ -1,19 +1,18 @@
-// export { createPrismic, Prismic } from "./Prismic";
-// export type { PrismicPluginInterface } from "./Prismic";
+export { createPrismic, usePrismic } from "./prismic";
 
-// export { usePrismic } from "./usePrismic";
-
-// export { PrismicImage, PrismicEmbed } from "./components";
-
-// export type {
-// 	PrismicPluginOptions,
-// 	RichTextField,
-// 	LinkField,
-// 	ImageField,
-// 	EmbedField,
-// 	LinkResolverDoc,
-// 	LinkResolver,
-// 	RichTextSpan,
-// 	RichTextBlock,
-// 	HtmlSerializer,
-// } from "./types";
+export {
+	useAllPrismicDocuments,
+	useAllPrismicDocumentsByIDs,
+	useAllPrismicDocumentsByTag,
+	useAllPrismicDocumentsByTags,
+	useAllPrismicDocumentsByType,
+	useFirstPrismicDocument,
+	usePrismicDocumentByID,
+	usePrismicDocumentByUID,
+	usePrismicDocuments,
+	usePrismicDocumentsByIDs,
+	usePrismicDocumentsByTag,
+	usePrismicDocumentsByTags,
+	usePrismicDocumentsByType,
+	useSinglePrismicDocument,
+} from "./composables";
