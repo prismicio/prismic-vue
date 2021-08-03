@@ -1,4 +1,4 @@
-import { isRef, Ref, ref, unref, watch } from "vue";
+import { isRef, Ref, shallowRef, unref, watch } from "vue";
 
 import { Query } from "@prismicio/client";
 import { PrismicDocument } from "@prismicio/types";
@@ -22,7 +22,7 @@ export const createClientComposable = <
 	return <DocumentType extends PrismicDocument = PrismicDocument>(
 		...args: { [K in keyof TArgs]: TArgs[K] | Ref<TArgs[K]> }
 	): ReturnType<TNormalizer> => {
-		const result = ref(null) as Ref<UnwrapPromise<ReturnType<TMethod>> | null>;
+		const result = shallowRef<UnwrapPromise<ReturnType<TMethod>> | null>(null);
 
 		const { client } = usePrismic();
 
