@@ -1,127 +1,90 @@
-import { Client } from "@prismicio/client";
+import { Client, Query } from "@prismicio/client";
+import { PrismicDocument } from "@prismicio/types";
 
 import {
-	createClientComposableMultiple,
-	createClientComposablePaginated,
-	createClientComposableSingle,
-} from "./createClientComposable";
+	ClientMethodParameters,
+	ClientComposableReturnType,
+	useStatefulPrismicClientMethod,
+} from "./useStatefulPrismicClientMethod";
 
 // Helpers
 const proto = Client.prototype;
 
-type ClientPrototype = typeof Client.prototype;
-
-type ClientMethodParameters<MethodName extends keyof ClientPrototype> =
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	ClientPrototype[MethodName] extends (...args: any[]) => any
-		? Parameters<ClientPrototype[MethodName]>
-		: never;
-
 // Composables
-export const usePrismicDocuments = createClientComposablePaginated<
-	typeof proto.get,
-	[params?: ClientMethodParameters<"get">[0]]
->(proto.get);
+export const usePrismicDocuments = <DocumentType extends PrismicDocument>(
+	...args: ClientMethodParameters<"get">
+): ClientComposableReturnType<Query<DocumentType>> =>
+	useStatefulPrismicClientMethod(proto.get, args);
 
-export const useFirstPrismicDocument = createClientComposableSingle<
-	typeof proto.getFirst,
-	[params?: ClientMethodParameters<"getFirst">[0]]
->(proto.getFirst);
+export const useFirstPrismicDocument = <DocumentType extends PrismicDocument>(
+	...args: ClientMethodParameters<"getFirst">
+): ClientComposableReturnType<DocumentType> =>
+	useStatefulPrismicClientMethod(proto.getFirst, args);
 
-export const useAllPrismicDocuments = createClientComposableMultiple<
-	typeof proto.getAll,
-	[params?: ClientMethodParameters<"getAll">[0]]
->(proto.getAll);
+export const useAllPrismicDocuments = <DocumentType extends PrismicDocument>(
+	...args: ClientMethodParameters<"getAll">
+): ClientComposableReturnType<DocumentType[]> =>
+	useStatefulPrismicClientMethod(proto.getAll, args);
 
-export const usePrismicDocumentByID = createClientComposableSingle<
-	typeof proto.getByID,
-	[
-		id: ClientMethodParameters<"getByID">[0],
-		params?: ClientMethodParameters<"getByID">[1],
-	]
->(proto.getByID);
+export const usePrismicDocumentByID = <DocumentType extends PrismicDocument>(
+	...args: ClientMethodParameters<"getByID">
+): ClientComposableReturnType<DocumentType> =>
+	useStatefulPrismicClientMethod(proto.getByID, args);
 
-export const usePrismicDocumentsByIDs = createClientComposablePaginated<
-	typeof proto.getByIDs,
-	[
-		ids: ClientMethodParameters<"getByIDs">[0],
-		params?: ClientMethodParameters<"getByIDs">[1],
-	]
->(proto.getByIDs);
+export const usePrismicDocumentsByIDs = <DocumentType extends PrismicDocument>(
+	...args: ClientMethodParameters<"getByIDs">
+): ClientComposableReturnType<Query<DocumentType>> =>
+	useStatefulPrismicClientMethod(proto.getByIDs, args);
 
-export const useAllPrismicDocumentsByIDs = createClientComposableMultiple<
-	typeof proto.getAllByIDs,
-	[
-		ids: ClientMethodParameters<"getAllByIDs">[0],
-		params?: ClientMethodParameters<"getAllByIDs">[1],
-	]
->(proto.getAllByIDs);
+export const useAllPrismicDocumentsByIDs = <
+	DocumentType extends PrismicDocument,
+>(
+	...args: ClientMethodParameters<"getAllByIDs">
+): ClientComposableReturnType<DocumentType[]> =>
+	useStatefulPrismicClientMethod(proto.getAllByIDs, args);
 
-export const usePrismicDocumentByUID = createClientComposableSingle<
-	typeof proto.getByUID,
-	[
-		documentType: ClientMethodParameters<"getByUID">[0],
-		uid: ClientMethodParameters<"getByUID">[1],
-		params?: ClientMethodParameters<"getByUID">[2],
-	]
->(proto.getByUID);
+export const usePrismicDocumentByUID = <DocumentType extends PrismicDocument>(
+	...args: ClientMethodParameters<"getByUID">
+): ClientComposableReturnType<DocumentType> =>
+	useStatefulPrismicClientMethod(proto.getByUID, args);
 
-export const useSinglePrismicDocument = createClientComposableSingle<
-	typeof proto.getSingle,
-	[
-		documentType: ClientMethodParameters<"getSingle">[0],
-		params?: ClientMethodParameters<"getSingle">[1],
-	]
->(proto.getSingle);
+export const useSinglePrismicDocument = <DocumentType extends PrismicDocument>(
+	...args: ClientMethodParameters<"getSingle">
+): ClientComposableReturnType<DocumentType> =>
+	useStatefulPrismicClientMethod(proto.getSingle, args);
 
-export const usePrismicDocumentsByType = createClientComposablePaginated<
-	typeof proto.getByType,
-	[
-		documentType: ClientMethodParameters<"getByType">[0],
-		params?: ClientMethodParameters<"getByType">[1],
-	]
->(proto.getByType);
+export const usePrismicDocumentsByType = <DocumentType extends PrismicDocument>(
+	...args: ClientMethodParameters<"getByType">
+): ClientComposableReturnType<Query<DocumentType>> =>
+	useStatefulPrismicClientMethod(proto.getByType, args);
 
-export const useAllPrismicDocumentsByType = createClientComposableMultiple<
-	typeof proto.getAllByType,
-	[
-		documentType: ClientMethodParameters<"getAllByType">[0],
-		params?: ClientMethodParameters<"getAllByType">[1],
-	]
->(proto.getAllByType);
+export const useAllPrismicDocumentsByType = <
+	DocumentType extends PrismicDocument,
+>(
+	...args: ClientMethodParameters<"getAllByType">
+): ClientComposableReturnType<DocumentType[]> =>
+	useStatefulPrismicClientMethod(proto.getAllByType, args);
 
-export const usePrismicDocumentsByTag = createClientComposablePaginated<
-	typeof proto.getByTag,
-	[
-		tag: ClientMethodParameters<"getByTag">[0],
-		params?: ClientMethodParameters<"getByTag">[1],
-	]
->(proto.getByTag);
+export const usePrismicDocumentsByTag = <DocumentType extends PrismicDocument>(
+	...args: ClientMethodParameters<"getByTag">
+): ClientComposableReturnType<Query<DocumentType>> =>
+	useStatefulPrismicClientMethod(proto.getByTag, args);
 
-export const useAllPrismicDocumentsByTag = createClientComposableMultiple<
-	typeof proto.getAllByTag,
-	[
-		tag: ClientMethodParameters<"getAllByTag">[0],
-		params?: ClientMethodParameters<"getAllByTag">[1],
-	]
->(proto.getAllByTag);
+export const useAllPrismicDocumentsByTag = <
+	DocumentType extends PrismicDocument,
+>(
+	...args: ClientMethodParameters<"getAllByTag">
+): ClientComposableReturnType<DocumentType[]> =>
+	useStatefulPrismicClientMethod(proto.getAllByTag, args);
 
-export const usePrismicDocumentsByTags = createClientComposablePaginated<
-	typeof proto.getByTags,
-	[
-		tag: ClientMethodParameters<"getByTags">[0],
-		params?: ClientMethodParameters<"getByTags">[1],
-	]
->(proto.getByTags);
+export const usePrismicDocumentsByTags = <DocumentType extends PrismicDocument>(
+	...args: ClientMethodParameters<"getByTags">
+): ClientComposableReturnType<Query<DocumentType>> =>
+	useStatefulPrismicClientMethod(proto.getByTags, args);
 
-export const useAllPrismicDocumentsByTags = createClientComposableMultiple<
-	typeof proto.getAllByTags,
-	[
-		tag: ClientMethodParameters<"getAllByTags">[0],
-		params?: ClientMethodParameters<"getAllByTags">[1],
-	]
->(proto.getAllByTags);
-
-// TODO: Remove
-const { query: _q1, refresh: _r1 } = usePrismicDocumentsByIDs(["page"]);
-const _t = usePrismicDocumentByUID("page", "home");
+export const useAllPrismicDocumentsByTags = <
+	DocumentType extends PrismicDocument,
+>(
+	...args: ClientMethodParameters<"getAllByTags">
+): ClientComposableReturnType<DocumentType[]> =>
+	useStatefulPrismicClientMethod(proto.getAllByTags, args);

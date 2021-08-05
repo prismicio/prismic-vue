@@ -16,3 +16,6 @@ export {
 	usePrismicDocumentsByType,
 	useSinglePrismicDocument,
 } from "./composables";
+
+export { PrismicClientComposableState } from "./types";
+export type { PrismicPluginOptions, PrismicPlugin } from "./types";

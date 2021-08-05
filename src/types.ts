@@ -63,3 +63,20 @@ export type PrismicPlugin = {
 	install(app: App, injectKey: string): void;
 } & PrismicPluginClient &
 	PrismicPluginHelpers;
+
+/**
+ * States of a `@prismicio/client` composable.
+ */
+export const enum PrismicClientComposableState {
+	/** The composable has not started fetching. */
+	Idle = "idle",
+
+	/** The composable is fetching data. */
+	Pending = "pending",
+
+	/** The composable sucessfully fetched data. */
+	Success = "success",
+
+	/** The composable failed to fetch data. */
+	Error = "error",
+}
