@@ -1,6 +1,8 @@
 export { createPrismic } from "./createPrismic";
 export { usePrismic } from "./usePrismic";
 
+export { usePrismicLink, PrismicLink } from "./components";
+export type { UsePrismicLinkOptions, PrismicLinkProps } from "./components";
 
 export {
 	useAllPrismicDocuments,

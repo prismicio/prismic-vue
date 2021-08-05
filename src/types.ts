@@ -1,4 +1,4 @@
-import type { App } from "vue";
+import type { App, Ref } from "vue";
 
 import type {
 	Client,
@@ -18,9 +18,17 @@ import type {
 	LinkResolverFunction,
 } from "@prismicio/helpers";
 
+type PrismicPluginComponentsOptions = {
+	linkInternalComponent?: string;
+	linkExternalComponent?: string;
+	linkBlankTargetRelAttribute?: string;
+};
+
 type PrismicPluginOptionsBase = {
 	linkResolver?: LinkResolverFunction;
 	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer;
+	injectComponents?: boolean;
+	components?: PrismicPluginComponentsOptions;
 };
 
 type PrismicPluginOptionsWithClient = PrismicPluginOptionsBase & {
@@ -80,3 +88,14 @@ export const enum PrismicClientComposableState {
 	/** The composable failed to fetch data. */
 	Error = "error",
 }
+
+// Helpers
+
+/**
+ * Type to transform a static object into one that allows passing Refs as
+ * values.
+ * @internal
+ */
+export type VueUseOptions<T> = {
+	[k in keyof T]: Ref<T[k]> | T[k];
+};
