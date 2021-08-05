@@ -7,7 +7,7 @@ import {
 	PrismicError,
 } from "@prismicio/client";
 
-import { usePrismic } from "./prismic";
+import { usePrismic } from "./usePrismic";
 import { PrismicClientComposableState } from "./types";
 
 // Helpers

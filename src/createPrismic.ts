@@ -1,4 +1,4 @@
-import { App, inject } from "vue";
+import { App } from "vue";
 
 import {
 	createClient,
@@ -15,6 +15,7 @@ import {
 	documentAsLink,
 } from "@prismicio/helpers";
 
+import { PrismicLink } from "./components";
 import { isExternal } from "./lib/isExternal";
 import { prismicKey } from "./injectionSymbols";
 import type {
@@ -74,13 +75,12 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 		install(app: App): void {
 			app.provide(prismicKey, this);
 			app.config.globalProperties.$prismic = this;
+
+			if (options.injectComponents !== false) {
+				app.component(PrismicLink.name, PrismicLink);
+			}
 		},
 	};
 
 	return prismic;
 };
-
-export function usePrismic(): PrismicPlugin {
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	return inject(prismicKey)!;
-}

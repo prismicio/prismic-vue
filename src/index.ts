@@ -1,4 +1,6 @@
-export { createPrismic, usePrismic } from "./prismic";
+export { createPrismic } from "./createPrismic";
+export { usePrismic } from "./usePrismic";
+
 
 export {
 	useAllPrismicDocuments,
@@ -19,3 +21,7 @@ export {
 
 export { PrismicClientComposableState } from "./types";
 export type { PrismicPluginOptions, PrismicPlugin } from "./types";
+
+export { prismicKey } from "./injectionSymbols";
+
+export * from "./globalExtensions";
