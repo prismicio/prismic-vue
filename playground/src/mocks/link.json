@@ -9,17 +9,13 @@
 		"target": "_blank"
 	},
 	"internal": {
-		"link_type": "Link.document",
-		"value": {
-			"document": {
-				"id": "Xo2E3REAAB8AUz6K",
-				"type": "page",
-				"tags": [],
-				"lang": "en-us",
-				"slug": "blog",
-				"uid": "blog"
-			},
-			"isBroken": false
-		}
+		"id": "XvoFFREAAM0WGBng",
+		"type": "page",
+		"tags": [],
+		"slug": "slug",
+		"lang": "en-us",
+		"uid": "test",
+		"link_type": "Document",
+		"isBroken": false
 	}
 }

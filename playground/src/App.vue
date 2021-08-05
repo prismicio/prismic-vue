@@ -5,13 +5,13 @@
 				<router-link to="/">index</router-link>
 			</li>
 			<li>
-				dom
+				helpers
 				<ul>
 					<li>
-						<router-link to="/dom/options">options</router-link>
+						<router-link to="/helpers/options">options</router-link>
 					</li>
 					<li>
-						<router-link to="/dom/composition">composition</router-link>
+						<router-link to="/helpers/composition">composition</router-link>
 					</li>
 				</ul>
 			</li>

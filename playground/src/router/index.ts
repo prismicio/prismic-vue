@@ -9,36 +9,38 @@ const routes: Array<RouteRecordRaw> = [
 	},
 
 	{
-		path: "/dom/options",
-		name: "DOMOptions",
-		component: () =>
-			import(/* webpackChunkName: "dom--options" */ "../views/dom/options.vue"),
-	},
-	{
-		path: "/dom/composition",
-		name: "dDOMXomposition",
+		path: "/helpers/options",
+		name: "HelpersOptions",
 		component: () =>
 			import(
-				/* webpackChunkName: "dom--composition" */ "../views/dom/composition.vue"
+				/* webpackChunkName: "helpers--options" */ "../views/helpers/options.vue"
+			),
+	},
+	{
+		path: "/helpers/composition",
+		name: "HelpersComposition",
+		component: () =>
+			import(
+				/* webpackChunkName: "helpers--composition" */ "../views/helpers/composition.vue"
 			),
 	},
 
-	{
-		path: "/components/image",
-		name: "ComponentsImage",
-		component: () =>
-			import(
-				/* webpackChunkName: "components--image" */ "../views/components/image.vue"
-			),
-	},
-	{
-		path: "/components/embed",
-		name: "ComponentsEmbed",
-		component: () =>
-			import(
-				/* webpackChunkName: "components--embed" */ "../views/components/embed.vue"
-			),
-	},
+	// {
+	// 	path: "/components/image",
+	// 	name: "ComponentsImage",
+	// 	component: () =>
+	// 		import(
+	// 			/* webpackChunkName: "components--image" */ "../views/components/image.vue"
+	// 		),
+	// },
+	// {
+	// 	path: "/components/embed",
+	// 	name: "ComponentsEmbed",
+	// 	component: () =>
+	// 		import(
+	// 			/* webpackChunkName: "components--embed" */ "../views/components/embed.vue"
+	// 		),
+	// },
 	{
 		path: "/components/link",
 		name: "ComponentsLink",
@@ -47,14 +49,14 @@ const routes: Array<RouteRecordRaw> = [
 				/* webpackChunkName: "components--link" */ "../views/components/link.vue"
 			),
 	},
-	{
-		path: "/components/richtext",
-		name: "ComponentsRichText",
-		component: () =>
-			import(
-				/* webpackChunkName: "components--richtext" */ "../views/components/richtext.vue"
-			),
-	},
+	// {
+	// 	path: "/components/richtext",
+	// 	name: "ComponentsRichText",
+	// 	component: () =>
+	// 		import(
+	// 			/* webpackChunkName: "components--richtext" */ "../views/components/richtext.vue"
+	// 		),
+	// },
 ];
 
 const router = createRouter({

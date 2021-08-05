@@ -21,9 +21,9 @@ import { simple, blank, internal } from "../../mocks/link.json";
 export default defineComponent({
 	data() {
 		return {
-			resolvedSimple: "" as string,
-			resolvedBlank: "" as string,
-			resolvedInternal: "" as string,
+			resolvedSimple: "" as string | null,
+			resolvedBlank: "" as string | null,
+			resolvedInternal: "" as string | null,
 		};
 	},
 	created(): void {
