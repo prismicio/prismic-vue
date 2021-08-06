@@ -28,6 +28,9 @@
 						<router-link to="/components/link">link</router-link>
 					</li>
 					<li>
+						<router-link to="/components/text">text</router-link>
+					</li>
+					<li>
 						<router-link to="/components/richtext">richtext</router-link>
 					</li>
 				</ul>

@@ -1,4 +1,10 @@
 {
+	"empty": {
+		"dimensions": null,
+		"alt": null,
+		"copyright": null,
+		"url": null
+	},
 	"simple": {
 		"dimensions": {
 			"width": 1200,

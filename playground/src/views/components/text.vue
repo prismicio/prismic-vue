@@ -1,11 +1,11 @@
 <template>
-	<div class="componentsRichText">
+	<div class="componentsText">
 		<input v-model="inputText" type="text" />{{ inputText }}
-		<prismic-rich-text :field="null" />
-		<prismic-rich-text :field="empty" />
-		<prismic-rich-text :field="single" />
-		<prismic-rich-text :field="multi" />
-		<prismic-rich-text :field="computed" />
+		<prismic-text :field="null" />
+		<prismic-text :field="empty" />
+		<prismic-text :field="single" />
+		<prismic-text :field="multi" />
+		<prismic-text :field="computed" />
 	</div>
 </template>
 
@@ -15,7 +15,7 @@ import { defineComponent } from "vue";
 import { empty, single, multi } from "../../mocks/richtext.json";
 
 export default defineComponent({
-	name: "ComponentsRichText",
+	name: "ComponentsText",
 	data() {
 		return {
 			empty,

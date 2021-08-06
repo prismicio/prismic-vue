@@ -1,4 +1,7 @@
 {
+	"empty": {
+		"link_type": "Any"
+	},
 	"simple": {
 		"link_type": "Web",
 		"url": "https://en.wikipedia.org/wiki/Atlantic_puffin#Behaviour"
