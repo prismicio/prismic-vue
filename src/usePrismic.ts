@@ -4,6 +4,5 @@ import { prismicKey } from "./injectionSymbols";
 import { PrismicPlugin } from "./types";
 
 export function usePrismic(): PrismicPlugin {
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	return inject(prismicKey)!;
+	return inject(prismicKey) ?? ({ options: { endpoint: "" } } as PrismicPlugin);
 }
