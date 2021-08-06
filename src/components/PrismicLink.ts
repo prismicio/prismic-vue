@@ -4,13 +4,13 @@ import {
 	defineComponent,
 	h,
 	PropType,
-	resolveComponent,
 	VNodeProps,
 	ref,
 	unref,
 	watch,
 	Ref,
 	reactive,
+	ConcreteComponent,
 } from "vue";
 
 import { asLink, LinkResolverFunction } from "@prismicio/helpers";
@@ -19,6 +19,7 @@ import { LinkField } from "@prismicio/types";
 import { isExternal } from "../lib/isExternal";
 import { usePrismic } from "../usePrismic";
 import { VueUseOptions } from "../types";
+import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 
 /**
  * The default component rendered for internal URLs.
@@ -40,8 +41,8 @@ export type PrismicLinkProps = {
 	linkResolver?: LinkResolverFunction;
 	target?: string;
 	rel?: string;
-	internalComponent?: string;
-	externalComponent?: string;
+	internalComponent?: string | ConcreteComponent;
+	externalComponent?: string | ConcreteComponent;
 };
 
 export type UsePrismicLinkOptions = VueUseOptions<PrismicLinkProps>;
@@ -49,14 +50,14 @@ export type UsePrismicLinkOptions = VueUseOptions<PrismicLinkProps>;
 export const usePrismicLink = (
 	props: UsePrismicLinkOptions,
 ): {
-	type: Ref<string>;
+	type: Ref<string | ConcreteComponent>;
 	href: Ref<string>;
 	target: Ref<string | null>;
 	rel: Ref<string | null>;
 } => {
 	const { options } = usePrismic();
 
-	const type = ref<string>(defaultExternalComponent);
+	const type = ref<string | ConcreteComponent>(defaultExternalComponent);
 	const href = ref<string>("");
 	const target = ref<string | null>(null);
 	const rel = ref<string | null>(null);
@@ -70,11 +71,11 @@ export const usePrismicLink = (
 
 		target.value =
 			unref(props.target) ||
-			("target" in field && field.target ? field.target : null);
+			(field && "target" in field && field.target ? field.target : null);
 
 		rel.value =
 			unref(props.rel) ||
-			(target.value === "_blank" && "target" in field && field
+			(target.value === "_blank" && field && "target" in field && field
 				? options.components?.linkBlankTargetRelAttribute ??
 				  defaultBlankTargetRelAttribute
 				: null);
@@ -89,7 +90,10 @@ export const usePrismicLink = (
 			options.components?.linkExternalComponent ??
 			defaultExternalComponent;
 
-		type.value = isExternal(href.value) ? externalComponent : internalComponent;
+		type.value =
+			isExternal(href.value) || !href.value
+				? externalComponent
+				: internalComponent;
 	};
 
 	// Watch reactive args
@@ -129,19 +133,20 @@ export const PrismicLinkImpl = defineComponent({
 			required: false,
 		},
 		internalComponent: {
-			type: String as PropType<string>,
+			type: [String, Object] as PropType<string | ConcreteComponent>,
 			default: undefined,
 			required: false,
 		},
 		externalComponent: {
-			type: String as PropType<string>,
+			type: [String, Object] as PropType<string | ConcreteComponent>,
 			default: undefined,
 			required: false,
 		},
 	},
 	setup(props, { slots }) {
+		// Prevent fatal if user didn't check for field, throws `Invalid prop` warn
 		if (!props.field) {
-			return null;
+			return () => null;
 		}
 
 		const { type, href, target, rel } = usePrismicLink(props);
@@ -149,6 +154,7 @@ export const PrismicLinkImpl = defineComponent({
 		return () => {
 			switch (type.value) {
 				case "a":
+					// Fitting anchor tag interface
 					return h(
 						"a",
 						{ href: href.value, target: target.value, rel: rel.value },
@@ -156,8 +162,9 @@ export const PrismicLinkImpl = defineComponent({
 					);
 
 				default:
+					// Fitting Vue Router Link interface
 					return h(
-						resolveComponent(type.value),
+						simplyResolveComponent(type.value),
 						{ to: href.value },
 						slots.default ?? [],
 					);

@@ -1,4 +1,4 @@
-import type { App, Ref } from "vue";
+import type { App, ConcreteComponent, Ref } from "vue";
 
 import type {
 	Client,
@@ -19,9 +19,10 @@ import type {
 } from "@prismicio/helpers";
 
 type PrismicPluginComponentsOptions = {
-	linkInternalComponent?: string;
-	linkExternalComponent?: string;
+	linkInternalComponent?: string | ConcreteComponent;
+	linkExternalComponent?: string | ConcreteComponent;
 	linkBlankTargetRelAttribute?: string;
+	imageComponent?: string | ConcreteComponent;
 };
 
 type PrismicPluginOptionsBase = {
@@ -68,7 +69,7 @@ export type PrismicPluginHelpers = {
 
 export type PrismicPlugin = {
 	readonly options: PrismicPluginOptions;
-	install(app: App, injectKey: string): void;
+	install: (app: App, injectKey: string) => void;
 } & PrismicPluginClient &
 	PrismicPluginHelpers;
 

@@ -1,8 +1,26 @@
 export { createPrismic } from "./createPrismic";
 export { usePrismic } from "./usePrismic";
 
-export { usePrismicLink, PrismicLink } from "./components";
-export type { UsePrismicLinkOptions, PrismicLinkProps } from "./components";
+export {
+	usePrismicLink,
+	usePrismicText,
+	usePrismicRichText,
+	PrismicEmbed,
+	PrismicImage,
+	PrismicLink,
+	PrismicText,
+	PrismicRichText,
+} from "./components";
+export type {
+	UsePrismicLinkOptions,
+	UsePrismicTextOptions,
+	UsePrismicRichTextOptions,
+	PrismicEmbedProps,
+	PrismicImageProps,
+	PrismicLinkProps,
+	PrismicTextProps,
+	PrismicRichTextProps,
+} from "./components";
 
 export {
 	useAllPrismicDocuments,

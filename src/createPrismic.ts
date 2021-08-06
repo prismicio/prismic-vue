@@ -15,8 +15,14 @@ import {
 	documentAsLink,
 } from "@prismicio/helpers";
 
-import { PrismicLink } from "./components";
 import { isExternal } from "./lib/isExternal";
+import {
+	PrismicEmbed,
+	PrismicImage,
+	PrismicLink,
+	PrismicRichText,
+	PrismicText,
+} from "./components";
 import { prismicKey } from "./injectionSymbols";
 import type {
 	PrismicPlugin,
@@ -78,6 +84,10 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 
 			if (options.injectComponents !== false) {
 				app.component(PrismicLink.name, PrismicLink);
+				app.component(PrismicEmbed.name, PrismicEmbed);
+				app.component(PrismicImage.name, PrismicImage);
+				app.component(PrismicText.name, PrismicText);
+				app.component(PrismicRichText.name, PrismicRichText);
 			}
 		},
 	};
