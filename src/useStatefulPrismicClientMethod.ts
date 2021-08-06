@@ -21,33 +21,33 @@ type ClientMethods = typeof Client.prototype;
 type ClientError = PrismicError | ParsingError | ForbiddenError;
 
 // Interfaces
-export type ClientMethodParameters<MethodName extends keyof ClientMethods> =
-	ClientMethods[MethodName] extends ClientMethodLike
-		? Parameters<ClientMethods[MethodName]>
+export type ClientMethodParameters<TMethodName extends keyof ClientMethods> =
+	ClientMethods[TMethodName] extends ClientMethodLike
+		? Parameters<ClientMethods[TMethodName]>
 		: never;
 
-export type ClientComposableReturnType<ClientMethodReturnType = unknown> = {
+export type ClientComposableReturnType<TClientMethodReturnType = unknown> = {
 	state: Ref<PrismicClientComposableState>;
-	data: Ref<ClientMethodReturnType | null>;
+	data: Ref<TClientMethodReturnType | null>;
 	error: Ref<ClientError | null>;
 	refresh: () => Promise<void>;
 };
 
 // Implementation
 export const useStatefulPrismicClientMethod = <
-	ClientMethod extends ClientMethodLike,
-	ClientMethodArguments extends Parameters<ClientMethod>,
-	ClientMethodReturnType extends UnwrapPromise<ReturnType<ClientMethod>>,
+	TClientMethod extends ClientMethodLike,
+	TClientMethodArguments extends Parameters<TClientMethod>,
+	TClientMethodReturnType extends UnwrapPromise<ReturnType<TClientMethod>>,
 >(
-	method: ClientMethod,
-	args: ClientMethodArguments,
-): ClientComposableReturnType<ClientMethodReturnType> => {
+	method: TClientMethod,
+	args: TClientMethodArguments,
+): ClientComposableReturnType<TClientMethodReturnType> => {
 	const { client } = usePrismic();
 
 	const state = ref<PrismicClientComposableState>(
 		PrismicClientComposableState.Idle,
 	);
-	const data = shallowRef<ClientMethodReturnType | null>(null);
+	const data = shallowRef<TClientMethodReturnType | null>(null);
 	const error = ref<ClientError | null>(null);
 	const refresh = async (): Promise<void> => {
 		state.value = PrismicClientComposableState.Pending;

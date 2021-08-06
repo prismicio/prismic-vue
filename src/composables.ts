@@ -11,80 +11,72 @@ import {
 const proto = Client.prototype;
 
 // Composables
-export const usePrismicDocuments = <DocumentType extends PrismicDocument>(
+export const usePrismicDocuments = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"get">
-): ClientComposableReturnType<Query<DocumentType>> =>
+): ClientComposableReturnType<Query<TDocument>> =>
 	useStatefulPrismicClientMethod(proto.get, args);
 
-export const useFirstPrismicDocument = <DocumentType extends PrismicDocument>(
+export const useFirstPrismicDocument = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getFirst">
-): ClientComposableReturnType<DocumentType> =>
+): ClientComposableReturnType<TDocument> =>
 	useStatefulPrismicClientMethod(proto.getFirst, args);
 
-export const useAllPrismicDocuments = <DocumentType extends PrismicDocument>(
+export const useAllPrismicDocuments = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getAll">
-): ClientComposableReturnType<DocumentType[]> =>
+): ClientComposableReturnType<TDocument[]> =>
 	useStatefulPrismicClientMethod(proto.getAll, args);
 
-export const usePrismicDocumentByID = <DocumentType extends PrismicDocument>(
+export const usePrismicDocumentByID = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getByID">
-): ClientComposableReturnType<DocumentType> =>
+): ClientComposableReturnType<TDocument> =>
 	useStatefulPrismicClientMethod(proto.getByID, args);
 
-export const usePrismicDocumentsByIDs = <DocumentType extends PrismicDocument>(
+export const usePrismicDocumentsByIDs = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getByIDs">
-): ClientComposableReturnType<Query<DocumentType>> =>
+): ClientComposableReturnType<Query<TDocument>> =>
 	useStatefulPrismicClientMethod(proto.getByIDs, args);
 
-export const useAllPrismicDocumentsByIDs = <
-	DocumentType extends PrismicDocument,
->(
+export const useAllPrismicDocumentsByIDs = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getAllByIDs">
-): ClientComposableReturnType<DocumentType[]> =>
+): ClientComposableReturnType<TDocument[]> =>
 	useStatefulPrismicClientMethod(proto.getAllByIDs, args);
 
-export const usePrismicDocumentByUID = <DocumentType extends PrismicDocument>(
+export const usePrismicDocumentByUID = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getByUID">
-): ClientComposableReturnType<DocumentType> =>
+): ClientComposableReturnType<TDocument> =>
 	useStatefulPrismicClientMethod(proto.getByUID, args);
 
-export const useSinglePrismicDocument = <DocumentType extends PrismicDocument>(
+export const useSinglePrismicDocument = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getSingle">
-): ClientComposableReturnType<DocumentType> =>
+): ClientComposableReturnType<TDocument> =>
 	useStatefulPrismicClientMethod(proto.getSingle, args);
 
-export const usePrismicDocumentsByType = <DocumentType extends PrismicDocument>(
+export const usePrismicDocumentsByType = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getByType">
-): ClientComposableReturnType<Query<DocumentType>> =>
+): ClientComposableReturnType<Query<TDocument>> =>
 	useStatefulPrismicClientMethod(proto.getByType, args);
 
-export const useAllPrismicDocumentsByType = <
-	DocumentType extends PrismicDocument,
->(
+export const useAllPrismicDocumentsByType = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getAllByType">
-): ClientComposableReturnType<DocumentType[]> =>
+): ClientComposableReturnType<TDocument[]> =>
 	useStatefulPrismicClientMethod(proto.getAllByType, args);
 
-export const usePrismicDocumentsByTag = <DocumentType extends PrismicDocument>(
+export const usePrismicDocumentsByTag = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getByTag">
-): ClientComposableReturnType<Query<DocumentType>> =>
+): ClientComposableReturnType<Query<TDocument>> =>
 	useStatefulPrismicClientMethod(proto.getByTag, args);
 
-export const useAllPrismicDocumentsByTag = <
-	DocumentType extends PrismicDocument,
->(
+export const useAllPrismicDocumentsByTag = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getAllByTag">
-): ClientComposableReturnType<DocumentType[]> =>
+): ClientComposableReturnType<TDocument[]> =>
 	useStatefulPrismicClientMethod(proto.getAllByTag, args);
 
-export const usePrismicDocumentsByTags = <DocumentType extends PrismicDocument>(
+export const usePrismicDocumentsByTags = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getByTags">
-): ClientComposableReturnType<Query<DocumentType>> =>
+): ClientComposableReturnType<Query<TDocument>> =>
 	useStatefulPrismicClientMethod(proto.getByTags, args);
 
-export const useAllPrismicDocumentsByTags = <
-	DocumentType extends PrismicDocument,
->(
+export const useAllPrismicDocumentsByTags = <TDocument extends PrismicDocument>(
 	...args: ClientMethodParameters<"getAllByTags">
-): ClientComposableReturnType<DocumentType[]> =>
+): ClientComposableReturnType<TDocument[]> =>
 	useStatefulPrismicClientMethod(proto.getAllByTags, args);
