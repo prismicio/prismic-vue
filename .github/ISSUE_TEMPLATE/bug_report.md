@@ -1,6 +1,6 @@
 ---
 name: 🚨 Bug report
-about: Report a bug report to help us improve the package.
+about: Report a bug report to help improve the package.
 title: ""
 labels: "bug"
 assignees: ""
@@ -22,7 +22,7 @@ assignees: ""
 
 ### Reproduction
 
-<!-- Link to a minimal test case, without a reproduction, it is so hard to address problem :( -->
+<!-- If possible link to a minimal test case, without a reproduction, it is so hard to address problems :( -->
 
 <details open>
 <summary>Additional Details</summary>
