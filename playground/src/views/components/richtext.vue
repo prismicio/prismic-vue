@@ -26,7 +26,11 @@ export default defineComponent({
 	},
 	computed: {
 		computed() {
-			return [{ ...this.single[0], text: this.inputText }];
+			return [
+				this.multi[0],
+				{ ...this.multi[1], text: `${this.multi[1].text}${this.inputText}` },
+				...this.multi.slice(2),
+			];
 		},
 	},
 });

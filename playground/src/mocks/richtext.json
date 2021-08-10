@@ -47,6 +47,22 @@
 						"url": "https://sms-hoy-storybook.netlify.app",
 						"target": "_blank"
 					}
+				},
+				{
+					"start": 224,
+					"end": 238,
+					"type": "hyperlink",
+					"data": {
+						"id": "XvoFFREAAM0WGBng",
+						"type": "page",
+						"tags": [],
+						"slug": "slug",
+						"lang": "en-us",
+						"uid": "test",
+						"url": "/components/image",
+						"link_type": "Document",
+						"isBroken": false
+					}
 				}
 			]
 		},

@@ -5,7 +5,7 @@
 		<prismic-text :field="empty" />
 		<prismic-text :field="single" />
 		<prismic-text :field="multi" />
-		<prismic-text :field="computed" />
+		<prismic-text :field="computed" wrapper="h1" />
 	</div>
 </template>
 
