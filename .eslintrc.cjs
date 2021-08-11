@@ -14,7 +14,7 @@ module.exports = {
 		"plugin:prettier/recommended",
 		"@vue/typescript/recommended",
 	],
-	plugins: [],
+	plugins: ["eslint-plugin-tsdoc"],
 	rules: {
 		"no-console": ["warn", { allow: ["info", "warn", "error"] }],
 		"no-debugger": "warn",
@@ -33,5 +33,6 @@ module.exports = {
 			},
 		],
 		"@typescript-eslint/no-var-requires": "off",
+		"tsdoc/syntax": "warn",
 	},
 };
