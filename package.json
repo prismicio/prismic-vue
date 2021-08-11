@@ -70,6 +70,7 @@
 		"eslint-plugin-prettier": "^3.4.0",
 		"eslint-plugin-tsdoc": "^0.2.14",
 		"eslint-plugin-vue": "^7.16.0",
+		"jsdom": "^16.7.0",
 		"jsdom-global": "^3.0.2",
 		"nyc": "^15.1.0",
 		"prettier": "^2.3.2",
