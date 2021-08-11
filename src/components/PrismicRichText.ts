@@ -188,12 +188,14 @@ export const PrismicRichTextImpl = defineComponent({
 			};
 
 			const addListeners = () => {
-				const node =
+				const node: HTMLElement | null =
 					root.value && "$el" in root.value ? root.value.$el : root.value;
 				links =
-					node?.querySelectorAll &&
+					node &&
+					node.querySelectorAll &&
 					node.querySelectorAll("a[data-router-link]");
-				links?.forEach((link) => link.addEventListener("click", navigate));
+				links &&
+					links.forEach((link) => link.addEventListener("click", navigate));
 			};
 
 			const removeListeners = () => {
