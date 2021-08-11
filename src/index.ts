@@ -2,24 +2,41 @@ export { createPrismic } from "./createPrismic";
 export { usePrismic } from "./usePrismic";
 
 export {
+	// Composables
 	usePrismicLink,
 	usePrismicText,
 	usePrismicRichText,
+	// Components
 	PrismicEmbed,
 	PrismicImage,
 	PrismicLink,
 	PrismicText,
 	PrismicRichText,
+	// Slice Zone
+	getSliceComponentProps,
+	TODOSliceComponent,
+	SliceZoneImpl,
+	SliceZone,
 } from "./components";
 export type {
+	// Composables
 	UsePrismicLinkOptions,
 	UsePrismicTextOptions,
 	UsePrismicRichTextOptions,
+	// Components
 	PrismicEmbedProps,
 	PrismicImageProps,
 	PrismicLinkProps,
 	PrismicTextProps,
 	PrismicRichTextProps,
+	// Slice Zone
+	DefineComponentSliceComponentProps,
+	SliceComponentProps,
+	SliceComponentType,
+	SliceLike,
+	SliceZoneComponents,
+	SliceZoneLike,
+	SliceZoneProps,
 } from "./components";
 
 export {

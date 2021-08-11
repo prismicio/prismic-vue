@@ -19,3 +19,19 @@ export type {
 	UsePrismicRichTextOptions,
 	PrismicRichTextProps,
 } from "./PrismicRichText";
+
+export {
+	getSliceComponentProps,
+	TODOSliceComponent,
+	SliceZoneImpl,
+	SliceZone,
+} from "./SliceZone";
+export type {
+	DefineComponentSliceComponentProps,
+	SliceComponentProps,
+	SliceComponentType,
+	SliceLike,
+	SliceZoneComponents,
+	SliceZoneLike,
+	SliceZoneProps,
+} from "./SliceZone";
