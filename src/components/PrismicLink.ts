@@ -5,12 +5,11 @@ import {
 	h,
 	PropType,
 	VNodeProps,
-	ref,
 	unref,
-	watch,
-	Ref,
 	reactive,
 	ConcreteComponent,
+	computed,
+	ComputedRef,
 } from "vue";
 
 import { asLink, LinkResolverFunction } from "@prismicio/helpers";
@@ -50,36 +49,14 @@ export type UsePrismicLinkOptions = VueUseOptions<PrismicLinkProps>;
 export const usePrismicLink = (
 	props: UsePrismicLinkOptions,
 ): {
-	type: Ref<string | ConcreteComponent>;
-	href: Ref<string>;
-	target: Ref<string | null>;
-	rel: Ref<string | null>;
+	type: ComputedRef<string | ConcreteComponent>;
+	href: ComputedRef<string>;
+	target: ComputedRef<string | null>;
+	rel: ComputedRef<string | null>;
 } => {
 	const { options } = usePrismic();
 
-	const type = ref<string | ConcreteComponent>(defaultExternalComponent);
-	const href = ref<string>("");
-	const target = ref<string | null>(null);
-	const rel = ref<string | null>(null);
-
-	const resolve = () => {
-		const field = unref(props.field);
-
-		const linkResolver = unref(props.linkResolver) ?? options.linkResolver;
-
-		href.value = asLink(unref(props.field), linkResolver) ?? "";
-
-		target.value =
-			unref(props.target) ||
-			(field && "target" in field && field.target ? field.target : null);
-
-		rel.value =
-			unref(props.rel) ||
-			(target.value === "_blank" && field && "target" in field && field
-				? options.components?.linkBlankTargetRelAttribute ??
-				  defaultBlankTargetRelAttribute
-				: null);
-
+	const type = computed(() => {
 		const internalComponent =
 			unref(props.internalComponent) ??
 			options.components?.linkInternalComponent ??
@@ -90,17 +67,37 @@ export const usePrismicLink = (
 			options.components?.linkExternalComponent ??
 			defaultExternalComponent;
 
-		type.value =
-			isExternal(href.value) || !href.value
-				? externalComponent
-				: internalComponent;
-	};
+		return isExternal(href.value) || !href.value
+			? externalComponent
+			: internalComponent;
+	});
+	const href = computed(() => {
+		return (
+			asLink(
+				unref(props.field),
+				unref(props.linkResolver) ?? options.linkResolver,
+			) ?? ""
+		);
+	});
+	const target = computed(() => {
+		const field = unref(props.field);
 
-	// Watch reactive args
-	watch(props, resolve, { deep: true });
+		return (
+			unref(props.target) ||
+			(field && "target" in field && field.target ? field.target : null)
+		);
+	});
+	const rel = computed(() => {
+		const field = unref(props.field);
 
-	// Resolve once
-	resolve();
+		return (
+			unref(props.rel) ||
+			(target.value === "_blank" && field && "target" in field && field
+				? options.components?.linkBlankTargetRelAttribute ??
+				  defaultBlankTargetRelAttribute
+				: null)
+		);
+	});
 
 	return {
 		type,
