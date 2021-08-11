@@ -61,13 +61,13 @@ export const usePrismicLink = (
 
 	const type = computed(() => {
 		const internalComponent =
-			unref(props.internalComponent) ??
-			options.components?.linkInternalComponent ??
+			unref(props.internalComponent) ||
+			options.components?.linkInternalComponent ||
 			defaultInternalComponent;
 
 		const externalComponent =
-			unref(props.externalComponent) ??
-			options.components?.linkExternalComponent ??
+			unref(props.externalComponent) ||
+			options.components?.linkExternalComponent ||
 			defaultExternalComponent;
 
 		return href.value && isInternalURL(href.value) && !target.value
@@ -96,8 +96,8 @@ export const usePrismicLink = (
 		return (
 			unref(props.rel) ||
 			(target.value === "_blank" && field && "target" in field && field
-				? unref(props.linkBlankTargetRelAttribute) ??
-				  options.components?.linkBlankTargetRelAttribute ??
+				? unref(props.linkBlankTargetRelAttribute) ||
+				  options.components?.linkBlankTargetRelAttribute ||
 				  defaultBlankTargetRelAttribute
 				: null)
 		);

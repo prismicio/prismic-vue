@@ -60,8 +60,8 @@ export const PrismicImageImpl = defineComponent({
 
 		const type = computed(() => {
 			return (
-				props.imageComponent ??
-				options.components?.imageComponent ??
+				props.imageComponent ||
+				options.components?.imageComponent ||
 				defaultImageComponent
 			);
 		});
