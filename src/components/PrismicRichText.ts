@@ -160,17 +160,16 @@ export const PrismicRichTextImpl = defineComponent({
 		if (maybeRouter) {
 			let links: NodeList | null = null;
 
-			const navigate: EventListener = (event) => {
-				let target = event.target;
+			const navigate: EventListener = (event: Event) => {
+				let target = event.target as (Node & ParentNode) | null;
 				let i = 0;
 				// Go throught 5 parents max to find a tag
 				while (
 					i < 5 &&
+					target &&
 					!(target instanceof HTMLAnchorElement) &&
-					// @ts-expect-error crawling through parent tree
-					target?.parentNode
+					target.parentNode
 				) {
-					// @ts-expect-error crawling through parent tree
 					target = target.parentNode;
 					i++;
 				}
