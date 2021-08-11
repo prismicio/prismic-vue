@@ -1,10 +1,10 @@
-import { ConcreteComponent, resolveDynamicComponent } from "vue";
+import { ConcreteComponent, resolveDynamicComponent, VNode } from "vue";
 
 /**
  * A stricter version of {@link resolveDynamicComponent}
  */
 export const simplyResolveComponent = (
 	component: string | ConcreteComponent,
-): string | ConcreteComponent => {
-	return resolveDynamicComponent(component) as string | ConcreteComponent;
+): string | VNode => {
+	return resolveDynamicComponent(component) as string | VNode;
 };

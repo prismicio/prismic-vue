@@ -10,15 +10,17 @@ import {
 	ConcreteComponent,
 	computed,
 	ComputedRef,
+	FunctionalComponent,
 } from "vue";
 
 import { asLink, LinkResolverFunction } from "@prismicio/helpers";
 import { LinkField } from "@prismicio/types";
 
-import { isExternal } from "../lib/isExternal";
+import { isInternalURL } from "../lib/isInternalURL";
 import { usePrismic } from "../usePrismic";
 import { VueUseOptions } from "../types";
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
+import { getSlots } from "../lib/getSlots";
 
 /**
  * The default component rendered for internal URLs.
@@ -40,8 +42,9 @@ export type PrismicLinkProps = {
 	linkResolver?: LinkResolverFunction;
 	target?: string;
 	rel?: string;
-	internalComponent?: string | ConcreteComponent;
-	externalComponent?: string | ConcreteComponent;
+	linkBlankTargetRelAttribute?: string;
+	internalComponent?: string | ConcreteComponent | FunctionalComponent;
+	externalComponent?: string | ConcreteComponent | FunctionalComponent;
 };
 
 export type UsePrismicLinkOptions = VueUseOptions<PrismicLinkProps>;
@@ -49,7 +52,7 @@ export type UsePrismicLinkOptions = VueUseOptions<PrismicLinkProps>;
 export const usePrismicLink = (
 	props: UsePrismicLinkOptions,
 ): {
-	type: ComputedRef<string | ConcreteComponent>;
+	type: ComputedRef<string | ConcreteComponent | FunctionalComponent>;
 	href: ComputedRef<string>;
 	target: ComputedRef<string | null>;
 	rel: ComputedRef<string | null>;
@@ -67,9 +70,9 @@ export const usePrismicLink = (
 			options.components?.linkExternalComponent ??
 			defaultExternalComponent;
 
-		return isExternal(href.value) || !href.value
-			? externalComponent
-			: internalComponent;
+		return href.value && isInternalURL(href.value) && !target.value
+			? internalComponent
+			: externalComponent;
 	});
 	const href = computed(() => {
 		return (
@@ -93,7 +96,8 @@ export const usePrismicLink = (
 		return (
 			unref(props.rel) ||
 			(target.value === "_blank" && field && "target" in field && field
-				? options.components?.linkBlankTargetRelAttribute ??
+				? unref(props.linkBlankTargetRelAttribute) ??
+				  options.components?.linkBlankTargetRelAttribute ??
 				  defaultBlankTargetRelAttribute
 				: null)
 		);
@@ -129,13 +133,22 @@ export const PrismicLinkImpl = defineComponent({
 			default: undefined,
 			required: false,
 		},
+		linkBlankTargetRelAttribute: {
+			type: String as PropType<string>,
+			default: undefined,
+			required: false,
+		},
 		internalComponent: {
-			type: [String, Object] as PropType<string | ConcreteComponent>,
+			type: [String, Object, Function] as PropType<
+				string | ConcreteComponent | FunctionalComponent
+			>,
 			default: undefined,
 			required: false,
 		},
 		externalComponent: {
-			type: [String, Object] as PropType<string | ConcreteComponent>,
+			type: [String, Object, Function] as PropType<
+				string | ConcreteComponent | FunctionalComponent
+			>,
 			default: undefined,
 			required: false,
 		},
@@ -149,22 +162,24 @@ export const PrismicLinkImpl = defineComponent({
 		const { type, href, target, rel } = usePrismicLink(props);
 
 		return () => {
-			switch (type.value) {
-				case "a":
-					// Fitting anchor tag interface
-					return h(
-						"a",
-						{ href: href.value, target: target.value, rel: rel.value },
-						slots.default ? slots.default(reactive({ href: href.value })) : [],
-					);
+			const parent =
+				type.value === "a" ? "a" : simplyResolveComponent(type.value);
+			const computedSlots = getSlots(
+				parent,
+				slots,
+				reactive({ href: href.value }),
+			);
 
-				default:
-					// Fitting Vue Router Link interface
-					return h(
-						simplyResolveComponent(type.value),
-						{ to: href.value },
-						slots.default ?? [],
-					);
+			if (typeof parent === "string") {
+				// Fitting anchor tag interface
+				return h(
+					parent,
+					{ href: href.value, target: target.value, rel: rel.value },
+					computedSlots,
+				);
+			} else {
+				// Fitting Vue Router Link interface
+				return h(parent, { to: href.value }, computedSlots);
 			}
 		};
 	},

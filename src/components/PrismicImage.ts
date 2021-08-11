@@ -4,6 +4,7 @@ import {
 	computed,
 	ConcreteComponent,
 	defineComponent,
+	FunctionalComponent,
 	h,
 	PropType,
 	VNodeProps,
@@ -25,7 +26,7 @@ export type PrismicImageProps =
 	  }
 	| {
 			field: ImageField;
-			imageComponent: string | ConcreteComponent;
+			imageComponent: string | ConcreteComponent | FunctionalComponent;
 			imageComponentAdditionalProps?: Record<string, unknown>;
 	  };
 
@@ -37,7 +38,9 @@ export const PrismicImageImpl = defineComponent({
 			required: true,
 		},
 		imageComponent: {
-			type: [String, Object] as PropType<string | ConcreteComponent>,
+			type: [String, Object] as PropType<
+				string | ConcreteComponent | FunctionalComponent
+			>,
 			default: undefined,
 			required: false,
 		},

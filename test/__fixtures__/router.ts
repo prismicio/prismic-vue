@@ -1,0 +1,33 @@
+import { createMemoryHistory, createRouter, RouteRecordRaw } from "vue-router";
+
+import { WrapperComponent } from "./WrapperComponent";
+
+const routes: Array<RouteRecordRaw> = [
+	{
+		path: "/",
+		name: "Index",
+		component: WrapperComponent,
+	},
+	{
+		path: "/foo",
+		name: "Foo",
+		component: WrapperComponent,
+	},
+	{
+		path: "/bar",
+		name: "Bar",
+		component: WrapperComponent,
+	},
+	{
+		path: "/bar",
+		name: "Baz",
+		component: WrapperComponent,
+	},
+];
+
+const router = createRouter({
+	history: createMemoryHistory(),
+	routes,
+});
+
+export default router;

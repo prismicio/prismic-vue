@@ -147,7 +147,7 @@ export type SliceComponentType<
  */
 export const TODOSliceComponent = __PRODUCTION__
 	? ((() => null) as FunctionalComponent<SliceComponentProps>)
-	: defineComponent({
+	: (defineComponent({
 			name: "TODOSliceCOmponent",
 			props: getSliceComponentProps(),
 			setup(props) {
@@ -175,7 +175,7 @@ export const TODOSliceComponent = __PRODUCTION__
 					);
 				};
 			},
-	  });
+	  }) as SliceComponentType);
 
 /**
  * A record of Slice types mapped to a Vue component. The component will be rendered for each instance of its Slice.
@@ -228,7 +228,7 @@ export type SliceZoneProps<
 	/**
 	 * An optional wrapper tag or component to wrap the Slice Zone output. The Slice Zone is not wrapped by default.
 	 */
-	wrapper?: string | ConcreteComponent;
+	wrapper?: string | ConcreteComponent | FunctionalComponent;
 };
 
 export const SliceZoneImpl = defineComponent({
@@ -253,7 +253,9 @@ export const SliceZoneImpl = defineComponent({
 			required: false,
 		},
 		wrapper: {
-			type: [String, Object] as PropType<string | ConcreteComponent>,
+			type: [String, Object, Function] as PropType<
+				string | ConcreteComponent | FunctionalComponent
+			>,
 			default: undefined,
 			required: false,
 		},
@@ -283,18 +285,22 @@ export const SliceZoneImpl = defineComponent({
 				// 	? h(component, p)
 				// 	: h(component, p);
 
-				// @ts-expect-error so we're doing it this way...
-				return h(component, p);
+				return h(component as DefineComponent, p);
 			});
 		});
 
 		return () => {
 			if (props.wrapper) {
-				return h(
-					simplyResolveComponent(props.wrapper),
-					null,
-					renderedSlices.value,
-				);
+				const parent = simplyResolveComponent(props.wrapper);
+
+				// This works but is absurd
+				// if (typeof parent === "string") {
+				// 	return h(parent, null, renderedSlices.value);
+				// } else {
+				// 	return h(parent, null, renderedSlices.value);
+				// }
+
+				return h(parent as DefineComponent, null, renderedSlices.value);
 			} else {
 				return renderedSlices.value;
 			}

@@ -4,7 +4,9 @@ import {
 	computed,
 	ComputedRef,
 	ConcreteComponent,
+	DefineComponent,
 	defineComponent,
+	FunctionalComponent,
 	h,
 	PropType,
 	unref,
@@ -20,12 +22,12 @@ import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 /**
  * The default component rendered to wrap the text output.
  */
-const defaultWrapper = "p";
+const defaultWrapper = "div";
 
 export type PrismicTextProps = {
 	field: RichTextField;
 	separator?: string;
-	wrapper?: string | ConcreteComponent;
+	wrapper?: string | ConcreteComponent | FunctionalComponent;
 };
 
 export type UsePrismicTextOptions = VueUseOptions<
@@ -57,7 +59,9 @@ export const PrismicTextImpl = defineComponent({
 			required: false,
 		},
 		wrapper: {
-			type: [String, Object] as PropType<string | ConcreteComponent>,
+			type: [String, Object, Function] as PropType<
+				string | ConcreteComponent | FunctionalComponent
+			>,
 			default: undefined,
 			required: false,
 		},
@@ -71,9 +75,18 @@ export const PrismicTextImpl = defineComponent({
 		const { text } = usePrismicText(props);
 
 		return () => {
-			return h(simplyResolveComponent(props.wrapper || defaultWrapper), {}, [
-				text.value,
-			]);
+			const parent = simplyResolveComponent(props.wrapper || defaultWrapper);
+
+			// This works but is absurd
+			// if (typeof parent === "string") {
+			// 	return h(parent, null, { default: () => text.value });
+			// } else {
+			// 	return h(parent, null, { default: () => text.value });
+			// }
+
+			return h(parent as DefineComponent, null, {
+				default: () => text.value,
+			});
 		};
 	},
 });

@@ -5,12 +5,16 @@
 		<prismic-rich-text :field="empty" />
 		<prismic-rich-text :field="single" />
 		<prismic-rich-text :field="multi" />
+		<prismic-rich-text :field="single" wrapper="section" />
+		<prismic-rich-text :field="single" :wrapper="WrapperComponent" />
 		<prismic-rich-text :field="computed" />
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, markRaw } from "vue";
+
+import { WrapperComponent } from "../../components/WrapperComponent";
 
 import { empty, single, multi } from "../../mocks/richtext.json";
 
@@ -22,6 +26,7 @@ export default defineComponent({
 			single,
 			multi,
 			inputText: "",
+			WrapperComponent: markRaw(WrapperComponent),
 		};
 	},
 	computed: {

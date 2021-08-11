@@ -28,6 +28,16 @@
 				</prismic-link>
 			</li>
 			<li>
+				<prismic-link :field="simple" :external-component="WrapperComponent">
+					simple
+				</prismic-link>
+			</li>
+			<li>
+				<prismic-link :field="internal" :internal-component="WrapperComponent">
+					simple
+				</prismic-link>
+			</li>
+			<li>
 				<prismic-link :field="computed"> computed </prismic-link>
 			</li>
 		</ul>
@@ -35,7 +45,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, markRaw } from "vue";
+
+import { WrapperComponent } from "../../components/WrapperComponent";
 
 import { empty, simple, blank, internal } from "../../mocks/link.json";
 
@@ -48,6 +60,7 @@ export default defineComponent({
 			blank,
 			internal,
 			inputText: "",
+			WrapperComponent: markRaw(WrapperComponent),
 		};
 	},
 	computed: {

@@ -1,10 +1,12 @@
 import {
 	AllowedComponentProps,
+	Component,
 	ComponentCustomProps,
 	computed,
 	ComputedRef,
 	ConcreteComponent,
 	defineComponent,
+	FunctionalComponent,
 	h,
 	inject,
 	nextTick,
@@ -26,19 +28,13 @@ import {
 	LinkResolverFunction,
 	Element,
 } from "@prismicio/helpers";
-import {
-	LinkType,
-	RichTextField,
-	RTBlockNode,
-	RTInlineNode,
-	RTLinkNode,
-} from "@prismicio/types";
+import { LinkType, RichTextField, RTLinkNode } from "@prismicio/types";
 
 import { VueUseOptions } from "../types";
 import { usePrismic } from "../usePrismic";
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 import { composeSerializers, wrapMapSerializer } from "@prismicio/richtext";
-import { isExternal } from "../lib/isExternal";
+import { isInternalURL } from "../lib/isInternalURL";
 
 /**
  * The default component rendered to wrap the HTML output.
@@ -49,18 +45,12 @@ export type PrismicRichTextProps = {
 	field: RichTextField;
 	linkResolver?: LinkResolverFunction;
 	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer;
-	wrapper?: string | ConcreteComponent;
+	wrapper?: string | ConcreteComponent | FunctionalComponent;
 };
 
 export type UsePrismicRichTextOptions = VueUseOptions<
 	Omit<PrismicRichTextProps, "wrapper">
 >;
-
-const getLabel = (node: RTBlockNode | RTInlineNode): string => {
-	return "data" in node && "label" in node.data
-		? ` class="${node.data.label}"`
-		: "";
-};
 
 const serializeVueHyperlink = (
 	linkResolver: LinkResolverFunction | undefined,
@@ -71,20 +61,18 @@ const serializeVueHyperlink = (
 		case LinkType.Web: {
 			return `<a href="${escapeHTML(node.data.url)}" target="${
 				node.data.target
-			}" rel="noopener noreferrer"${getLabel(node)}>${children.join("")}</a>`;
+			}" rel="noopener noreferrer">${children.join("")}</a>`;
 		}
 
 		case LinkType.Document: {
 			return `<a data-router-link href="${asLink(
 				node.data,
 				linkResolver,
-			)}"${getLabel(node)}>${children.join("")}</a>`;
+			)}">${children.join("")}</a>`;
 		}
 
 		case LinkType.Media: {
-			return `<a href="${node.data.url}"${getLabel(node)}>${children.join(
-				"",
-			)}</a>`;
+			return `<a href="${node.data.url}">${children.join("")}</a>`;
 		}
 	}
 };
@@ -144,12 +132,16 @@ export const PrismicRichTextImpl = defineComponent({
 			required: false,
 		},
 		htmlSerializer: {
-			type: Function as PropType<HTMLFunctionSerializer | HTMLMapSerializer>,
+			type: [Function, Object] as PropType<
+				HTMLFunctionSerializer | HTMLMapSerializer
+			>,
 			default: undefined,
 			required: false,
 		},
 		wrapper: {
-			type: [String, Object] as PropType<string | ConcreteComponent>,
+			type: [String, Object, Function] as PropType<
+				string | ConcreteComponent | FunctionalComponent
+			>,
 			default: undefined,
 			required: false,
 		},
@@ -162,9 +154,9 @@ export const PrismicRichTextImpl = defineComponent({
 
 		const { html } = usePrismicRichText(props);
 
-		const root = ref<HTMLElement | null>(null);
+		const root = ref<HTMLElement | Component | null>(null);
 
-		const maybeRouter = inject(routerKey);
+		const maybeRouter = inject(routerKey, null);
 		if (maybeRouter) {
 			let links: NodeList | null = null;
 
@@ -190,17 +182,19 @@ export const PrismicRichTextImpl = defineComponent({
 
 				const href = target.getAttribute("href");
 				// Get link target, if internal link, navigate with router link
-				if (href && !isExternal(href)) {
+				if (href && isInternalURL(href)) {
 					event.preventDefault();
 					maybeRouter.push(href);
 				}
 			};
 
 			const addListeners = () => {
-				if (root.value) {
-					links = root.value.querySelectorAll("a[data-router-link]");
-					links.forEach((link) => link.addEventListener("click", navigate));
-				}
+				const node =
+					root.value && "$el" in root.value ? root.value.$el : root.value;
+				links =
+					node?.querySelectorAll &&
+					node.querySelectorAll("a[data-router-link]");
+				links?.forEach((link) => link.addEventListener("click", navigate));
 			};
 
 			const removeListeners = () => {

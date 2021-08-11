@@ -1,0 +1,24 @@
+[
+	{
+		"type": "paragraph",
+		"text": "link",
+		"spans": [
+			{
+				"start": 0,
+				"end": 4,
+				"type": "hyperlink",
+				"data": {
+					"id": "XvoFFREAAM0WGBng",
+					"type": "page",
+					"tags": ["test"],
+					"slug": "have-you-heard-of-that-bird-puffin",
+					"lang": "en-us",
+					"uid": "home",
+					"url": "/link",
+					"link_type": "Document",
+					"isBroken": false
+				}
+			}
+		]
+	}
+]
