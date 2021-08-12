@@ -98,5 +98,14 @@ export const enum PrismicClientComposableState {
  * @internal
  */
 export type VueUseOptions<T> = {
-	[k in keyof T]: Ref<T[k]> | T[k];
+	[K in keyof T]: Ref<T[K]> | T[K];
+};
+
+/**
+ * Type to transform a static tuple into one that allows passing Refs as
+ * values.
+ * @internal
+ */
+export type VueUseParameters<T> = {
+	[K in keyof T]: T extends number ? Ref<T[K]> | T[K] : T[K];
 };

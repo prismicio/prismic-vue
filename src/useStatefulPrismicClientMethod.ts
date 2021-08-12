@@ -8,7 +8,7 @@ import {
 } from "@prismicio/client";
 
 import { usePrismic } from "./usePrismic";
-import { PrismicClientComposableState } from "./types";
+import { PrismicClientComposableState, VueUseParameters } from "./types";
 
 // Helpers
 type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
@@ -23,8 +23,17 @@ type ClientError = PrismicError | ParsingError | ForbiddenError;
 // Interfaces
 export type ClientMethodParameters<TMethodName extends keyof ClientMethods> =
 	ClientMethods[TMethodName] extends ClientMethodLike
-		? Parameters<ClientMethods[TMethodName]>
+		? VueUseParameters<Parameters<ClientMethods[TMethodName]>>
 		: never;
+
+export type ClientMethodReturnType<TMethodName extends keyof ClientMethods> =
+	ClientMethods[TMethodName] extends ClientMethodLike
+		? ReturnType<ClientMethods[TMethodName]>
+		: never;
+
+export type ComposableOnlyParameters = {
+	client?: Ref<Client> | Client;
+};
 
 export type ClientComposableReturnType<TClientMethodReturnType = unknown> = {
 	state: Ref<PrismicClientComposableState>;
@@ -33,13 +42,29 @@ export type ClientComposableReturnType<TClientMethodReturnType = unknown> = {
 	refresh: () => Promise<void>;
 };
 
+/**
+ * Determines if a value is a `@prismicio/client` params object.
+ *
+ * @param value - The value to check.
+ *
+ * @returns `true` if `value` is a `@prismicio/client` params object, `false` otherwise.
+ */
+const isParams = (
+	value: unknown,
+): value is ClientMethodParameters<"get">[0] & ComposableOnlyParameters => {
+	// This is a *very* naive check.
+	return typeof value === "object" && value !== null && !Array.isArray(value);
+};
+
 // Implementation
 export const useStatefulPrismicClientMethod = <
-	TClientMethod extends ClientMethodLike,
-	TClientMethodArguments extends Parameters<TClientMethod>,
-	TClientMethodReturnType extends UnwrapPromise<ReturnType<TClientMethod>>,
+	TClientMethodName extends keyof ClientMethods,
+	TClientMethodArguments extends ClientMethodParameters<TClientMethodName>,
+	TClientMethodReturnType extends UnwrapPromise<
+		ClientMethodReturnType<TClientMethodName>
+	>,
 >(
-	method: TClientMethod,
+	methodName: TClientMethodName,
 	args: TClientMethodArguments,
 ): ClientComposableReturnType<TClientMethodReturnType> => {
 	const { client } = usePrismic();
@@ -50,11 +75,22 @@ export const useStatefulPrismicClientMethod = <
 	const data = shallowRef<TClientMethodReturnType | null>(null);
 	const error = ref<ClientError | null>(null);
 	const refresh = async (): Promise<void> => {
+		const lastArg = unref(args[args.length - 1]);
+		const { client: explicitClient, ...params } = isParams(lastArg)
+			? (lastArg as ClientMethodParameters<"get">[0] & ComposableOnlyParameters)
+			: ({} as ComposableOnlyParameters);
+		const argsWithoutParams = isParams(lastArg) ? args.slice(0, -1) : args;
+
 		state.value = PrismicClientComposableState.Pending;
 		data.value = null;
 		error.value = null;
 		try {
-			data.value = await method.call(client, ...args.map((arg) => unref(arg)));
+			data.value = await (
+				(unref(explicitClient) || client)[methodName] as ClientMethodLike
+			)(
+				...argsWithoutParams.map((arg: Ref<unknown> | unknown) => unref(arg)),
+				params,
+			);
 			state.value = PrismicClientComposableState.Success;
 		} catch (error) {
 			state.value = PrismicClientComposableState.Error;

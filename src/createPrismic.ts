@@ -1,5 +1,5 @@
 import { App } from "vue";
-import nodeFetch from "node-fetch";
+import isomorphicUnfetch from "isomorphic-unfetch";
 
 import {
 	createClient,
@@ -44,7 +44,7 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 							? options.endpoint
 							: getEndpoint(options.endpoint),
 						{
-							fetch: nodeFetch,
+							fetch: isomorphicUnfetch,
 							...options.clientConfig,
 						},
 				  ),

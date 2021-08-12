@@ -143,7 +143,7 @@ export type SliceComponentType<
 /**
  * This Slice component can be used as a reminder to provide a proper implementation.
  *
- * This is also the default React component rendered when a component mapping cannot be found in `<SliceZone>`.
+ * This is also the default Vue component rendered when a component mapping cannot be found in `<SliceZone>`.
  */
 export const TODOSliceComponent = __PRODUCTION__
 	? ((() => null) as FunctionalComponent<SliceComponentProps>)
