@@ -1,10 +1,17 @@
-import { DefineComponent, defineComponent, h } from "vue";
+import {
+	ComponentPropsOptions,
+	DefineComponent,
+	defineComponent,
+	h,
+} from "vue";
 
 export const createWrapperComponent = (
 	suffix: string | number = "",
+	props: ComponentPropsOptions = {},
 ): DefineComponent =>
 	defineComponent({
 		name: `WrapperComponent${suffix}`,
+		props,
 		setup(_props, { slots }) {
 			return () => {
 				return h(

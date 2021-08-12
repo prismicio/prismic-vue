@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
 		component: WrapperComponent,
 	},
 	{
-		path: "/bar",
+		path: "/baz",
 		name: "Baz",
 		component: WrapperComponent,
 	},

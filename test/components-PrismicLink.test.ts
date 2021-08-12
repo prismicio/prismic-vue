@@ -324,12 +324,23 @@ test("uses provided internal link component over plugin provided on internal lin
 });
 
 test("renders nothing when invalid", (t) => {
+	const consoleWarnStub = sinon.stub(console, "warn");
+
 	const wrapper = mount(PrismicLinkImpl, {
 		props: { field: null as unknown as LinkField },
 		slots: { default: "foo" },
 	});
 
 	t.is(wrapper.html(), "<!---->");
+	t.is(
+		consoleWarnStub.withArgs(
+			sinon.match(/Invalid prop: type check failed for prop/i),
+		).callCount,
+		1,
+	);
+	t.is(consoleWarnStub.callCount, 1);
+
+	consoleWarnStub.restore();
 });
 
 test("reacts to changes properly", async (t) => {

@@ -16,6 +16,7 @@ import { Slice } from "@prismicio/types";
 
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 import { __PRODUCTION__ } from "../lib/__PRODUCTION__";
+import { usePrismic } from "../usePrismic";
 
 /**
  * The minimum required properties to represent a Prismic Slice for the `<SliceZone>` component.
@@ -166,8 +167,8 @@ export const TODOSliceComponent = __PRODUCTION__
 					return h(
 						"section",
 						{
-							dataSliceZoneTodoComponent: "",
-							dataSliceType: props.slice.slice_type,
+							"data-slice-zone-todo-component": "",
+							"data-slice-type": props.slice.slice_type,
 						},
 						[
 							`Could not find a component for Slice type "${props.slice.slice_type}"`,
@@ -266,12 +267,16 @@ export const SliceZoneImpl = defineComponent({
 			return () => null;
 		}
 
+		const { options } = usePrismic();
+
 		const renderedSlices = computed(() => {
 			return props.slices.map((slice, index) => {
 				const component =
 					slice.slice_type in props.components
 						? props.components[slice.slice_type]
-						: props.defaultComponent || TODOSliceComponent;
+						: props.defaultComponent ||
+						  options.components?.sliceZoneDefaultComponent ||
+						  TODOSliceComponent;
 
 				const p = {
 					slice,
@@ -293,14 +298,11 @@ export const SliceZoneImpl = defineComponent({
 			if (props.wrapper) {
 				const parent = simplyResolveComponent(props.wrapper);
 
-				// This works but is absurd
-				// if (typeof parent === "string") {
-				// 	return h(parent, null, renderedSlices.value);
-				// } else {
-				// 	return h(parent, null, renderedSlices.value);
-				// }
-
-				return h(parent as DefineComponent, null, renderedSlices.value);
+				if (typeof parent === "string") {
+					return h(parent, null, renderedSlices.value);
+				} else {
+					return h(parent, null, { default: () => renderedSlices.value });
+				}
 			} else {
 				return renderedSlices.value;
 			}

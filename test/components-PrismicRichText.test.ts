@@ -189,7 +189,7 @@ test("navigates internal links using Vue Router if available on click", async (t
 
 	await wrapper.get("a[data-router-link]").trigger("click");
 
-	t.is(1, spiedPush.callCount);
+	t.is(spiedPush.callCount, 1);
 
 	wrapper.unmount();
 });
@@ -216,7 +216,7 @@ test("navigates internal links using Vue Router if available on click when using
 
 	await wrapper.get("a[data-router-link]").trigger("click");
 
-	t.is(1, spiedPush.callCount);
+	t.is(spiedPush.callCount, 1);
 });
 
 test("navigates internal links using Vue Router if available on inner tag click", async (t) => {
@@ -243,7 +243,7 @@ test("navigates internal links using Vue Router if available on inner tag click"
 
 	await wrapper.get("a[data-router-link] em").trigger("click");
 
-	t.is(1, spiedPush.callCount);
+	t.is(spiedPush.callCount, 1);
 });
 
 test("doesn't navigate internal links using Vue Router if available on too deep inner tag click", async (t) => {
@@ -303,11 +303,22 @@ test("doesn't navigate internal links using Vue Router if available when links a
 });
 
 test("renders nothing when invalid", (t) => {
+	const consoleWarnStub = sinon.stub(console, "warn");
+
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: { field: null as unknown as [] },
 	});
 
 	t.is(wrapper.html(), "<!---->");
+	t.is(
+		consoleWarnStub.withArgs(
+			sinon.match(/Invalid prop: type check failed for prop/i),
+		).callCount,
+		1,
+	);
+	t.is(consoleWarnStub.callCount, 1);
+
+	consoleWarnStub.restore();
 });
 
 test("reacts to changes properly", async (t) => {

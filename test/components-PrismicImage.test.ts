@@ -1,4 +1,5 @@
 import test from "ava";
+import * as sinon from "sinon";
 import { mount } from "@vue/test-utils";
 import * as mock from "@prismicio/mock";
 
@@ -74,11 +75,22 @@ test("uses provided image component over plugin provided", (t) => {
 });
 
 test("renders nothing when invalid", (t) => {
+	const consoleWarnStub = sinon.stub(console, "warn");
+
 	const wrapper = mount(PrismicImageImpl, {
 		props: { field: null as unknown as ImageField },
 	});
 
 	t.is(wrapper.html(), "<!---->");
+	t.is(
+		consoleWarnStub.withArgs(
+			sinon.match(/Invalid prop: type check failed for prop/i),
+		).callCount,
+		1,
+	);
+	t.is(consoleWarnStub.callCount, 1);
+
+	consoleWarnStub.restore();
 });
 
 test("reacts to changes properly", async (t) => {

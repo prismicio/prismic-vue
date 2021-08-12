@@ -1,4 +1,5 @@
 import test from "ava";
+import * as sinon from "sinon";
 import { mount } from "@vue/test-utils";
 
 import { markRaw } from "vue";
@@ -34,11 +35,20 @@ test("uses provided wrapper component", (t) => {
 });
 
 test("renders nothing when invalid", (t) => {
+	const consoleWarnStub = sinon.stub(console, "warn");
 	const wrapper = mount(PrismicTextImpl, {
 		props: { field: null as unknown as RichTextField },
 	});
 
 	t.is(wrapper.html(), "<!---->");
+	t.is(
+		consoleWarnStub.withArgs(
+			sinon.match(/Invalid prop: type check failed for prop/i),
+		).callCount,
+		1,
+	);
+	t.is(consoleWarnStub.callCount, 1);
+	consoleWarnStub.restore();
 });
 
 test("reacts to changes properly", async (t) => {

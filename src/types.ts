@@ -23,6 +23,7 @@ type PrismicPluginComponentsOptions = {
 	linkExternalComponent?: string | ConcreteComponent | FunctionalComponent;
 	linkBlankTargetRelAttribute?: string;
 	imageComponent?: string | ConcreteComponent | FunctionalComponent;
+	sliceZoneDefaultComponent?: string | ConcreteComponent | FunctionalComponent;
 };
 
 type PrismicPluginOptionsBase = {
