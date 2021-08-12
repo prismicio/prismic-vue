@@ -42,7 +42,7 @@ export type PrismicLinkProps = {
 	linkResolver?: LinkResolverFunction;
 	target?: string;
 	rel?: string;
-	linkBlankTargetRelAttribute?: string;
+	blankTargetRelAttribute?: string;
 	internalComponent?: string | ConcreteComponent | FunctionalComponent;
 	externalComponent?: string | ConcreteComponent | FunctionalComponent;
 };
@@ -96,7 +96,7 @@ export const usePrismicLink = (
 		return (
 			unref(props.rel) ||
 			(target.value === "_blank" && field && "target" in field && field
-				? unref(props.linkBlankTargetRelAttribute) ||
+				? unref(props.blankTargetRelAttribute) ||
 				  options.components?.linkBlankTargetRelAttribute ||
 				  defaultBlankTargetRelAttribute
 				: null)
@@ -133,7 +133,7 @@ export const PrismicLinkImpl = defineComponent({
 			default: undefined,
 			required: false,
 		},
-		linkBlankTargetRelAttribute: {
+		blankTargetRelAttribute: {
 			type: String as PropType<string>,
 			default: undefined,
 			required: false,

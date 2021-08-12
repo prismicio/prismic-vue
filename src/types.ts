@@ -1,4 +1,4 @@
-import type { App, ConcreteComponent, Ref } from "vue";
+import type { App, ConcreteComponent, FunctionalComponent, Ref } from "vue";
 
 import type {
 	Client,
@@ -19,10 +19,10 @@ import type {
 } from "@prismicio/helpers";
 
 type PrismicPluginComponentsOptions = {
-	linkInternalComponent?: string | ConcreteComponent;
-	linkExternalComponent?: string | ConcreteComponent;
+	linkInternalComponent?: string | ConcreteComponent | FunctionalComponent;
+	linkExternalComponent?: string | ConcreteComponent | FunctionalComponent;
 	linkBlankTargetRelAttribute?: string;
-	imageComponent?: string | ConcreteComponent;
+	imageComponent?: string | ConcreteComponent | FunctionalComponent;
 };
 
 type PrismicPluginOptionsBase = {

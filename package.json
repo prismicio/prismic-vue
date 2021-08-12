@@ -55,7 +55,7 @@
 		"vue-router": "^4.0.10"
 	},
 	"devDependencies": {
-		"@prismicio/mock": "^0.0.1",
+		"@prismicio/mock": "^0.0.2",
 		"@types/escape-html": "^1.0.1",
 		"@types/jsdom-global": "3.0.2",
 		"@types/node-fetch": "2.5.12",

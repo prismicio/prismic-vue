@@ -5,9 +5,13 @@ import * as mock from "@prismicio/mock";
 import { markRaw } from "vue";
 import { ImageField } from "@prismicio/types";
 
-import { WrapperComponent } from "./__fixtures__/WrapperComponent";
+import {
+	createWrapperComponent,
+	WrapperComponent,
+} from "./__fixtures__/WrapperComponent";
 
 import { PrismicImageImpl } from "../src/components";
+import { createPrismic } from "../src";
 
 test("renders image field", (t) => {
 	const wrapper = mount(PrismicImageImpl, {
@@ -32,12 +36,38 @@ test("renders partial image field", (t) => {
 	t.snapshot(wrapper.html());
 });
 
-test("uses provided image component", (t) => {
+test("uses plugin provided image component", (t) => {
+	const prismic = createPrismic({
+		endpoint: "test",
+		components: {
+			imageComponent: WrapperComponent,
+		},
+	});
+
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
 			field: mock.value.image({ seed: 3 }),
-			imageComponent: markRaw(WrapperComponent),
 		},
+		global: { plugins: [prismic] },
+	});
+
+	t.snapshot(wrapper.html());
+});
+
+test("uses provided image component over plugin provided", (t) => {
+	const prismic = createPrismic({
+		endpoint: "test",
+		components: {
+			imageComponent: createWrapperComponent(1),
+		},
+	});
+
+	const wrapper = mount(PrismicImageImpl, {
+		props: {
+			field: mock.value.image({ seed: 3 }),
+			imageComponent: markRaw(createWrapperComponent(2)),
+		},
+		global: { plugins: [prismic] },
 	});
 
 	t.snapshot(wrapper.html());

@@ -6,7 +6,10 @@ import * as mock from "@prismicio/mock";
 import { markRaw } from "vue";
 import { LinkField, LinkType } from "@prismicio/types";
 
-import { WrapperComponent } from "./__fixtures__/WrapperComponent";
+import {
+	createWrapperComponent,
+	WrapperComponent,
+} from "./__fixtures__/WrapperComponent";
 import router from "./__fixtures__/router";
 
 import { PrismicLinkImpl } from "../src/components";
@@ -27,7 +30,11 @@ test("renders link to web field", (t) => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.link({ seed: 1, type: LinkType.Web }),
+				...mock.value.link({
+					seed: 2,
+					type: LinkType.Web,
+					withTargetBlank: false,
+				}),
 				url: "https://example.com",
 			},
 		},
@@ -41,7 +48,7 @@ test("renders link to media field", (t) => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.link({ seed: 1, type: LinkType.Media }),
+				...mock.value.link({ seed: 3, type: LinkType.Media }),
 				url: "https://example.com/image.png",
 			},
 		},
@@ -55,7 +62,7 @@ test("renders link to document field", (t) => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.link({ seed: 1, type: LinkType.Document }),
+				...mock.value.link({ seed: 4, type: LinkType.Document }),
 				url: "/bar",
 			},
 		},
@@ -79,7 +86,7 @@ test("uses plugin provided link resolver", (t) => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.link({ seed: 1, type: LinkType.Document }),
+				...mock.value.link({ seed: 5, type: LinkType.Document }),
 				url: undefined,
 			},
 		},
@@ -105,7 +112,7 @@ test("uses provided link resolver over plugin provided", (t) => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.link({ seed: 1, type: LinkType.Document }),
+				...mock.value.link({ seed: 6, type: LinkType.Document }),
 				url: undefined,
 			},
 			linkResolver: spiedLinkResolver2,
@@ -125,9 +132,12 @@ test("renders link with blank target", (t) => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.link({ seed: 2, type: LinkType.Web }),
+				...mock.value.link({
+					seed: 7,
+					type: LinkType.Web,
+					withTargetBlank: true,
+				}),
 				url: "https://example.com",
-				target: "_blank",
 			},
 		},
 		slots: { default: "foo" },
@@ -139,30 +149,74 @@ test("renders link with blank target", (t) => {
 	);
 });
 
-test("renders link with blank target using provided default rel attribute", (t) => {
+test("renders link with blank target using plugin provided default rel attribute", (t) => {
+	const prismic = createPrismic({
+		endpoint: "test",
+		components: {
+			linkBlankTargetRelAttribute: "bar",
+		},
+	});
+
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.link({ seed: 3, type: LinkType.Web }),
+				...mock.value.link({
+					seed: 8,
+					type: LinkType.Web,
+					withTargetBlank: true,
+				}),
 				url: "https://example.com",
-				target: "_blank",
 			},
-			linkBlankTargetRelAttribute: "noopener",
 		},
 		slots: { default: "foo" },
+		global: {
+			plugins: [router, prismic],
+		},
 	});
 
 	t.is(
 		wrapper.html(),
-		'<a href="https://example.com" target="_blank" rel="noopener">foo</a>',
+		'<a href="https://example.com" target="_blank" rel="bar">foo</a>',
 	);
 });
 
-test("renders link with provided blank and rel attribute", (t) => {
+test("renders link with blank target using provided default rel attribute over plugin provided", (t) => {
+	const prismic = createPrismic({
+		endpoint: "test",
+		components: {
+			linkBlankTargetRelAttribute: "bar",
+		},
+	});
+
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.link({ seed: 4, type: LinkType.Web }),
+				...mock.value.link({
+					seed: 9,
+					type: LinkType.Web,
+					withTargetBlank: true,
+				}),
+				url: "https://example.com",
+			},
+			blankTargetRelAttribute: "baz",
+		},
+		slots: { default: "foo" },
+		global: {
+			plugins: [router, prismic],
+		},
+	});
+
+	t.is(
+		wrapper.html(),
+		'<a href="https://example.com" target="_blank" rel="baz">foo</a>',
+	);
+});
+
+test("uses provided blank and rel attribute", (t) => {
+	const wrapper = mount(PrismicLinkImpl, {
+		props: {
+			field: {
+				...mock.value.link({ seed: 10, type: LinkType.Web }),
 				url: "https://example.com",
 			},
 			target: "bar",
@@ -177,15 +231,22 @@ test("renders link with provided blank and rel attribute", (t) => {
 	);
 });
 
-test("uses provided external link component on external link", (t) => {
+test("uses plugin provided external link component on external link", (t) => {
+	const prismic = createPrismic({
+		endpoint: "test",
+		components: {
+			linkExternalComponent: WrapperComponent,
+		},
+	});
+
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.link({ seed: 5, type: LinkType.Web }),
+				...mock.value.link({ seed: 11, type: LinkType.Web }),
 				url: "https://example.com",
 			},
-			externalComponent: markRaw(WrapperComponent),
 		},
+		global: { plugins: [prismic] },
 	});
 
 	t.is(
@@ -194,18 +255,72 @@ test("uses provided external link component on external link", (t) => {
 	);
 });
 
-test("uses provided internal link component on internal link", (t) => {
-	const wrapper = mount(PrismicLinkImpl, {
-		props: {
-			field: {
-				...mock.value.link({ seed: 6, type: LinkType.Document }),
-				url: "/bar",
-			},
-			internalComponent: markRaw(WrapperComponent),
+test("uses provided external link component over plugin provided on external link", (t) => {
+	const prismic = createPrismic({
+		endpoint: "test",
+		components: {
+			linkExternalComponent: createWrapperComponent(1),
 		},
 	});
 
+	const wrapper = mount(PrismicLinkImpl, {
+		props: {
+			field: {
+				...mock.value.link({ seed: 12, type: LinkType.Web }),
+				url: "https://example.com",
+			},
+			externalComponent: markRaw(createWrapperComponent(2)),
+		},
+		global: { plugins: [prismic] },
+	});
+
+	t.is(
+		wrapper.html(),
+		'<div class="wrapperComponent2" to="https://example.com"></div>',
+	);
+});
+
+test("uses plugin provided internal link component on internal link", (t) => {
+	const prismic = createPrismic({
+		endpoint: "test",
+		components: {
+			linkInternalComponent: WrapperComponent,
+		},
+	});
+
+	const wrapper = mount(PrismicLinkImpl, {
+		props: {
+			field: {
+				...mock.value.link({ seed: 13, type: LinkType.Document }),
+				url: "/bar",
+			},
+		},
+		global: { plugins: [prismic] },
+	});
+
 	t.is(wrapper.html(), '<div class="wrapperComponent" to="/bar"></div>');
+});
+
+test("uses provided internal link component over plugin provided on internal link", (t) => {
+	const prismic = createPrismic({
+		endpoint: "test",
+		components: {
+			linkInternalComponent: createWrapperComponent(1),
+		},
+	});
+
+	const wrapper = mount(PrismicLinkImpl, {
+		props: {
+			field: {
+				...mock.value.link({ seed: 14, type: LinkType.Document }),
+				url: "/bar",
+			},
+			internalComponent: markRaw(createWrapperComponent(2)),
+		},
+		global: { plugins: [prismic] },
+	});
+
+	t.is(wrapper.html(), '<div class="wrapperComponent2" to="/bar"></div>');
 });
 
 test("renders nothing when invalid", (t) => {
@@ -221,7 +336,7 @@ test("reacts to changes properly", async (t) => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.link({ seed: 7, type: LinkType.Web }),
+				...mock.value.link({ seed: 15, type: LinkType.Web }),
 				url: "https://example.com",
 			},
 		},
@@ -232,7 +347,11 @@ test("reacts to changes properly", async (t) => {
 
 	await wrapper.setProps({
 		field: {
-			...mock.value.link({ seed: 8, type: LinkType.Web }),
+			...mock.value.link({
+				seed: 16,
+				type: LinkType.Web,
+				withTargetBlank: false,
+			}),
 			target: null,
 			url: "https://prismic.io",
 		},
