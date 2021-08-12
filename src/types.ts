@@ -69,7 +69,7 @@ export type PrismicPluginHelpers = {
 
 export type PrismicPlugin = {
 	readonly options: PrismicPluginOptions;
-	install: (app: App, injectKey: string) => void;
+	install: (app: App) => void;
 } & PrismicPluginClient &
 	PrismicPluginHelpers;
 

@@ -12,6 +12,7 @@ import { WrapperComponent } from "./__fixtures__/WrapperComponent";
 import { sleep } from "./__testutils__/sleep";
 
 import { PrismicRichTextImpl } from "../src/components";
+import { createPrismic } from "../src";
 
 test("renders rich text field as plain text", (t) => {
 	const wrapper = mount(PrismicRichTextImpl, {
@@ -37,35 +38,134 @@ test("uses provided wrapper component", (t) => {
 	t.snapshot(wrapper.html());
 });
 
-test("uses provided link resolver", (t) => {
-	const wrapper = mount(PrismicRichTextImpl, {
-		props: { field: richTextFixture.en, linkResolver: () => t.title },
+test("uses plugin provided link resolver", (t) => {
+	const spiedLinkResolver = sinon.spy(() => t.title);
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		linkResolver: spiedLinkResolver,
 	});
 
+	const wrapper = mount(PrismicRichTextImpl, {
+		props: { field: richTextFixture.en },
+		global: { plugins: [prismic] },
+	});
+
+	t.true(spiedLinkResolver.called);
 	t.true(wrapper.html().includes(`href="${t.title}"`));
 });
 
-test("uses provided HTML function serializer", (t) => {
+test("uses provided link resolver over plugin provided", (t) => {
+	const spiedLinkResolver1 = sinon.spy(() => `${t.title}1`);
+	const spiedLinkResolver2 = sinon.spy(() => `${t.title}2`);
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		linkResolver: spiedLinkResolver1,
+	});
+
+	const wrapper = mount(PrismicRichTextImpl, {
+		props: { field: richTextFixture.en, linkResolver: spiedLinkResolver2 },
+		global: { plugins: [prismic] },
+	});
+
+	t.false(spiedLinkResolver1.called);
+	t.true(spiedLinkResolver2.called);
+	t.true(wrapper.html().includes(`href="${t.title}2"`));
+});
+
+test("uses plugin provided HTML function serializer", (t) => {
+	const spiedHTMLSerializer = sinon.spy((type: Element) =>
+		type === Element.paragraph ? `<p>${t.title}</p>` : null,
+	);
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		htmlSerializer: spiedHTMLSerializer,
+	});
+
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
 			field: richTextFixture.en,
-			htmlSerializer: (type: Element) =>
-				type === Element.paragraph ? `<p>${t.title}</p>` : null,
 		},
+		global: { plugins: [prismic] },
 	});
 
+	t.true(spiedHTMLSerializer.called);
 	t.true(wrapper.html().includes(`<p>${t.title}</p>`));
 });
 
-test("uses provided HTML map serializer", (t) => {
+test("uses provided HTML function serializer over plugin provided", (t) => {
+	const spiedHTMLSerializer1 = sinon.spy((type: Element) =>
+		type === Element.paragraph ? `<p>${t.title}1</p>` : null,
+	);
+	const spiedHTMLSerializer2 = sinon.spy((type: Element) =>
+		type === Element.paragraph ? `<p>${t.title}2</p>` : null,
+	);
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		htmlSerializer: spiedHTMLSerializer1,
+	});
+
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
 			field: richTextFixture.en,
-			htmlSerializer: { paragraph: () => `<p>${t.title}</p>` },
+			htmlSerializer: spiedHTMLSerializer2,
 		},
+		global: { plugins: [prismic] },
 	});
 
+	t.false(spiedHTMLSerializer1.called);
+	t.true(spiedHTMLSerializer2.called);
+	t.true(wrapper.html().includes(`<p>${t.title}2</p>`));
+});
+
+test("uses plugin provided HTML map serializer", (t) => {
+	const spiedHTMLSerializer = sinon.spy({
+		paragraph: () => `<p>${t.title}</p>`,
+	});
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		htmlSerializer: spiedHTMLSerializer,
+	});
+
+	const wrapper = mount(PrismicRichTextImpl, {
+		props: {
+			field: richTextFixture.en,
+		},
+		global: { plugins: [prismic] },
+	});
+
+	t.true(spiedHTMLSerializer.paragraph.called);
 	t.true(wrapper.html().includes(`<p>${t.title}</p>`));
+});
+
+test("uses provided HTML map serializer over plugin provided", (t) => {
+	const spiedHTMLSerializer1 = sinon.spy({
+		paragraph: () => `<p>${t.title}1</p>`,
+	});
+	const spiedHTMLSerializer2 = sinon.spy({
+		paragraph: () => `<p>${t.title}2</p>`,
+	});
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		htmlSerializer: spiedHTMLSerializer1,
+	});
+
+	const wrapper = mount(PrismicRichTextImpl, {
+		props: {
+			field: richTextFixture.en,
+			htmlSerializer: spiedHTMLSerializer2,
+		},
+		global: { plugins: [prismic] },
+	});
+
+	t.false(spiedHTMLSerializer1.paragraph.called);
+	t.true(spiedHTMLSerializer2.paragraph.called);
+	t.true(wrapper.html().includes(`<p>${t.title}2</p>`));
 });
 
 test("navigates internal links using Vue Router if available on click", async (t) => {

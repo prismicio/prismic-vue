@@ -1,4 +1,5 @@
 import { App } from "vue";
+import nodeFetch from "node-fetch";
 
 import {
 	createClient,
@@ -21,6 +22,7 @@ import {
 	PrismicLink,
 	PrismicRichText,
 	PrismicText,
+	SliceZone,
 } from "./components";
 import { prismicKey } from "./injectionSymbols";
 import type {
@@ -41,7 +43,10 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 						/^(https?:)?\/\//gim.test(options.endpoint)
 							? options.endpoint
 							: getEndpoint(options.endpoint),
-						options.clientConfig,
+						{
+							fetch: nodeFetch,
+							...options.clientConfig,
+						},
 				  ),
 		predicate,
 		cookie,
@@ -88,6 +93,7 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 				app.component(PrismicImage.name, PrismicImage);
 				app.component(PrismicText.name, PrismicText);
 				app.component(PrismicRichText.name, PrismicRichText);
+				app.component(SliceZone.name, SliceZone);
 			}
 		},
 	};

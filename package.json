@@ -51,12 +51,14 @@
 		"@prismicio/richtext": "alpha",
 		"@prismicio/types": "^0.1.5",
 		"escape-html": "^1.0.3",
+		"node-fetch": "2.6.1",
 		"vue-router": "^4.0.10"
 	},
 	"devDependencies": {
 		"@prismicio/mock": "^0.0.1",
 		"@types/escape-html": "^1.0.1",
 		"@types/jsdom-global": "3.0.2",
+		"@types/node-fetch": "2.5.12",
 		"@types/sinon": "10.0.2",
 		"@typescript-eslint/eslint-plugin": "^4.29.1",
 		"@typescript-eslint/parser": "^4.29.1",

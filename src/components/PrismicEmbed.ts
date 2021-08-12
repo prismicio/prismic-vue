@@ -44,7 +44,7 @@ export const PrismicEmbedImpl = defineComponent({
 		}
 
 		return () => {
-			return h(simplyResolveComponent(props.wrapper ?? defaultWrapper), {
+			return h(simplyResolveComponent(props.wrapper || defaultWrapper), {
 				"data-oembed": props.field.embed_url,
 				"data-oembed-type": props.field.type,
 				"data-oembed-provider": props.field.provider_name,

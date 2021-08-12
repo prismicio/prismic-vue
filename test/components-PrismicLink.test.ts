@@ -1,4 +1,5 @@
 import test from "ava";
+import * as sinon from "sinon";
 import { mount } from "@vue/test-utils";
 import * as mock from "@prismicio/mock";
 
@@ -6,9 +7,10 @@ import { markRaw } from "vue";
 import { LinkField, LinkType } from "@prismicio/types";
 
 import { WrapperComponent } from "./__fixtures__/WrapperComponent";
+import router from "./__fixtures__/router";
 
 import { PrismicLinkImpl } from "../src/components";
-import router from "./__fixtures__/router";
+import { createPrismic } from "../src";
 
 test("renders empty link field", (t) => {
 	const wrapper = mount(PrismicLinkImpl, {
@@ -66,22 +68,57 @@ test("renders link to document field", (t) => {
 	t.is(wrapper.html(), '<a href="/bar" class="">foo</a>');
 });
 
-test("renders link to document field using provided link resolver", (t) => {
+test("uses plugin provided link resolver", (t) => {
+	const spiedLinkResolver = sinon.spy(() => "/bar");
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		linkResolver: spiedLinkResolver,
+	});
+
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
 				...mock.value.link({ seed: 1, type: LinkType.Document }),
 				url: undefined,
 			},
-			linkResolver: () => "/bar",
 		},
 		slots: { default: "foo" },
 		global: {
-			plugins: [router],
+			plugins: [router, prismic],
 		},
 	});
 
+	t.is(spiedLinkResolver.callCount, 1);
 	t.is(wrapper.html(), '<a href="/bar" class="">foo</a>');
+});
+
+test("uses provided link resolver over plugin provided", (t) => {
+	const spiedLinkResolver1 = sinon.spy(() => "/bar");
+	const spiedLinkResolver2 = sinon.spy(() => "/baz");
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		linkResolver: spiedLinkResolver1,
+	});
+
+	const wrapper = mount(PrismicLinkImpl, {
+		props: {
+			field: {
+				...mock.value.link({ seed: 1, type: LinkType.Document }),
+				url: undefined,
+			},
+			linkResolver: spiedLinkResolver2,
+		},
+		slots: { default: "foo" },
+		global: {
+			plugins: [router, prismic],
+		},
+	});
+
+	t.false(spiedLinkResolver1.called);
+	t.is(spiedLinkResolver2.callCount, 1);
+	t.is(wrapper.html(), '<a href="/baz" class="">foo</a>');
 });
 
 test("renders link with blank target", (t) => {
