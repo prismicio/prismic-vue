@@ -144,6 +144,12 @@ test("renders provided TODO component over plugin provided if component mapping 
 	);
 });
 
+test.skip("doesn't render TODO component in production", () => {
+	// ts-eager does not allow esbuild configuration.
+	// We cannot override the `process.env.NODE_ENV` inline replacement.
+	// As a result, we cannot test for production currently.
+});
+
 test("wraps output with provided wrapper tag", (t) => {
 	const Foo = createWrapperComponent("Foo", getSliceComponentProps());
 	const Bar = createWrapperComponent("Bar", getSliceComponentProps());
