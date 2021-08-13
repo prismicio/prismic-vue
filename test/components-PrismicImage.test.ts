@@ -74,6 +74,22 @@ test("uses provided image component over plugin provided", (t) => {
 	t.snapshot(wrapper.html());
 });
 
+test("renders partial image field with image component", (t) => {
+	const wrapper = mount(PrismicImageImpl, {
+		props: {
+			field: {
+				...mock.value.image({ seed: 4 }),
+				url: null,
+				alt: null,
+				copyright: null,
+			} as ImageField,
+			imageComponent: markRaw(WrapperComponent),
+		},
+	});
+
+	t.snapshot(wrapper.html());
+});
+
 test("renders nothing when invalid", (t) => {
 	const consoleWarnStub = sinon.stub(console, "warn");
 
@@ -95,13 +111,13 @@ test("renders nothing when invalid", (t) => {
 
 test("reacts to changes properly", async (t) => {
 	const wrapper = mount(PrismicImageImpl, {
-		props: { field: mock.value.image({ seed: 4 }) },
+		props: { field: mock.value.image({ seed: 5 }) },
 	});
 
 	const firstRender = wrapper.html();
 
 	await wrapper.setProps({
-		field: mock.value.image({ seed: 5 }),
+		field: mock.value.image({ seed: 6 }),
 	});
 
 	const secondRender = wrapper.html();

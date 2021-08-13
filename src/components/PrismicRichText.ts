@@ -6,7 +6,6 @@ import {
 	ComputedRef,
 	ConcreteComponent,
 	defineComponent,
-	FunctionalComponent,
 	h,
 	inject,
 	nextTick,
@@ -45,7 +44,7 @@ export type PrismicRichTextProps = {
 	field: RichTextField;
 	linkResolver?: LinkResolverFunction;
 	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer;
-	wrapper?: string | ConcreteComponent | FunctionalComponent;
+	wrapper?: string | ConcreteComponent;
 };
 
 export type UsePrismicRichTextOptions = VueUseOptions<
@@ -139,9 +138,7 @@ export const PrismicRichTextImpl = defineComponent({
 			required: false,
 		},
 		wrapper: {
-			type: [String, Object, Function] as PropType<
-				string | ConcreteComponent | FunctionalComponent
-			>,
+			type: [String, Object, Function] as PropType<string | ConcreteComponent>,
 			default: undefined,
 			required: false,
 		},

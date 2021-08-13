@@ -6,7 +6,6 @@ import {
 	ConcreteComponent,
 	DefineComponent,
 	defineComponent,
-	FunctionalComponent,
 	h,
 	PropType,
 	unref,
@@ -27,7 +26,7 @@ const defaultWrapper = "div";
 export type PrismicTextProps = {
 	field: RichTextField;
 	separator?: string;
-	wrapper?: string | ConcreteComponent | FunctionalComponent;
+	wrapper?: string | ConcreteComponent;
 };
 
 export type UsePrismicTextOptions = VueUseOptions<
@@ -59,9 +58,7 @@ export const PrismicTextImpl = defineComponent({
 			required: false,
 		},
 		wrapper: {
-			type: [String, Object, Function] as PropType<
-				string | ConcreteComponent | FunctionalComponent
-			>,
+			type: [String, Object, Function] as PropType<string | ConcreteComponent>,
 			default: undefined,
 			required: false,
 		},

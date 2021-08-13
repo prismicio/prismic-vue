@@ -229,7 +229,7 @@ export type SliceZoneProps<
 	/**
 	 * An optional wrapper tag or component to wrap the Slice Zone output. The Slice Zone is not wrapped by default.
 	 */
-	wrapper?: string | ConcreteComponent | FunctionalComponent;
+	wrapper?: string | ConcreteComponent;
 };
 
 export const SliceZoneImpl = defineComponent({
@@ -254,9 +254,7 @@ export const SliceZoneImpl = defineComponent({
 			required: false,
 		},
 		wrapper: {
-			type: [String, Object, Function] as PropType<
-				string | ConcreteComponent | FunctionalComponent
-			>,
+			type: [String, Object, Function] as PropType<string | ConcreteComponent>,
 			default: undefined,
 			required: false,
 		},

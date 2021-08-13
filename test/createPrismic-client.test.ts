@@ -8,7 +8,7 @@ import { WrapperComponent } from "./__fixtures__/WrapperComponent";
 
 import { createPrismic } from "../src";
 
-test("creates client from repository name", (t) => {
+test("creates client from repository ID", (t) => {
 	const prismic = createPrismic({ endpoint: "test" });
 
 	const wrapper = mount(WrapperComponent, {

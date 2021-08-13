@@ -3,7 +3,6 @@ import {
 	ComponentCustomProps,
 	ConcreteComponent,
 	defineComponent,
-	FunctionalComponent,
 	h,
 	PropType,
 	VNodeProps,
@@ -19,7 +18,7 @@ const defaultWrapper = "div";
 
 export type PrismicEmbedProps = {
 	field: EmbedField;
-	wrapper?: string | ConcreteComponent | FunctionalComponent;
+	wrapper?: string | ConcreteComponent;
 };
 
 export const PrismicEmbedImpl = defineComponent({
@@ -30,9 +29,7 @@ export const PrismicEmbedImpl = defineComponent({
 			required: true,
 		},
 		wrapper: {
-			type: [String, Object, Function] as PropType<
-				string | ConcreteComponent | FunctionalComponent
-			>,
+			type: [String, Object, Function] as PropType<string | ConcreteComponent>,
 			default: undefined,
 			required: false,
 		},

@@ -10,7 +10,6 @@ import {
 	ConcreteComponent,
 	computed,
 	ComputedRef,
-	FunctionalComponent,
 } from "vue";
 
 import { asLink, LinkResolverFunction } from "@prismicio/helpers";
@@ -43,8 +42,8 @@ export type PrismicLinkProps = {
 	target?: string;
 	rel?: string;
 	blankTargetRelAttribute?: string;
-	internalComponent?: string | ConcreteComponent | FunctionalComponent;
-	externalComponent?: string | ConcreteComponent | FunctionalComponent;
+	internalComponent?: string | ConcreteComponent;
+	externalComponent?: string | ConcreteComponent;
 };
 
 export type UsePrismicLinkOptions = VueUseOptions<PrismicLinkProps>;
@@ -52,7 +51,7 @@ export type UsePrismicLinkOptions = VueUseOptions<PrismicLinkProps>;
 export const usePrismicLink = (
 	props: UsePrismicLinkOptions,
 ): {
-	type: ComputedRef<string | ConcreteComponent | FunctionalComponent>;
+	type: ComputedRef<string | ConcreteComponent>;
 	href: ComputedRef<string>;
 	target: ComputedRef<string | null>;
 	rel: ComputedRef<string | null>;
@@ -139,16 +138,12 @@ export const PrismicLinkImpl = defineComponent({
 			required: false,
 		},
 		internalComponent: {
-			type: [String, Object, Function] as PropType<
-				string | ConcreteComponent | FunctionalComponent
-			>,
+			type: [String, Object, Function] as PropType<string | ConcreteComponent>,
 			default: undefined,
 			required: false,
 		},
 		externalComponent: {
-			type: [String, Object, Function] as PropType<
-				string | ConcreteComponent | FunctionalComponent
-			>,
+			type: [String, Object, Function] as PropType<string | ConcreteComponent>,
 			default: undefined,
 			required: false,
 		},
