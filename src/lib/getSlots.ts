@@ -1,5 +1,16 @@
 import { ConcreteComponent, Slots, VNode } from "vue";
 
+/**
+ * Get the appropriate `slots` object/array according to the provided parent, fixing `Non-function value encountered for default slot.` warnings.
+ *
+ * @param parent - The parent inheriting slots
+ * @param slots - The `slots` to transform for parent
+ * @param defaultParams - The parameters to provide to the default slot
+ *
+ * @returns The appropriate slots object/array
+ *
+ * @internal
+ */
 export const getSlots = (
 	parent: string | ConcreteComponent,
 	slots: Slots,

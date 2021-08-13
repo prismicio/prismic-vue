@@ -32,27 +32,36 @@ import type {
 	PrismicPluginOptions,
 } from "./types";
 
+/**
+ * Creates a `@prismicio/vue` plugin instance that can be used by a Vue app.
+ *
+ * @param options - {@link PrismicPluginOptions}
+ *
+ * @returns `@prismicio/vue` plugin instance {@link PrismicPlugin}
+ *
+ * @see Prismic Official Vue.js documentation: {@link https://prismic.io/docs/technologies/vuejs}
+ * @see Plugin repository: {@link https://github.com/prismicio/prismic-vue}
+ */
 export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
-	// Creating plugin client
+	// Create plugin client
 	const prismicClient: PrismicPluginClient = {
-		client:
-			"client" in options
-				? options.client
-				: createClient(
-						/** @see Regex101 expression: {@link https://regex101.com/r/GT2cl7/1} */
-						/^(https?:)?\/\//gim.test(options.endpoint)
-							? options.endpoint
-							: getEndpoint(options.endpoint),
-						{
-							fetch: isomorphicUnfetch,
-							...options.clientConfig,
-						},
-				  ),
+		client: options.client
+			? options.client
+			: createClient(
+					/** @see Regex101 expression: {@link https://regex101.com/r/GT2cl7/1} */
+					/^(https?:)?\/\//gim.test(options.endpoint)
+						? options.endpoint
+						: getEndpoint(options.endpoint),
+					{
+						fetch: isomorphicUnfetch,
+						...options.clientConfig,
+					},
+			  ),
 		predicate,
 		cookie,
 	};
 
-	// Creating plugin helpers
+	// Create plugin helpers
 	const prismicHelpers: PrismicPluginHelpers = {
 		asText,
 		asHTML: (richTextField, linkResolver, htmlSerializer) => {
@@ -76,7 +85,7 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 		},
 	};
 
-	// Creating plugin instance
+	// Create plugin interface
 	const prismic: PrismicPlugin = {
 		options,
 

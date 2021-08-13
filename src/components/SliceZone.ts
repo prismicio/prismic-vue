@@ -70,8 +70,6 @@ export type SliceComponentProps<
 /**
  * @typeParam TSlice - The Slice passed as a prop
  * @typeParam TContext - Arbitrary data passed to `<SliceZone>` and made available to all Slice components
- *
- * @internal
  */
 export type DefineComponentSliceComponentProps<
 	TSlice extends SliceLike = SliceLike,

@@ -20,7 +20,7 @@ import type {
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-// Imports for @link references
+// Imports for @link references:
 
 import type { RouterLink } from "vue-router";
 
@@ -119,7 +119,9 @@ type PrismicPluginOptionsBase = {
 };
 
 /**
- * Additional options to init `@prismicio/vue` plugin with a client instance.
+ * Options to init `@prismicio/vue` plugin with a client instance.
+ *
+ * @see {@link PrismicPluginOptionsBase} for shared options
  */
 type PrismicPluginOptionsWithClient = PrismicPluginOptionsBase & {
 	/**
@@ -130,10 +132,26 @@ type PrismicPluginOptionsWithClient = PrismicPluginOptionsBase & {
 	 * @see Prismic client documentation {@link https://prismic.io/docs/technologies/javascript}
 	 */
 	client: Client;
+
+	/**
+	 * Ensures type union is a strict or.
+	 *
+	 * @internal
+	 */
+	endpoint?: never;
+
+	/**
+	 * Ensures type union is a strict or.
+	 *
+	 * @internal
+	 */
+	clientConfig?: never;
 };
 
 /**
- * Additional options to init `@prismicio/vue` plugin with a repository ID or API endpoint.
+ * Options to init `@prismicio/vue` plugin with a repository ID or API endpoint.
+ *
+ * @see {@link PrismicPluginOptionsBase} for shared options
  */
 type PrismicPluginOptionsWithEndpoint = PrismicPluginOptionsBase & {
 	/**
@@ -195,12 +213,19 @@ type PrismicPluginOptionsWithEndpoint = PrismicPluginOptionsBase & {
 	 * ```
 	 */
 	clientConfig?: ClientConfig;
+
+	/**
+	 * Ensures type union is a strict or.
+	 *
+	 * @internal
+	 */
+	client?: never;
 };
 
 /**
  * `@prismicio/vue` plugin options.
  *
- * @see Official Prismic Vue.js documentation: {@link https://prismic.io/docs/technologies/vuejs}
+ * @see Prismic Official Vue.js documentation: {@link https://prismic.io/docs/technologies/vuejs}
  * @see Plugin repository: {@link https://github.com/prismicio/prismic-vue}
  */
 export type PrismicPluginOptions =
@@ -211,13 +236,13 @@ export type PrismicPluginOptions =
  * `@prismicio/client` related methods and properties exposed by `@prismicio/vue` plugin and accessible through `this.$prismic` and `usePrismic()`.
  */
 export type PrismicPluginClient = {
-	/** A `@prismicio/client` instance */
+	/** A `@prismicio/client` instance. */
 	client: Client;
 
-	/** Query predicates from `@prismicio/client` */
+	/** Query predicates from `@prismicio/client`. */
 	predicate: typeof predicate;
 
-	/** Prismic cookies from `@prismicio/client` */
+	/** Prismic cookies from `@prismicio/client`. */
 	cookie: typeof cookie;
 };
 

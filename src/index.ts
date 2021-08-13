@@ -56,6 +56,8 @@ export {
 	useSinglePrismicDocument,
 } from "./composables";
 
+export type { ClientComposableReturnType } from "./useStatefulPrismicClientMethod";
+
 export { PrismicClientComposableState } from "./types";
 export type { PrismicPluginOptions, PrismicPlugin } from "./types";
 
