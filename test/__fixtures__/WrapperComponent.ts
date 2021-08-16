@@ -5,6 +5,9 @@ import {
 	h,
 } from "vue";
 
+/**
+ * Creates a new component.
+ */
 export const createWrapperComponent = (
 	suffix: string | number = "",
 	props: ComponentPropsOptions = {},
