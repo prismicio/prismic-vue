@@ -38,13 +38,20 @@ import type { usePrismicDocuments } from "./composables";
  */
 type PrismicPluginComponentsOptions = {
 	/**
+	 * Value of the `rel` attribute to use on links rendered with `target="_blank"`
+	 *
+	 * @defaultValue `"noopener noreferrer"`
+	 */
+	linkBlankTargetRelAttribute?: string;
+
+	/**
 	 * An HTML tag name, a component, or a functional component used to render internal links.
 	 *
 	 * @remarks HTML tag names will be rendered using the anchor tag interface (`href`, `target`, and `rel` attributes).
 	 *
-	 * @remarks Components will be rendered using Vue Router `router-link` interface (`to` props).
+	 * @remarks Components will be rendered using Vue Router {@link RouterLink} interface (`to` props).
 	 *
-	 * @defaultValue {@link RouterLink }
+	 * @defaultValue {@link RouterLink}
 	 */
 	linkInternalComponent?: string | ConcreteComponent;
 
@@ -53,23 +60,16 @@ type PrismicPluginComponentsOptions = {
 	 *
 	 * @remarks HTML tag names will be rendered using the anchor tag interface (`href`, `target`, and `rel` attributes).
 	 *
-	 * @remarks Components will be rendered using Vue Router `router-link` interface (`to` props).
+	 * @remarks Components will be rendered using Vue Router {@link RouterLink} interface (`to` props).
 	 *
 	 * @defaultValue `"a"`
 	 */
 	linkExternalComponent?: string | ConcreteComponent;
 
 	/**
-	 * Value of the `rel` attribute to use on links rendered with `target="_blank"`
-	 *
-	 * @defaultValue `"noopener noreferrer"`
-	 */
-	linkBlankTargetRelAttribute?: string;
-
-	/**
 	 * An HTML tag name, a component, or a functional component used to render images.
 	 *
-	 * @remarks HTML tag names and components will be rendered using the `img` tag interface (`src`, `alt` and `copyright` attribute).
+	 * @remarks HTML tag names and components will be rendered using the `img` tag interface (`src` and `alt` attribute). Components will also receive an additional `copyright` props.
 	 *
 	 * @defaultValue `"img"`
 	 */
@@ -90,14 +90,14 @@ type PrismicPluginComponentsOptions = {
  */
 type PrismicPluginOptionsBase = {
 	/**
-	 * An optional link resolver function used to resolve links to Prismic documents when not using the route resolver parameter with the client.
+	 * An optional link resolver function used to resolve links to Prismic documents when not using the route resolver parameter with `@prismicio/client`.
 	 *
 	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
 	 */
 	linkResolver?: LinkResolverFunction;
 
 	/**
-	 * An optional HTML serializer to customize the way rich text fields are rendered
+	 * An optional HTML serializer to customize the way rich text fields are rendered.
 	 *
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */
@@ -253,7 +253,7 @@ export type PrismicPluginHelpers = {
 	/**
 	 * Serializes a rich text or title field to a plain text string. This is `@prismicio/helpers` {@link asText} function.
 	 *
-	 * @see Templating rich text and title field {@link https://prismic.io/docs/technologies/vue-template-content#rich-text-and-titles}
+	 * @see Templating rich text and title fields {@link https://prismic.io/docs/technologies/vue-template-content#rich-text-and-titles}
 	 */
 	asText: typeof asText;
 
@@ -264,7 +264,7 @@ export type PrismicPluginHelpers = {
 	 *
 	 * @remarks If no `htmlSerializer` is provided the function will use the one provided to the plugin at {@link PrismicPluginOptions.htmlSerializer} if available.
 	 *
-	 * @see Templating rich text and title field {@link https://prismic.io/docs/technologies/vue-template-content#rich-text-and-titles}
+	 * @see Templating rich text and title fields {@link https://prismic.io/docs/technologies/vue-template-content#rich-text-and-titles}
 	 */
 	asHTML: typeof asHTML;
 
@@ -273,7 +273,7 @@ export type PrismicPluginHelpers = {
 	 *
 	 * @remarks If no `linkResolver` is provided the function will use the one provided to the plugin at {@link PrismicPluginOptions.linkResolver} if available.
 	 *
-	 * @see Templating links {@link https://prismic.io/docs/technologies/vue-template-content#links-and-content-relationships}
+	 * @see Templating link fields {@link https://prismic.io/docs/technologies/vue-template-content#links-and-content-relationships}
 	 */
 	asLink: (
 		linkField: Parameters<typeof asLink>[0],
@@ -295,7 +295,7 @@ export type PrismicPluginHelpers = {
 	 *
 	 * @remarks If no `linkResolver` is provided the function will use the one provided to the plugin at {@link PrismicPluginOptions.linkResolver} if available.
 	 *
-	 * @see Templating links {@link https://prismic.io/docs/technologies/vue-template-content#links-and-content-relationships}
+	 * @see Templating link fields {@link https://prismic.io/docs/technologies/vue-template-content#links-and-content-relationships}
 	 */
 	documentAsLink: (
 		prismicDocument: Parameters<typeof documentAsLink>[0],

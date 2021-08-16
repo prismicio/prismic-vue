@@ -40,17 +40,63 @@ import { isInternalURL } from "../lib/isInternalURL";
  */
 const defaultWrapper = "div";
 
+/**
+ * Props for `<PrismicRichText />`.
+ */
 export type PrismicRichTextProps = {
+	/** The Prismic rich text or title field to render. */
 	field: RichTextField;
+
+	/**
+	 * A link resolver function used to resolve link when not using the route resolver parameter with `@prismicio/client`.
+	 *
+	 * @defaultValue The link resolver provided to `@prismicio/vue` plugin if configured.
+	 *
+	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
+	 */
 	linkResolver?: LinkResolverFunction;
+
+	/**
+	 * An HTML serializer to customize the way rich text fields are rendered.
+	 *
+	 * @defaultValue The HTML serializer provided to `@prismicio/vue` plugin if configured.
+	 *
+	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
+	 */
 	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer;
+
+	/**
+	 * An HTML tag name, a component, or a functional component used to wrap the output.
+	 *
+	 * @defaultValue `"div"`
+	 */
 	wrapper?: string | ConcreteComponent;
 };
 
+/**
+ * Options for {@link usePrismicRichText}.
+ */
 export type UsePrismicRichTextOptions = VueUseOptions<
 	Omit<PrismicRichTextProps, "wrapper">
 >;
 
+/**
+ * Return type of {@link usePrismicRichText}.
+ */
+export type UsePrismicRichTextReturnType = {
+	/** Serialized rich text field as HTML. */
+	html: ComputedRef<string>;
+};
+
+/**
+ * Serializes hyperlink for Vue, applying `data-router-link` attribute to internal links for usage with Vue Router.
+ *
+ * @param linkResolver - A link resolver function to use
+ * @param node - The link node to serialize
+ * @param children - The children of the link node
+ *
+ * @returns Serialized hyperlink
+ */
 const serializeVueHyperlink = (
 	linkResolver: LinkResolverFunction | undefined,
 	node: RTLinkNode,
@@ -76,9 +122,16 @@ const serializeVueHyperlink = (
 	}
 };
 
+/**
+ * A low level composable that returns a serialized rich text field as HTML.
+ *
+ * @param props - {@link UsePrismicRichTextOptions}
+ *
+ * @returns - Serialized rich text field as HTML {@link UsePrismicRichTextReturnType}
+ */
 export const usePrismicRichText = (
 	props: UsePrismicRichTextOptions,
-): { html: ComputedRef<string> } => {
+): UsePrismicRichTextReturnType => {
 	const { options } = usePrismic();
 
 	const html = computed(() => {
@@ -118,6 +171,11 @@ export const usePrismicRichText = (
 	};
 };
 
+/**
+ * `<PrismicRichText />` implementation.
+ *
+ * @internal
+ */
 export const PrismicRichTextImpl = defineComponent({
 	name: "PrismicRichText",
 	props: {
@@ -225,6 +283,12 @@ export const PrismicRichTextImpl = defineComponent({
 
 // export the public type for h/tsx inference
 // also to avoid inline import() in generated d.ts files
+/**
+ * Component to render a Prismic rich text field as HTML.
+ *
+ * @see Component props {@link PrismicRichTextProps}
+ * @see Templating rich text and title fields {@link https://prismic.io/docs/technologies/vue-template-content#rich-text-and-titles}
+ */
 export const PrismicRichText = PrismicRichTextImpl as unknown as {
 	new (): {
 		$props: AllowedComponentProps &

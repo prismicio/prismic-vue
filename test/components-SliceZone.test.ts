@@ -2,37 +2,60 @@ import test from "ava";
 import * as sinon from "sinon";
 import { mount } from "@vue/test-utils";
 
-import { markRaw } from "vue";
+import { defineAsyncComponent, markRaw } from "vue";
 
-import { createWrapperComponent } from "./__fixtures__/WrapperComponent";
+import {
+	createWrapperComponent,
+	WrapperComponent,
+} from "./__fixtures__/WrapperComponent";
 
-import { SliceZoneImpl } from "../src/components";
+import {
+	getSliceZoneComponents,
+	SliceComponentType,
+	SliceZoneImpl,
+} from "../src/components";
 import {
 	getSliceComponentProps,
 	SliceLike,
 	SliceZoneLike,
 	createPrismic,
 } from "../src";
-import { WrapperComponent } from "../playground/src/components/WrapperComponent";
+import { sleep } from "./__testutils__/sleep";
 
-test("renders slice zone with correct component mapping", (t) => {
+test("renders slice zone with correct component mapping", async (t) => {
 	const Foo = createWrapperComponent("Foo", getSliceComponentProps());
 	const Bar = createWrapperComponent("Bar", getSliceComponentProps());
+	const Baz = createWrapperComponent("Baz", getSliceComponentProps());
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
-			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
+			slices: [
+				{ slice_type: "foo" },
+				{ slice_type: "bar" },
+				{ slice_type: "baz" },
+			],
+			components: getSliceZoneComponents({
+				foo: Foo,
+				bar: defineAsyncComponent(
+					() => new Promise<SliceComponentType>((res) => res(Bar)),
+				),
+				baz: "Baz",
+			}),
+		},
+		global: {
 			components: {
-				foo: markRaw(Foo),
-				bar: markRaw(Bar),
+				Baz,
 			},
 		},
 	});
 
+	await sleep();
+
 	t.is(
 		wrapper.html(),
 		`<div class="wrapperComponentFoo"></div>
-<div class="wrapperComponentBar"></div>`,
+<div class="wrapperComponentBar"></div>
+<div class="wrapperComponentBaz"></div>`,
 	);
 });
 
@@ -45,10 +68,10 @@ test("provides context to each slice", (t) => {
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
 			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
-			components: {
-				foo: markRaw(Foo),
-				bar: markRaw(Bar),
-			},
+			components: getSliceZoneComponents({
+				foo: Foo,
+				bar: Bar,
+			}),
 			context,
 		},
 	});
@@ -65,9 +88,9 @@ test("renders TODO component if component mapping is missing", (t) => {
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
 			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
-			components: {
-				foo: markRaw(Foo),
-			},
+			components: getSliceZoneComponents({
+				foo: Foo,
+			}),
 		},
 	});
 
@@ -98,9 +121,9 @@ test("renders plugin provided TODO component if component mapping is missing", (
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
 			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
-			components: {
-				foo: markRaw(Foo),
-			},
+			components: getSliceZoneComponents({
+				foo: Foo,
+			}),
 		},
 		global: {
 			plugins: [prismic],
@@ -127,9 +150,9 @@ test("renders provided TODO component over plugin provided if component mapping 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
 			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
-			components: {
-				foo: markRaw(Foo),
-			},
+			components: getSliceZoneComponents({
+				foo: Foo,
+			}),
 			defaultComponent: markRaw(Baz),
 		},
 		global: {
@@ -157,10 +180,10 @@ test("wraps output with provided wrapper tag", (t) => {
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
 			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
-			components: {
-				foo: markRaw(Foo),
-				bar: markRaw(Bar),
-			},
+			components: getSliceZoneComponents({
+				foo: Foo,
+				bar: Bar,
+			}),
 			wrapper: "main",
 		},
 	});
@@ -181,10 +204,10 @@ test("wraps output with provided wrapper component", (t) => {
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
 			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
-			components: {
-				foo: markRaw(Foo),
-				bar: markRaw(Bar),
-			},
+			components: getSliceZoneComponents({
+				foo: Foo,
+				bar: Bar,
+			}),
 			wrapper: markRaw(WrapperComponent),
 		},
 	});
@@ -204,7 +227,7 @@ test("renders nothing when invalid", (t) => {
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
 			slices: null as unknown as SliceZoneLike<SliceLike>,
-			components: {},
+			components: getSliceZoneComponents({}),
 		},
 	});
 
@@ -227,10 +250,10 @@ test("reacts to changes properly", async (t) => {
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
 			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
-			components: {
-				foo: markRaw(Foo),
-				bar: markRaw(Bar),
-			},
+			components: getSliceZoneComponents({
+				foo: Foo,
+				bar: Bar,
+			}),
 		},
 	});
 
@@ -238,10 +261,10 @@ test("reacts to changes properly", async (t) => {
 
 	await wrapper.setProps({
 		slices: [{ slice_type: "bar" }],
-		components: {
-			foo: markRaw(Foo),
-			bar: markRaw(Bar),
-		},
+		components: getSliceZoneComponents({
+			foo: Foo,
+			bar: Bar,
+		}),
 	});
 
 	const secondRender = wrapper.html();

@@ -12,15 +12,30 @@ import { EmbedField } from "@prismicio/types";
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 
 /**
- * The default component rendered to wrap the embed
+ * The default component rendered to wrap the embed.
  */
 const defaultWrapper = "div";
 
+/**
+ * Props for `<PrismicEmbed />`.
+ */
 export type PrismicEmbedProps = {
+	/** The Prismic embed field to render. */
 	field: EmbedField;
+
+	/**
+	 * An HTML tag name, a component, or a functional component used to wrap the output.
+	 *
+	 * @defaultValue `"div"`
+	 */
 	wrapper?: string | ConcreteComponent;
 };
 
+/**
+ * `<PrismicEmbed />` implementation.
+ *
+ * @internal
+ */
 export const PrismicEmbedImpl = defineComponent({
 	name: "PrismicEmbed",
 	props: {
@@ -53,6 +68,12 @@ export const PrismicEmbedImpl = defineComponent({
 
 // export the public type for h/tsx inference
 // also to avoid inline import() in generated d.ts files
+/**
+ * Component to render a Prismic embed field.
+ *
+ * @see Component props {@link PrismicEmbedProps}
+ * @see Templating embed fields {@link https://prismic.io/docs/technologies/vue-template-content#embeds}
+ */
 export const PrismicEmbed = PrismicEmbedImpl as unknown as {
 	new (): {
 		$props: AllowedComponentProps &

@@ -23,19 +23,53 @@ import { simplyResolveComponent } from "../lib/simplyResolveComponent";
  */
 const defaultWrapper = "div";
 
+/**
+ * Props for `<PrismicText />`.
+ */
 export type PrismicTextProps = {
+	/** The Prismic rich text or title field to render. */
 	field: RichTextField;
+
+	/**
+	 * Separator used to join each element.
+	 *
+	 * @defaultValue `" "` (a space)
+	 */
 	separator?: string;
+
+	/**
+	 * An HTML tag name, a component, or a functional component used to wrap the output.
+	 *
+	 * @defaultValue `"div"`
+	 */
 	wrapper?: string | ConcreteComponent;
 };
 
+/**
+ * Options for {@link usePrismicText}.
+ */
 export type UsePrismicTextOptions = VueUseOptions<
 	Omit<PrismicTextProps, "wrapper">
 >;
 
+/**
+ * Return type of {@link usePrismicText}.
+ */
+export type UsePrismicTextReturnType = {
+	/** Serialized rich text field as plain text. */
+	text: ComputedRef<string>;
+};
+
+/**
+ * A low level composable that returns a serialized rich text field as plain text.
+ *
+ * @param props - {@link UsePrismicTextOptions}
+ *
+ * @returns - Serialized rich text field as plain text {@link UsePrismicTextReturnType}
+ */
 export const usePrismicText = (
 	props: UsePrismicTextOptions,
-): { text: ComputedRef<string> } => {
+): UsePrismicTextReturnType => {
 	const text = computed(() => {
 		return asText(unref(props.field), unref(props.separator));
 	});
@@ -45,6 +79,11 @@ export const usePrismicText = (
 	};
 };
 
+/**
+ * `<PrismicText />` implementation.
+ *
+ * @internal
+ */
 export const PrismicTextImpl = defineComponent({
 	name: "PrismicText",
 	props: {
@@ -90,6 +129,12 @@ export const PrismicTextImpl = defineComponent({
 
 // export the public type for h/tsx inference
 // also to avoid inline import() in generated d.ts files
+/**
+ * Component to render a Prismic rich text field as plain text.
+ *
+ * @see Component props {@link PrismicTextProps}
+ * @see Templating rich text and title fields {@link https://prismic.io/docs/technologies/vue-template-content#rich-text-and-titles}
+ */
 export const PrismicText = PrismicTextImpl as unknown as {
 	new (): {
 		$props: AllowedComponentProps &
