@@ -2,6 +2,56 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.1](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.0...v3.0.0-alpha.1) (2021-08-17)
+
+
+### Features
+
+* add basic components and related composables ([eb4e1d6](https://github.com/prismicio/prismic-vue/commit/eb4e1d6f228b685b85f0f087072943e201842412))
+* add composables ([a7ab05c](https://github.com/prismicio/prismic-vue/commit/a7ab05c58eda77f104bfc0aad3d50ab4dbd7019c))
+* add PrismicLink component ([5f0b4cf](https://github.com/prismicio/prismic-vue/commit/5f0b4cf0a418973b4af6cea5d804436e3ce840e1))
+* add slice zone component ([ec0c50a](https://github.com/prismicio/prismic-vue/commit/ec0c50aa76a020898dadcb2303750b799ff601ef))
+* navigate internal links using vue-router if present ([0e0de61](https://github.com/prismicio/prismic-vue/commit/0e0de615266e79fdac09fa49bc999697df3f90f3))
+
+
+### Bug Fixes
+
+* don't use ts ignore comments ([ff5ad93](https://github.com/prismicio/prismic-vue/commit/ff5ad93404a405dbf84d8201867f6d8eaa768aca))
+* provide accurate default for usePrismic ([f5a14de](https://github.com/prismicio/prismic-vue/commit/f5a14de4cae2ce7f1c8dcd93bb5b9ad10b63d078))
+* use shallowRef to prevent object unnecessary unwrap ([90eb09c](https://github.com/prismicio/prismic-vue/commit/90eb09cc55651d78d15c00f19e3669f5c1d11813))
+
+
+### Refactor
+
+* composables ([0867de3](https://github.com/prismicio/prismic-vue/commit/0867de34b7c07c5d6144b0cfcfd8d429dd5f7cdb))
+* migrate to new typescript template ([804b09d](https://github.com/prismicio/prismic-vue/commit/804b09d20c8eb46ae93b8fb825fa56bfde7b9fdd))
+* use computed properties for memo cache ([b642a87](https://github.com/prismicio/prismic-vue/commit/b642a877d5cf04ac119e0b1cb71a7d49761cfa93))
+* use dedicated file for plugin and use API ([6c3e944](https://github.com/prismicio/prismic-vue/commit/6c3e9440e6dadb9488586769754b77def789a35b))
+
+
+### Chore
+
+* add .versionrc ([05392cc](https://github.com/prismicio/prismic-vue/commit/05392cce6f549afdd4d1d6baf5a076e35c7ddf61))
+* **config:** add tsdocs lint ([2ff9de7](https://github.com/prismicio/prismic-vue/commit/2ff9de7b401a4cb06ab00af4ac90506556dcc430))
+* **deps:** maintain dependencies ([11ddb6b](https://github.com/prismicio/prismic-vue/commit/11ddb6b99be563428062baa5fcda47799096f420))
+* fix package lock ([b213b56](https://github.com/prismicio/prismic-vue/commit/b213b56411ddc896b20e8ced4514d95ed89898b5))
+* fix package lock ([2b63475](https://github.com/prismicio/prismic-vue/commit/2b63475c4a5e3a6f6f8ab435c26c36b67b3df697))
+* maintain dependencies ([9cb8bf9](https://github.com/prismicio/prismic-vue/commit/9cb8bf92952e831fa2dee49322f8d062bc9b5dcc))
+* **playground:** update playground ([1641316](https://github.com/prismicio/prismic-vue/commit/1641316499dfd874ecbb3da5de3dd674ddbdc4c1))
+* update .github templates ([2b92d7e](https://github.com/prismicio/prismic-vue/commit/2b92d7e8874d8611445747ba9993ed6938a2153c))
+* update playground ([782bb20](https://github.com/prismicio/prismic-vue/commit/782bb2054c1e551e81e27fec12795e37937889d8))
+
+
+### Documentation
+
+* add tsdocs for components ([e2f0bd7](https://github.com/prismicio/prismic-vue/commit/e2f0bd7f800729e46744383d2ed0b2ef4bda8713))
+* add tsdocs for composables ([8b8e9f2](https://github.com/prismicio/prismic-vue/commit/8b8e9f2068c6e4e61e598b68cff0e91129153489))
+* document root level source files ([26fab78](https://github.com/prismicio/prismic-vue/commit/26fab78a0796a5842aa5c0f0980bcca5a6a62694))
+* remove docus doc ([3946e3e](https://github.com/prismicio/prismic-vue/commit/3946e3e4f54bfa95a5335980e7b48a2ccdc7742c))
+* tsdocs for plugin types ([18dbbaf](https://github.com/prismicio/prismic-vue/commit/18dbbafc9f988b19380b0721d448ef1ed6328b61))
+* typo ([e137db6](https://github.com/prismicio/prismic-vue/commit/e137db6a407d7ea674380f37c3506217c418680f))
+* update vetur tags and attributes ([1c927a4](https://github.com/prismicio/prismic-vue/commit/1c927a4c54e83baba0f6ebb29b0f71292f018b07))
+
 ## [3.0.0-alpha.0](https://github.com/prismicio/prismic-vue/compare/v2.0.11...v3.0.0-alpha.0) (2021-04-09)
 
 
