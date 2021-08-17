@@ -75,6 +75,40 @@ test("renders link to document field", (t) => {
 	t.is(wrapper.html(), '<a href="/bar" class="">foo</a>');
 });
 
+test("renders document as link", (t) => {
+	const wrapper = mount(PrismicLinkImpl, {
+		props: {
+			field: {
+				...mock.value.document(),
+				url: "/bar",
+			},
+		},
+		slots: { default: "foo" },
+		global: {
+			plugins: [router],
+		},
+	});
+
+	t.is(wrapper.html(), '<a href="/bar" class="">foo</a>');
+});
+
+test("renders non-resolvable document as link", (t) => {
+	const wrapper = mount(PrismicLinkImpl, {
+		props: {
+			field: {
+				...mock.value.document(),
+				url: null,
+			},
+		},
+		slots: { default: "foo" },
+		global: {
+			plugins: [router],
+		},
+	});
+
+	t.is(wrapper.html(), '<a href="">foo</a>');
+});
+
 test("uses plugin provided link resolver", (t) => {
 	const spiedLinkResolver = sinon.spy(() => "/bar");
 

@@ -10,7 +10,7 @@ import {
 	markRaw,
 	PropType,
 	VNodeProps,
-	watch,
+	watchEffect,
 } from "vue";
 
 import { Slice } from "@prismicio/types";
@@ -162,16 +162,12 @@ export const TODOSliceComponent = __PRODUCTION__
 			name: "TODOSliceCOmponent",
 			props: getSliceComponentProps(),
 			setup(props) {
-				watch(
-					props.slice,
-					() => {
-						console.warn(
-							`[SliceZone] Could not find a component for Slice type "${props.slice.slice_type}"`,
-							props.slice,
-						);
-					},
-					{ deep: true, immediate: true },
-				);
+				watchEffect(() => {
+					console.warn(
+						`[SliceZone] Could not find a component for Slice type "${props.slice.slice_type}"`,
+						props.slice,
+					);
+				});
 
 				return () => {
 					return h(
@@ -293,7 +289,7 @@ export type SliceZoneProps<
 	 *
 	 * @remarks Components will be rendered using the {@link SliceComponentProps} interface.
 	 *
-	 * @defaultValue The Slice Zone default component provided to `@prismicio/vue` plugin if configured, otherwise `null` when `process.env.NODE_ENV === "production"` else {@link TODOSliceComponent}
+	 * @defaultValue The Slice Zone default component provided to `@prismicio/vue` plugin if configured, otherwise `null` when `process.env.NODE_ENV === "production"` else {@link TODOSliceComponent}.
 	 */
 	defaultComponent?: SliceComponentType<TSlice, TContext>;
 

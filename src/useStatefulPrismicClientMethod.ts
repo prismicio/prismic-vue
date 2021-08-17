@@ -118,9 +118,9 @@ export const useStatefulPrismicClientMethod = <
 				params,
 			);
 			state.value = PrismicClientComposableState.Success;
-		} catch (error) {
+		} catch (err) {
 			state.value = PrismicClientComposableState.Error;
-			error.value = error;
+			error.value = err;
 		}
 	};
 

@@ -12,8 +12,12 @@ import {
 	ComputedRef,
 } from "vue";
 
-import { asLink, LinkResolverFunction } from "@prismicio/helpers";
-import { LinkField } from "@prismicio/types";
+import {
+	asLink,
+	documentAsLink,
+	LinkResolverFunction,
+} from "@prismicio/helpers";
+import { LinkField, PrismicDocument } from "@prismicio/types";
 
 import { isInternalURL } from "../lib/isInternalURL";
 import { usePrismic } from "../usePrismic";
@@ -40,8 +44,8 @@ const defaultBlankTargetRelAttribute = "noopener noreferrer";
  * Props for `<PrismicLink />`.
  */
 export type PrismicLinkProps = {
-	/** The Prismic link field to render. */
-	field: LinkField;
+	/** The Prismic link field or document to render. */
+	field: LinkField | PrismicDocument;
 
 	/**
 	 * A link resolver function used to resolve links when not using the route resolver parameter with `@prismicio/client`.
@@ -63,7 +67,7 @@ export type PrismicLinkProps = {
 	rel?: string;
 
 	/**
-	 * Value of the `rel` attribute to use on links rendered with `target="_blank"`
+	 * Value of the `rel` attribute to use on links rendered with `target="_blank"`.
 	 *
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"noopener noreferrer"` otherwise.
 	 */
@@ -76,7 +80,7 @@ export type PrismicLinkProps = {
 	 *
 	 * @remarks Components will be rendered using Vue Router {@link RouterLink} interface (`to` props).
 	 *
-	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, {@link RouterLink} otherwise
+	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, {@link RouterLink} otherwise.
 	 */
 	internalComponent?: string | ConcreteComponent;
 
@@ -87,7 +91,7 @@ export type PrismicLinkProps = {
 	 *
 	 * @remarks Components will be rendered using Vue Router {@link RouterLink} interface (`to` props).
 	 *
-	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"a"` otherwise
+	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"a"` otherwise.
 	 */
 	externalComponent?: string | ConcreteComponent;
 };
@@ -142,12 +146,12 @@ export const usePrismicLink = (
 			: externalComponent;
 	});
 	const href = computed(() => {
-		return (
-			asLink(
-				unref(props.field),
-				unref(props.linkResolver) ?? options.linkResolver,
-			) ?? ""
-		);
+		const field = unref(props.field);
+		const linkResolver = unref(props.linkResolver) ?? options.linkResolver;
+
+		return "data" in field && field.data
+			? documentAsLink(field, linkResolver) ?? ""
+			: asLink(field, linkResolver) ?? "";
 	});
 	const target = computed(() => {
 		const field = unref(props.field);
@@ -187,7 +191,7 @@ export const PrismicLinkImpl = defineComponent({
 	name: "PrismicLink",
 	props: {
 		field: {
-			type: Object as PropType<LinkField>,
+			type: Object as PropType<LinkField | PrismicDocument>,
 			required: true,
 		},
 		linkResolver: {
