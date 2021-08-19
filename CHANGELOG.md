@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.3](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.2...v3.0.0-alpha.3) (2021-08-19)
+
+
+### Chore
+
+* mark component implementations as pue ([1910abf](https://github.com/prismicio/prismic-vue/commit/1910abf3efd90645fd9f547fcb91675fde455614))
+
+
+### Documentation
+
+* add readme ([3e0bddb](https://github.com/prismicio/prismic-vue/commit/3e0bddb50bed390bb53972a55d57eedf0facc30b))
+
 ## [3.0.0-alpha.2](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.1...v3.0.0-alpha.2) (2021-08-19)
 
 
