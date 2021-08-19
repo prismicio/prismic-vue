@@ -14,6 +14,7 @@
 	},
 	"license": "Apache-2.0",
 	"author": "Prismic <contact@prismic.io> (https://prismic.io)",
+	"sideEffects": false,
 	"type": "module",
 	"exports": {
 		".": {
@@ -49,20 +50,20 @@
 		"@prismicio/client": "alpha",
 		"@prismicio/helpers": "alpha",
 		"@prismicio/richtext": "alpha",
-		"@prismicio/types": "^0.1.6",
+		"@prismicio/types": "^0.1.9",
 		"escape-html": "^1.0.3",
 		"isomorphic-unfetch": "3.1.0",
 		"vue-router": "^4.0.10"
 	},
 	"devDependencies": {
-		"@prismicio/mock": "^0.0.2",
+		"@prismicio/mock": "^0.0.3",
 		"@types/escape-html": "^1.0.1",
 		"@types/jsdom-global": "3.0.2",
 		"@types/sinon": "10.0.2",
-		"@typescript-eslint/eslint-plugin": "^4.29.1",
-		"@typescript-eslint/parser": "^4.29.1",
+		"@typescript-eslint/eslint-plugin": "^4.29.2",
+		"@typescript-eslint/parser": "^4.29.2",
 		"@vitejs/plugin-vue": "^1.4.0",
-		"@vue/compiler-sfc": "^3.2.2",
+		"@vue/compiler-sfc": "^3.2.4",
 		"@vue/eslint-config-typescript": "^7.0.0",
 		"@vue/test-utils": "^2.0.0-rc",
 		"ava": "^3.15.0",
@@ -71,7 +72,7 @@
 		"eslint-plugin-prettier": "^3.4.0",
 		"eslint-plugin-tsdoc": "^0.2.14",
 		"eslint-plugin-vue": "^7.16.0",
-		"jsdom": "^16.7.0",
+		"jsdom": "^17.0.0",
 		"jsdom-global": "^3.0.2",
 		"nyc": "^15.1.0",
 		"prettier": "^2.3.2",
@@ -80,7 +81,7 @@
 		"standard-version": "^9.3.1",
 		"ts-eager": "^2.0.2",
 		"typescript": "^4.3.5",
-		"vite": "^2.4.4",
+		"vite": "^2.5.0",
 		"vue": "^3.2.1"
 	},
 	"peerDependencies": {
