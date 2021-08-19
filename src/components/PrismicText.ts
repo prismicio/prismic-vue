@@ -84,7 +84,7 @@ export const usePrismicText = (
  *
  * @internal
  */
-export const PrismicTextImpl = defineComponent({
+export const PrismicTextImpl = /*#__PURE__*/ defineComponent({
 	name: "PrismicText",
 	props: {
 		field: {

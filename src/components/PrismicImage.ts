@@ -65,7 +65,7 @@ export type PrismicImageProps =
  *
  * @internal
  */
-export const PrismicImageImpl = defineComponent({
+export const PrismicImageImpl = /*#__PURE__*/ defineComponent({
 	name: "PrismicImage",
 	props: {
 		field: {

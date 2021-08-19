@@ -176,7 +176,7 @@ export const usePrismicRichText = (
  *
  * @internal
  */
-export const PrismicRichTextImpl = defineComponent({
+export const PrismicRichTextImpl = /*#__PURE__*/ defineComponent({
 	name: "PrismicRichText",
 	props: {
 		field: {

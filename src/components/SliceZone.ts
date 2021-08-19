@@ -174,7 +174,7 @@ export type SliceComponentType<
  */
 export const TODOSliceComponent = __PRODUCTION__
 	? ((() => null) as FunctionalComponent<SliceComponentProps>)
-	: (defineComponent({
+	: /*#__PURE__*/ (defineComponent({
 			name: "TODOSliceCOmponent",
 			props: getSliceComponentProps(),
 			setup(props) {
@@ -320,7 +320,7 @@ export type SliceZoneProps<
  *
  * @internal
  */
-export const SliceZoneImpl = defineComponent({
+export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 	name: "SliceZone",
 	props: {
 		slices: {

@@ -36,7 +36,7 @@ export type PrismicEmbedProps = {
  *
  * @internal
  */
-export const PrismicEmbedImpl = defineComponent({
+export const PrismicEmbedImpl = /*#__PURE__*/ defineComponent({
 	name: "PrismicEmbed",
 	props: {
 		field: {

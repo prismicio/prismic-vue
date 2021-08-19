@@ -187,7 +187,7 @@ export const usePrismicLink = (
  *
  * @internal
  */
-export const PrismicLinkImpl = defineComponent({
+export const PrismicLinkImpl = /*#__PURE__*/ defineComponent({
 	name: "PrismicLink",
 	props: {
 		field: {
