@@ -96,7 +96,9 @@ export type DefineComponentSliceComponentProps<
 };
 
 /**
- * Gets native Vue props for a component rendering content from a Prismic Slice using the `<SliceZone />` component.
+ * Gets native Vue props for a component rendering content from a Prismic Slice using the `<SliceZone />` component. Props are: `["slice", "index", "slices", "context"]`
+ *
+ * @param propsHint - An optional array of prop names used for the sole purpose of having a visual hint of which props are made available to the slice, this parameters doesn't have any effect
  *
  * @returns Props object to use with {@link defineComponent}
  *
@@ -113,11 +115,25 @@ export type DefineComponentSliceComponentProps<
  *   props: getSliceComponentProps(),
  * };
  * ```
+ *
+ * @example
+ * Defining a new slice component with visual hint:
+ *
+ * ```
+ * import { getSliceComponentProps } from "@prismicio/vue";
+ *
+ * export default {
+ *   props: getSliceComponentProps(["slice", "index", "slices", "context"]),
+ * };
+ * ```
  */
 export const getSliceComponentProps = <
 	TSlice extends SliceLike = SliceLike,
 	TContext = unknown,
->(): DefineComponentSliceComponentProps<TSlice, TContext> => ({
+>(
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	propsHint?: string[],
+): DefineComponentSliceComponentProps<TSlice, TContext> => ({
 	slice: {
 		type: Object as PropType<SliceComponentProps<TSlice, TContext>["slice"]>,
 		required: true,
