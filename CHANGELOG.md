@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.2](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.1...v3.0.0-alpha.2) (2021-08-19)
+
+
+### Features
+
+* allow for props hint on getSliceComponentProps ([3245a5c](https://github.com/prismicio/prismic-vue/commit/3245a5c9f0e536ea02cfffe119edc6f6ba33ba23))
+* lazy load fetch ponyfill when needed ([bee79c2](https://github.com/prismicio/prismic-vue/commit/bee79c27032cd229063ee78a9ab5fea3d7124514))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([f7df24d](https://github.com/prismicio/prismic-vue/commit/f7df24dc7661d418b141f2bb9bb7d7c23ec7fdb8))
+
 ## [3.0.0-alpha.1](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.0...v3.0.0-alpha.1) (2021-08-17)
 
 
