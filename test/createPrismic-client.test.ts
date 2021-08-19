@@ -61,3 +61,63 @@ test("uses provided client", (t) => {
 	t.is(wrapper.vm.$prismic.client, client);
 	t.is(wrapper.vm.$prismic.client.endpoint, client.endpoint);
 });
+
+test("uses provided fetch function", (t) => {
+	const spiedFetch = sinon.spy();
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		clientConfig: {
+			fetch: spiedFetch,
+		},
+	});
+
+	const wrapper = mount(WrapperComponent, {
+		global: {
+			plugins: [prismic],
+		},
+	});
+
+	t.is(wrapper.vm.$prismic.client.fetchFn, spiedFetch);
+	t.false(spiedFetch.called);
+	wrapper.vm.$prismic.client.fetchFn("foo", {});
+	t.is(spiedFetch.callCount, 1);
+});
+
+test("uses `globalThis` fetch function when available", (t) => {
+	// `globalThis.fetch` does not exists in our Node.js context
+	const fetchStub = (globalThis.fetch = sinon.stub());
+
+	const prismic = createPrismic({ endpoint: "test" });
+
+	const wrapper = mount(WrapperComponent, {
+		global: {
+			plugins: [prismic],
+		},
+	});
+
+	t.false(fetchStub.called);
+	wrapper.vm.$prismic.client.fetchFn("foo", {});
+	t.is(fetchStub.callCount, 1);
+
+	// @ts-expect-error `globalThis.fetch` does not exists in our Node.js context
+	delete globalThis.fetch;
+});
+
+test("uses `isomorphic-unfetch` when `globalThis` fetch function is not available", async (t) => {
+	const prismic = createPrismic({ endpoint: "test" });
+
+	const wrapper = mount(WrapperComponent, {
+		global: {
+			plugins: [prismic],
+		},
+	});
+
+	// We test for fetch to throw by providing invalid arguments
+	await t.throwsAsync(
+		async () => {
+			await wrapper.vm.$prismic.client.fetchFn("foo", {});
+		},
+		{ instanceOf: TypeError, message: "Only absolute URLs are supported" },
+	);
+});
