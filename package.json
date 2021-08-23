@@ -49,14 +49,12 @@
 	"dependencies": {
 		"@prismicio/client": "alpha",
 		"@prismicio/helpers": "alpha",
-		"@prismicio/richtext": "alpha",
-		"@prismicio/types": "^0.1.9",
-		"escape-html": "^1.0.3",
+		"@prismicio/types": "^0.1.10",
 		"isomorphic-unfetch": "3.1.0",
 		"vue-router": "^4.0.10"
 	},
 	"devDependencies": {
-		"@prismicio/mock": "^0.0.3",
+		"@prismicio/mock": "^0.0.4",
 		"@types/escape-html": "^1.0.1",
 		"@types/jsdom-global": "3.0.2",
 		"@types/sinon": "10.0.2",
@@ -69,7 +67,7 @@
 		"ava": "^3.15.0",
 		"eslint": "^7.32.0",
 		"eslint-config-prettier": "^8.3.0",
-		"eslint-plugin-prettier": "^3.4.0",
+		"eslint-plugin-prettier": "^3.4.1",
 		"eslint-plugin-tsdoc": "^0.2.14",
 		"eslint-plugin-vue": "^7.16.0",
 		"jsdom": "^17.0.0",
