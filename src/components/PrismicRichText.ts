@@ -17,22 +17,18 @@ import {
 	watch,
 } from "vue";
 import { routerKey } from "vue-router";
-import escapeHTML from "escape-html";
 
 import {
 	asHTML,
-	asLink,
 	HTMLFunctionSerializer,
 	HTMLMapSerializer,
 	LinkResolverFunction,
-	Element,
 } from "@prismicio/helpers";
-import { LinkType, RichTextField, RTLinkNode } from "@prismicio/types";
+import { RichTextField } from "@prismicio/types";
 
 import { VueUseOptions } from "../types";
 import { usePrismic } from "../usePrismic";
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
-import { composeSerializers, wrapMapSerializer } from "@prismicio/richtext";
 import { isInternalURL } from "../lib/isInternalURL";
 
 /**
@@ -89,40 +85,6 @@ export type UsePrismicRichTextReturnType = {
 };
 
 /**
- * Serializes hyperlink for Vue, applying `data-router-link` attribute to internal links for usage with Vue Router.
- *
- * @param linkResolver - A link resolver function to use
- * @param node - The link node to serialize
- * @param children - The children of the link node
- *
- * @returns Serialized hyperlink
- */
-const serializeVueHyperlink = (
-	linkResolver: LinkResolverFunction | undefined,
-	node: RTLinkNode,
-	children: string[],
-) => {
-	switch (node.data.link_type) {
-		case LinkType.Web: {
-			return `<a href="${escapeHTML(node.data.url)}" target="${
-				node.data.target
-			}" rel="noopener noreferrer">${children.join("")}</a>`;
-		}
-
-		case LinkType.Document: {
-			return `<a data-router-link href="${asLink(
-				node.data,
-				linkResolver,
-			)}">${children.join("")}</a>`;
-		}
-
-		case LinkType.Media: {
-			return `<a href="${node.data.url}">${children.join("")}</a>`;
-		}
-	}
-};
-
-/**
  * A low level composable that returns a serialized rich text field as HTML.
  *
  * @param props - {@link UsePrismicRichTextOptions}
@@ -136,34 +98,10 @@ export const usePrismicRichText = (
 
 	const html = computed(() => {
 		const linkResolver = unref(props.linkResolver) ?? options.linkResolver;
-
-		const maybeSerializer =
+		const htmlSerializer =
 			unref(props.htmlSerializer) ?? options.htmlSerializer;
-		// Extends default HTML serializer to handle Vue Router links
-		let serializer: HTMLFunctionSerializer = (
-			_type,
-			node,
-			_content,
-			children,
-			_key,
-		) => {
-			switch (node.type) {
-				case Element.hyperlink:
-					return serializeVueHyperlink(linkResolver, node, children);
-				default:
-					return null;
-			}
-		};
-		if (maybeSerializer) {
-			serializer = composeSerializers(
-				typeof maybeSerializer === "object"
-					? wrapMapSerializer(maybeSerializer)
-					: maybeSerializer,
-				serializer,
-			);
-		}
 
-		return asHTML(unref(props.field), linkResolver, serializer);
+		return asHTML(unref(props.field), linkResolver, htmlSerializer);
 	});
 
 	return {
@@ -209,53 +147,51 @@ export const PrismicRichTextImpl = /*#__PURE__*/ defineComponent({
 
 		const { html } = usePrismicRichText(props);
 
-		const root = ref<HTMLElement | Component | null>(null);
+		const root = ref<HTMLElement | Comment | Component | null>(null);
 
 		const maybeRouter = inject(routerKey, null);
 		if (maybeRouter) {
-			let links: NodeList | null = null;
+			type InternalLink = {
+				element: HTMLAnchorElement;
+				listener: EventListener;
+			};
+			let links: InternalLink[] = [];
 
-			const navigate: EventListener = (event: Event) => {
-				let target = event.target as (Node & ParentNode) | null;
-				let i = 0;
-				// Go throught 5 parents max to find a tag
-				while (
-					i < 5 &&
-					target &&
-					!(target instanceof HTMLAnchorElement) &&
-					target.parentNode
-				) {
-					target = target.parentNode;
-					i++;
-				}
-
-				// If target is still not a link, ignore
-				if (!(target instanceof HTMLAnchorElement)) {
-					return;
-				}
-
-				const href = target.getAttribute("href");
-				// Get link target, if internal link, navigate with router link
-				if (href && isInternalURL(href)) {
-					event.preventDefault();
-					maybeRouter.push(href);
-				}
+			const navigate: EventListener = function (
+				this: { href: string },
+				event: Event,
+			) {
+				event.preventDefault();
+				maybeRouter.push(this.href);
 			};
 
 			const addListeners = () => {
-				const node: HTMLElement | null =
+				const node: HTMLElement | Comment | null =
 					root.value && "$el" in root.value ? root.value.$el : root.value;
-				links =
-					node &&
-					node.querySelectorAll &&
-					node.querySelectorAll("a[data-router-link]");
-				links &&
-					links.forEach((link) => link.addEventListener("click", navigate));
+				if (node && "querySelectorAll" in node) {
+					// Get all internal link tags and add listeners on them
+					links = Array.from(node.querySelectorAll("a"))
+						.map((element) => {
+							const href = element.getAttribute("href");
+
+							if (href && isInternalURL(href)) {
+								const listener = navigate.bind({ href });
+								element.addEventListener("click", listener);
+
+								return { element, listener };
+							} else {
+								return false;
+							}
+						})
+						.filter((link): link is InternalLink => link as boolean);
+				}
 			};
 
 			const removeListeners = () => {
-				links?.forEach((link) => link.removeEventListener("click", navigate));
-				links = null;
+				links.forEach(({ element, listener }) =>
+					element.removeEventListener("click", listener),
+				);
+				links = [];
 			};
 
 			watch(

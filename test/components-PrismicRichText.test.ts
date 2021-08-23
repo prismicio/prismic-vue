@@ -174,6 +174,9 @@ test("navigates internal links using Vue Router if available on click", async (t
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
 			field: richTextFixture.link,
+			htmlSerializer: {
+				hyperlink: () => `<a href="/foo">link</a>`,
+			},
 		},
 		global: {
 			provide: {
@@ -187,10 +190,12 @@ test("navigates internal links using Vue Router if available on click", async (t
 	// Click doesn't propagate if we don't wait here
 	await sleep();
 
-	await wrapper.get("a[data-router-link]").trigger("click");
+	await wrapper.get("a").trigger("click");
 
 	t.is(spiedPush.callCount, 1);
+	t.is(spiedPush.withArgs(`/foo`).callCount, 1);
 
+	// This is used to make sure `removeListeners()` is called upon unmount
 	wrapper.unmount();
 });
 
@@ -201,6 +206,9 @@ test("navigates internal links using Vue Router if available on click when using
 		props: {
 			field: richTextFixture.link,
 			wrapper: markRaw(WrapperComponent),
+			htmlSerializer: {
+				hyperlink: () => `<a href="/foo">link</a>`,
+			},
 		},
 		global: {
 			provide: {
@@ -214,9 +222,10 @@ test("navigates internal links using Vue Router if available on click when using
 	// Click doesn't propagate if we don't wait here
 	await sleep();
 
-	await wrapper.get("a[data-router-link]").trigger("click");
+	await wrapper.get("a").trigger("click");
 
 	t.is(spiedPush.callCount, 1);
+	t.is(spiedPush.withArgs(`/foo`).callCount, 1);
 });
 
 test("navigates internal links using Vue Router if available on inner tag click", async (t) => {
@@ -226,7 +235,7 @@ test("navigates internal links using Vue Router if available on inner tag click"
 		props: {
 			field: richTextFixture.link,
 			htmlSerializer: {
-				hyperlink: () => `<a data-router-link href="/foo"><em>link</em></a>`,
+				hyperlink: () => `<a href="/foo"><em>link</em></a>`,
 			},
 		},
 		global: {
@@ -241,12 +250,13 @@ test("navigates internal links using Vue Router if available on inner tag click"
 	// Click doesn't propagate if we don't wait here
 	await sleep();
 
-	await wrapper.get("a[data-router-link] em").trigger("click");
+	await wrapper.get("a em").trigger("click");
 
 	t.is(spiedPush.callCount, 1);
+	t.is(spiedPush.withArgs(`/foo`).callCount, 1);
 });
 
-test("doesn't navigate internal links using Vue Router if available on too deep inner tag click", async (t) => {
+test("navigates internal links using Vue Router if available on deep inner tag click", async (t) => {
 	const spiedPush = sinon.spy();
 
 	const wrapper = mount(PrismicRichTextImpl, {
@@ -254,7 +264,7 @@ test("doesn't navigate internal links using Vue Router if available on too deep 
 			field: richTextFixture.link,
 			htmlSerializer: {
 				hyperlink: () =>
-					`<a data-router-link href="/foo"><span><span><span><span><span><em>link<em></span></span></span></span></span></a>`,
+					`<a href="/foo"><span><span><span><span><span><em>link<em></span></span></span></span></span></a>`,
 			},
 		},
 		global: {
@@ -269,12 +279,13 @@ test("doesn't navigate internal links using Vue Router if available on too deep 
 	// Click doesn't propagate if we don't wait here
 	await sleep();
 
-	await wrapper.get("a[data-router-link] em").trigger("click");
+	await wrapper.get("a em").trigger("click");
 
-	t.false(spiedPush.called);
+	t.is(spiedPush.callCount, 1);
+	t.is(spiedPush.withArgs(`/foo`).callCount, 1);
 });
 
-test("doesn't navigate internal links using Vue Router if available when links are actually external (navigation error is expected)", async (t) => {
+test("doesn't navigate external links using Vue Router if available on click (navigation error is expected)", async (t) => {
 	const spiedPush = sinon.spy();
 
 	const wrapper = mount(PrismicRichTextImpl, {
@@ -282,7 +293,7 @@ test("doesn't navigate internal links using Vue Router if available when links a
 			field: richTextFixture.link,
 			htmlSerializer: {
 				hyperlink: () =>
-					`<a data-router-link href="https://google.com">link</a>`,
+					`<a data-external href="https://google.com">link</a><a data-internal href="/foo">link</a>`,
 			},
 		},
 		global: {
@@ -297,9 +308,40 @@ test("doesn't navigate internal links using Vue Router if available when links a
 	// Click doesn't propagate if we don't wait here
 	await sleep();
 
-	await wrapper.get("a[data-router-link]").trigger("click");
+	await wrapper.get("a[data-external]").trigger("click");
 
 	t.false(spiedPush.called);
+
+	await wrapper.get("a[data-internal]").trigger("click");
+
+	t.is(spiedPush.callCount, 1);
+	t.is(spiedPush.withArgs(`/foo`).callCount, 1);
+});
+
+test("doesn't try to bind on click events when Vue Router is available when rendering a comment node", async (t) => {
+	await t.notThrowsAsync(async () => {
+		const spiedPush = sinon.spy();
+
+		mount(PrismicRichTextImpl, {
+			props: {
+				field: richTextFixture.link,
+				wrapper: markRaw(() => null),
+				htmlSerializer: {
+					hyperlink: () => `<a href="/foo">link</a>`,
+				},
+			},
+			global: {
+				provide: {
+					[routerKey as unknown as string]: {
+						push: spiedPush,
+					},
+				},
+			},
+		});
+
+		// Click doesn't propagate if we don't wait here
+		await sleep();
+	});
 });
 
 test("renders nothing when invalid", (t) => {
