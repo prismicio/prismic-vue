@@ -12,11 +12,7 @@ import {
 	ComputedRef,
 } from "vue";
 
-import {
-	asLink,
-	documentAsLink,
-	LinkResolverFunction,
-} from "@prismicio/helpers";
+import { asLink, LinkResolverFunction } from "@prismicio/helpers";
 import { LinkField, PrismicDocument } from "@prismicio/types";
 
 import { isInternalURL } from "../lib/isInternalURL";
@@ -44,14 +40,16 @@ const defaultBlankTargetRelAttribute = "noopener noreferrer";
  * Props for `<PrismicLink />`.
  */
 export type PrismicLinkProps = {
-	/** The Prismic link field or document to render. */
+	/**
+	 * The Prismic link field or document to render.
+	 */
 	field: LinkField | PrismicDocument;
 
 	/**
-	 * A link resolver function used to resolve links when not using the route resolver parameter with `@prismicio/client`.
+	 * A link resolver function used to resolve links when not using the route
+	 * resolver parameter with `@prismicio/client`.
 	 *
 	 * @defaultValue The link resolver provided to `@prismicio/vue` plugin if configured.
-	 *
 	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
 	 */
 	linkResolver?: LinkResolverFunction;
@@ -74,23 +72,29 @@ export type PrismicLinkProps = {
 	blankTargetRelAttribute?: string;
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to render internal links.
+	 * An HTML tag name, a component, or a functional component used to render
+	 * internal links.
 	 *
-	 * @remarks HTML tag names will be rendered using the anchor tag interface (`href`, `target`, and `rel` attributes).
-	 *
-	 * @remarks Components will be rendered using Vue Router {@link RouterLink} interface (`to` props).
-	 *
+	 * @remarks
+	 * HTML tag names will be rendered using the anchor tag interface (`href`,
+	 * `target`, and `rel` attributes).
+	 * @remarks
+	 * Components will be rendered using Vue Router {@link RouterLink} interface
+	 * (`to` props).
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, {@link RouterLink} otherwise.
 	 */
 	internalComponent?: string | ConcreteComponent;
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to render external links.
+	 * An HTML tag name, a component, or a functional component used to render
+	 * external links.
 	 *
-	 * @remarks HTML tag names will be rendered using the anchor tag interface (`href`, `target`, and `rel` attributes).
-	 *
-	 * @remarks Components will be rendered using Vue Router {@link RouterLink} interface (`to` props).
-	 *
+	 * @remarks
+	 * HTML tag names will be rendered using the anchor tag interface (`href`,
+	 * `target`, and `rel` attributes).
+	 * @remarks
+	 * Components will be rendered using Vue Router {@link RouterLink} interface
+	 * (`to` props).
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"a"` otherwise.
 	 */
 	externalComponent?: string | ConcreteComponent;
@@ -105,16 +109,24 @@ export type UsePrismicLinkOptions = VueUseOptions<PrismicLinkProps>;
  * Return type of {@link usePrismicLink}.
  */
 export type UsePrismicLinkReturnType = {
-	/** Suggested component to render for provided link field. */
+	/**
+	 * Suggested component to render for provided link field.
+	 */
 	type: ComputedRef<string | ConcreteComponent>;
 
-	/** Resolved anchor `href` value. */
+	/**
+	 * Resolved anchor `href` value.
+	 */
 	href: ComputedRef<string>;
 
-	/** Resolved anchor `target` value. */
+	/**
+	 * Resolved anchor `target` value.
+	 */
 	target: ComputedRef<string | null>;
 
-	/** Resolved anchor `rel` value. */
+	/**
+	 * Resolved anchor `rel` value.
+	 */
 	rel: ComputedRef<string | null>;
 };
 
@@ -149,9 +161,7 @@ export const usePrismicLink = (
 		const field = unref(props.field);
 		const linkResolver = unref(props.linkResolver) ?? options.linkResolver;
 
-		return "data" in field && field.data
-			? documentAsLink(field, linkResolver) ?? ""
-			: asLink(field, linkResolver) ?? "";
+		return asLink(field, linkResolver) ?? "";
 	});
 	const target = computed(() => {
 		const field = unref(props.field);

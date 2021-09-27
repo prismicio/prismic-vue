@@ -19,19 +19,25 @@ type ClientError = PrismicError | ParsingError | ForbiddenError;
 
 // Interfaces
 
-/** @internal */
+/**
+ * @internal
+ */
 export type ClientMethodParameters<TMethodName extends keyof ClientMethods> =
 	ClientMethods[TMethodName] extends ClientMethodLike
 		? VueUseParameters<Parameters<ClientMethods[TMethodName]>>
 		: never;
 
-/** @internal */
+/**
+ * @internal
+ */
 export type ClientMethodReturnType<TMethodName extends keyof ClientMethods> =
 	ClientMethods[TMethodName] extends ClientMethodLike
 		? ReturnType<ClientMethods[TMethodName]>
 		: never;
 
-/** @internal */
+/**
+ * @internal
+ */
 export type ComposableOnlyParameters = {
 	client?: Ref<Client> | Client;
 };
@@ -42,16 +48,24 @@ export type ComposableOnlyParameters = {
  * @typeParam TData - The expected format of the `data` property of the returned object
  */
 export type ClientComposableReturnType<TData = unknown> = {
-	/** The current state of the composable's client method call. */
+	/**
+	 * The current state of the composable's client method call.
+	 */
 	state: Ref<PrismicClientComposableState>;
 
-	/** Data returned by the client. */
+	/**
+	 * Data returned by the client.
+	 */
 	data: Ref<TData | null>;
 
-	/** Error returned by the composable's client method call if in an errror state. */
-	error: Ref<ClientError | null>;
+	/**
+	 * Error returned by the composable's client method call if in an errror state.
+	 */
+	error: Ref<ClientError | Error | null>;
 
-	/** Perform the composable's client method call again. */
+	/**
+	 * Perform the composable's client method call again.
+	 */
 	refresh: () => Promise<void>;
 };
 
@@ -70,17 +84,17 @@ const isParams = (
 };
 
 /**
- * A low level Vue composable that uses provided method name on plugin or provided client with given arguments. The composable has its own internal state manager to report async status, such as pending or error statuses.
- *
- * @param method - The `@prismicio/client` method name to use
- * @param args - The arguments to use with requested method
- *
- * @returns The composable payload {@link ClientComposableReturnType}
+ * A low level Vue composable that uses provided method name on plugin or
+ * provided client with given arguments. The composable has its own internal
+ * state manager to report async status, such as pending or error statuses.
  *
  * @typeParam TClientMethodName - A method name from `@prismicio/client`
  * @typeParam TClientMethodArguments - The method expected arguments
  * @typeParam TClientMethodReturnType - The method expected return type
+ * @param method - The `@prismicio/client` method name to use
+ * @param args - The arguments to use with requested method
  *
+ * @returns The composable payload {@link ClientComposableReturnType}
  * @internal
  */
 export const useStatefulPrismicClientMethod = <
@@ -99,7 +113,7 @@ export const useStatefulPrismicClientMethod = <
 		PrismicClientComposableState.Idle,
 	);
 	const data = shallowRef<TClientMethodReturnType | null>(null);
-	const error = ref<ClientError | null>(null);
+	const error = ref<ClientError | Error | null>(null);
 	const refresh = async (): Promise<void> => {
 		const lastArg = unref(args[args.length - 1]);
 		const { client: explicitClient, ...params } = isParams(lastArg)
@@ -120,7 +134,7 @@ export const useStatefulPrismicClientMethod = <
 			state.value = PrismicClientComposableState.Success;
 		} catch (err) {
 			state.value = PrismicClientComposableState.Error;
-			error.value = err;
+			error.value = err as ClientError | Error;
 		}
 	};
 

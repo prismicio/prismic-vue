@@ -14,7 +14,6 @@ import {
 	asLink,
 	asText,
 	documentToLinkField,
-	documentAsLink,
 } from "@prismicio/helpers";
 
 import {
@@ -39,7 +38,6 @@ import type {
  * @param options - {@link PrismicPluginOptions}
  *
  * @returns `@prismicio/vue` plugin instance {@link PrismicPlugin}
- *
  * @see Prismic Official Vue.js documentation: {@link https://prismic.io/docs/technologies/vuejs}
  * @see Plugin repository: {@link https://github.com/prismicio/prismic-vue}
  */
@@ -50,7 +48,9 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 		client = options.client;
 	} else {
 		const endpoint =
-			/** @see Regex101 expression: {@link https://regex101.com/r/GT2cl7/1} */
+			/**
+			 * @see Regex101 expression: {@link https://regex101.com/r/GT2cl7/1}
+			 */
 			/^(https?:)?\/\//gim.test(options.endpoint)
 				? options.endpoint
 				: getEndpoint(options.endpoint);
@@ -99,12 +99,6 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 		asDate,
 
 		documentToLinkField,
-		documentAsLink: (prismicDocument, linkResolver) => {
-			return documentAsLink(
-				prismicDocument,
-				linkResolver || options.linkResolver,
-			);
-		},
 	};
 
 	// Create plugin interface

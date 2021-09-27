@@ -6,22 +6,21 @@ import { PrismicPlugin } from "./types";
 /**
  * Accesses `@prismicio/vue` plugin interface.
  *
- * @returns The interface {@link PrismicPlugin}
+ * @example With the composition API:
  *
- * @example
- * With the composition API:
- *
- * ```
+ * ```javascript
  * import { usePrismic } from "@prismicio/vue";
  *
  * export default {
- *   setup() {
- *     const prismic = usePrismic();
+ * 	setup() {
+ * 		const prismic = usePrismic();
  *
- *     return {}
- *   },
+ * 		return {};
+ * 	},
  * };
  * ```
+ *
+ * @returns The interface {@link PrismicPlugin}
  */
 export const usePrismic = (): PrismicPlugin => {
 	return inject(prismicKey, { options: { endpoint: "" } } as PrismicPlugin);

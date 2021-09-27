@@ -20,9 +20,11 @@ import { __PRODUCTION__ } from "../lib/__PRODUCTION__";
 import { usePrismic } from "../usePrismic";
 
 /**
- * The minimum required properties to represent a Prismic Slice for the `<SliceZone />` component.
+ * The minimum required properties to represent a Prismic Slice for the
+ * `<SliceZone />` component.
  *
- * If using Prismic's REST API, use the `Slice` export from `@prismicio/types` for a full interface.
+ * If using Prismic's REST API, use the `Slice` export from `@prismicio/types`
+ * for a full interface.
  *
  * @typeParam TSliceType - Type name of the Slice
  */
@@ -34,44 +36,57 @@ export type SliceLike<TSliceType extends string = string> = Pick<
 /**
  * A looser version of the `SliceZone` type from `@prismicio/types` using `SliceLike`.
  *
- * If using Prismic's REST API, use the `SliceZone` export from `@prismicio/types` for the full type.
+ * If using Prismic's REST API, use the `SliceZone` export from
+ * `@prismicio/types` for the full type.
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
  */
 export type SliceZoneLike<TSlice extends SliceLike> = readonly TSlice[];
 
 /**
- * Vue props for a component rendering content from a Prismic Slice using the `<SliceZone />` component.
+ * Vue props for a component rendering content from a Prismic Slice using the
+ * `<SliceZone />` component.
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
- * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made available to all Slice components
+ * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made
+ *   available to all Slice components
  */
 export type SliceComponentProps<
 	TSlice extends SliceLike = SliceLike,
 	TContext = unknown,
 > = {
-	/** Slice data for this component. */
+	/**
+	 * Slice data for this component.
+	 */
 	slice: TSlice;
 
-	/** The index of the Slice in the Slice Zone. */
+	/**
+	 * The index of the Slice in the Slice Zone.
+	 */
 	index: number;
 
-	/** All Slices from the Slice Zone to which the Slice belongs. */
+	/**
+	 * All Slices from the Slice Zone to which the Slice belongs.
+	 */
 	// TODO: We have to keep this list of Slices general due to circular
 	// reference limtiations. If we had another generic to determine the full
 	// union of Slice types, it would include TSlice. This causes TypeScript to
 	// throw a compilation error.
 	slices: SliceZoneLike<SliceLike>;
 
-	/** Arbitrary data passed to `<SliceZone />` and made available to all Slice components. */
+	/**
+	 * Arbitrary data passed to `<SliceZone />` and made available to all Slice components.
+	 */
 	context: TContext;
 };
 
 /**
- * Native Vue props for a component rendering content from a Prismic Slice using the `<SliceZone />` component.
+ * Native Vue props for a component rendering content from a Prismic Slice using
+ * the `<SliceZone />` component.
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
- * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made available to all Slice components
+ * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made
+ *   available to all Slice components
  */
 export type DefineComponentSliceComponentProps<
 	TSlice extends SliceLike = SliceLike,
@@ -96,36 +111,38 @@ export type DefineComponentSliceComponentProps<
 };
 
 /**
- * Gets native Vue props for a component rendering content from a Prismic Slice using the `<SliceZone />` component. Props are: `["slice", "index", "slices", "context"]`
+ * Gets native Vue props for a component rendering content from a Prismic Slice
+ * using the `<SliceZone />` component. Props are: `["slice", "index", "slices",
+ * "context"]`
  *
- * @param propsHint - An optional array of prop names used for the sole purpose of having a visual hint of which props are made available to the slice, this parameters doesn't have any effect
+ * @example Defining a new slice component:
  *
- * @returns Props object to use with {@link defineComponent}
+ * ```javascript
+ * import { getSliceComponentProps } from "@prismicio/vue";
+ *
+ * export default {
+ * 	props: getSliceComponentProps(),
+ * };
+ * ```
+ *
+ * @example Defining a new slice component with visual hint:
+ *
+ * ```javascript
+ * import { getSliceComponentProps } from "@prismicio/vue";
+ *
+ * export default {
+ * 	props: getSliceComponentProps(["slice", "index", "slices", "context"]),
+ * };
+ * ```
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
- * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made available to all Slice components
+ * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made
+ *   available to all Slice components
+ * @param propsHint - An optional array of prop names used for the sole purpose
+ *   of having a visual hint of which props are made available to the slice,
+ *   this parameters doesn't have any effect
  *
- * @example
- * Defining a new slice component:
- *
- * ```
- * import { getSliceComponentProps } from "@prismicio/vue";
- *
- * export default {
- *   props: getSliceComponentProps(),
- * };
- * ```
- *
- * @example
- * Defining a new slice component with visual hint:
- *
- * ```
- * import { getSliceComponentProps } from "@prismicio/vue";
- *
- * export default {
- *   props: getSliceComponentProps(["slice", "index", "slices", "context"]),
- * };
- * ```
+ * @returns Props object to use with {@link defineComponent}
  */
 export const getSliceComponentProps = <
 	TSlice extends SliceLike = SliceLike,
@@ -170,7 +187,8 @@ export type SliceComponentType<
 /**
  * This Slice component can be used as a reminder to provide a proper implementation.
  *
- * This is also the default Vue component rendered when a component mapping cannot be found in `<SliceZone />`.
+ * This is also the default Vue component rendered when a component mapping
+ * cannot be found in `<SliceZone />`.
  */
 export const TODOSliceComponent = __PRODUCTION__
 	? ((() => null) as FunctionalComponent<SliceComponentProps>)
@@ -201,7 +219,8 @@ export const TODOSliceComponent = __PRODUCTION__
 	  }) as SliceComponentType);
 
 /**
- * A record of Slice types mapped to Vue components. Each components will be rendered for each instance of their Slice type.
+ * A record of Slice types mapped to Vue components. Each components will be
+ * rendered for each instance of their Slice type.
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
  * @typeParam TContext - Arbitrary data made available to all Slice components
@@ -226,21 +245,15 @@ export type SliceZoneComponents<
 	};
 
 /**
- * Gets an optimized record of Slice types mapped to Vue components. Each components will be rendered for each instance of their Slice type.
+ * Gets an optimized record of Slice types mapped to Vue components. Each
+ * components will be rendered for each instance of their Slice type.
  *
- * @param components - {@link SliceZoneComponents}
+ * @remarks
+ * This is essentially an helper function to ensure {@link markRaw} is correctly
+ * applied on each components, improving performances.
+ * @example Defining a slice components:
  *
- * @returns A new optimized record of {@link SliceZoneComponents}
- *
- * @typeParam TSlice - The type(s) of slices in the Slice Zone
- * @typeParam TContext - Arbitrary data made available to all Slice components
- *
- * @remarks This is essentially an helper function to ensure {@link markRaw} is correctly applied on each components, improving performances.
- *
- * @example
- * Defining a slice components:
- *
- * ```
+ * ```javascript
  * import { getSliceZoneComponents } from "@prismicio/vue";
  *
  * export default {
@@ -255,6 +268,12 @@ export type SliceZoneComponents<
  *   }
  * };
  * ```
+ *
+ * @typeParam TSlice - The type(s) of slices in the Slice Zone
+ * @typeParam TContext - Arbitrary data made available to all Slice components
+ * @param components - {@link SliceZoneComponents}
+ *
+ * @returns A new optimized record of {@link SliceZoneComponents}
  */
 export const getSliceZoneComponents = <
 	TSlice extends SliceLike = SliceLike,
@@ -291,26 +310,34 @@ export type SliceZoneProps<
 	TSlice extends SliceLike = SliceLike,
 	TContext = unknown,
 > = {
-	/** List of Slice data from the Slice Zone. */
+	/**
+	 * List of Slice data from the Slice Zone.
+	 */
 	slices: SliceZoneLike<TSlice>;
 
-	/** A record mapping Slice types to Vue components. */
+	/**
+	 * A record mapping Slice types to Vue components.
+	 */
 	components: SliceZoneComponents;
 
-	/** Arbitrary data made available to all Slice components. */
+	/**
+	 * Arbitrary data made available to all Slice components.
+	 */
 	context?: TContext;
 
 	/**
-	 * A component or a functional component rendered if a component mapping from the `components` prop cannot be found.
+	 * A component or a functional component rendered if a component mapping from
+	 * the `components` prop cannot be found.
 	 *
-	 * @remarks Components will be rendered using the {@link SliceComponentProps} interface.
-	 *
+	 * @remarks
+	 * Components will be rendered using the {@link SliceComponentProps} interface.
 	 * @defaultValue The Slice Zone default component provided to `@prismicio/vue` plugin if configured, otherwise `null` when `process.env.NODE_ENV === "production"` else {@link TODOSliceComponent}.
 	 */
 	defaultComponent?: SliceComponentType<TSlice, TContext>;
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to wrap the output. The Slice Zone is not wrapped by default.
+	 * An HTML tag name, a component, or a functional component used to wrap the
+	 * output. The Slice Zone is not wrapped by default.
 	 */
 	wrapper?: string | ConcreteComponent;
 };

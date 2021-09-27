@@ -11,7 +11,6 @@ import type {
 	asHTML,
 	asLink,
 	asDate,
-	documentAsLink,
 	documentToLinkField,
 	HTMLFunctionSerializer,
 	HTMLMapSerializer,
@@ -45,23 +44,29 @@ type PrismicPluginComponentsOptions = {
 	linkBlankTargetRelAttribute?: string;
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to render internal links.
+	 * An HTML tag name, a component, or a functional component used to render
+	 * internal links.
 	 *
-	 * @remarks HTML tag names will be rendered using the anchor tag interface (`href`, `target`, and `rel` attributes).
-	 *
-	 * @remarks Components will be rendered using Vue Router {@link RouterLink} interface (`to` props).
-	 *
+	 * @remarks
+	 * HTML tag names will be rendered using the anchor tag interface (`href`,
+	 * `target`, and `rel` attributes).
+	 * @remarks
+	 * Components will be rendered using Vue Router {@link RouterLink} interface
+	 * (`to` props).
 	 * @defaultValue {@link RouterLink}
 	 */
 	linkInternalComponent?: string | ConcreteComponent;
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to render external links.
+	 * An HTML tag name, a component, or a functional component used to render
+	 * external links.
 	 *
-	 * @remarks HTML tag names will be rendered using the anchor tag interface (`href`, `target`, and `rel` attributes).
-	 *
-	 * @remarks Components will be rendered using Vue Router {@link RouterLink} interface (`to` props).
-	 *
+	 * @remarks
+	 * HTML tag names will be rendered using the anchor tag interface (`href`,
+	 * `target`, and `rel` attributes).
+	 * @remarks
+	 * Components will be rendered using Vue Router {@link RouterLink} interface
+	 * (`to` props).
 	 * @defaultValue `"a"`
 	 */
 	linkExternalComponent?: string | ConcreteComponent;
@@ -69,17 +74,20 @@ type PrismicPluginComponentsOptions = {
 	/**
 	 * An HTML tag name, a component, or a functional component used to render images.
 	 *
-	 * @remarks HTML tag names and components will be rendered using the `img` tag interface (`src` and `alt` attribute). Components will also receive an additional `copyright` props.
-	 *
+	 * @remarks
+	 * HTML tag names and components will be rendered using the `img` tag
+	 * interface (`src` and `alt` attribute). Components will also receive an
+	 * additional `copyright` props.
 	 * @defaultValue `"img"`
 	 */
 	imageComponent?: string | ConcreteComponent;
 
 	/**
-	 * A component or a functional component rendered if a component mapping from the `components` prop cannot be found.
+	 * A component or a functional component rendered if a component mapping from
+	 * the `components` prop cannot be found.
 	 *
-	 * @remarks Components will be rendered using the {@link SliceComponentProps} interface.
-	 *
+	 * @remarks
+	 * Components will be rendered using the {@link SliceComponentProps} interface.
 	 * @defaultValue `null` when `process.env.NODE_ENV === "production"` else {@link TODOSliceComponent}
 	 */
 	sliceZoneDefaultComponent?: string | ConcreteComponent;
@@ -90,7 +98,8 @@ type PrismicPluginComponentsOptions = {
  */
 type PrismicPluginOptionsBase = {
 	/**
-	 * An optional link resolver function used to resolve links to Prismic documents when not using the route resolver parameter with `@prismicio/client`.
+	 * An optional link resolver function used to resolve links to Prismic
+	 * documents when not using the route resolver parameter with `@prismicio/client`.
 	 *
 	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
 	 */
@@ -125,10 +134,13 @@ type PrismicPluginOptionsBase = {
  */
 type PrismicPluginOptionsWithClient = PrismicPluginOptionsBase & {
 	/**
-	 * A `@prismicio/client` instance used to fetch content from a Prismic repository to configure the plugin with.
+	 * A `@prismicio/client` instance used to fetch content from a Prismic
+	 * repository to configure the plugin with.
 	 *
-	 * @remarks The client will be used by `@prismicio/vue` composables, such as {@link usePrismicDocuments} and exposed through `this.$prismic.client` and `usePrismic().client`.
-	 *
+	 * @remarks
+	 * The client will be used by `@prismicio/vue` composables, such as
+	 * {@link usePrismicDocuments} and exposed through `this.$prismic.client` and
+	 * `usePrismic().client`.
 	 * @see Prismic client documentation {@link https://prismic.io/docs/technologies/javascript}
 	 */
 	client: Client;
@@ -155,62 +167,57 @@ type PrismicPluginOptionsWithClient = PrismicPluginOptionsBase & {
  */
 type PrismicPluginOptionsWithEndpoint = PrismicPluginOptionsBase & {
 	/**
-	 * A Prismic repository endpoint to init the plugin's `@prismicio/client` instance used to fetch content from a Prismic repository with.
+	 * A Prismic repository endpoint to init the plugin's `@prismicio/client`
+	 * instance used to fetch content from a Prismic repository with.
 	 *
-	 * @remarks Said client will be used by `@prismicio/vue` composables, such as {@link usePrismicDocuments} and exposed through `this.$prismic.client` and `usePrismic().client`.
+	 * @remarks
+	 * Said client will be used by `@prismicio/vue` composables, such as
+	 * {@link usePrismicDocuments} and exposed through `this.$prismic.client` and
+	 * `usePrismic().client`.
+	 * @example A repository ID:
+	 *
+	 *     "my-repo";
+	 *
+	 * @example A full repository endpoint:
+	 *
+	 *     "https://my-repo.cdn.prismic.io/api/v2";
 	 *
 	 * @see Prismic client documentation {@link https://prismic.io/docs/technologies/javascript}
-	 *
-	 * @example
-	 * A repository ID:
-	 *
-	 * ```
-	 * "my-repo"
-	 * ```
-	 *
-	 * @example
-	 * A full repository endpoint:
-	 *
-	 * ```
-	 * "https://my-repo.cdn.prismic.io/api/v2"
-	 * ```
 	 */
 	endpoint: string;
 
 	/**
 	 * An optional object to configure `@prismicio/client` instance further.
 	 *
+	 * @example Accessing a private private repository:
+	 *
+	 * ```javascript
+	 * {
+	 * 	"accessToken": "abc"
+	 * }
+	 * ```
+	 *
+	 * @example Using a route resolver:
+	 *
+	 * ```javascript
+	 * {
+	 * 	"defaultParams": {
+	 * 		"routes": [
+	 * 			{
+	 * 				"type": "page",
+	 * 				"path": "/:uid"
+	 * 			},
+	 * 			{
+	 * 				"type": "post",
+	 * 				"path": "/blog/:uid"
+	 * 			}
+	 * 		]
+	 * 	}
+	 * }
+	 * ```
+	 *
 	 * @see Prismic client documentation {@link https://prismic.io/docs/technologies/javascript}
 	 * @see Route resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#route-resolver}
-	 *
-	 * @example
-	 * Accessing a private private repository:
-	 *
-	 * ```
-	 * {
-	 *   accessToken: "abc",
-	 * }
-	 * ```
-	 *
-	 * @example
-	 * Using a route resolver:
-	 *
-	 * ```
-	 * {
-	 *   defaultParams: {
-	 *     routes: [
-	 *       {
-	 *         type: "page",
-	 *         path: "/:uid"
-	 *       },
-	 *       {
-	 *         type: "post",
-	 *         path: "/blog/:uid"
-	 *       }
-	 *     ]
-	 *   }
-	 * }
-	 * ```
 	 */
 	clientConfig?: ClientConfig;
 
@@ -233,46 +240,60 @@ export type PrismicPluginOptions =
 	| PrismicPluginOptionsWithEndpoint;
 
 /**
- * `@prismicio/client` related methods and properties exposed by `@prismicio/vue` plugin and accessible through `this.$prismic` and `usePrismic()`.
+ * `@prismicio/client` related methods and properties exposed by
+ * `@prismicio/vue` plugin and accessible through `this.$prismic` and `usePrismic()`.
  */
 export type PrismicPluginClient = {
-	/** A `@prismicio/client` instance. */
+	/**
+	 * A `@prismicio/client` instance.
+	 */
 	client: Client;
 
-	/** Query predicates from `@prismicio/client`. */
+	/**
+	 * Query predicates from `@prismicio/client`.
+	 */
 	predicate: typeof predicate;
 
-	/** Prismic cookies from `@prismicio/client`. */
+	/**
+	 * Prismic cookies from `@prismicio/client`.
+	 */
 	cookie: typeof cookie;
 };
 
 /**
- * `@prismicio/helpers` related methods exposed by `@prismicio/vue` plugin and accessible through `this.$prismic` and `usePrismic()`.
+ * `@prismicio/helpers` related methods exposed by `@prismicio/vue` plugin and
+ * accessible through `this.$prismic` and `usePrismic()`.
  */
 export type PrismicPluginHelpers = {
 	/**
-	 * Serializes a rich text or title field to a plain text string. This is `@prismicio/helpers` {@link asText} function.
+	 * Serializes a rich text or title field to a plain text string. This is
+	 * `@prismicio/helpers` {@link asText} function.
 	 *
 	 * @see Templating rich text and title fields {@link https://prismic.io/docs/technologies/vue-template-content#rich-text-and-titles}
 	 */
 	asText: typeof asText;
 
 	/**
-	 * Serializes a rich text or title field to an HTML string. This is `@prismicio/helpers` {@link asHTML} function.
+	 * Serializes a rich text or title field to an HTML string. This is
+	 * `@prismicio/helpers` {@link asHTML} function.
 	 *
-	 * @remarks If no `linkResolver` is provided the function will use the one provided to the plugin at {@link PrismicPluginOptions.linkResolver} if available.
-	 *
-	 * @remarks If no `htmlSerializer` is provided the function will use the one provided to the plugin at {@link PrismicPluginOptions.htmlSerializer} if available.
-	 *
+	 * @remarks
+	 * If no `linkResolver` is provided the function will use the one provided to
+	 * the plugin at {@link PrismicPluginOptions.linkResolver} if available.
+	 * @remarks
+	 * If no `htmlSerializer` is provided the function will use the one provided
+	 * to the plugin at {@link PrismicPluginOptions.htmlSerializer} if available.
 	 * @see Templating rich text and title fields {@link https://prismic.io/docs/technologies/vue-template-content#rich-text-and-titles}
 	 */
 	asHTML: typeof asHTML;
 
 	/**
-	 * Resolves any type of link field to a URL. This is `@prismicio/helpers` {@link asLink} function.
+	 * Resolves any type of link field or document to a URL. This is
+	 * `@prismicio/helpers` {@link asLink} function.
 	 *
-	 * @remarks If no `linkResolver` is provided the function will use the one provided to the plugin at {@link PrismicPluginOptions.linkResolver} if available.
-	 *
+	 * @remarks
+	 * If no `linkResolver` is provided the function will use the one provided to
+	 * the plugin at {@link PrismicPluginOptions.linkResolver} if available.
 	 * @see Templating link fields {@link https://prismic.io/docs/technologies/vue-template-content#links-and-content-relationships}
 	 */
 	asLink: (
@@ -281,30 +302,23 @@ export type PrismicPluginHelpers = {
 	) => string | null;
 
 	/**
-	 * Transforms a date or timestamp field into a JavaScript Date object. This is `@prismicio/helpers` {@link asDate} function.
+	 * Transforms a date or timestamp field into a JavaScript Date object. This is
+	 * `@prismicio/helpers` {@link asDate} function.
 	 */
 	asDate: typeof asDate;
 
 	/**
-	 * Converts a document into a link field. This is `@prismicio/helpers` {@link documentToLinkField} function.
+	 * Converts a document into a link field. This is `@prismicio/helpers`
+	 * {@link documentToLinkField} function.
+	 *
+	 * @internal
 	 */
 	documentToLinkField: typeof documentToLinkField;
-
-	/**
-	 * Resolves a document to a URL. This is `@prismicio/helpers` {@link documentAsLink} function.
-	 *
-	 * @remarks If no `linkResolver` is provided the function will use the one provided to the plugin at {@link PrismicPluginOptions.linkResolver} if available.
-	 *
-	 * @see Templating link fields {@link https://prismic.io/docs/technologies/vue-template-content#links-and-content-relationships}
-	 */
-	documentAsLink: (
-		prismicDocument: Parameters<typeof documentAsLink>[0],
-		linkResolver?: LinkResolverFunction,
-	) => string | null;
 };
 
 /**
- * Methods and properties exposed by `@prismicio/vue` plugin and accessible through `this.$prismic` and `usePrismic()`.
+ * Methods and properties exposed by `@prismicio/vue` plugin and accessible
+ * through `this.$prismic` and `usePrismic()`.
  */
 export type PrismicPlugin = {
 	/**
@@ -327,24 +341,31 @@ export type PrismicPlugin = {
  * States of a `@prismicio/client` composable.
  */
 export const enum PrismicClientComposableState {
-	/** The composable has not started fetching. */
+	/**
+	 * The composable has not started fetching.
+	 */
 	Idle = "idle",
 
-	/** The composable is fetching data. */
+	/**
+	 * The composable is fetching data.
+	 */
 	Pending = "pending",
 
-	/** The composable sucessfully fetched data. */
+	/**
+	 * The composable sucessfully fetched data.
+	 */
 	Success = "success",
 
-	/** The composable failed to fetch data. */
+	/**
+	 * The composable failed to fetch data.
+	 */
 	Error = "error",
 }
 
 // Helpers
 
 /**
- * Type to transform a static object into one that allows passing Refs as
- * values.
+ * Type to transform a static object into one that allows passing Refs as values.
  *
  * @internal
  */
@@ -353,8 +374,7 @@ export type VueUseOptions<T> = {
 };
 
 /**
- * Type to transform a static tuple into one that allows passing Refs as
- * values.
+ * Type to transform a static tuple into one that allows passing Refs as values.
  *
  * @internal
  */

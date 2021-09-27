@@ -20,7 +20,9 @@ const defaultWrapper = "div";
  * Props for `<PrismicEmbed />`.
  */
 export type PrismicEmbedProps = {
-	/** The Prismic embed field to render. */
+	/**
+	 * The Prismic embed field to render.
+	 */
 	field: EmbedField;
 
 	/**

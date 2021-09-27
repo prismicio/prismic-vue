@@ -4,11 +4,11 @@ import {
 	computed,
 	ComputedRef,
 	ConcreteComponent,
-	DefineComponent,
 	defineComponent,
 	h,
 	PropType,
 	unref,
+	VNode,
 	VNodeProps,
 } from "vue";
 
@@ -27,7 +27,9 @@ const defaultWrapper = "div";
  * Props for `<PrismicText />`.
  */
 export type PrismicTextProps = {
-	/** The Prismic rich text or title field to render. */
+	/**
+	 * The Prismic rich text or title field to render.
+	 */
 	field: RichTextField;
 
 	/**
@@ -56,7 +58,9 @@ export type UsePrismicTextOptions = VueUseOptions<
  * Return type of {@link usePrismicText}.
  */
 export type UsePrismicTextReturnType = {
-	/** Serialized rich text field as plain text. */
+	/**
+	 * Serialized rich text field as plain text.
+	 */
 	text: ComputedRef<string>;
 };
 
@@ -120,7 +124,7 @@ export const PrismicTextImpl = /*#__PURE__*/ defineComponent({
 			// 	return h(parent, null, { default: () => text.value });
 			// }
 
-			return h(parent as DefineComponent, null, {
+			return h(parent as VNode, null, {
 				default: () => text.value,
 			});
 		};

@@ -40,14 +40,16 @@ const defaultWrapper = "div";
  * Props for `<PrismicRichText />`.
  */
 export type PrismicRichTextProps = {
-	/** The Prismic rich text or title field to render. */
+	/**
+	 * The Prismic rich text or title field to render.
+	 */
 	field: RichTextField;
 
 	/**
-	 * A link resolver function used to resolve link when not using the route resolver parameter with `@prismicio/client`.
+	 * A link resolver function used to resolve link when not using the route
+	 * resolver parameter with `@prismicio/client`.
 	 *
 	 * @defaultValue The link resolver provided to `@prismicio/vue` plugin if configured.
-	 *
 	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
 	 */
 	linkResolver?: LinkResolverFunction;
@@ -56,7 +58,6 @@ export type PrismicRichTextProps = {
 	 * An HTML serializer to customize the way rich text fields are rendered.
 	 *
 	 * @defaultValue The HTML serializer provided to `@prismicio/vue` plugin if configured.
-	 *
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */
 	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer;
@@ -80,7 +81,9 @@ export type UsePrismicRichTextOptions = VueUseOptions<
  * Return type of {@link usePrismicRichText}.
  */
 export type UsePrismicRichTextReturnType = {
-	/** Serialized rich text field as HTML. */
+	/**
+	 * Serialized rich text field as HTML.
+	 */
 	html: ComputedRef<string>;
 };
 

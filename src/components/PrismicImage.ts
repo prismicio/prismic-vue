@@ -24,7 +24,9 @@ const defaultImageComponent = "img";
  */
 export type PrismicImageProps =
 	| {
-			/** The Prismic image field to render. */
+			/**
+			 * The Prismic image field to render.
+			 */
 			field: ImageField;
 
 			/**
@@ -42,20 +44,25 @@ export type PrismicImageProps =
 			imageComponentAdditionalProps?: never;
 	  }
 	| {
-			/** The Prismic image field to render. */
+			/**
+			 * The Prismic image field to render.
+			 */
 			field: ImageField;
 
 			/**
 			 * An HTML tag name, a component, or a functional component used to render images.
 			 *
-			 * @remarks HTML tag names and components will be rendered using the `img` tag interface (`src` and `alt` attribute). Components will also receive an additional `copyright` props.
-			 *
+			 * @remarks
+			 * HTML tag names and components will be rendered using the `img` tag
+			 * interface (`src` and `alt` attribute). Components will also receive an
+			 * additional `copyright` props.
 			 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"img"` otherwise.
 			 */
 			imageComponent: string | ConcreteComponent;
 
 			/**
-			 * A map of additional props to pass to the component used to render images when using one.
+			 * A map of additional props to pass to the component used to render
+			 * images when using one.
 			 */
 			imageComponentAdditionalProps?: Record<string, unknown>;
 	  };
