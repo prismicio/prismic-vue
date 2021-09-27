@@ -75,6 +75,7 @@ For more clarity on this project and its structure you can also check out the de
 
 [prismic-docs]: https://prismic.io/docs/technologies/vuejs
 [changelog]: ./CHANGELOG.md
+[contributing]: ./CONTRIBUTING.md
 [vue]: https://v3.vuejs.org
 [prismic-rich-text]: https://prismic.io/docs/core-concepts/rich-text-title
 [prismic-link]: https://prismic.io/docs/core-concepts/link-content-relationship
