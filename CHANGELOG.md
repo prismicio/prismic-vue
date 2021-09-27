@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.4](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.3...v3.0.0-alpha.4) (2021-09-27)
+
+
+### Refactor
+
+* simplify internal links handling for <prismic-rich-text /> ([010f714](https://github.com/prismicio/prismic-vue/commit/010f7147ccc8d57b61aa619ad005f3dd99541941))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([1111f70](https://github.com/prismicio/prismic-vue/commit/1111f701fbc89baf709acf517b5008a10bea70f7))
+* **deps:** maintain dependencies ([e4964be](https://github.com/prismicio/prismic-vue/commit/e4964beea33f1ebc083b6a9f1612aaeeee600bcc))
+* update template config ([338f1cb](https://github.com/prismicio/prismic-vue/commit/338f1cbe1606be1e3da83d496c2da0357850681d))
+
 ## [3.0.0-alpha.3](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.2...v3.0.0-alpha.3) (2021-08-19)
 
 
