@@ -41,20 +41,24 @@ export type {
 } from "./components";
 
 export {
-	useAllPrismicDocuments,
 	useAllPrismicDocumentsByIDs,
+	useAllPrismicDocumentsByUIDs,
 	useAllPrismicDocumentsByTag,
-	useAllPrismicDocumentsByTags,
+	useAllPrismicDocumentsByEveryTag,
+	useAllPrismicDocumentsBySomeTags,
 	useAllPrismicDocumentsByType,
 	useFirstPrismicDocument,
 	usePrismicDocumentByID,
 	usePrismicDocumentByUID,
 	usePrismicDocuments,
 	usePrismicDocumentsByIDs,
+	usePrismicDocumentsByUIDs,
 	usePrismicDocumentsByTag,
-	usePrismicDocumentsByTags,
+	usePrismicDocumentsByEveryTag,
+	usePrismicDocumentsBySomeTags,
 	usePrismicDocumentsByType,
 	useSinglePrismicDocument,
+	dangerouslyUseAllPrismicDocuments,
 } from "./composables";
 
 export type { ClientComposableReturnType } from "./useStatefulPrismicClientMethod";

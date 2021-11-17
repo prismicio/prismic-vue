@@ -55,25 +55,6 @@ export const useFirstPrismicDocument = <TDocument extends PrismicDocument>(
 	useStatefulPrismicClientMethod("getFirst", args);
 
 /**
- * A composable that queries content from the Prismic repository and returns all
- * matching content. If no predicates are provided, all documents will be fetched.
- *
- * @remarks
- * An additional `@prismicio/client` instance can be provided at `params.client`.
- * @typeParam TDocument - Type of Prismic documents returned
- * @param params - Parameters to filter and sort results
- *
- * @returns The composable payload {@link ClientComposableReturnType}
- * @see Underlying `@prismicio/client` method {@link Client.getAll}
- */
-export const useAllPrismicDocuments = <TDocument extends PrismicDocument>(
-	...args: [
-		params?: ClientMethodParameters<"getAll">[0] & ComposableOnlyParameters,
-	]
-): ClientComposableReturnType<TDocument[]> =>
-	useStatefulPrismicClientMethod("getAll", args);
-
-/**
  * A composable that queries a document from the Prismic repository with a specific ID.
  *
  * @remarks
@@ -156,6 +137,51 @@ export const usePrismicDocumentByUID = <TDocument extends PrismicDocument>(
 	]
 ): ClientComposableReturnType<TDocument> =>
 	useStatefulPrismicClientMethod("getByUID", args);
+
+/**
+ * A composable that queries documents from the Prismic repository with specific UIDs.
+ *
+ * @remarks
+ * An additional `@prismicio/client` instance can be provided at `params.client`.
+ * @typeParam TDocument - Type of Prismic documents returned
+ * @param documentType - The API ID of the document's Custom Type
+ * @param uids - A list of document UIDs
+ * @param params - Parameters to filter, sort, and paginate results
+ *
+ * @returns The composable payload {@link ClientComposableReturnType}
+ * @see Underlying `@prismicio/client` method {@link Client.getByIDs}
+ */
+export const usePrismicDocumentsByUIDs = <TDocument extends PrismicDocument>(
+	...args: [
+		documentType: ClientMethodParameters<"getByUIDs">[0],
+		uids: ClientMethodParameters<"getByUIDs">[1],
+		params?: ClientMethodParameters<"getByUIDs">[2] & ComposableOnlyParameters,
+	]
+): ClientComposableReturnType<Query<TDocument>> =>
+	useStatefulPrismicClientMethod("getByUIDs", args);
+
+/**
+ * A composable that queries all documents from the Prismic repository with specific UIDs.
+ *
+ * @remarks
+ * An additional `@prismicio/client` instance can be provided at `params.client`.
+ * @typeParam TDocument - Type of Prismic documents returned
+ * @param documentType - The API ID of the document's Custom Type
+ * @param uids - A list of document UIDs
+ * @param params - Parameters to filter and sort results
+ *
+ * @returns The composable payload {@link ClientComposableReturnType}
+ * @see Underlying `@prismicio/client` method {@link Client.getAllByIDs}
+ */
+export const useAllPrismicDocumentsByUIDs = <TDocument extends PrismicDocument>(
+	...args: [
+		documentType: ClientMethodParameters<"getAllByUIDs">[0],
+		ids: ClientMethodParameters<"getAllByUIDs">[1],
+		params?: ClientMethodParameters<"getAllByUIDs">[2] &
+			ComposableOnlyParameters,
+	]
+): ClientComposableReturnType<TDocument[]> =>
+	useStatefulPrismicClientMethod("getAllByUIDs", args);
 
 /**
  * A composable that queries a singleton document from the Prismic repository
@@ -264,7 +290,8 @@ export const useAllPrismicDocumentsByTag = <TDocument extends PrismicDocument>(
 	useStatefulPrismicClientMethod("getAllByTag", args);
 
 /**
- * A composable that queries documents from the Prismic repository with specific tags.
+ * A composable that queries documents from the Prismic repository with specific
+ * tags. A document must be tagged with all of the queried tags to be included.
  *
  * @remarks
  * An additional `@prismicio/client` instance can be provided at `params.client`.
@@ -275,16 +302,20 @@ export const useAllPrismicDocumentsByTag = <TDocument extends PrismicDocument>(
  * @returns The composable payload {@link ClientComposableReturnType}
  * @see Underlying `@prismicio/client` method {@link Client.getByTags}
  */
-export const usePrismicDocumentsByTags = <TDocument extends PrismicDocument>(
+export const usePrismicDocumentsByEveryTag = <
+	TDocument extends PrismicDocument,
+>(
 	...args: [
-		tags: ClientMethodParameters<"getByTags">[0],
-		params?: ClientMethodParameters<"getByTags">[1] & ComposableOnlyParameters,
+		tags: ClientMethodParameters<"getByEveryTag">[0],
+		params?: ClientMethodParameters<"getByEveryTag">[1] &
+			ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<Query<TDocument>> =>
-	useStatefulPrismicClientMethod("getByTags", args);
+	useStatefulPrismicClientMethod("getByEveryTag", args);
 
 /**
- * A composable that queries all documents from the Prismic repository with specific tags.
+ * A composable that queries all documents from the Prismic repository with
+ * specific tags. A document must be tagged with all of the queried tags to be included.
  *
  * @remarks
  * An additional `@prismicio/client` instance can be provided at `params.client`.
@@ -295,11 +326,88 @@ export const usePrismicDocumentsByTags = <TDocument extends PrismicDocument>(
  * @returns The composable payload {@link ClientComposableReturnType}
  * @see Underlying `@prismicio/client` method {@link Client.getAllByTags}
  */
-export const useAllPrismicDocumentsByTags = <TDocument extends PrismicDocument>(
+export const useAllPrismicDocumentsByEveryTag = <
+	TDocument extends PrismicDocument,
+>(
 	...args: [
-		tags: ClientMethodParameters<"getAllByTags">[0],
-		params?: ClientMethodParameters<"getAllByTags">[1] &
+		tags: ClientMethodParameters<"getAllByEveryTag">[0],
+		params?: ClientMethodParameters<"getAllByEveryTag">[1] &
 			ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<TDocument[]> =>
-	useStatefulPrismicClientMethod("getAllByTags", args);
+	useStatefulPrismicClientMethod("getAllByEveryTag", args);
+
+/**
+ * A composable that queries documents from the Prismic repository with specific
+ * tags. A document must be tagged with at least one of the queried tags to be included.
+ *
+ * @remarks
+ * An additional `@prismicio/client` instance can be provided at `params.client`.
+ * @typeParam TDocument - Type of Prismic documents returned
+ * @param tags - A list of tags that must be included on a document
+ * @param params - Parameters to filter, sort, and paginate results
+ *
+ * @returns The composable payload {@link ClientComposableReturnType}
+ * @see Underlying `@prismicio/client` method {@link Client.getByTags}
+ */
+export const usePrismicDocumentsBySomeTags = <
+	TDocument extends PrismicDocument,
+>(
+	...args: [
+		tags: ClientMethodParameters<"getBySomeTags">[0],
+		params?: ClientMethodParameters<"getBySomeTags">[1] &
+			ComposableOnlyParameters,
+	]
+): ClientComposableReturnType<Query<TDocument>> =>
+	useStatefulPrismicClientMethod("getBySomeTags", args);
+
+/**
+ * A composable that queries all documents from the Prismic repository with
+ * specific tags. A document must be tagged with at least one of the queried
+ * tags to be included.
+ *
+ * @remarks
+ * An additional `@prismicio/client` instance can be provided at `params.client`.
+ * @typeParam TDocument - Type of Prismic documents returned
+ * @param tags - A list of tags that must be included on a document
+ * @param params - Parameters to filter and sort results
+ *
+ * @returns The composable payload {@link ClientComposableReturnType}
+ * @see Underlying `@prismicio/client` method {@link Client.getAllByTags}
+ */
+export const useAllPrismicDocumentsBySomeTags = <
+	TDocument extends PrismicDocument,
+>(
+	...args: [
+		tags: ClientMethodParameters<"getAllBySomeTags">[0],
+		params?: ClientMethodParameters<"getAllBySomeTags">[1] &
+			ComposableOnlyParameters,
+	]
+): ClientComposableReturnType<TDocument[]> =>
+	useStatefulPrismicClientMethod("getAllBySomeTags", args);
+
+/**
+ * **IMPORTANT**: Avoid using `dangerouslyUseAllPrismicDocuments` as it may be
+ * slower and require more resources than other composables. Prefer using other
+ * composables that filter by predicates such as `useAllPrismicDocumentsByType`.
+ *
+ * A composable that queries content from the Prismic repository and returns all
+ * matching content. If no predicates are provided, all documents will be fetched.
+ *
+ * @remarks
+ * An additional `@prismicio/client` instance can be provided at `params.client`.
+ * @typeParam TDocument - Type of Prismic documents returned
+ * @param params - Parameters to filter and sort results
+ *
+ * @returns The composable payload {@link ClientComposableReturnType}
+ * @see Underlying `@prismicio/client` method {@link Client.getAll}
+ */
+export const dangerouslyUseAllPrismicDocuments = <
+	TDocument extends PrismicDocument,
+>(
+	...args: [
+		params?: ClientMethodParameters<"dangerouslyGetAll">[0] &
+			ComposableOnlyParameters,
+	]
+): ClientComposableReturnType<TDocument[]> =>
+	useStatefulPrismicClientMethod("dangerouslyGetAll", args);

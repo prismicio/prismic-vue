@@ -10,20 +10,24 @@ import { sleep } from "./__testutils__/sleep";
 import {
 	createPrismic,
 	PrismicClientComposableState,
-	useAllPrismicDocuments,
 	useAllPrismicDocumentsByIDs,
+	useAllPrismicDocumentsByUIDs,
 	useAllPrismicDocumentsByTag,
-	useAllPrismicDocumentsByTags,
+	useAllPrismicDocumentsByEveryTag,
+	useAllPrismicDocumentsBySomeTags,
 	useAllPrismicDocumentsByType,
 	useFirstPrismicDocument,
 	usePrismicDocumentByID,
 	usePrismicDocumentByUID,
 	usePrismicDocuments,
 	usePrismicDocumentsByIDs,
+	usePrismicDocumentsByUIDs,
 	usePrismicDocumentsByTag,
-	usePrismicDocumentsByTags,
+	usePrismicDocumentsByEveryTag,
+	usePrismicDocumentsBySomeTags,
 	usePrismicDocumentsByType,
 	useSinglePrismicDocument,
+	dangerouslyUseAllPrismicDocuments,
 } from "../src";
 import { useStatefulPrismicClientMethod } from "../src/useStatefulPrismicClientMethod";
 
@@ -80,18 +84,22 @@ usesPluginClient.title = (
 
 test(usesPluginClient, "get", usePrismicDocuments);
 test(usesPluginClient, "getFirst", useFirstPrismicDocument);
-test(usesPluginClient, "getAll", useAllPrismicDocuments);
 test(usesPluginClient, "getByID", usePrismicDocumentByID, ["qux"]);
 test(usesPluginClient, "getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]);
 test(usesPluginClient, "getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]);
 test(usesPluginClient, "getByUID", usePrismicDocumentByUID, ["qux", "quux"]);
+test(usesPluginClient, "getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
+test(usesPluginClient, "getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
 test(usesPluginClient, "getSingle", useSinglePrismicDocument, ["qux"]);
 test(usesPluginClient, "getByType", usePrismicDocumentsByType, ["qux"]);
 test(usesPluginClient, "getAllByType", useAllPrismicDocumentsByType, ["qux"]);
 test(usesPluginClient, "getByTag", usePrismicDocumentsByTag, ["qux"]);
 test(usesPluginClient, "getAllByTag", useAllPrismicDocumentsByTag, ["qux"]);
-test(usesPluginClient, "getByTags", usePrismicDocumentsByTags, [["qux", "quux"]]);
-test(usesPluginClient, "getAllByTags", useAllPrismicDocumentsByTags, [["qux", "quux"]]);
+test(usesPluginClient, "getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]);
+test(usesPluginClient, "getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]);
+test(usesPluginClient, "getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]);
+test(usesPluginClient, "getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]);
+test(usesPluginClient, "dangerouslyGetAll", dangerouslyUseAllPrismicDocuments);
 
 /* eslint-enable prettier/prettier */
 
@@ -158,18 +166,22 @@ usesProvidedClient.title = (
 
 test(usesProvidedClient, "get", usePrismicDocuments);
 test(usesProvidedClient, "getFirst", useFirstPrismicDocument);
-test(usesProvidedClient, "getAll", useAllPrismicDocuments);
 test(usesProvidedClient, "getByID", usePrismicDocumentByID, ["qux"]);
 test(usesProvidedClient, "getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]);
 test(usesProvidedClient, "getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]);
 test(usesProvidedClient, "getByUID", usePrismicDocumentByUID, ["qux", "quux"]);
+test(usesProvidedClient, "getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
+test(usesProvidedClient, "getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
 test(usesProvidedClient, "getSingle", useSinglePrismicDocument, ["qux"]);
 test(usesProvidedClient, "getByType", usePrismicDocumentsByType, ["qux"]);
 test(usesProvidedClient, "getAllByType", useAllPrismicDocumentsByType, ["qux"]);
 test(usesProvidedClient, "getByTag", usePrismicDocumentsByTag, ["qux"]);
 test(usesProvidedClient, "getAllByTag", useAllPrismicDocumentsByTag, ["qux"]);
-test(usesProvidedClient, "getByTags", usePrismicDocumentsByTags, [["qux", "quux"]]);
-test(usesProvidedClient, "getAllByTags", useAllPrismicDocumentsByTags, [["qux", "quux"]]);
+test(usesProvidedClient, "getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]);
+test(usesProvidedClient, "getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]);
+test(usesProvidedClient, "getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]);
+test(usesProvidedClient, "getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]);
+test(usesProvidedClient, "dangerouslyGetAll", dangerouslyUseAllPrismicDocuments);
 
 /* eslint-enable prettier/prettier */
 
@@ -231,18 +243,22 @@ supportsParams.title = (
 
 test(supportsParams, "get", usePrismicDocuments);
 test(supportsParams, "getFirst", useFirstPrismicDocument);
-test(supportsParams, "getAll", useAllPrismicDocuments);
 test(supportsParams, "getByID", usePrismicDocumentByID, ["qux"]);
 test(supportsParams, "getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]);
 test(supportsParams, "getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]);
 test(supportsParams, "getByUID", usePrismicDocumentByUID, ["qux", "quux"]);
+test(supportsParams, "getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
+test(supportsParams, "getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
 test(supportsParams, "getSingle", useSinglePrismicDocument, ["qux"]);
 test(supportsParams, "getByType", usePrismicDocumentsByType, ["qux"]);
 test(supportsParams, "getAllByType", useAllPrismicDocumentsByType, ["qux"]);
 test(supportsParams, "getByTag", usePrismicDocumentsByTag, ["qux"]);
 test(supportsParams, "getAllByTag", useAllPrismicDocumentsByTag, ["qux"]);
-test(supportsParams, "getByTags", usePrismicDocumentsByTags, [["qux", "quux"]]);
-test(supportsParams, "getAllByTags", useAllPrismicDocumentsByTags, [["qux", "quux"]]);
+test(supportsParams, "getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]);
+test(supportsParams, "getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]);
+test(supportsParams, "getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]);
+test(supportsParams, "getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]);
+test(supportsParams, "dangerouslyGetAll", dangerouslyUseAllPrismicDocuments);
 
 /* eslint-enable prettier/prettier */
 
@@ -320,18 +336,22 @@ watchesReactiveParams.title = (
 
 test(watchesReactiveParams, "get", usePrismicDocuments);
 test(watchesReactiveParams, "getFirst", useFirstPrismicDocument);
-test(watchesReactiveParams, "getAll", useAllPrismicDocuments);
 test(watchesReactiveParams, "getByID", usePrismicDocumentByID, ["qux"]);
 test(watchesReactiveParams, "getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]);
 test(watchesReactiveParams, "getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]);
 test(watchesReactiveParams, "getByUID", usePrismicDocumentByUID, ["qux", "quux"]);
+test(watchesReactiveParams, "getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
+test(watchesReactiveParams, "getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
 test(watchesReactiveParams, "getSingle", useSinglePrismicDocument, ["qux"]);
 test(watchesReactiveParams, "getByType", usePrismicDocumentsByType, ["qux"]);
 test(watchesReactiveParams, "getAllByType", useAllPrismicDocumentsByType, ["qux",]);
 test(watchesReactiveParams, "getByTag", usePrismicDocumentsByTag, ["qux"]);
 test(watchesReactiveParams, "getAllByTag", useAllPrismicDocumentsByTag, ["qux",]);
-test(watchesReactiveParams, "getByTags", usePrismicDocumentsByTags, [["qux", "quux"]]);
-test(watchesReactiveParams, "getAllByTags", useAllPrismicDocumentsByTags, [["qux", "quux"]]);
+test(watchesReactiveParams, "getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]);
+test(watchesReactiveParams, "getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]);
+test(watchesReactiveParams, "getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]);
+test(watchesReactiveParams, "getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]);
+test(watchesReactiveParams, "dangerouslyGetAll", dangerouslyUseAllPrismicDocuments);
 
 /* eslint-enable prettier/prettier */
 
@@ -412,17 +432,21 @@ providesErrorStateOnError.title = (
 
 test(providesErrorStateOnError, "get", usePrismicDocuments);
 test(providesErrorStateOnError, "getFirst", useFirstPrismicDocument);
-test(providesErrorStateOnError, "getAll", useAllPrismicDocuments);
 test(providesErrorStateOnError, "getByID", usePrismicDocumentByID, ["qux"]);
 test(providesErrorStateOnError, "getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]);
 test(providesErrorStateOnError, "getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]);
 test(providesErrorStateOnError, "getByUID", usePrismicDocumentByUID, ["qux", "quux"]);
+test(providesErrorStateOnError, "getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
+test(providesErrorStateOnError, "getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
 test(providesErrorStateOnError, "getSingle", useSinglePrismicDocument, ["qux"]);
 test(providesErrorStateOnError, "getByType", usePrismicDocumentsByType, ["qux",]);
 test(providesErrorStateOnError, "getAllByType", useAllPrismicDocumentsByType, ["qux"]);
 test(providesErrorStateOnError, "getByTag", usePrismicDocumentsByTag, ["qux"]);
 test(providesErrorStateOnError, "getAllByTag", useAllPrismicDocumentsByTag, ["qux"]);
-test(providesErrorStateOnError, "getByTags", usePrismicDocumentsByTags, [["qux", "quux"]]);
-test(providesErrorStateOnError, "getAllByTags", useAllPrismicDocumentsByTags, [["qux", "quux"]]);
+test(providesErrorStateOnError, "getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]);
+test(providesErrorStateOnError, "getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]);
+test(providesErrorStateOnError, "getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]);
+test(providesErrorStateOnError, "getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]);
+test(providesErrorStateOnError, "dangerouslyGetAll", dangerouslyUseAllPrismicDocuments);
 
 /* eslint-enable prettier/prettier */

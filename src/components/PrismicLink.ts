@@ -172,11 +172,9 @@ export const usePrismicLink = (
 		);
 	});
 	const rel = computed(() => {
-		const field = unref(props.field);
-
 		return (
 			unref(props.rel) ||
-			(target.value === "_blank" && field && "target" in field && field
+			(target.value === "_blank"
 				? unref(props.blankTargetRelAttribute) ||
 				  options.components?.linkBlankTargetRelAttribute ||
 				  defaultBlankTargetRelAttribute
