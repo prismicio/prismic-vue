@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.5](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.4...v3.0.0-alpha.5) (2021-11-17)
+
+
+### Bug Fixes
+
+* **deps:** new @prismicio/client types ([293f397](https://github.com/prismicio/prismic-vue/commit/293f39735bdbe4fb7791cecbc879679b80824ccd))
+
+
+### Documentation
+
+* fix contributing doc link ([8b80a17](https://github.com/prismicio/prismic-vue/commit/8b80a170569a7b41219935381c41678143172de7))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([eb8a31a](https://github.com/prismicio/prismic-vue/commit/eb8a31a7d0d73b439e4e96088d979d8cd4d06568))
+
 ## [3.0.0-alpha.4](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.3...v3.0.0-alpha.4) (2021-09-27)
 
 
