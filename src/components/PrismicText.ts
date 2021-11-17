@@ -92,7 +92,7 @@ export const PrismicTextImpl = /*#__PURE__*/ defineComponent({
 	name: "PrismicText",
 	props: {
 		field: {
-			type: Array as PropType<RichTextField>,
+			type: Array as unknown as PropType<RichTextField>,
 			required: true,
 		},
 		separator: {

@@ -15,7 +15,7 @@ type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ClientMethodLike = (...args: any[]) => Promise<any> | any;
 type ClientMethods = typeof Client.prototype;
-type ClientError = PrismicError | ParsingError | ForbiddenError;
+type ClientError = PrismicError<unknown> | ParsingError | ForbiddenError;
 
 // Interfaces
 

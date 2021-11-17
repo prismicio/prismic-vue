@@ -121,7 +121,7 @@ export const PrismicRichTextImpl = /*#__PURE__*/ defineComponent({
 	name: "PrismicRichText",
 	props: {
 		field: {
-			type: Array as PropType<RichTextField>,
+			type: Array as unknown as PropType<RichTextField>,
 			required: true,
 		},
 		linkResolver: {
