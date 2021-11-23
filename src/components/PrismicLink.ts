@@ -57,19 +57,19 @@ export type PrismicLinkProps = {
 	/**
 	 * An explicit `target` attribute to apply to the rendered link.
 	 */
-	target?: string;
+	target?: string | null;
 
 	/**
 	 * An explicit `rel` attribute to apply to the rendered link.
 	 */
-	rel?: string;
+	rel?: string | null;
 
 	/**
 	 * Value of the `rel` attribute to use on links rendered with `target="_blank"`.
 	 *
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"noopener noreferrer"` otherwise.
 	 */
-	blankTargetRelAttribute?: string;
+	blankTargetRelAttribute?: string | null;
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -165,21 +165,33 @@ export const usePrismicLink = (
 	});
 	const target = computed(() => {
 		const field = unref(props.field);
+		const target = unref(props.target);
 
-		return (
-			unref(props.target) ||
-			(field && "target" in field && field.target ? field.target : null)
-		);
+		if (typeof target !== "undefined") {
+			return target;
+		} else {
+			return field && "target" in field && field.target ? field.target : null;
+		}
 	});
 	const rel = computed(() => {
-		return (
-			unref(props.rel) ||
-			(target.value === "_blank"
-				? unref(props.blankTargetRelAttribute) ||
-				  options.components?.linkBlankTargetRelAttribute ||
-				  defaultBlankTargetRelAttribute
-				: null)
-		);
+		const rel = unref(props.rel);
+
+		if (typeof rel !== "undefined") {
+			return rel;
+		} else if (target.value === "_blank") {
+			const blankTargetRelAttribute = unref(props.blankTargetRelAttribute);
+
+			if (typeof blankTargetRelAttribute !== "undefined") {
+				return blankTargetRelAttribute;
+			} else {
+				return typeof options.components?.linkBlankTargetRelAttribute !==
+					"undefined"
+					? options.components.linkBlankTargetRelAttribute
+					: defaultBlankTargetRelAttribute;
+			}
+		} else {
+			return null;
+		}
 	});
 
 	return {
