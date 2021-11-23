@@ -1,51 +1,87 @@
-import PrismicDom from 'prismic-dom'
+import PrismicDom from "prismic-dom";
 
-export default ({
-  component = 'a'
-}) => ({
-  name: 'PrismicLink',
-  functional: true,
-  props: {
-    field: {
-      type: Object,
-      required: true,
-    },
-    linkResolver: {
-      type: Function,
-      required: false
-    }
-  },
-  render(h, { props, data, children, parent }) {
-    const { field, linkResolver } = props
+const isInternalURL = (url) => {
+	/**
+	 * @see Regex101 expression: {@link https://regex101.com/r/1y7iod/1}
+	 */
+	const isInternal = /^\/(?!\/)/.test(url);
+	/**
+	 * @see Regex101 expression: {@link https://regex101.com/r/RnUseS/1}
+	 */
+	const isSpecialLink = !isInternal && !/^https?:\/\//i.test(url);
 
-    if (!field) {
-      return null
-    }
+	return isInternal && !isSpecialLink;
+};
 
-    const url = parent.$prismic
-      ? parent.$prismic.asLink(field, linkResolver)
-      : PrismicDom.Link.url(field, linkResolver || function() { return null; })
+export default ({ component = "a" }) => ({
+	name: "PrismicLink",
+	functional: true,
+	props: {
+		field: {
+			type: Object,
+			required: true,
+		},
+		linkResolver: {
+			type: Function,
+			required: false,
+		},
+		target: {
+			type: String,
+			default: undefined,
+			required: false,
+		},
+		rel: {
+			type: String,
+			default: undefined,
+			required: false,
+		},
+		blankTargetRelAttribute: {
+			type: String,
+			default: "noopener",
+			required: false,
+		},
+	},
+	render(h, { props, data, children, parent }) {
+		const { field, linkResolver } = props;
 
-    if (url.indexOf('/') === 0) {
-      data.props = data.props || {};
-      data.props.to = url;
+		if (!field) {
+			return null;
+		}
 
-      return h(component, data, children);
-    }
+		const url = parent.$prismic
+			? parent.$prismic.asLink(field, linkResolver)
+			: PrismicDom.Link.url(
+					field,
+					linkResolver ||
+						function () {
+							return null;
+						}
+			  );
 
-    data.attrs = {
-      ...data.attrs,
-      href: url,
-      ...field.target && {
-        target: field.target,
-        rel: 'noopener',
-      },
-    }
+		if (isInternalURL(url) && !props.target) {
+			data.props = data.props || {};
+			data.props.to = url;
 
-    return h(
-      'a',
-      data,
-      children,
-    );
-  }
-})
+			return h(component, data, children);
+		}
+
+		data.attrs = {
+			...data.attrs,
+			href: url,
+		};
+
+		if (typeof props.target !== "undefined" || field.target) {
+			data.attrs.target =
+				typeof props.target !== "undefined" ? props.target : field.target;
+
+			if (data.attrs.target === "_blank") {
+				data.attrs.rel =
+					typeof props.rel !== "undefined"
+						? props.rel
+						: props.blankTargetRelAttribute;
+			}
+		}
+
+		return h("a", data, children);
+	},
+});
