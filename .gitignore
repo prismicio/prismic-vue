@@ -1,12 +1,9 @@
 # custom
 dist
 components
+!src/components
 examples/**/package-lock.json
 stats.html
-
-# to remove with /docs
-.nuxt
-sw.js
 
 # os
 .DS_Store
