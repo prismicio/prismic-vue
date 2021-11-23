@@ -1,0 +1,86 @@
+{
+	"prismic-embed/field": {
+		"type": "object",
+		"description": "The Prismic embed field to render."
+	},
+	"prismic-embed/wrapper": {
+		"type": "string | object | function",
+		"description": "An HTML tag name, a component, or a functional component used to wrap the output. Defaults to `\"div\"`."
+	},
+
+	"prismic-image/field": {
+		"type": "object",
+		"description": "The Prismic image field to render."
+	},
+
+	"prismic-link/field": {
+		"type": "object",
+		"description": "The Prismic link field or document to render."
+	},
+	"prismic-link/link-resolver": {
+		"type": "function",
+		"description": "A link resolver function used to resolve links when not using the route resolver parameter with `@prismicio/client`. Defaults to the link resolver provided to `@prismicio/vue` plugin if configured."
+	},
+	"prismic-link/target": {
+		"type": "string",
+		"description": "An explicit `target` attribute to apply to the rendered link."
+	},
+	"prismic-link/rel": {
+		"type": "string",
+		"description": "An explicit `rel` attribute to apply to the rendered link."
+	},
+	"prismic-link/blank-target-rel-attribute": {
+		"type": "string",
+		"description": "Value of the `rel` attribute to use on links rendered with `target=\"_blank\"`. Defaults to the one provided to `@prismicio/vue` plugin if configured, `\"noopener noreferrer\"` otherwise."
+	},
+
+	"prismic-rich-text/field": {
+		"type": "array",
+		"description": "The Prismic rich text or title field to render."
+	},
+	"prismic-rich-text/link-resolver": {
+		"type": "function",
+		"description": "A link resolver function used to resolve links when not using the route resolver parameter with `@prismicio/client`. Defaults to the link resolver provided to `@prismicio/vue` plugin if configured."
+	},
+	"prismic-rich-text/html-serializer": {
+		"type": "function | object",
+		"description": "An HTML serializer to customize the way rich text fields are rendered. Defaults to the HTML serializer provided to `@prismicio/vue` plugin if configured."
+	},
+	"prismic-rich-text/wrapper": {
+		"type": "string | object | function",
+		"description": "An HTML tag name, a component, or a functional component used to wrap the output. Defaults to `\"div\"`."
+	},
+
+	"prismic-text/field": {
+		"type": "array",
+		"description": "The Prismic rich text or title field to render."
+	},
+	"prismic-text/separator": {
+		"type": "string",
+		"description": "Separator used to join each element. Defaults to `\" \"` (a space)"
+	},
+	"prismic-text/wrapper": {
+		"type": "string | object | function",
+		"description": "An HTML tag name, a component, or a functional component used to wrap the output. Defaults to `\"div\"`."
+	},
+
+	"slice-zone/slices": {
+		"type": "array",
+		"description": "List of Slice data from the Slice Zone."
+	},
+	"slice-zone/components": {
+		"type": "array",
+		"description": "A record mapping Slice types to Vue components."
+	},
+	"slice-zone/context": {
+		"description": "Arbitrary data made available to all Slice components."
+	},
+	"slice-zone/default-component": {
+		"type": "string | object | function",
+		"description": "A component or a functional component rendered if a component mapping from the `components` prop cannot be found. Defaults to the Slice Zone default component provided to `@prismicio/vue` plugin if configured, otherwise `null` when `process.env.NODE_ENV === \"production\"` else `\"todo-slice-component\"`"
+	},
+	"slice-zone/wrapper": {
+		"type": "string | object | function",
+		"description": "An HTML tag name, a component, or a functional component used to wrap the output. Defaults to `\"div\"`."
+	}
+}

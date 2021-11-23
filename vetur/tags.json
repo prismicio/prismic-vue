@@ -1,0 +1,38 @@
+{
+	"prismic-embed": {
+		"attributes": ["field", "wrapper"],
+		"description": "Component to render a Prismic embed field."
+	},
+	"prismic-image": {
+		"attributes": ["field"],
+		"description": "Component to render a Prismic image field."
+	},
+	"prismic-link": {
+		"attributes": [
+			"field",
+			"link-resolver",
+			"target",
+			"rel",
+			"blank-target-rel-attribute"
+		],
+		"description": "Component to render a Prismic link field."
+	},
+	"prismic-rich-text": {
+		"attributes": ["field", "link-resolver", "html-serializer", "wrapper"],
+		"description": "Component to render a Prismic rich text field as HTML."
+	},
+	"prismic-text": {
+		"attributes": ["field", "separator", "wrapper"],
+		"description": "Component to render a Prismic rich text field as plain text."
+	},
+	"slice-zone": {
+		"attributes": [
+			"slices",
+			"components",
+			"context",
+			"default-component",
+			"wrapper"
+		],
+		"description": "Component to render a Prismic Slice Zone."
+	}
+}
