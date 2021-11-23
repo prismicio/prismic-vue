@@ -301,6 +301,43 @@ export const getSliceZoneComponents = <
 };
 
 /**
+ * Arguments for a `<SliceZone>` `resolver` function.
+ */
+export type SliceZoneResolverArgs<TSlice extends SliceLike = SliceLike> = {
+	/**
+	 * The Slice to resolve to a Vue component..
+	 */
+	slice: TSlice;
+
+	/**
+	 * The name of the Slice.
+	 */
+	sliceName: TSlice["slice_type"];
+
+	/**
+	 * The index of the Slice in the Slice Zone.
+	 */
+	i: number;
+};
+
+/**
+ * A function that determines the rendered Vue component for each Slice in the
+ * Slice Zone. If a nullish value is returned, the component will fallback to
+ * the `components` or `defaultComponent` props to determine the rendered component.
+ *
+ * @deprecated Use the `components` prop instead.
+ * @param args - Arguments for the resolver function.
+ *
+ * @returns The Vue component to render for a Slice.
+ */
+export type SliceZoneResolver<
+	TSlice extends SliceLike = SliceLike,
+	TContext = unknown,
+> = (
+	args: SliceZoneResolverArgs<TSlice>,
+) => SliceComponentType<TSlice, TContext> | string | undefined | null;
+
+/**
  * Props for `<SliceZone />`.
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
@@ -318,7 +355,18 @@ export type SliceZoneProps<
 	/**
 	 * A record mapping Slice types to Vue components.
 	 */
-	components: SliceZoneComponents;
+	components?: SliceZoneComponents;
+
+	/**
+	 * A function that determines the rendered Vue component for each Slice in the
+	 * Slice Zone.
+	 *
+	 * @deprecated Use the `components` prop instead.
+	 * @param args - Arguments for the resolver function.
+	 *
+	 * @returns The Vue component to render for a Slice.
+	 */
+	resolver?: SliceZoneResolver<TSlice, TContext>;
 
 	/**
 	 * Arbitrary data made available to all Slice components.
@@ -356,7 +404,13 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 		},
 		components: {
 			type: Object as PropType<SliceZoneComponents>,
-			required: true,
+			default: undefined,
+			required: false,
+		},
+		resolver: {
+			type: Function as PropType<SliceZoneResolver>,
+			default: undefined,
+			required: false,
 		},
 		context: {
 			type: null,
@@ -384,12 +438,25 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 
 		const renderedSlices = computed(() => {
 			return props.slices.map((slice, index) => {
-				const component =
-					slice.slice_type in props.components
+				let component =
+					props.components && slice.slice_type in props.components
 						? props.components[slice.slice_type]
 						: props.defaultComponent ||
 						  options.components?.sliceZoneDefaultComponent ||
 						  TODOSliceComponent;
+
+				// TODO: Remove `resolver` in v3 in favor of `components`.
+				if (props.resolver) {
+					const resolvedComponent = props.resolver({
+						slice,
+						sliceName: slice.slice_type,
+						i: index,
+					});
+
+					if (resolvedComponent) {
+						component = resolvedComponent;
+					}
+				}
 
 				const p = {
 					key: `${slice.slice_type}-${index}`,

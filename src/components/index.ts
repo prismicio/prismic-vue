@@ -33,6 +33,8 @@ export type {
 	SliceComponentType,
 	SliceLike,
 	SliceZoneComponents,
+	SliceZoneResolverArgs,
+	SliceZoneResolver,
 	SliceZoneLike,
 	SliceZoneProps,
 } from "./SliceZone";

@@ -13,6 +13,7 @@ import {
 	getSliceZoneComponents,
 	SliceComponentType,
 	SliceZoneImpl,
+	SliceZoneResolver,
 } from "../src/components";
 import {
 	getSliceComponentProps,
@@ -22,7 +23,7 @@ import {
 } from "../src";
 import { sleep } from "./__testutils__/sleep";
 
-test("renders slice zone with correct component mapping", async (t) => {
+test("renders slice zone with correct component mapping from components", async (t) => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
 		getSliceComponentProps(),
@@ -50,6 +51,56 @@ test("renders slice zone with correct component mapping", async (t) => {
 				),
 				baz: "Baz",
 			}),
+		},
+		global: {
+			components: {
+				Baz,
+			},
+		},
+	});
+
+	await sleep();
+
+	t.is(
+		wrapper.html(),
+		`<div class="wrapperComponentFoo"></div>
+<div class="wrapperComponentBar"></div>
+<div class="wrapperComponentBaz"></div>`,
+	);
+});
+
+test("renders slice zone with correct component mapping from resolver", async (t) => {
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+	const Bar = createWrapperComponent<SliceComponentType>(
+		"Bar",
+		getSliceComponentProps(),
+	);
+	const Baz = createWrapperComponent<SliceComponentType>(
+		"Baz",
+		getSliceComponentProps(),
+	);
+
+	const wrapper = mount(SliceZoneImpl, {
+		props: {
+			slices: [
+				{ slice_type: "foo" },
+				{ slice_type: "bar" },
+				{ slice_type: "baz" },
+			],
+			resolver: (({ sliceName }) => {
+				const components = getSliceZoneComponents({
+					foo: Foo,
+					bar: defineAsyncComponent(
+						() => new Promise<SliceComponentType>((res) => res(Bar)),
+					),
+					baz: "Baz",
+				});
+
+				return components[sliceName];
+			}) as SliceZoneResolver,
 		},
 		global: {
 			components: {
