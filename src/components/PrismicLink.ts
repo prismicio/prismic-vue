@@ -220,17 +220,17 @@ export const PrismicLinkImpl = /*#__PURE__*/ defineComponent({
 			required: false,
 		},
 		target: {
-			type: String as PropType<string>,
+			type: String as PropType<string | null>,
 			default: undefined,
 			required: false,
 		},
 		rel: {
-			type: String as PropType<string>,
+			type: String as PropType<string | null>,
 			default: undefined,
 			required: false,
 		},
 		blankTargetRelAttribute: {
-			type: String as PropType<string>,
+			type: String as PropType<string | null>,
 			default: undefined,
 			required: false,
 		},
