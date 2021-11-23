@@ -392,6 +392,7 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 						  TODOSliceComponent;
 
 				const p = {
+					key: `${slice.slice_type}-${index}`,
 					slice,
 					index,
 					context: props.context,
