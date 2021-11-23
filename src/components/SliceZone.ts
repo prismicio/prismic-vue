@@ -254,11 +254,11 @@ export type SliceZoneComponents<
  * @example Defining a slice components:
  *
  * ```javascript
- * import { getSliceZoneComponents } from "@prismicio/vue";
+ * import { defineSliceZoneComponents } from "@prismicio/vue";
  *
  * export default {
  *   data() {
- *     components: getSliceZoneComponents({
+ *     components: defineSliceZoneComponents({
  *       foo: Foo,
  *       bar: defineAsyncComponent(
  *         () => new Promise((res) => res(Bar)),
@@ -275,7 +275,7 @@ export type SliceZoneComponents<
  *
  * @returns A new optimized record of {@link SliceZoneComponents}
  */
-export const getSliceZoneComponents = <
+export const defineSliceZoneComponents = <
 	TSlice extends SliceLike = SliceLike,
 	TContext = unknown,
 >(

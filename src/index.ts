@@ -15,7 +15,7 @@ export {
 	// Slice Zone
 	getSliceComponentProps,
 	TODOSliceComponent,
-	getSliceZoneComponents,
+	defineSliceZoneComponents,
 	SliceZoneImpl,
 	SliceZone,
 } from "./components";
