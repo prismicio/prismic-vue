@@ -22,7 +22,7 @@ export default {
 			default: "div",
 		},
 	},
-	render(h, { props, data, children, parent }) {
+	render(h, { props, data, parent }) {
 		const { field, linkResolver, htmlSerializer, wrapper } = props;
 
 		if (!field) {

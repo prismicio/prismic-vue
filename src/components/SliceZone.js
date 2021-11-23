@@ -36,7 +36,7 @@ export const TODOSliceComponent = __PRODUCTION__
 			name: "TODOSliceCOmponent",
 			functional: true,
 			props: getSliceComponentProps(),
-			renfer(h, { props, data, children, parent }) {
+			renfer(h, { props, data }) {
 				console.warn(
 					`[SliceZone] Could not find a component for Slice type "${props.slice.slice_type}"`,
 					props.slice
@@ -95,7 +95,7 @@ export const SliceZone = {
 			required: false,
 		},
 	},
-	render(h, { props, data, children, parent }) {
+	render(h, { props, data }) {
 		// Prevent fatal if user didn't check for field, throws `Invalid prop` warn
 		if (!props.slices) {
 			return () => null;
