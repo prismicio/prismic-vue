@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.6](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.5...v3.0.0-alpha.6) (2021-11-23)
+
+
+### Features
+
+* add `resolver` prop to SliceZone for backwards compatibility with `vue-slicezone` ([adf62e2](https://github.com/prismicio/prismic-vue/commit/adf62e242308e87d8fb6c62c31cd36e014613463))
+
+
+### Chore
+
+* **deps:** fix types after update ([eb82e0e](https://github.com/prismicio/prismic-vue/commit/eb82e0ea845b1f7cd8bf1e484b196d86d9b6bb68))
+* key slicezone components for consistency ([d814e1c](https://github.com/prismicio/prismic-vue/commit/d814e1c213fa216a15684f80655dfe450cab3500))
+
+
+### Refactor
+
+* allow `null` or `""` as truthy value on `<PrismicLink>` ([0bc4f29](https://github.com/prismicio/prismic-vue/commit/0bc4f29ca799fffd73874261456d794aafffdc5a))
+* rename `getSliceZoneComponents()` to `defineSliceZoneComponents()` ([17f6736](https://github.com/prismicio/prismic-vue/commit/17f673629a9a3fb04e5236be7d8b9c3c4caca6e6))
+
 ## [3.0.0-alpha.5](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.4...v3.0.0-alpha.5) (2021-11-17)
 
 
