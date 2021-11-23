@@ -1,7 +1,12 @@
-import exp from './components'
+import exp from "./components";
 
-export const common = exp.common
-export const nuxt = exp.nuxt
-export const vueRouter = exp.vueRouter
+export {
+	getSliceComponentProps,
+	defineSliceZoneComponents,
+} from "./components/SliceZone";
 
-export default exp
+export const common = exp.common;
+export const nuxt = exp.nuxt;
+export const vueRouter = exp.vueRouter;
+
+export default exp;
