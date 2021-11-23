@@ -1,180 +1,108 @@
-### **🚨 @prismicio/vue @ 2.0.8+ (currently 2.0.11) 🚨**
+<!--
 
-**With version 2.0.8 (and above) we had to introduce a minor change by updating required peer dependencies for `@prismicio/vue`, moving from `prismic-javascript` to its new package name `@prismicio/client`, you might need to install it for this kit to keep working.**
+Replace all on all files (README.md, CONTRIBUTING.md, bug_report.md, package.json):
+- @prismicio/vue
+- Vue plugin, components, and composables to fetch and present Prismic content
+- prismicio/prismic-vue
+- prismic-vue
 
-![alt text](https://prismic.io/...1b58998/images/logo-dark.svg)
+-->
 
-[![npm version](https://badge.fury.io/js/%40prismicio%2Fvue.svg)](http://badge.fury.io/js/@prismicio/vue)
+# @prismicio/vue
 
-# @prismicio/vue V₂
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![Github Actions CI][github-actions-ci-src]][github-actions-ci-href]
+[![Codecov][codecov-src]][codecov-href]
+[![Conventional Commits][conventional-commits-src]][conventional-commits-href]
+[![License][license-src]][license-href]
 
-> Vue.js plugin to facilitate integration of content managed with [Prismic.io](https://prismic.io).
-Looking for a Nuxt solution? Here you go 👉 [@nuxtjs/prismic plugin](https://github.com/nuxt-community/prismic)
+<!-- TODO: Replacing link to Prismic with [Prismic][prismic] is useful here -->
 
-# Install
+[Vue][vue] plugin and components to fetch and present [Prismic][prismic] content.
 
-⚠️ We've moved `prismic-vue` to `@prismicio/vue`. You can safely replace the former with the latter to your node modules ✌️
+- 📝 &nbsp;Display content from Prismic like [Rich Text][prismic-rich-text] and [Link][prismic-link] fields;
+- 🍡 &nbsp;Render Prismic [Slice Zones][prismic-slices] declaratively with Vue components;
+- 🎣 &nbsp;Fetch Prismic content using Vue [options-api].
 
-`@prismic/vue` relies on `@prismicio/client` and `prismic-dom`.
-If you are migrating from V1, make sure to install them too as they are now peer dependencies.
-``` bash
-npm install @prismicio/vue @prismicio/client prismic-dom
-```
-👉 quick note: @prismicio/client is a library responsible for _making requests to your Prismic endpoint_,
-while prismic-dom is responsible for serializing html from RichText ([RichText you said?](https://user-guides.prismic.io/en/articles/383762-rich-text)).
+## Install
 
-# What it does
-
-This package serves two purposes and can actually be split into two different parts.
-
-#### 1- Queries
-The first purpose of `@prismicio/vue` is to offer an easy way to fetch your Prismic content. When registering `PrismicVue`, we directly inject a `@prismicio/client` instance, to be used anywhere in your Vue project.
-
-``` javascript
-import prismicJS from 'prismic-js';
-
-const PrismicVue = {
-  install: function (Vue, options) {
-    Vue.prototype.$prismic = prismicJS
-    Vue.prototype.$prismic.endpoint = options.endpoint
-    Vue.prototype.$prismic.linkResolver = options.linkResolver
-    Vue.prototype.$prismic.client = prismicJS.client(options.endpoint, options.apiOptions)
-    ...
-  }
-}
+```bash
+npm install @prismicio/vue
 ```
 
-### 2 - Components
+## Documentation
 
-The second purpose of `@prismicio/vue` is to globally register components that will help you _display content queried via your Prismic API_. Their purpose is (mostly) to serialize Prismic data into html. These components being used in other libraries (like `@nuxtjs/prismic`), note that you can actually import them without registering `PrismicVue`.
+<!-- To discover what's new on this package check out [the changelog][changelog]. -->
 
+For full documentation, visit the [official Prismic documentation][prismic-docs].
 
-# Usage
+## Contributing
 
-This [getting started guide](https://prismic.io/docs/vuejs/getting-started/integrating-with-existing-project) should be of great help to kickstart your first Prismic/Vue project.
-In case you're more into markdown, you can alternatevely keep reading ☺️
+Whether you're helping us fix bugs, improve the docs, or spread the word, we'd love to have you as part of the Prismic developer community!
 
-### 1/Register PrismicVue
-First, you should register the plugin:
-```javascript
-import PrismicVue from '@prismicio/vue'
+**Asking a question**: [Open a new topic][forum-question] on our community forum explaining what you want to achieve / your question. Our support team will get back to you shortly.
 
-Vue.use(PrismicVue, {
-  endpoint: 'https://your-api-endpoint.prismic.io/api/v2',
-  linkResolver: function(doc) {
-    if (doc.type === 'home') {
-        return '/';
-    }
-  },
-});
-```
+**Reporting a bug**: [Open an issue][repo-bug-report] explaining your application's setup and the bug you're encountering.
 
-When registering the plugin, you may pass these options. Although `linkResolver` and `htmlSerializer` are not required, they are usually pretty useful. Make sure to check them out! ✌️
+**Suggesting an improvement**: [Open an issue][repo-feature-request] explaining your improvement or feature so we can discuss and learn more.
 
+**Submitting code changes**: For small fixes, feel free to [open a pull request][repo-pull-requests] with a description of your changes. For large changes, please first [open an issue][repo-feature-request] so we can discuss if and how the changes should be implemented.
 
-| Option name    	| Type     	| Required 	| Default value 	| Description                                                                                                          	|
-|----------------	|----------	|----------	|---------------	|----------------------------------------------------------------------------------------------------------------------	|
-| endpoint       	| string   	| yes      	| none          	| Your Prismic api endpoint                                                                                            	|
-| linkResolver   	| function 	| no       	| none          	| See [Link Resolving in Javascript](https://prismic.io/docs/javascript/beyond-the-api/link-resolving)                 	|
-| htmlSerializer 	| function 	| no       	| none          	| See [html Serializer documentation](https://prismic.io/docs/javascript/beyond-the-api/html-serializer)               	|
-| linkType       	| string   	| no       	| vueRouter     	| Link components may be handled differently based on what you use. Currently accepted values: 'vueRouter' and 'nuxt'. 	|
-
-### 2/Query your content
-Because we inject a `@prismicio/client` instance into Vue, each of its method are accessible from your components. Make sure to check [its documentation](https://github.com/prismicio/prismic-javascript)!
-
-A bare bone example that fetches data from a `home` document and then sets a `fields` data object:
-```javascript
-export default {
-  name: 'MyComponent',
-  data() {
-    return {
-      fields: {
-        title: [],
-        logo: {},
-        somethingRich: []
-      }
-    }
-  },
-  methods: {
-    getContent () {
-      this.$prismic.client.getSingle('home')
-        .then((document) => {
-          this.fields = document.data
-        })
-    }
-  },
-  created () {
-    this.getContent();
-  }
-}
-```
-
-### 3/use components
-Following the example above, let's write the associated template:
-
-```html
-<template>
-  <section>
-    <prismic-image :field="fields.logo" />
-    <prismic-rich-text :field="fields.title" />
-    <prismic-rich-text :field="fields.somethingRich" />
-  </section>
-</template>
-```
-
-> :warning: In-dom templates don't support self-closing tags, close them manually instead, e.g.: `<prismic-image :field="fields.logo"></prismic-image>` 
-
-👆 If you were to log `document.data` in our previous query, you would notice that `title` and `somethingRich` are actually arrays instead of strings. This is because Prismic provides content writers with a WYSIWYG editor. It's awesome for formatting text but harder to deal with on client side. Fortunately, `prismic-rich-text` is a component made to deal with this format.
-
-Obviously, `prismic-image` works the same way on image fields, stored in your Prismic API.
-
-# List of components
-
-List of available components and use cases:
-
-
-| Component         	| Prismic type      	| Use case                                                         	| Example use                                                                                         	|
-|-------------------	|-------------------	|------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------	|
-| prismic-rich-text 	| Rich Text, Title 	| Used when you need formatting fir text (bold, italic, embeds...) 	| `<prismic-rich-text :field="field.description" wrapper="div" :htmlSerializer="myLocalSerializer"/>` 	|
-| prismic-link      	| Link              	| Used to resolve links stored in your Prismic content.            	| `<prismic-link :field="menuLink.link">My link</prismic-link>`                                       	|
-| prismic-image     	| Image             	| Used to display images stored in Prismic.                        	| `<prismic-image :field="fields.logo" />`                                                            	|
-| prismic-embed     	| Embed             	| Used to display embeds stored in Prismic.                        	| `<prismic-embed :field="fields.embed" wrapper="div" />`                                             	|
-
-👆 Make sure to have a look at their source code: it is quite short, does simple things and might help you understand how we convert a Prismic API response into something that can actually be committed to the DOM.
-
-# Integrate @prismicio/vue components
-
-If you are working on a `@prismicio/vue` integration (like Nuxt does for example), you might find the need to use the components, without using the actual `PrismicVue` plugin. We've got you covered:
-
-```javascript
-import { common, vueRouter, nuxt } from '@prismicio/vue/components';
-
-console.log(common) // { Embed, Image, RichText ...}
-console.log(nuxt) // { Link }
-// etc.
-
-Vue.prototype.$prismic = {
-  // because some components
-  // require a link resolver
-  linkResolver() { /* ... */}
-}
-
-// Register common components
-Object.entries(common).forEach(([_, component]) => {
-    Vue.component(component.name, component)
-})
-```
-
-Thanks for reading 👋
-
----
+<!-- For more clarity on this project and its structure you can also check out the detailed [CONTRIBUTING.md][contributing] document. -->
 
 ## License
 
-This software is licensed under the Apache 2 license, quoted below.
+```
+   Copyright 2013-2021 Prismic <contact@prismic.io> (https://prismic.io)
 
-Copyright 2013-2020 Prismic (http://prismic.io).
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this project except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+       http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+```
+
+<!-- Links -->
+
+[prismic]: https://prismic.io
+
+<!-- TODO: Replace link with a more useful one if available -->
+
+[prismic-docs]: https://prismic.io/docs/technologies/vuejs
+[changelog]: ./CHANGELOG.md
+[contributing]: ./CONTRIBUTING.md
+[vue]: https://v3.vuejs.org
+[prismic-rich-text]: https://prismic.io/docs/core-concepts/rich-text-title
+[prismic-link]: https://prismic.io/docs/core-concepts/link-content-relationship
+[prismic-slices]: https://prismic.io/docs/core-concepts/slices
+[vue-composition]: https://v3.vuejs.org/guide/composition-api-introduction.html
+[vue-options]: https://v3.vuejs.org/guide/introduction.html
+
+<!-- TODO: Replace link with a more useful one if available -->
+
+[forum-question]: https://community.prismic.io/c/kits-and-dev-languages/vue-js/16
+[repo-bug-report]: https://github.com/prismicio/prismic-vue/issues/new?assignees=&labels=bug&template=bug_report.md&title=
+[repo-feature-request]: https://github.com/prismicio/prismic-vue/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
+[repo-pull-requests]: https://github.com/prismicio/prismic-vue/pulls
+
+<!-- Badges -->
+
+[npm-version-src]: https://img.shields.io/npm/v/@prismicio/vue/latest.svg
+[npm-version-href]: https://npmjs.com/package/@prismicio/vue
+[npm-downloads-src]: https://img.shields.io/npm/dm/@prismicio/vue.svg
+[npm-downloads-href]: https://npmjs.com/package/@prismicio/vue
+[github-actions-ci-src]: https://github.com/prismicio/prismic-vue/workflows/ci/badge.svg
+[github-actions-ci-href]: https://github.com/prismicio/prismic-vue/actions?query=workflow%3Aci
+[codecov-src]: https://img.shields.io/codecov/c/github/prismicio/prismic-vue.svg
+[codecov-href]: https://codecov.io/gh/prismicio/prismic-vue
+[conventional-commits-src]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg
+[conventional-commits-href]: https://conventionalcommits.org
+[license-src]: https://img.shields.io/npm/l/@prismicio/vue.svg
+[license-href]: https://npmjs.com/package/@prismicio/vue

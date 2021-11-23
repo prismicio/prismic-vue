@@ -1,16 +1,44 @@
+# custom
 dist
+components
+examples/**/package-lock.json
+stats.html
 
+# to remove with /docs
+.nuxt
+sw.js
+
+# os
 .DS_Store
-node_modules/
-components/
-npm-debug.log*
+._*
+
+# node
+logs
+*.log
+node_modules
+
+# yarn
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+.yarn-integrity
+yarn.lock
 
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
+# npm
+npm-debug.log*
+
+# tests
+coverage
+.eslintcache
+.nyc_output
+
+# .env
+.env
+.env.test
+.env*.local
+
+# vscode
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+*.code-workspace
