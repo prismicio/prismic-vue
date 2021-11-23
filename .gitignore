@@ -2,10 +2,6 @@
 dist
 examples/**/package-lock.json
 
-# to remove with /docs
-.nuxt
-sw.js
-
 # os
 .DS_Store
 ._*
