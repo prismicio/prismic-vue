@@ -8,10 +8,10 @@ import {
 /**
  * Creates a new component.
  */
-export const createWrapperComponent = (
+export const createWrapperComponent = <T = DefineComponent>(
 	suffix: string | number = "",
 	props: ComponentPropsOptions = {},
-): DefineComponent =>
+): T =>
 	defineComponent({
 		name: `WrapperComponent${suffix}`,
 		props,
@@ -26,6 +26,6 @@ export const createWrapperComponent = (
 				);
 			};
 		},
-	});
+	}) as unknown as T;
 
 export const WrapperComponent = createWrapperComponent();

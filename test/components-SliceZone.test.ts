@@ -23,9 +23,18 @@ import {
 import { sleep } from "./__testutils__/sleep";
 
 test("renders slice zone with correct component mapping", async (t) => {
-	const Foo = createWrapperComponent("Foo", getSliceComponentProps());
-	const Bar = createWrapperComponent("Bar", getSliceComponentProps());
-	const Baz = createWrapperComponent("Baz", getSliceComponentProps());
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+	const Bar = createWrapperComponent<SliceComponentType>(
+		"Bar",
+		getSliceComponentProps(),
+	);
+	const Baz = createWrapperComponent<SliceComponentType>(
+		"Baz",
+		getSliceComponentProps(),
+	);
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
@@ -60,8 +69,14 @@ test("renders slice zone with correct component mapping", async (t) => {
 });
 
 test("provides context to each slice", (t) => {
-	const Foo = createWrapperComponent("Foo", getSliceComponentProps());
-	const Bar = createWrapperComponent("Bar", getSliceComponentProps());
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+	const Bar = createWrapperComponent<SliceComponentType>(
+		"Bar",
+		getSliceComponentProps(),
+	);
 
 	const context = { foo: "bar" };
 
@@ -83,7 +98,10 @@ test("provides context to each slice", (t) => {
 test("renders TODO component if component mapping is missing", (t) => {
 	const consoleWarnStub = sinon.stub(console, "warn");
 
-	const Foo = createWrapperComponent("Foo", getSliceComponentProps());
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
@@ -110,8 +128,14 @@ test("renders TODO component if component mapping is missing", (t) => {
 });
 
 test("renders plugin provided TODO component if component mapping is missing", (t) => {
-	const Foo = createWrapperComponent("Foo", getSliceComponentProps());
-	const Bar = createWrapperComponent("Bar", getSliceComponentProps());
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+	const Bar = createWrapperComponent<SliceComponentType>(
+		"Bar",
+		getSliceComponentProps(),
+	);
 
 	const prismic = createPrismic({
 		endpoint: "test",
@@ -138,9 +162,18 @@ test("renders plugin provided TODO component if component mapping is missing", (
 });
 
 test("renders provided TODO component over plugin provided if component mapping is missing", (t) => {
-	const Foo = createWrapperComponent("Foo", getSliceComponentProps());
-	const Bar = createWrapperComponent("Bar", getSliceComponentProps());
-	const Baz = createWrapperComponent("Baz", getSliceComponentProps());
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+	const Bar = createWrapperComponent<SliceComponentType>(
+		"Bar",
+		getSliceComponentProps(),
+	);
+	const Baz = createWrapperComponent<SliceComponentType>(
+		"Baz",
+		getSliceComponentProps(),
+	);
 
 	const prismic = createPrismic({
 		endpoint: "test",
@@ -174,8 +207,14 @@ test.skip("doesn't render TODO component in production", () => {
 });
 
 test("wraps output with provided wrapper tag", (t) => {
-	const Foo = createWrapperComponent("Foo", getSliceComponentProps());
-	const Bar = createWrapperComponent("Bar", getSliceComponentProps());
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+	const Bar = createWrapperComponent<SliceComponentType>(
+		"Bar",
+		getSliceComponentProps(),
+	);
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
@@ -198,8 +237,14 @@ test("wraps output with provided wrapper tag", (t) => {
 });
 
 test("wraps output with provided wrapper component", (t) => {
-	const Foo = createWrapperComponent("Foo", getSliceComponentProps());
-	const Bar = createWrapperComponent("Bar", getSliceComponentProps());
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+	const Bar = createWrapperComponent<SliceComponentType>(
+		"Bar",
+		getSliceComponentProps(),
+	);
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
@@ -244,8 +289,14 @@ test("renders nothing when invalid", (t) => {
 });
 
 test("reacts to changes properly", async (t) => {
-	const Foo = createWrapperComponent("Foo", getSliceComponentProps());
-	const Bar = createWrapperComponent("Bar", getSliceComponentProps());
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+	const Bar = createWrapperComponent<SliceComponentType>(
+		"Bar",
+		getSliceComponentProps(),
+	);
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {

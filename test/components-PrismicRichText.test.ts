@@ -75,8 +75,9 @@ test("uses provided link resolver over plugin provided", (t) => {
 });
 
 test("uses plugin provided HTML function serializer", (t) => {
-	const spiedHTMLSerializer = sinon.spy((type: Element) =>
-		type === Element.paragraph ? `<p>${t.title}</p>` : null,
+	const spiedHTMLSerializer = sinon.spy(
+		(type: typeof Element[keyof typeof Element]) =>
+			type === Element.paragraph ? `<p>${t.title}</p>` : null,
 	);
 
 	const prismic = createPrismic({
@@ -96,11 +97,13 @@ test("uses plugin provided HTML function serializer", (t) => {
 });
 
 test("uses provided HTML function serializer over plugin provided", (t) => {
-	const spiedHTMLSerializer1 = sinon.spy((type: Element) =>
-		type === Element.paragraph ? `<p>${t.title}1</p>` : null,
+	const spiedHTMLSerializer1 = sinon.spy(
+		(type: typeof Element[keyof typeof Element]) =>
+			type === Element.paragraph ? `<p>${t.title}1</p>` : null,
 	);
-	const spiedHTMLSerializer2 = sinon.spy((type: Element) =>
-		type === Element.paragraph ? `<p>${t.title}2</p>` : null,
+	const spiedHTMLSerializer2 = sinon.spy(
+		(type: typeof Element[keyof typeof Element]) =>
+			type === Element.paragraph ? `<p>${t.title}2</p>` : null,
 	);
 
 	const prismic = createPrismic({

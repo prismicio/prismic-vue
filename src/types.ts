@@ -25,6 +25,7 @@ import type { RouterLink } from "vue-router";
 
 import type {
 	SliceComponentProps,
+	SliceComponentType,
 	TODOSliceComponent,
 } from "./components/SliceZone";
 
@@ -90,7 +91,7 @@ type PrismicPluginComponentsOptions = {
 	 * Components will be rendered using the {@link SliceComponentProps} interface.
 	 * @defaultValue `null` when `process.env.NODE_ENV === "production"` else {@link TODOSliceComponent}
 	 */
-	sliceZoneDefaultComponent?: string | ConcreteComponent;
+	sliceZoneDefaultComponent?: SliceComponentType;
 };
 
 /**
