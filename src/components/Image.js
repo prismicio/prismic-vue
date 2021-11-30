@@ -8,7 +8,12 @@ export default {
 		},
 	},
 	render(h, { props, data }) {
-		const { url, alt, copyright } = props.field;
+		const { field } = props;
+		if (!field) {
+			return null
+		}
+
+		const { url, alt, copyright } = field;
 
 		return h(
 			'img',

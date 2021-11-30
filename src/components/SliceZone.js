@@ -31,30 +31,31 @@ export const getSliceComponentProps = (propsHint) => ({
 });
 
 export const TODOSliceComponent = __PRODUCTION__
-	? () => null
+	? null
 	: {
 			name: "TODOSliceCOmponent",
 			functional: true,
 			props: getSliceComponentProps(),
-			renfer(h, { props, data }) {
+			render(h, { props, data }) {
 				console.warn(
 					`[SliceZone] Could not find a component for Slice type "${props.slice.slice_type}"`,
 					props.slice
 				);
 
-				return () => {
-					return h(
-						"section",
-						{
-							...data,
+				return h(
+					"section",
+					{
+						...data,
+						attrs: {
+							...data.attrs,
 							"data-slice-zone-todo-component": "",
-							"data-slice-type": props.slice.slice_type,
+							"data-slice-type": props.slice.slice_type
 						},
-						[
-							`Could not find a component for Slice type "${props.slice.slice_type}"`,
-						]
-					);
-				};
+					},
+					[
+						`Could not find a component for Slice type "${props.slice.slice_type}"`,
+					]
+				);
 			},
 	  };
 
@@ -63,7 +64,6 @@ export const defineSliceZoneComponents = (components) => components;
 
 export const SliceZone = {
 	name: "SliceZone",
-	functional: true,
 	props: {
 		slices: {
 			type: Array,
@@ -95,22 +95,21 @@ export const SliceZone = {
 			required: false,
 		},
 	},
-	render(h, { props, data }) {
-		// Prevent fatal if user didn't check for field, throws `Invalid prop` warn
-		if (!props.slices) {
-			return () => null;
-		}
+	computed:{
+		renderedSlices() {
+			if (!this.slices) {
+				return null;
+			}
 
-		const renderedSlices = computed(() => {
-			return props.slices.map((slice, index) => {
+			return this.slices.map((slice, index) => {
 				let component =
-					props.components && slice.slice_type in props.components
-						? props.components[slice.slice_type]
-						: props.defaultComponent || TODOSliceComponent;
+					this.components && slice.slice_type in this.components
+						? this.components[slice.slice_type]
+						: this.defaultComponent || TODOSliceComponent;
 
 				// TODO: Remove `resolver` in v3 in favor of `components`.
-				if (props.resolver) {
-					const resolvedComponent = props.resolver({
+				if (this.resolver) {
+					const resolvedComponent = this.resolver({
 						slice,
 						sliceName: slice.slice_type,
 						i: index,
@@ -123,22 +122,24 @@ export const SliceZone = {
 
 				const p = {
 					key: `${slice.slice_type}-${index}`,
-					slice,
-					index,
-					context: props.context,
-					slices: props.slices,
+					props: {
+						slice,
+						index,
+						context: this.context,
+						slices: this.slices,
+					}
 				};
 
-				return h(component, p);
+				return { component, p };
 			});
-		});
-
-		const parent = props.wrapper;
-
-		if (typeof parent === "string") {
-			return h(parent, data, renderedSlices.value);
-		} else {
-			return h(parent, data, { default: () => renderedSlices.value });
 		}
+	},
+	render(h) {
+		// Prevent fatal if user didn't check for field, throws `Invalid prop` warn
+		if (!this.slices) {
+			return null;
+		}
+
+		return h(this.wrapper, this.renderedSlices.map(({ component, p }) => h(component, p)));
 	},
 };
