@@ -73,13 +73,15 @@ export default ({ component = "a" }) => ({
 		if (typeof props.target !== "undefined" || field.target) {
 			data.attrs.target =
 				typeof props.target !== "undefined" ? props.target : field.target;
+		}
 
-			if (data.attrs.target === "_blank") {
-				data.attrs.rel =
-					typeof props.rel !== "undefined"
-						? props.rel
-						: props.blankTargetRelAttribute;
-			}
+		if (data.attrs.target === "_blank") {
+			data.attrs.rel =
+				typeof props.rel !== "undefined"
+					? props.rel
+					: props.blankTargetRelAttribute;
+		} else if (typeof props.rel !== "undefined") {
+			data.attrs.rel = props.rel;
 		}
 
 		return h("a", data, children);

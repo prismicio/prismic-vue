@@ -1,4 +1,5 @@
 import prismicJS from "@prismicio/client";
+const { client } = prismicJS;
 
 import Components from "./components";
 import { asHtml, asText, asDate, asLink } from "./methods";
@@ -31,7 +32,7 @@ const PrismicVue = {
 		Vue.prototype.$prismic.endpoint = options.endpoint;
 		Vue.prototype.$prismic.linkResolver = options.linkResolver;
 		Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer;
-		Vue.prototype.$prismic.client = prismicJS.client(
+		Vue.prototype.$prismic.client = client(
 			options.endpoint,
 			options.apiOptions,
 		);
