@@ -48,7 +48,7 @@ export default function makeConfig(commandOptions) {
 			],
 			plugins: plugins(
 				commandOptions["config-visualize"],
-				process.env.BUILD !== "production"
+				process.env.BUILD !== "production",
 			),
 		},
 		{

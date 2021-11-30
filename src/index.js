@@ -4,28 +4,28 @@ import Components from "./components";
 import { asHtml, asText, asDate, asLink } from "./methods";
 
 function attachMethods(Vue, options) {
-	Vue.prototype.$prismic.asHtml = function(
+	Vue.prototype.$prismic.asHtml = function (
 		richText,
 		linkResolver,
-		htmlSerializer
+		htmlSerializer,
 	) {
 		return asHtml(
 			richText,
 			linkResolver || options.linkResolver,
-			htmlSerializer || options.htmlSerializer
+			htmlSerializer || options.htmlSerializer,
 		);
 	};
 	Vue.prototype.$prismic.asHTML = Vue.prototype.$prismic.asHtml;
 	Vue.prototype.$prismic.asText = asText;
 	Vue.prototype.$prismic.richTextAsPlain = asText;
 	Vue.prototype.$prismic.asDate = asDate;
-	Vue.prototype.$prismic.asLink = function(link, linkResolver) {
+	Vue.prototype.$prismic.asLink = function (link, linkResolver) {
 		return asLink(link, linkResolver || options.linkResolver);
 	};
 }
 
 const PrismicVue = {
-	install: function(Vue, options) {
+	install: function (Vue, options) {
 		const { linkType = "vueRouter" } = options;
 		Vue.prototype.$prismic = prismicJS;
 		Vue.prototype.$prismic.endpoint = options.endpoint;
@@ -33,14 +33,14 @@ const PrismicVue = {
 		Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer;
 		Vue.prototype.$prismic.client = prismicJS.client(
 			options.endpoint,
-			options.apiOptions
+			options.apiOptions,
 		);
 
 		attachMethods(Vue, options);
 
 		const components = {
 			...Components.common,
-			...Components[linkType]
+			...Components[linkType],
 		};
 
 		/**
@@ -50,7 +50,7 @@ const PrismicVue = {
 		Object.entries(components).forEach(([_, c]) => {
 			Vue.component(c.name, c);
 		});
-	}
+	},
 };
 
 export default PrismicVue;
