@@ -7,10 +7,6 @@ import { LinkType } from "@prismicio/types";
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import {
-	createWrapperComponent,
-	WrapperComponent,
-} from "./__fixtures__/WrapperComponent";
 import router from "./__fixtures__/router";
 
 import PrismicLinkImpl from "../src/components/Link";

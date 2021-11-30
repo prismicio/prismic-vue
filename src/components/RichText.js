@@ -30,8 +30,8 @@ export default {
 		}
 		const innerHTML = RichText.asHtml(
 			field,
-			linkResolver || parent.$prismic.linkResolver,
-			htmlSerializer || parent.$prismic.htmlSerializer
+			linkResolver ? linkResolver : parent.$prismic ? parent.$prismic.linkResolver : undefined,
+			htmlSerializer ? htmlSerializer : parent.$prismic ? parent.$prismic.htmlSerializer : undefined,
 		);
 
 		return h(wrapper, {
