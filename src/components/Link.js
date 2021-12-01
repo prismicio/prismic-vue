@@ -37,7 +37,7 @@ export default ({ component = "a" }) => ({
 		},
 		blankTargetRelAttribute: {
 			type: String,
-			default: "noopener",
+			default: "noopener noreferrer",
 			required: false,
 		},
 	},
@@ -75,13 +75,10 @@ export default ({ component = "a" }) => ({
 				typeof props.target !== "undefined" ? props.target : field.target;
 		}
 
-		if (data.attrs.target === "_blank") {
-			data.attrs.rel =
-				typeof props.rel !== "undefined"
-					? props.rel
-					: props.blankTargetRelAttribute;
-		} else if (typeof props.rel !== "undefined") {
+		if (typeof props.rel !== "undefined") {
 			data.attrs.rel = props.rel;
+		} else if (data.attrs.target === "_blank") {
+			data.attrs.rel = props.blankTargetRelAttribute;
 		}
 
 		return h("a", data, children);

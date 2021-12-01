@@ -10,7 +10,7 @@ import VueRouter from "vue-router";
 import router from "./__fixtures__/router";
 
 import PrismicLinkImpl from "../src/components/Link";
-import PrismicPlugin from "../src";
+import PrismicVue from "../src";
 
 const PrismicLink = Vue.component(
 	"PrismicLink",
@@ -85,7 +85,7 @@ test("uses plugin provided link resolver", (t) => {
 
 	const spiedLinkResolver = sinon.spy(() => "/bar");
 
-	localVue.use(PrismicPlugin, {
+	localVue.use(PrismicVue, {
 		endpoint: "test",
 		linkResolver: spiedLinkResolver,
 	});
@@ -113,7 +113,7 @@ test("uses provided link resolver over plugin provided", (t) => {
 	const spiedLinkResolver1 = sinon.spy(() => "/bar");
 	const spiedLinkResolver2 = sinon.spy(() => "/baz");
 
-	localVue.use(PrismicPlugin, {
+	localVue.use(PrismicVue, {
 		endpoint: "test",
 		linkResolver: spiedLinkResolver1,
 	});
@@ -153,7 +153,7 @@ test("renders link with blank target", (t) => {
 
 	t.is(
 		wrapper.html(),
-		'<a href="https://example.com" target="_blank" rel="noopener">foo</a>',
+		'<a href="https://example.com" target="_blank" rel="noopener noreferrer">foo</a>',
 	);
 });
 

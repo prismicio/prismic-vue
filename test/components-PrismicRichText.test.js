@@ -10,7 +10,7 @@ import { richTextFixture } from "./__fixtures__/richText";
 import { WrapperComponent } from "./__fixtures__/WrapperComponent";
 
 import PrismicRichTextImpl from "../src/components/RichText";
-import PrismicPlugin from "../src";
+import PrismicVue from "../src";
 
 const PrismicRichText = Vue.component("PrismicRichText", PrismicRichTextImpl);
 
@@ -46,7 +46,7 @@ test("uses plugin provided link resolver", (t) => {
 
 	const spiedLinkResolver = sinon.spy(() => t.title);
 
-	localVue.use(PrismicPlugin, {
+	localVue.use(PrismicVue, {
 		endpoint: "test",
 		linkResolver: spiedLinkResolver,
 	});
@@ -66,7 +66,7 @@ test("uses provided link resolver over plugin provided", (t) => {
 	const spiedLinkResolver1 = sinon.spy(() => `${t.title}1`);
 	const spiedLinkResolver2 = sinon.spy(() => `${t.title}2`);
 
-	localVue.use(PrismicPlugin, {
+	localVue.use(PrismicVue, {
 		endpoint: "test",
 		linkResolver: spiedLinkResolver1,
 	});
@@ -88,7 +88,7 @@ test("uses plugin provided HTML function serializer", (t) => {
 		type === Element.paragraph ? `<p>${t.title}</p>` : null,
 	);
 
-	localVue.use(PrismicPlugin, {
+	localVue.use(PrismicVue, {
 		endpoint: "test",
 		htmlSerializer: spiedHTMLSerializer,
 	});
@@ -114,7 +114,7 @@ test("uses provided HTML function serializer over plugin provided", (t) => {
 		type === Element.paragraph ? `<p>${t.title}2</p>` : null,
 	);
 
-	localVue.use(PrismicPlugin, {
+	localVue.use(PrismicVue, {
 		endpoint: "test",
 		htmlSerializer: spiedHTMLSerializer1,
 	});
