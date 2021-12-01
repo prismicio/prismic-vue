@@ -29,6 +29,10 @@ const PrismicVue = {
 	install: function (Vue, options) {
 		const { linkType = "vueRouter" } = options;
 		Vue.prototype.$prismic = prismicJS;
+		Vue.prototype.$prismic.predicate = prismicJS.Predicates;
+		Vue.prototype.$prismic.cookie = {
+			preview: prismicJS.previewCookie,
+		};
 		Vue.prototype.$prismic.endpoint = options.endpoint;
 		Vue.prototype.$prismic.linkResolver = options.linkResolver;
 		Vue.prototype.$prismic.htmlSerializer = options.htmlSerializer;
