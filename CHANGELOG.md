@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/prismicio/prismic-vue/compare/v2.1.0-alpha.1...v2.1.0) (2021-12-02)
+
+
+### Features
+
+* provide `predicate` and `cookie` like v3 ([1ac9ad9](https://github.com/prismicio/prismic-vue/commit/1ac9ad9b986291ef12f93ee920bdd5ffea5cf64c))
+
+
+### Refactor
+
+* link target attribute definition ([1e049ca](https://github.com/prismicio/prismic-vue/commit/1e049ca5e789ae5c193db2af13d4e8f86a6bc3e5))
+* use `PrismicVue` ([b4be607](https://github.com/prismicio/prismic-vue/commit/b4be6076b6cc7b8dd72c84e5067acafb6a5df973))
+
 ## [2.1.0-alpha.1](https://github.com/prismicio/prismic-vue/compare/v2.1.0-alpha.0...v2.1.0-alpha.1) (2021-11-30)
 
 
