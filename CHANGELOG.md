@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.0](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.6...v3.0.0-beta.0) (2021-12-02)
+
+
+### Bug Fixes
+
+* prop type for `target`, `rel` & `blankTargetRelAttribute` props ([23ba61e](https://github.com/prismicio/prismic-vue/commit/23ba61ef5e68c0eec309e919b90b231425aa4506))
+
+
+### Chore
+
+* cleanup ignore files ([cee5697](https://github.com/prismicio/prismic-vue/commit/cee5697b5c04ffbcc78f192461f309080627a3a0))
+* update release scripts to beta ([0696d2f](https://github.com/prismicio/prismic-vue/commit/0696d2f236367e7ce84b20dcf78221a6599fdd54))
+
 ## [3.0.0-alpha.6](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.5...v3.0.0-alpha.6) (2021-11-23)
 
 
