@@ -70,9 +70,10 @@ export default ({ component = "a" }) => ({
 			href: url,
 		};
 
-		if (typeof props.target !== "undefined" || field.target) {
-			data.attrs.target =
-				typeof props.target !== "undefined" ? props.target : field.target;
+		if (typeof props.target !== "undefined") {
+			data.attrs.target = props.target;
+		} else if (field.target) {
+			data.attrs.target = field.target;
 		}
 
 		if (typeof props.rel !== "undefined") {
