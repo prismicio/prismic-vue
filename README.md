@@ -54,7 +54,7 @@ Whether you're helping us fix bugs, improve the docs, or spread the word, we'd l
 ## License
 
 ```
-   Copyright 2013-2021 Prismic <contact@prismic.io> (https://prismic.io)
+   Copyright 2013-2022 Prismic <contact@prismic.io> (https://prismic.io)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
