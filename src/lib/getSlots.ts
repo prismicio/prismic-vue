@@ -9,6 +9,7 @@ import { ConcreteComponent, Slots, VNode } from "vue";
  * @param defaultParams - The parameters to provide to the default slot
  *
  * @returns The appropriate slots object/array
+ *
  * @internal
  */
 export const getSlots = (

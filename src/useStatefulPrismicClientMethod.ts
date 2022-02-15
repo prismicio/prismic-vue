@@ -91,10 +91,12 @@ const isParams = (
  * @typeParam TClientMethodName - A method name from `@prismicio/client`
  * @typeParam TClientMethodArguments - The method expected arguments
  * @typeParam TClientMethodReturnType - The method expected return type
+ *
  * @param method - The `@prismicio/client` method name to use
  * @param args - The arguments to use with requested method
  *
  * @returns The composable payload {@link ClientComposableReturnType}
+ *
  * @internal
  */
 export const useStatefulPrismicClientMethod = <

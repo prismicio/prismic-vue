@@ -7,6 +7,7 @@ import { ConcreteComponent, resolveDynamicComponent, VNode } from "vue";
  * @param component - An HTML tag name, a component, or a functional component
  *
  * @returns Resolved component as a {@link VNode} or provided `string`.
+ *
  * @internal
  */
 export const simplyResolveComponent = (

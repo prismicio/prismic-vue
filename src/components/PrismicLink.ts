@@ -50,6 +50,7 @@ export type PrismicLinkProps = {
 	 * resolver parameter with `@prismicio/client`.
 	 *
 	 * @defaultValue The link resolver provided to `@prismicio/vue` plugin if configured.
+	 *
 	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
 	 */
 	linkResolver?: LinkResolverFunction;

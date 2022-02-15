@@ -50,6 +50,7 @@ export type PrismicRichTextProps = {
 	 * resolver parameter with `@prismicio/client`.
 	 *
 	 * @defaultValue The link resolver provided to `@prismicio/vue` plugin if configured.
+	 *
 	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
 	 */
 	linkResolver?: LinkResolverFunction;
@@ -58,6 +59,7 @@ export type PrismicRichTextProps = {
 	 * An HTML serializer to customize the way rich text fields are rendered.
 	 *
 	 * @defaultValue The HTML serializer provided to `@prismicio/vue` plugin if configured.
+	 *
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */
 	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer;

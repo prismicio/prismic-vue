@@ -89,6 +89,7 @@ type PrismicPluginComponentsOptions = {
 	 *
 	 * @remarks
 	 * Components will be rendered using the {@link SliceComponentProps} interface.
+	 *
 	 * @defaultValue `null` when `process.env.NODE_ENV === "production"` else {@link TODOSliceComponent}
 	 */
 	sliceZoneDefaultComponent?: SliceComponentType;

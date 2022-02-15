@@ -38,6 +38,7 @@ import type {
  * @param options - {@link PrismicPluginOptions}
  *
  * @returns `@prismicio/vue` plugin instance {@link PrismicPlugin}
+ *
  * @see Prismic Official Vue.js documentation: {@link https://prismic.io/docs/technologies/vuejs}
  * @see Plugin repository: {@link https://github.com/prismicio/prismic-vue}
  */

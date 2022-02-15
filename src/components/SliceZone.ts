@@ -149,7 +149,7 @@ export const getSliceComponentProps = <
 	TContext = unknown,
 >(
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	propsHint?: string[],
+	propsHint?: ["slice", "index", "slices", "context"],
 ): DefineComponentSliceComponentProps<TSlice, TContext> => ({
 	slice: {
 		type: Object as PropType<SliceComponentProps<TSlice, TContext>["slice"]>,
@@ -271,6 +271,7 @@ export type SliceZoneComponents<
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
  * @typeParam TContext - Arbitrary data made available to all Slice components
+ *
  * @param components - {@link SliceZoneComponents}
  *
  * @returns A new optimized record of {@link SliceZoneComponents}
@@ -326,6 +327,7 @@ export type SliceZoneResolverArgs<TSlice extends SliceLike = SliceLike> = {
  * the `components` or `defaultComponent` props to determine the rendered component.
  *
  * @deprecated Use the `components` prop instead.
+ *
  * @param args - Arguments for the resolver function.
  *
  * @returns The Vue component to render for a Slice.
@@ -362,6 +364,7 @@ export type SliceZoneProps<
 	 * Slice Zone.
 	 *
 	 * @deprecated Use the `components` prop instead.
+	 *
 	 * @param args - Arguments for the resolver function.
 	 *
 	 * @returns The Vue component to render for a Slice.
@@ -379,6 +382,7 @@ export type SliceZoneProps<
 	 *
 	 * @remarks
 	 * Components will be rendered using the {@link SliceComponentProps} interface.
+	 *
 	 * @defaultValue The Slice Zone default component provided to `@prismicio/vue` plugin if configured, otherwise `null` when `process.env.NODE_ENV === "production"` else {@link TODOSliceComponent}.
 	 */
 	defaultComponent?: SliceComponentType<TSlice, TContext>;

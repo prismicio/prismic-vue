@@ -39,11 +39,12 @@
 		"playground:build": "vite build playground",
 		"playground:dev": "vite playground",
 		"prepare": "npm run build",
-		"release": "npm run build && npm run test && standard-version && git push --follow-tags && npm run build && npm publish",
-		"release:beta": "npm run build && npm run test && standard-version --release-as major --prerelease beta && git push --follow-tags && npm run build && npm publish --tag beta",
+		"release": "npm run test && standard-version && git push --follow-tags && npm run build && npm publish",
+		"release:beta": "npm run test && standard-version --release-as major --prerelease beta && git push --follow-tags && npm run build && npm publish --tag beta",
 		"release:beta:dry": "standard-version --release-as major --prerelease beta --dry-run",
 		"release:dry": "standard-version --dry-run",
-		"test": "npm run lint && npm run unit",
+		"size": "size-limit",
+		"test": "npm run lint && npm run unit && npm run build && npm run size",
 		"unit": "nyc --reporter=lcovonly --reporter=text --exclude-after-remap=false ava"
 	},
 	"dependencies": {
@@ -55,6 +56,7 @@
 	},
 	"devDependencies": {
 		"@prismicio/mock": "^0.0.6",
+		"@size-limit/preset-small-lib": "^7.0.8",
 		"@types/escape-html": "^1.0.1",
 		"@types/jsdom-global": "3.0.2",
 		"@types/sinon": "10.0.11",
@@ -77,6 +79,7 @@
 		"prettier-plugin-jsdoc": "^0.3.30",
 		"sinon": "^13.0.1",
 		"siroc": "^0.16.0",
+		"size-limit": "^7.0.8",
 		"standard-version": "^9.3.2",
 		"ts-eager": "^2.0.2",
 		"typescript": "^4.5.5",
