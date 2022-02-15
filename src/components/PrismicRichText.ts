@@ -104,7 +104,8 @@ export const usePrismicRichText = (
 		const htmlSerializer =
 			unref(props.htmlSerializer) ?? options.htmlSerializer;
 
-		return asHTML(unref(props.field), linkResolver, htmlSerializer);
+		// TODO: Update after https://github.com/prismicio/prismic-helpers/pull/43
+		return asHTML(unref(props.field), linkResolver, htmlSerializer) || "";
 	});
 
 	return {

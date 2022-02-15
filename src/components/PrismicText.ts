@@ -22,7 +22,6 @@ import { simplyResolveComponent } from "../lib/simplyResolveComponent";
  * The default component rendered to wrap the text output.
  */
 const defaultWrapper = "div";
-
 /**
  * Props for `<PrismicText />`.
  */
@@ -75,7 +74,8 @@ export const usePrismicText = (
 	props: UsePrismicTextOptions,
 ): UsePrismicTextReturnType => {
 	const text = computed(() => {
-		return asText(unref(props.field), unref(props.separator));
+		// TODO: Update after https://github.com/prismicio/prismic-helpers/pull/43
+		return asText(unref(props.field), unref(props.separator)) || "";
 	});
 
 	return {
