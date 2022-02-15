@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.2](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2022-02-15)
+
+
+### Features
+
+* update image components and add image helpers ([f1fa427](https://github.com/prismicio/prismic-vue/commit/f1fa42743c0fa2891eb4eee0bd01818a07e587ec))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([fefbca9](https://github.com/prismicio/prismic-vue/commit/fefbca974de9f2eb30605c226a46206c955930f8))
+* update license ([1c608ba](https://github.com/prismicio/prismic-vue/commit/1c608ba7c9c4360913509b8f2a727e6b2bf357ba))
+* update template ([60d5763](https://github.com/prismicio/prismic-vue/commit/60d5763237d670f97f73a9bdcb06319a6dda74bc))
+* update test file name ([840cc11](https://github.com/prismicio/prismic-vue/commit/840cc11d321070de4f3e413b8fc46d3172a9cebd))
+
 ## [3.0.0-beta.1](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.0...v3.0.0-beta.1) (2021-12-03)
 
 
