@@ -1,8 +1,12 @@
 export { PrismicEmbedImpl, PrismicEmbed } from "./PrismicEmbed";
 export type { PrismicEmbedProps } from "./PrismicEmbed";
 
-export { PrismicImageImpl, PrismicImage } from "./PrismicImage";
-export type { PrismicImageProps } from "./PrismicImage";
+export {
+	usePrismicImage,
+	PrismicImageImpl,
+	PrismicImage,
+} from "./PrismicImage";
+export type { UsePrismicImageOptions, PrismicImageProps } from "./PrismicImage";
 
 export { usePrismicLink, PrismicLinkImpl, PrismicLink } from "./PrismicLink";
 export type { UsePrismicLinkOptions, PrismicLinkProps } from "./PrismicLink";

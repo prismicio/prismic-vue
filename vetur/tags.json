@@ -7,7 +7,9 @@
 		"attributes": [
 			"field",
 			"image-component",
-			"image-component-additional-props"
+			"imgix-params",
+			"widths",
+			"pixel-densities"
 		],
 		"description": "Component to render a Prismic image field."
 	},

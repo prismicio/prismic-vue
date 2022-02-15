@@ -3,6 +3,7 @@ export { usePrismic } from "./usePrismic";
 
 export {
 	// Composables
+	usePrismicImage,
 	usePrismicLink,
 	usePrismicText,
 	usePrismicRichText,
@@ -21,6 +22,7 @@ export {
 } from "./components";
 export type {
 	// Composables
+	UsePrismicImageOptions,
 	UsePrismicLinkOptions,
 	UsePrismicTextOptions,
 	UsePrismicRichTextOptions,

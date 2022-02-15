@@ -22,11 +22,112 @@ test("renders image field", (t) => {
 	t.snapshot(wrapper.html());
 });
 
+test("renders image field with imgix URL parameters", (t) => {
+	const wrapper = mount(PrismicImageImpl, {
+		props: {
+			field: mock.value.image({ seed: 2 }),
+			imgixParams: { sat: 100 },
+		},
+	});
+
+	t.snapshot(wrapper.html());
+});
+
+test("renders image field with width-based `srcset`", (t) => {
+	const wrapper = mount(PrismicImageImpl, {
+		props: {
+			field: mock.value.image({ seed: 3 }),
+			imgixParams: { sat: 100 },
+			widths: [100, 200, 300],
+		},
+	});
+
+	t.snapshot(wrapper.html());
+});
+
+test("renders image field with auto width-based `srcset`", (t) => {
+	const wrapper = mount(PrismicImageImpl, {
+		props: {
+			field: {
+				...mock.value.image({ seed: 4 }),
+				foo: mock.value.image({ seed: 5 }),
+				bar: mock.value.image({ seed: 6 }),
+				baz: mock.value.image({ seed: 7 }),
+			},
+			imgixParams: { sat: 100 },
+			widths: "auto",
+		},
+	});
+
+	t.snapshot(wrapper.html());
+});
+
+test("renders image field with defaults width-based `srcset`", (t) => {
+	const wrapper = mount(PrismicImageImpl, {
+		props: {
+			field: mock.value.image({ seed: 8 }),
+			imgixParams: { sat: 100 },
+			widths: "defaults",
+		},
+	});
+
+	t.snapshot(wrapper.html());
+});
+
+test("renders image field with pixel-density-based `srcset`", (t) => {
+	const wrapper = mount(PrismicImageImpl, {
+		props: {
+			field: mock.value.image({ seed: 9 }),
+			imgixParams: { sat: 100 },
+			pixelDensities: [1, 2],
+		},
+	});
+
+	t.snapshot(wrapper.html());
+});
+
+test("renders image field with defaults pixel-density-based `srcset`", (t) => {
+	const wrapper = mount(PrismicImageImpl, {
+		props: {
+			field: mock.value.image({ seed: 10 }),
+			imgixParams: { sat: 100 },
+			pixelDensities: "defaults",
+		},
+	});
+
+	t.snapshot(wrapper.html());
+});
+
+test("renders image field using width-based over pixel-density-based `srcset` and warns user", (t) => {
+	const consoleWarnStub = sinon.stub(console, "warn");
+
+	const wrapper = mount(PrismicImageImpl, {
+		props: {
+			field: mock.value.image({ seed: 11 }),
+			imgixParams: { sat: 100 },
+			widths: "defaults",
+			pixelDensities: "defaults",
+		},
+	});
+
+	t.snapshot(wrapper.html());
+	t.is(
+		consoleWarnStub.withArgs(
+			sinon.match(
+				/\[PrismicImage\] `widths` and `pixelDensities` props should not be use alongside each others, only `widths` will be applied/i,
+			),
+		).callCount,
+		1,
+	);
+	t.is(consoleWarnStub.callCount, 1);
+	consoleWarnStub.restore();
+});
+
 test("renders partial image field", (t) => {
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
 			field: {
-				...mock.value.image({ seed: 2 }),
+				...mock.value.image({ seed: 12 }),
 				url: null,
 				alt: null,
 				copyright: null,
@@ -47,7 +148,7 @@ test("uses plugin provided image component", (t) => {
 
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
-			field: mock.value.image({ seed: 3 }),
+			field: mock.value.image({ seed: 13 }),
 		},
 		global: { plugins: [prismic] },
 	});
@@ -65,7 +166,7 @@ test("uses provided image component over plugin provided", (t) => {
 
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
-			field: mock.value.image({ seed: 3 }),
+			field: mock.value.image({ seed: 14 }),
 			imageComponent: markRaw(createWrapperComponent(2)),
 		},
 		global: { plugins: [prismic] },
@@ -78,7 +179,7 @@ test("renders partial image field with image component", (t) => {
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
 			field: {
-				...mock.value.image({ seed: 4 }),
+				...mock.value.image({ seed: 15 }),
 				url: null,
 				alt: null,
 				copyright: null,
@@ -111,13 +212,13 @@ test("renders nothing when invalid", (t) => {
 
 test("reacts to changes properly", async (t) => {
 	const wrapper = mount(PrismicImageImpl, {
-		props: { field: mock.value.image({ seed: 5 }) },
+		props: { field: mock.value.image({ seed: 16 }) },
 	});
 
 	const firstRender = wrapper.html();
 
 	await wrapper.setProps({
-		field: mock.value.image({ seed: 6 }),
+		field: mock.value.image({ seed: 17 }),
 	});
 
 	const secondRender = wrapper.html();

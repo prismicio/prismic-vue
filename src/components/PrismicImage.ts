@@ -3,15 +3,24 @@ import {
 	ComponentCustomProps,
 	computed,
 	ConcreteComponent,
+	ComputedRef,
 	defineComponent,
 	h,
 	PropType,
 	VNodeProps,
+	unref,
 } from "vue";
 
 import { ImageField } from "@prismicio/types";
+import {
+	asImageSrc,
+	asImageWidthSrcSet,
+	asImagePixelDensitySrcSet,
+	isFilled,
+} from "@prismicio/helpers";
 
 import { usePrismic } from "../usePrismic";
+import { VueUseOptions } from "../types";
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 
 /**
@@ -33,17 +42,165 @@ export type PrismicImageProps = {
 	 *
 	 * @remarks
 	 * HTML tag names and components will be rendered using the `img` tag
-	 * interface (`src` and `alt` attribute). Components will also receive an
-	 * additional `copyright` props.
+	 * interface (`src`, `srcset`, and `alt` attribute). Components will also
+	 * receive an additional `copyright` props.
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"img"` otherwise.
 	 */
 	imageComponent?: string | ConcreteComponent;
 
 	/**
-	 * A map of additional props to pass to the component used to render images
-	 * when using one.
+	 * An object of Imgix URL API parameters.
+	 *
+	 * @see Imgix URL parameters reference: https://docs.imgix.com/apis/rendering
 	 */
-	imageComponentAdditionalProps?: Record<string, unknown>;
+	imgixParams?: Parameters<typeof asImageSrc>[1];
+
+	/**
+	 * Adds an additional `srcset` attribute to the image following given widths.
+	 *
+	 * @remarks
+	 * A special value of `"auto"` is accepted to automatically use image widths
+	 * coming from the API.
+	 * @remarks
+	 * A special value of `"defaults"` is accepted to automatically use image
+	 * widths coming from `@prismicio/helpers`
+	 * @remarks
+	 * This prop is not compatible with the `pixelDensities` prop. When both are
+	 * used the `pixelDensities` prop will be ignored.
+	 */
+	widths?:
+		| NonNullable<Parameters<typeof asImageWidthSrcSet>[1]>["widths"]
+		| "auto"
+		| "defaults";
+
+	/**
+	 * Adds an additional `srcset` attribute to the image following giving pixel densities.
+	 *
+	 * @remarks
+	 * A special value of `"defaults"` is accepted to automatically use image
+	 * pixel densities coming from `@prismicio/helpers`
+	 * @remarks
+	 * This prop is not compatible with the `widths` prop. When both are used, the
+	 * `pixelDensities` prop will be ignored.
+	 */
+	pixelDensities?:
+		| NonNullable<
+				Parameters<typeof asImagePixelDensitySrcSet>[1]
+		  >["pixelDensities"]
+		| "defaults";
+};
+
+/**
+ * Options for {@link usePrismicImage}.
+ */
+export type UsePrismicImageOptions = VueUseOptions<
+	Omit<PrismicImageProps, "imageComponent">
+>;
+
+/**
+ * Return type of {@link usePrismicImage}.
+ */
+export type UsePrismicImageReturnType = {
+	/**
+	 * Resolved image `src` value.
+	 */
+	src: ComputedRef<string | null>;
+
+	/**
+	 * Resolved image `srcset` value.
+	 */
+	srcset: ComputedRef<string | null>;
+
+	/**
+	 * Resolved image `alt` value.
+	 */
+	alt: ComputedRef<string | null>;
+
+	/**
+	 * Resolved image `copyright` value.
+	 */
+	copyright: ComputedRef<string | null>;
+};
+
+/**
+ * A low level composable that returns a resolved information about a Prismic image field.
+ *
+ * @param props - {@link UsePrismicImageOptions}
+ *
+ * @returns - Resolved image information {@link UsePrismicImageReturnType}
+ */
+export const usePrismicImage = (
+	props: UsePrismicImageOptions,
+): UsePrismicImageReturnType => {
+	const asImage = computed(() => {
+		const field = unref(props.field);
+
+		if (!isFilled.image(field)) {
+			return {
+				src: null,
+				srcset: null,
+			};
+		}
+
+		const imgixParams = unref(props.imgixParams);
+		const widths = unref(props.widths);
+		const pixelDensities = unref(props.pixelDensities);
+
+		if (widths) {
+			if (pixelDensities) {
+				console.warn(
+					"[PrismicImage] `widths` and `pixelDensities` props should not be use alongside each others, only `widths` will be applied",
+					props,
+				);
+			}
+
+			if (widths === "auto") {
+				return asImageWidthSrcSet(field, imgixParams);
+			} else {
+				// Remove potential thumbnails when using manual widths
+				const { url, dimensions, alt, copyright } = field;
+
+				return asImageWidthSrcSet(
+					{ url, dimensions, alt, copyright },
+					{
+						...imgixParams,
+						widths: widths === "defaults" ? undefined : widths,
+					},
+				);
+			}
+		} else if (pixelDensities) {
+			return asImagePixelDensitySrcSet(field, {
+				...imgixParams,
+				pixelDensities:
+					pixelDensities === "defaults" ? undefined : pixelDensities,
+			});
+		} else {
+			return {
+				src: asImageSrc(field, imgixParams),
+				srcset: null,
+			};
+		}
+	});
+
+	const src = computed(() => {
+		return asImage.value.src;
+	});
+	const srcset = computed(() => {
+		return asImage.value.srcset;
+	});
+	const alt = computed(() => {
+		return unref(props.field).alt || null;
+	});
+	const copyright = computed(() => {
+		return unref(props.field).copyright || null;
+	});
+
+	return {
+		src,
+		srcset,
+		alt,
+		copyright,
+	};
 };
 
 /**
@@ -63,8 +220,27 @@ export const PrismicImageImpl = /*#__PURE__*/ defineComponent({
 			default: undefined,
 			required: false,
 		},
-		imageComponentAdditionalProps: {
-			type: Object as PropType<Record<string, unknown>>,
+		imgixParams: {
+			type: Object as PropType<Parameters<typeof asImageSrc>[1]>,
+			default: undefined,
+			required: false,
+		},
+		widths: {
+			type: [String, Object] as PropType<
+				| NonNullable<Parameters<typeof asImageWidthSrcSet>[1]>["widths"]
+				| "auto"
+				| "defaults"
+			>,
+			default: undefined,
+			required: false,
+		},
+		pixelDensities: {
+			type: [String, Object] as PropType<
+				| NonNullable<
+						Parameters<typeof asImagePixelDensitySrcSet>[1]
+				  >["pixelDensities"]
+				| "defaults"
+			>,
 			default: undefined,
 			required: false,
 		},
@@ -85,10 +261,13 @@ export const PrismicImageImpl = /*#__PURE__*/ defineComponent({
 			);
 		});
 
+		const { src, srcset, alt, copyright } = usePrismicImage(props);
+
 		return () => {
 			const attributes = {
-				src: props.field.url || null,
-				alt: props.field.alt || null,
+				src: src.value,
+				srcset: srcset.value,
+				alt: alt.value,
 			};
 
 			switch (type.value) {
@@ -99,8 +278,7 @@ export const PrismicImageImpl = /*#__PURE__*/ defineComponent({
 				default:
 					return h(simplyResolveComponent(type.value), {
 						...attributes,
-						copyright: props.field.copyright || null,
-						...props.imageComponentAdditionalProps,
+						copyright: copyright.value,
 					});
 			}
 		};

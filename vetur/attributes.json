@@ -16,9 +16,17 @@
 		"type": "string | object | function",
 		"description": "An HTML tag name, a component, or a functional component used to render images. Defaults to the one provided to `@prismicio/vue` plugin if configured, `\"img\"` otherwise."
 	},
-	"prismic-image/image-component-additional-props": {
+	"prismic-image/imgix-params": {
 		"type": "object",
-		"description": "A map of additional props to pass to the component used to render images when using one."
+		"description": "An object of Imgix URL API parameters."
+	},
+	"prismic-image/widths": {
+		"type": "array | string",
+		"description": "Adds an additional `srcset` attribute to the image following given widths."
+	},
+	"prismic-image/pixel-densities": {
+		"type": "array | string",
+		"description": "Adds an additional `srcset` attribute to the image following giving pixel densities."
 	},
 
 	"prismic-link/field": {

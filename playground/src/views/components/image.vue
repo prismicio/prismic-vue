@@ -1,9 +1,29 @@
 <template>
 	<div class="componentsImage">
-		<input v-model="inputText" type="text" />{{ inputText }}
+		<input v-model="inputText" type="text" />{{ inputText }}<br />
 		<prismic-image :field="null" />
 		<prismic-image :field="empty" />
 		<prismic-image :field="simple" />
+		<prismic-image :field="simple" :imgix-params="{ sat: 100 }" />
+		<prismic-image :field="simple" :widths="[100, 200]" />
+		<prismic-image
+			:field="simple"
+			:imgix-params="{ sat: 100 }"
+			widths="defaults"
+		/>
+		<prismic-image :field="simple" widths="auto" />
+		<prismic-image
+			:field="simple"
+			:imgix-params="{ sat: 100 }"
+			:pixel-densities="[1, 2]"
+		/>
+		<prismic-image :field="simple" pixel-densities="defaults" />
+		<prismic-image
+			:field="simple"
+			:imgix-params="{ sat: 100 }"
+			widths="defaults"
+			pixel-densities="defaults"
+		/>
 		<prismic-image :field="simple.twitter_variant" />
 		<prismic-image :field="computed" />
 	</div>

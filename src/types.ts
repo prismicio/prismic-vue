@@ -15,6 +15,9 @@ import type {
 	HTMLFunctionSerializer,
 	HTMLMapSerializer,
 	LinkResolverFunction,
+	asImageSrc,
+	asImageWidthSrcSet,
+	asImagePixelDensitySrcSet,
 } from "@prismicio/helpers";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -308,6 +311,26 @@ export type PrismicPluginHelpers = {
 	 * `@prismicio/helpers` {@link asDate} function.
 	 */
 	asDate: typeof asDate;
+
+	/**
+	 * Returns the URL of an Image field with optional image transformations (via
+	 * Imgix URL parameters). This is `@prismicio/helpers` {@link asImageSrc} function.
+	 */
+	asImageSrc: typeof asImageSrc;
+
+	/**
+	 * Creates a width-based `srcset` from an Image field with optional image
+	 * transformations (via Imgix URL parameters). This is `@prismicio/helpers`
+	 * {@link asImageWidthSrcSet} function.
+	 */
+	asImageWidthSrcSet: typeof asImageWidthSrcSet;
+
+	/**
+	 * Creates a pixel-density-based `srcset` from an Image field with optional
+	 * image transformations (via Imgix URL parameters). This is
+	 * `@prismicio/helpers` {@link asImagePixelDensitySrcSet} function.
+	 */
+	asImagePixelDensitySrcSet: typeof asImagePixelDensitySrcSet;
 
 	/**
 	 * Converts a document into a link field. This is `@prismicio/helpers`

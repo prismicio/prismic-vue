@@ -9,10 +9,13 @@ import {
 	FetchLike,
 } from "@prismicio/client";
 import {
-	asDate,
+	asText,
 	asHTML,
 	asLink,
-	asText,
+	asDate,
+	asImageSrc,
+	asImageWidthSrcSet,
+	asImagePixelDensitySrcSet,
 	documentToLinkField,
 } from "@prismicio/helpers";
 
@@ -98,7 +101,9 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 			return asLink(linkField, linkResolver || options.linkResolver);
 		},
 		asDate,
-
+		asImageSrc,
+		asImageWidthSrcSet,
+		asImagePixelDensitySrcSet,
 		documentToLinkField,
 	};
 
