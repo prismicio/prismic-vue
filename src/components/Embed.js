@@ -7,7 +7,7 @@ export default {
 			required: true
 		},
 		wrapper: {
-			type: String,
+			type: [String, Object, Function],
 			required: false,
 			default: 'div'
 		}

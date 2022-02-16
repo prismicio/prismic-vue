@@ -17,7 +17,7 @@ export default {
 			required: false,
 		},
 		wrapper: {
-			type: String,
+			type: [String, Object, Function],
 			required: false,
 			default: "div",
 		},
