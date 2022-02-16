@@ -33,7 +33,7 @@ export const getSliceComponentProps = (propsHint) => ({
 export const TODOSliceComponent = __PRODUCTION__
 	? null
 	: {
-			name: "TODOSliceCOmponent",
+			name: "TODOSliceComponent",
 			functional: true,
 			props: getSliceComponentProps(),
 			render(h, { props, data }) {
