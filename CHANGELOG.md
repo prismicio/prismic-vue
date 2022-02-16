@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](https://github.com/prismicio/prismic-vue/compare/v2.1.0...v2.1.1) (2022-02-16)
+
+
+### Bug Fixes
+
+* prop type for wrapper component ([1f0c800](https://github.com/prismicio/prismic-vue/commit/1f0c80024c50681a66f3e67fe6eba9245cc6f750))
+
+
+### Chore
+
+* typo in component name ([62c0568](https://github.com/prismicio/prismic-vue/commit/62c0568fa2c119165720103f65e41568515d0c93))
+* update license ([228cfaa](https://github.com/prismicio/prismic-vue/commit/228cfaa5ca9a7202112a514bdfaee9da4902ea06))
+
 ## [2.1.0](https://github.com/prismicio/prismic-vue/compare/v2.1.0-alpha.1...v2.1.0) (2021-12-02)
 
 

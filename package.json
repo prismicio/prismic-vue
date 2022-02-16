@@ -1,6 +1,6 @@
 {
 	"name": "@prismicio/vue",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Vue plugin and components to fetch and present Prismic content",
 	"keywords": [
 		"prismic",
