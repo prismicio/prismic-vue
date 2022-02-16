@@ -193,7 +193,7 @@ export type SliceComponentType<
 export const TODOSliceComponent = __PRODUCTION__
 	? ((() => null) as FunctionalComponent<SliceComponentProps>)
 	: /*#__PURE__*/ (defineComponent({
-			name: "TODOSliceCOmponent",
+			name: "TODOSliceComponent",
 			props: getSliceComponentProps(),
 			setup(props) {
 				watchEffect(() => {
