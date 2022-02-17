@@ -63,7 +63,7 @@ export type PrismicImageProps = {
 	 * coming from the API.
 	 * @remarks
 	 * A special value of `"defaults"` is accepted to automatically use image
-	 * widths coming from `@prismicio/helpers`
+	 * widths coming from the plugin configuration.
 	 * @remarks
 	 * This prop is not compatible with the `pixelDensities` prop. When both are
 	 * used the `pixelDensities` prop will be ignored.
@@ -78,7 +78,7 @@ export type PrismicImageProps = {
 	 *
 	 * @remarks
 	 * A special value of `"defaults"` is accepted to automatically use image
-	 * pixel densities coming from `@prismicio/helpers`
+	 * pixel densities coming from the plugin configuration.
 	 * @remarks
 	 * This prop is not compatible with the `widths` prop. When both are used, the
 	 * `pixelDensities` prop will be ignored.
@@ -132,6 +132,8 @@ export type UsePrismicImageReturnType = {
 export const usePrismicImage = (
 	props: UsePrismicImageOptions,
 ): UsePrismicImageReturnType => {
+	const { options } = usePrismic();
+
 	const asImage = computed(() => {
 		const field = unref(props.field);
 
@@ -164,7 +166,10 @@ export const usePrismicImage = (
 					{ url, dimensions, alt, copyright },
 					{
 						...imgixParams,
-						widths: widths === "defaults" ? undefined : widths,
+						widths:
+							widths === "defaults"
+								? options.components?.imageWidthSrcSetDefaults
+								: widths,
 					},
 				);
 			}
@@ -172,7 +177,9 @@ export const usePrismicImage = (
 			return asImagePixelDensitySrcSet(field, {
 				...imgixParams,
 				pixelDensities:
-					pixelDensities === "defaults" ? undefined : pixelDensities,
+					pixelDensities === "defaults"
+						? options.components?.imagePixelDensitySrcSetDefaults
+						: pixelDensities,
 			});
 		} else {
 			return {

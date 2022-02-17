@@ -74,10 +74,30 @@ test("renders image field with defaults width-based `srcset`", (t) => {
 	t.snapshot(wrapper.html());
 });
 
-test("renders image field with pixel-density-based `srcset`", (t) => {
+test("renders image field with plugin defaults width-based `srcset`", (t) => {
+	const prismic = createPrismic({
+		endpoint: "test",
+		components: {
+			imageWidthSrcSetDefaults: [400, 500, 600],
+		},
+	});
+
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
 			field: mock.value.image({ seed: 9 }),
+			imgixParams: { sat: 100 },
+			widths: "defaults",
+		},
+		global: { plugins: [prismic] },
+	});
+
+	t.snapshot(wrapper.html());
+});
+
+test("renders image field with pixel-density-based `srcset`", (t) => {
+	const wrapper = mount(PrismicImageImpl, {
+		props: {
+			field: mock.value.image({ seed: 10 }),
 			imgixParams: { sat: 100 },
 			pixelDensities: [1, 2],
 		},
@@ -89,10 +109,30 @@ test("renders image field with pixel-density-based `srcset`", (t) => {
 test("renders image field with defaults pixel-density-based `srcset`", (t) => {
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
-			field: mock.value.image({ seed: 10 }),
+			field: mock.value.image({ seed: 11 }),
 			imgixParams: { sat: 100 },
 			pixelDensities: "defaults",
 		},
+	});
+
+	t.snapshot(wrapper.html());
+});
+
+test("renders image field with plugin defaults pixel-density-based `srcset`", (t) => {
+	const prismic = createPrismic({
+		endpoint: "test",
+		components: {
+			imagePixelDensitySrcSetDefaults: [3, 4],
+		},
+	});
+
+	const wrapper = mount(PrismicImageImpl, {
+		props: {
+			field: mock.value.image({ seed: 12 }),
+			imgixParams: { sat: 100 },
+			pixelDensities: "defaults",
+		},
+		global: { plugins: [prismic] },
 	});
 
 	t.snapshot(wrapper.html());
@@ -103,7 +143,7 @@ test("renders image field using width-based over pixel-density-based `srcset` an
 
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
-			field: mock.value.image({ seed: 11 }),
+			field: mock.value.image({ seed: 13 }),
 			imgixParams: { sat: 100 },
 			widths: "defaults",
 			pixelDensities: "defaults",
@@ -127,7 +167,7 @@ test("renders partial image field", (t) => {
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
 			field: {
-				...mock.value.image({ seed: 12 }),
+				...mock.value.image({ seed: 14 }),
 				url: null,
 				alt: null,
 				copyright: null,
@@ -148,7 +188,7 @@ test("uses plugin provided image component", (t) => {
 
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
-			field: mock.value.image({ seed: 13 }),
+			field: mock.value.image({ seed: 15 }),
 		},
 		global: { plugins: [prismic] },
 	});
@@ -166,7 +206,7 @@ test("uses provided image component over plugin provided", (t) => {
 
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
-			field: mock.value.image({ seed: 14 }),
+			field: mock.value.image({ seed: 16 }),
 			imageComponent: markRaw(createWrapperComponent(2)),
 		},
 		global: { plugins: [prismic] },
@@ -179,7 +219,7 @@ test("renders partial image field with image component", (t) => {
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
 			field: {
-				...mock.value.image({ seed: 15 }),
+				...mock.value.image({ seed: 17 }),
 				url: null,
 				alt: null,
 				copyright: null,
@@ -212,13 +252,13 @@ test("renders nothing when invalid", (t) => {
 
 test("reacts to changes properly", async (t) => {
 	const wrapper = mount(PrismicImageImpl, {
-		props: { field: mock.value.image({ seed: 16 }) },
+		props: { field: mock.value.image({ seed: 18 }) },
 	});
 
 	const firstRender = wrapper.html();
 
 	await wrapper.setProps({
-		field: mock.value.image({ seed: 17 }),
+		field: mock.value.image({ seed: 19 }),
 	});
 
 	const secondRender = wrapper.html();

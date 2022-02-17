@@ -87,6 +87,25 @@ type PrismicPluginComponentsOptions = {
 	imageComponent?: string | ConcreteComponent;
 
 	/**
+	 * Default widths to use when rendering an image with `widths="defaults"`
+	 *
+	 * @remarks
+	 * Consider configuring image widths within your content type definition and
+	 * using `widths="auto"` instead to give content writers the ability to crop
+	 * images in the editor.
+	 * @defaultValue `@prismicio/helpers` defaults
+	 */
+	imageWidthSrcSetDefaults?: number[];
+
+	/**
+	 * Default pixel densities to use when rendering an image with
+	 * `pixel-densities="defaults"`
+	 *
+	 * @defaultValue `@prismicio/helpers` defaults
+	 */
+	imagePixelDensitySrcSetDefaults?: number[];
+
+	/**
 	 * A component or a functional component rendered if a component mapping from
 	 * the `components` prop cannot be found.
 	 *
