@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.3](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.2...v3.0.0-beta.3) (2022-02-17)
+
+
+### Features
+
+* allow configuring defaults for width-based and pixel-density-based `srcset` ([b06ff51](https://github.com/prismicio/prismic-vue/commit/b06ff516707cbf3dcd71c641d4c3ba8a0da732e4))
+
+
+### Refactor
+
+* simplify client creation using new client features ([92ad117](https://github.com/prismicio/prismic-vue/commit/92ad117dc17152e846b32848e6ff86f5f6dd236e))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([87dc6d4](https://github.com/prismicio/prismic-vue/commit/87dc6d4291410f3542fc34f03ec0a1bb38a4cc13))
+* remove nonsense export ([26a9a17](https://github.com/prismicio/prismic-vue/commit/26a9a170ca0176025c965594b8c8b1eacfb5d3f4))
+* typo in component name ([eedc79b](https://github.com/prismicio/prismic-vue/commit/eedc79b382d316fb51003f828769c9a1e9269c5e))
+
 ## [3.0.0-beta.2](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2022-02-15)
 
 
