@@ -2,13 +2,13 @@ import test from "ava";
 import * as sinon from "sinon";
 import { mount } from "@vue/test-utils";
 
-import { createClient, getEndpoint } from "@prismicio/client";
+import { createClient, getRepositoryEndpoint } from "@prismicio/client";
 
 import { WrapperComponent } from "./__fixtures__/WrapperComponent";
 
 import { createPrismic } from "../src";
 
-test("creates client from repository ID", (t) => {
+test("creates client from repository name", (t) => {
 	const prismic = createPrismic({ endpoint: "test" });
 
 	const wrapper = mount(WrapperComponent, {
@@ -23,7 +23,7 @@ test("creates client from repository ID", (t) => {
 	);
 });
 
-test("creates client from API endpoint", (t) => {
+test("creates client from repository endpoint", (t) => {
 	let i = 0;
 	[
 		"https://test.cdn.prismic.io/api/v2",
@@ -48,7 +48,9 @@ test("creates client from API endpoint", (t) => {
 });
 
 test("uses provided client", (t) => {
-	const client = createClient(getEndpoint("test"), { fetch: sinon.stub() });
+	const client = createClient(getRepositoryEndpoint("test"), {
+		fetch: sinon.stub(),
+	});
 
 	const prismic = createPrismic({ client });
 

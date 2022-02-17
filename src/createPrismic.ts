@@ -2,7 +2,6 @@ import { App } from "vue";
 
 import {
 	createClient,
-	getEndpoint,
 	predicate,
 	cookie,
 	Client,
@@ -51,34 +50,19 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 	if (options.client) {
 		client = options.client;
 	} else {
-		const endpoint =
-			/**
-			 * @see Regex101 expression: {@link https://regex101.com/r/GT2cl7/1}
-			 */
-			/^(https?:)?\/\//gim.test(options.endpoint)
-				? options.endpoint
-				: getEndpoint(options.endpoint);
+		client = createClient(options.endpoint, {
+			fetch: async (endpoint, options) => {
+				let fetchFunction: FetchLike;
+				if (typeof globalThis.fetch === "function") {
+					fetchFunction = globalThis.fetch;
+				} else {
+					fetchFunction = (await import("isomorphic-unfetch")).default;
+				}
 
-		if (
-			options.clientConfig &&
-			typeof options.clientConfig.fetch === "function"
-		) {
-			client = createClient(endpoint, options.clientConfig);
-		} else {
-			client = createClient(endpoint, {
-				...options.clientConfig,
-				fetch: async (endpoint, options) => {
-					let fetchFunction: FetchLike;
-					if (typeof globalThis.fetch === "function") {
-						fetchFunction = globalThis.fetch;
-					} else {
-						fetchFunction = (await import("isomorphic-unfetch")).default;
-					}
-
-					return await fetchFunction(endpoint, options);
-				},
-			});
-		}
+				return await fetchFunction(endpoint, options);
+			},
+			...options.clientConfig,
+		});
 	}
 
 	const prismicClient: PrismicPluginClient = {
