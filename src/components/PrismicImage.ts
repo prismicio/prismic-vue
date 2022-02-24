@@ -114,7 +114,7 @@ export type UsePrismicImageReturnType = {
 	/**
 	 * Resolved image `alt` value.
 	 */
-	alt: ComputedRef<string | null>;
+	alt: ComputedRef<string>;
 
 	/**
 	 * Resolved image `copyright` value.
@@ -196,7 +196,7 @@ export const usePrismicImage = (
 		return asImage.value.srcset;
 	});
 	const alt = computed(() => {
-		return unref(props.field).alt || null;
+		return unref(props.field).alt || "";
 	});
 	const copyright = computed(() => {
 		return unref(props.field).copyright || null;
