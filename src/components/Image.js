@@ -21,7 +21,7 @@ export default {
 				attrs: {
 					...data.attrs,
 					src: url,
-					alt,
+					alt: alt || "",
 					copyright
 				}
 			})

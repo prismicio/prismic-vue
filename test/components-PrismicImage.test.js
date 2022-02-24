@@ -17,11 +17,19 @@ test("renders image field", (t) => {
 	t.snapshot(wrapper.html());
 });
 
+test("renders image field with an accessible default alt value", (t) => {
+	const wrapper = mount(PrismicImage, {
+		propsData: { field: { ...mock.value.image({ seed: 2 }), alt: null } },
+	});
+
+	t.snapshot(wrapper.html());
+});
+
 test("renders partial image field", (t) => {
 	const wrapper = mount(PrismicImage, {
 		propsData: {
 			field: {
-				...mock.value.image({ seed: 2 }),
+				...mock.value.image({ seed: 3 }),
 				url: null,
 				alt: null,
 				copyright: null,
@@ -71,13 +79,13 @@ test("reacts to changes properly", async (t) => {
 	});
 
 	const wrapper = mount(PrismicImageProxy, {
-		propsData: { field: mock.value.image({ seed: 5 }) },
+		propsData: { field: mock.value.image({ seed: 4 }) },
 	});
 
 	const firstRender = wrapper.html();
 
 	await wrapper.setProps({
-		field: mock.value.image({ seed: 6 }),
+		field: mock.value.image({ seed: 5 }),
 	});
 
 	const secondRender = wrapper.html();
