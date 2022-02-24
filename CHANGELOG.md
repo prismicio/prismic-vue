@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.2](https://github.com/prismicio/prismic-vue/compare/v2.1.1...v2.1.2) (2022-02-24)
+
+
+### Bug Fixes
+
+* render alt attribute properly for a11y, fixes [#55](https://github.com/prismicio/prismic-vue/issues/55) ([58aa764](https://github.com/prismicio/prismic-vue/commit/58aa7646e97ef4afc11986b048d96ee66389bc06))
+
 ### [2.1.1](https://github.com/prismicio/prismic-vue/compare/v2.1.0...v2.1.1) (2022-02-16)
 
 
