@@ -74,8 +74,7 @@ export const usePrismicText = (
 	props: UsePrismicTextOptions,
 ): UsePrismicTextReturnType => {
 	const text = computed(() => {
-		// TODO: Update after https://github.com/prismicio/prismic-helpers/pull/43
-		return asText(unref(props.field), unref(props.separator)) || "";
+		return asText(unref(props.field), unref(props.separator));
 	});
 
 	return {

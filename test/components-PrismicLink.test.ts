@@ -18,7 +18,7 @@ import { createPrismic } from "../src";
 test("renders empty link field", (t) => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
-			field: mock.value.link({ seed: 1, isFilled: false, type: LinkType.Any }),
+			field: mock.value.link({ seed: 1, state: "empty", type: LinkType.Any }),
 		},
 		slots: { default: "foo" },
 	});
