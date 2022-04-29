@@ -30,6 +30,17 @@ test("renders image field with an accessible default alt value", (t) => {
 	t.snapshot(wrapper.html());
 });
 
+test("renders image field with provided alt value", (t) => {
+	const wrapper = mount(PrismicImageImpl, {
+		props: { field: { ...mock.value.image({ seed: 2 }), alt: "foo" } },
+		attrs: {
+			alt: "bar",
+		},
+	});
+
+	t.snapshot(wrapper.html());
+});
+
 test("renders image field with imgix URL parameters", (t) => {
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
@@ -53,7 +64,7 @@ test("renders image field with width-based `srcset`", (t) => {
 	t.snapshot(wrapper.html());
 });
 
-test("renders image field with auto width-based `srcset`", (t) => {
+test("renders image field with thumbnails width-based `srcset`", (t) => {
 	const wrapper = mount(PrismicImageImpl, {
 		props: {
 			field: {
@@ -63,7 +74,7 @@ test("renders image field with auto width-based `srcset`", (t) => {
 				baz: mock.value.image({ seed: 8 }),
 			},
 			imgixParams: { sat: 100 },
-			widths: "auto",
+			widths: "thumbnails",
 		},
 	});
 
@@ -179,7 +190,7 @@ test("renders partial image field", (t) => {
 				url: null,
 				alt: null,
 				copyright: null,
-			} as ImageField,
+			} as unknown as ImageField,
 		},
 	});
 
@@ -231,7 +242,7 @@ test("renders partial image field with image component", (t) => {
 				url: null,
 				alt: null,
 				copyright: null,
-			} as ImageField,
+			} as unknown as ImageField,
 			imageComponent: markRaw(WrapperComponent),
 		},
 	});

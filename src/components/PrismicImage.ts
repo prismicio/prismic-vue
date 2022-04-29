@@ -59,8 +59,8 @@ export type PrismicImageProps = {
 	 * Adds an additional `srcset` attribute to the image following given widths.
 	 *
 	 * @remarks
-	 * A special value of `"auto"` is accepted to automatically use image widths
-	 * coming from the API.
+	 * A special value of `"thumbnails"` is accepted to automatically use image
+	 * widths coming from the API.
 	 * @remarks
 	 * A special value of `"defaults"` is accepted to automatically use image
 	 * widths coming from the plugin configuration.
@@ -70,7 +70,7 @@ export type PrismicImageProps = {
 	 */
 	widths?:
 		| NonNullable<Parameters<typeof asImageWidthSrcSet>[1]>["widths"]
-		| "auto"
+		| "thumbnails"
 		| "defaults";
 
 	/**
@@ -156,23 +156,13 @@ export const usePrismicImage = (
 				);
 			}
 
-			if (widths === "auto") {
-				return asImageWidthSrcSet(field, imgixParams);
-			} else {
-				// Remove potential thumbnails when using manual widths
-				const { url, dimensions, alt, copyright } = field;
-
-				return asImageWidthSrcSet(
-					{ url, dimensions, alt, copyright },
-					{
-						...imgixParams,
-						widths:
-							widths === "defaults"
-								? options.components?.imageWidthSrcSetDefaults
-								: widths,
-					},
-				);
-			}
+			return asImageWidthSrcSet(field, {
+				...imgixParams,
+				widths:
+					widths === "defaults"
+						? options.components?.imageWidthSrcSetDefaults
+						: widths,
+			});
 		} else if (pixelDensities) {
 			return asImagePixelDensitySrcSet(field, {
 				...imgixParams,
@@ -235,7 +225,7 @@ export const PrismicImageImpl = /*#__PURE__*/ defineComponent({
 		widths: {
 			type: [String, Object] as PropType<
 				| NonNullable<Parameters<typeof asImageWidthSrcSet>[1]>["widths"]
-				| "auto"
+				| "thumbnails"
 				| "defaults"
 			>,
 			default: undefined,
