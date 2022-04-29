@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.6](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.5...v3.0.0-beta.6) (2022-04-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* change `auto` to `thumbnails` for consistency
+
+### Refactor
+
+* change `auto` to `thumbnails` for consistency ([c10cb3a](https://github.com/prismicio/prismic-vue/commit/c10cb3a99577e19222635d7005329d587f65eaaa))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([ec7b0cd](https://github.com/prismicio/prismic-vue/commit/ec7b0cdc15086a24e2d94b8f1ebd9bb3574de241))
+* **deps:** maintain package lock ([040a795](https://github.com/prismicio/prismic-vue/commit/040a79504ae667a0467ca8ce4f20da5499b31228))
+* maintain template ([b30adcc](https://github.com/prismicio/prismic-vue/commit/b30adcc3cfdcb91d78b8ed937ebe15a9a1474a31))
+
 ## [3.0.0-beta.5](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.4...v3.0.0-beta.5) (2022-03-02)
 
 
