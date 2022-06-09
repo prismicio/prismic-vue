@@ -35,6 +35,8 @@ export type {
 	DefineComponentSliceComponentProps,
 	SliceComponentProps,
 	SliceComponentType,
+	SliceLikeRestV2,
+	SliceLikeGraphQL,
 	SliceLike,
 	SliceZoneComponents,
 	SliceZoneResolverArgs,

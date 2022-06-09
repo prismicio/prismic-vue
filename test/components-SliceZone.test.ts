@@ -2,7 +2,7 @@ import test from "ava";
 import * as sinon from "sinon";
 import { mount } from "@vue/test-utils";
 
-import { defineAsyncComponent, markRaw } from "vue";
+import { defineAsyncComponent, DefineComponent, markRaw } from "vue";
 
 import {
 	createWrapperComponent,
@@ -142,8 +142,14 @@ test("provides context to each slice", (t) => {
 		},
 	});
 
-	t.deepEqual(wrapper.getComponent(Foo).props().context, context);
-	t.deepEqual(wrapper.getComponent(Bar).props().context, context);
+	t.deepEqual(
+		wrapper.getComponent(Foo as DefineComponent).props().context,
+		context,
+	);
+	t.deepEqual(
+		wrapper.getComponent(Bar as DefineComponent).props().context,
+		context,
+	);
 });
 
 test("renders TODO component if component mapping is missing", (t) => {
@@ -314,6 +320,35 @@ test("wraps output with provided wrapper component", (t) => {
   <div class="wrapperComponentFoo"></div>
   <div class="wrapperComponentBar"></div>
 </div>`,
+	);
+});
+
+test("supports GraphQL API", async (t) => {
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+	const Bar = createWrapperComponent<SliceComponentType>(
+		"Bar",
+		getSliceComponentProps(),
+	);
+
+	const wrapper = mount(SliceZoneImpl, {
+		props: {
+			slices: [{ type: "foo" }, { type: "bar" }],
+			components: defineSliceZoneComponents({
+				foo: Foo,
+				bar: Bar,
+			}),
+		},
+	});
+
+	await sleep();
+
+	t.is(
+		wrapper.html(),
+		`<div class="wrapperComponentFoo"></div>
+<div class="wrapperComponentBar"></div>`,
 	);
 });
 

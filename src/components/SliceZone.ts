@@ -20,6 +20,40 @@ import { __PRODUCTION__ } from "../lib/__PRODUCTION__";
 import { usePrismic } from "../usePrismic";
 
 /**
+ * Returns the type of a `SliceLike` type.
+ *
+ * @typeParam TSlice - The Slice from which the type will be extracted.
+ */
+type ExtractSliceType<TSlice extends SliceLike> = TSlice extends SliceLikeRestV2
+	? TSlice["slice_type"]
+	: TSlice extends SliceLikeGraphQL
+	? TSlice["type"]
+	: never;
+
+/**
+ * The minimum required properties to represent a Prismic Slice from the Prismic
+ * Rest API V2 for the `<SliceZone>` component.
+ *
+ * If using Prismic's Rest API V2, use the `Slice` export from
+ * `@prismicio/types` for a full interface.
+ *
+ * @typeParam TSliceType - Type name of the Slice.
+ */
+export type SliceLikeRestV2<TSliceType extends string = string> = {
+	slice_type: Slice<TSliceType>["slice_type"];
+};
+
+/**
+ * The minimum required properties to represent a Prismic Slice from the Prismic
+ * GraphQL API for the `<SliceZone>` component.
+ *
+ * @typeParam TSliceType - Type name of the Slice.
+ */
+export type SliceLikeGraphQL<TSliceType extends string = string> = {
+	type: Slice<TSliceType>["slice_type"];
+};
+
+/**
  * The minimum required properties to represent a Prismic Slice for the
  * `<SliceZone />` component.
  *
@@ -28,10 +62,9 @@ import { usePrismic } from "../usePrismic";
  *
  * @typeParam TSliceType - Type name of the Slice
  */
-export type SliceLike<TSliceType extends string = string> = Pick<
-	Slice<TSliceType>,
-	"slice_type"
->;
+export type SliceLike<TSliceType extends string = string> =
+	| SliceLikeRestV2<TSliceType>
+	| SliceLikeGraphQL<TSliceType>;
 
 /**
  * A looser version of the `SliceZone` type from `@prismicio/types` using `SliceLike`.
@@ -41,7 +74,8 @@ export type SliceLike<TSliceType extends string = string> = Pick<
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
  */
-export type SliceZoneLike<TSlice extends SliceLike> = readonly TSlice[];
+export type SliceZoneLike<TSlice extends SliceLike = SliceLike> =
+	readonly TSlice[];
 
 /**
  * Vue props for a component rendering content from a Prismic Slice using the
@@ -52,7 +86,8 @@ export type SliceZoneLike<TSlice extends SliceLike> = readonly TSlice[];
  *   available to all Slice components
  */
 export type SliceComponentProps<
-	TSlice extends SliceLike = SliceLike,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	TSlice extends SliceLike = any,
 	TContext = unknown,
 > = {
 	/**
@@ -178,7 +213,8 @@ export const getSliceComponentProps = <
  * @typeParam TContext - Arbitrary data made available to all Slice components
  */
 export type SliceComponentType<
-	TSlice extends SliceLike = SliceLike,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	TSlice extends SliceLike = any,
 	TContext = unknown,
 > =
 	| DefineComponent<SliceComponentProps<TSlice, TContext>>
@@ -196,9 +232,15 @@ export const TODOSliceComponent = __PRODUCTION__
 			name: "TODOSliceComponent",
 			props: getSliceComponentProps(),
 			setup(props) {
+				const type = computed(() =>
+					"slice_type" in props.slice
+						? props.slice.slice_type
+						: props.slice.type,
+				);
+
 				watchEffect(() => {
 					console.warn(
-						`[SliceZone] Could not find a component for Slice type "${props.slice.slice_type}"`,
+						`[SliceZone] Could not find a component for Slice type "${type.value}"`,
 						props.slice,
 					);
 				});
@@ -208,11 +250,9 @@ export const TODOSliceComponent = __PRODUCTION__
 						"section",
 						{
 							"data-slice-zone-todo-component": "",
-							"data-slice-type": props.slice.slice_type,
+							"data-slice-type": type.value,
 						},
-						[
-							`Could not find a component for Slice type "${props.slice.slice_type}"`,
-						],
+						[`Could not find a component for Slice type "${type.value}"`],
 					);
 				};
 			},
@@ -239,7 +279,7 @@ export type SliceZoneComponents<
 	// signals to future developers that it is a placeholder and should be
 	// implemented.
 	{
-		[SliceType in keyof Record<TSlice["slice_type"], never>]:
+		[SliceType in ExtractSliceType<TSlice>]:
 			| SliceComponentType<Extract<TSlice, SliceLike<SliceType>>, TContext>
 			| string;
 	};
@@ -313,7 +353,7 @@ export type SliceZoneResolverArgs<TSlice extends SliceLike = SliceLike> = {
 	/**
 	 * The name of the Slice.
 	 */
-	sliceName: TSlice["slice_type"];
+	sliceName: ExtractSliceType<TSlice>;
 
 	/**
 	 * The index of the Slice in the Slice Zone.
@@ -333,26 +373,24 @@ export type SliceZoneResolverArgs<TSlice extends SliceLike = SliceLike> = {
  * @returns The Vue component to render for a Slice.
  */
 export type SliceZoneResolver<
-	TSlice extends SliceLike = SliceLike,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	TSlice extends SliceLike = any,
 	TContext = unknown,
 > = (
 	args: SliceZoneResolverArgs<TSlice>,
-) => SliceComponentType<TSlice, TContext> | string | undefined | null;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+) => SliceComponentType<any, TContext> | string | undefined | null;
 
 /**
  * Props for `<SliceZone />`.
  *
- * @typeParam TSlice - The type(s) of slices in the Slice Zone
  * @typeParam TContext - Arbitrary data made available to all Slice components
  */
-export type SliceZoneProps<
-	TSlice extends SliceLike = SliceLike,
-	TContext = unknown,
-> = {
+export type SliceZoneProps<TContext = unknown> = {
 	/**
 	 * List of Slice data from the Slice Zone.
 	 */
-	slices: SliceZoneLike<TSlice>;
+	slices: SliceZoneLike;
 
 	/**
 	 * A record mapping Slice types to Vue components.
@@ -369,7 +407,8 @@ export type SliceZoneProps<
 	 *
 	 * @returns The Vue component to render for a Slice.
 	 */
-	resolver?: SliceZoneResolver<TSlice, TContext>;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	resolver?: SliceZoneResolver<any, TContext>;
 
 	/**
 	 * Arbitrary data made available to all Slice components.
@@ -385,7 +424,8 @@ export type SliceZoneProps<
 	 *
 	 * @defaultValue The Slice Zone default component provided to `@prismicio/vue` plugin if configured, otherwise `null` when `process.env.NODE_ENV === "production"` else {@link TODOSliceComponent}.
 	 */
-	defaultComponent?: SliceComponentType<TSlice, TContext>;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	defaultComponent?: SliceComponentType<any, TContext>;
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to wrap the
@@ -403,7 +443,7 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 	name: "SliceZone",
 	props: {
 		slices: {
-			type: Array as PropType<SliceZoneLike<SliceLike>>,
+			type: Array as PropType<SliceZoneLike>,
 			required: true,
 		},
 		components: {
@@ -442,9 +482,11 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 
 		const renderedSlices = computed(() => {
 			return props.slices.map((slice, index) => {
+				const type = "slice_type" in slice ? slice.slice_type : slice.type;
+
 				let component =
-					props.components && slice.slice_type in props.components
-						? props.components[slice.slice_type]
+					props.components && type in props.components
+						? props.components[type]
 						: props.defaultComponent ||
 						  options.components?.sliceZoneDefaultComponent ||
 						  TODOSliceComponent;
@@ -453,7 +495,7 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 				if (props.resolver) {
 					const resolvedComponent = props.resolver({
 						slice,
-						sliceName: slice.slice_type,
+						sliceName: type,
 						i: index,
 					});
 
@@ -463,7 +505,7 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 				}
 
 				const p = {
-					key: `${slice.slice_type}-${index}`,
+					key: `${index}-${JSON.stringify(slice)}`,
 					slice,
 					index,
 					context: props.context,
