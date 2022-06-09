@@ -397,7 +397,7 @@ const providesErrorStateOnError = async (
 
 	await sleep();
 
-	t.is(wrapper.html(), "<!---->");
+	t.is(wrapper.html(), "");
 	t.is(payload?.state.value, PrismicClientComposableState.Error);
 	t.is(spiedClient[methodName].callCount, 1);
 	t.is(spiedClient[methodName].exceptions.length, 1);

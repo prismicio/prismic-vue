@@ -354,7 +354,7 @@ test("renders nothing when invalid", (t) => {
 		props: { field: null as unknown as [] },
 	});
 
-	t.is(wrapper.html(), "<!---->");
+	t.is(wrapper.html(), "");
 	t.is(
 		consoleWarnStub.withArgs(
 			sinon.match(/Invalid prop: type check failed for prop/i),
