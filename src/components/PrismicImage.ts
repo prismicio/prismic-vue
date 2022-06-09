@@ -19,9 +19,10 @@ import {
 	isFilled,
 } from "@prismicio/helpers";
 
+import { simplyResolveComponent } from "../lib/simplyResolveComponent";
+import { __PRODUCTION__ } from "../lib/__PRODUCTION__";
 import { usePrismic } from "../usePrismic";
 import { VueUseOptions } from "../types";
-import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 
 /**
  * The default component rendered for images.
@@ -149,9 +150,9 @@ export const usePrismicImage = (
 		const pixelDensities = unref(props.pixelDensities);
 
 		if (widths) {
-			if (pixelDensities) {
+			if (!__PRODUCTION__ && pixelDensities) {
 				console.warn(
-					"[PrismicImage] `widths` and `pixelDensities` props should not be use alongside each others, only `widths` will be applied",
+					"[PrismicImage] Only one of `widths` or `pixelDensities` props can be provided. You can resolve this warning by removing either the `widths` or `pixelDensities` prop. `widths` will be used in this case.",
 					props,
 				);
 			}

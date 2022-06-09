@@ -172,9 +172,7 @@ test("renders image field using width-based over pixel-density-based `srcset` an
 	t.snapshot(wrapper.html());
 	t.is(
 		consoleWarnStub.withArgs(
-			sinon.match(
-				/\[PrismicImage\] `widths` and `pixelDensities` props should not be use alongside each others, only `widths` will be applied/i,
-			),
+			sinon.match(/\[PrismicImage\] Only one of `widths` or `pixelDensities`/i),
 		).callCount,
 		1,
 	);
