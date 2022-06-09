@@ -22,6 +22,32 @@ test("renders rich text field as plain text", (t) => {
 	t.snapshot(wrapper.html());
 });
 
+test("renders fallback when rich text is empty", (t) => {
+	const wrapper1 = mount(PrismicRichTextImpl, {
+		props: { field: [] },
+	});
+
+	t.is(wrapper1.html(), "<div></div>");
+
+	const wrapper2 = mount(PrismicRichTextImpl, {
+		props: { field: [], fallback: "foo" },
+	});
+
+	t.is(wrapper2.html(), "<div>foo</div>");
+
+	const wrapper3 = mount(PrismicRichTextImpl, {
+		props: { field: null, fallback: "bar" },
+	});
+
+	t.is(wrapper3.html(), "<div>bar</div>");
+
+	const wrapper4 = mount(PrismicRichTextImpl, {
+		props: { field: undefined, fallback: "baz" },
+	});
+
+	t.is(wrapper4.html(), "<div>baz</div>");
+});
+
 test("uses provided wrapper tag", (t) => {
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: { field: richTextFixture.en, wrapper: "section" },
@@ -345,25 +371,6 @@ test("doesn't try to bind on click events when Vue Router is available when rend
 		// Click doesn't propagate if we don't wait here
 		await sleep();
 	});
-});
-
-test("renders nothing when invalid", (t) => {
-	const consoleWarnStub = sinon.stub(console, "warn");
-
-	const wrapper = mount(PrismicRichTextImpl, {
-		props: { field: null as unknown as [] },
-	});
-
-	t.is(wrapper.html(), "");
-	t.is(
-		consoleWarnStub.withArgs(
-			sinon.match(/Invalid prop: type check failed for prop/i),
-		).callCount,
-		1,
-	);
-	t.is(consoleWarnStub.callCount, 1);
-
-	consoleWarnStub.restore();
 });
 
 test("reacts to changes properly", async (t) => {

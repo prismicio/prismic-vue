@@ -74,6 +74,10 @@
 		"type": "string | object | function",
 		"description": "An HTML tag name, a component, or a functional component used to wrap the output. Defaults to `\"div\"`."
 	},
+	"prismic-rich-text/fallback": {
+		"type": "string",
+		"description": "The HTML value to be rendered when the field is empty. If a fallback is not given, `\"\"` (nothing) will be rendered."
+	},
 
 	"prismic-text/field": {
 		"type": "array",
@@ -86,6 +90,10 @@
 	"prismic-text/wrapper": {
 		"type": "string | object | function",
 		"description": "An HTML tag name, a component, or a functional component used to wrap the output. Defaults to `\"div\"`."
+	},
+	"prismic-text/fallback": {
+		"type": "string",
+		"description": "The string value to be rendered when the field is empty. If a fallback is not given, `\"\"` (nothing) will be rendered."
 	},
 
 	"slice-zone/slices": {

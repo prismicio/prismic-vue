@@ -22,6 +22,7 @@ import {
 	asHTML,
 	HTMLFunctionSerializer,
 	HTMLMapSerializer,
+	isFilled,
 	LinkResolverFunction,
 } from "@prismicio/helpers";
 import { RichTextField } from "@prismicio/types";
@@ -43,7 +44,7 @@ export type PrismicRichTextProps = {
 	/**
 	 * The Prismic rich text or title field to render.
 	 */
-	field: RichTextField;
+	field: RichTextField | null | undefined;
 
 	/**
 	 * A link resolver function used to resolve link when not using the route
@@ -70,6 +71,12 @@ export type PrismicRichTextProps = {
 	 * @defaultValue `"div"`
 	 */
 	wrapper?: string | ConcreteComponent;
+
+	/**
+	 * The HTML value to be rendered when the field is empty. If a fallback is not
+	 * given, `""` (nothing) will be rendered.
+	 */
+	fallback?: string;
 };
 
 /**
@@ -102,11 +109,17 @@ export const usePrismicRichText = (
 	const { options } = usePrismic();
 
 	const html = computed(() => {
+		const field = unref(props.field);
+
+		if (!isFilled.richText(field)) {
+			return unref(props.fallback) ?? "";
+		}
+
 		const linkResolver = unref(props.linkResolver) ?? options.linkResolver;
 		const htmlSerializer =
 			unref(props.htmlSerializer) ?? options.htmlSerializer;
 
-		return asHTML(unref(props.field), linkResolver, htmlSerializer);
+		return asHTML(unref(field), linkResolver, htmlSerializer);
 	});
 
 	return {
@@ -123,7 +136,7 @@ export const PrismicRichTextImpl = /*#__PURE__*/ defineComponent({
 	name: "PrismicRichText",
 	props: {
 		field: {
-			type: Array as unknown as PropType<RichTextField>,
+			type: Array as unknown as PropType<RichTextField | null | undefined>,
 			required: true,
 		},
 		linkResolver: {
@@ -143,19 +156,19 @@ export const PrismicRichTextImpl = /*#__PURE__*/ defineComponent({
 			default: undefined,
 			required: false,
 		},
+		fallback: {
+			type: String as PropType<string>,
+			default: undefined,
+			required: false,
+		},
 	},
 	setup(props) {
-		// Prevent fatal if user didn't check for field, throws `Invalid prop` warn
-		if (!props.field) {
-			return () => null;
-		}
-
 		const { html } = usePrismicRichText(props);
 
 		const root = ref<HTMLElement | Comment | Component | null>(null);
 
 		const maybeRouter = inject(routerKey, null);
-		if (maybeRouter) {
+		if (maybeRouter && html.value) {
 			type InternalLink = {
 				element: HTMLAnchorElement;
 				listener: EventListener;

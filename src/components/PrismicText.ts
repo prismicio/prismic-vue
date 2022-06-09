@@ -12,7 +12,7 @@ import {
 	VNodeProps,
 } from "vue";
 
-import { asText } from "@prismicio/helpers";
+import { asText, isFilled } from "@prismicio/helpers";
 import { RichTextField } from "@prismicio/types";
 
 import { VueUseOptions } from "../types";
@@ -29,7 +29,7 @@ export type PrismicTextProps = {
 	/**
 	 * The Prismic rich text or title field to render.
 	 */
-	field: RichTextField;
+	field: RichTextField | null | undefined;
 
 	/**
 	 * Separator used to join each element.
@@ -44,6 +44,12 @@ export type PrismicTextProps = {
 	 * @defaultValue `"div"`
 	 */
 	wrapper?: string | ConcreteComponent;
+
+	/**
+	 * The string value to be rendered when the field is empty. If a fallback is
+	 * not given, `""` (nothing) will be rendered.
+	 */
+	fallback?: string;
 };
 
 /**
@@ -74,7 +80,13 @@ export const usePrismicText = (
 	props: UsePrismicTextOptions,
 ): UsePrismicTextReturnType => {
 	const text = computed(() => {
-		return asText(unref(props.field), unref(props.separator));
+		const field = unref(props.field);
+
+		if (!isFilled.richText(field)) {
+			return unref(props.fallback) ?? "";
+		}
+
+		return asText(unref(field), unref(props.separator));
 	});
 
 	return {
@@ -91,7 +103,7 @@ export const PrismicTextImpl = /*#__PURE__*/ defineComponent({
 	name: "PrismicText",
 	props: {
 		field: {
-			type: Array as unknown as PropType<RichTextField>,
+			type: Array as unknown as PropType<RichTextField | null | undefined>,
 			required: true,
 		},
 		separator: {
@@ -104,13 +116,13 @@ export const PrismicTextImpl = /*#__PURE__*/ defineComponent({
 			default: undefined,
 			required: false,
 		},
+		fallback: {
+			type: String as PropType<string>,
+			default: undefined,
+			required: false,
+		},
 	},
 	setup(props) {
-		// Prevent fatal if user didn't check for field, throws `Invalid prop` warn
-		if (!props.field) {
-			return () => null;
-		}
-
 		const { text } = usePrismicText(props);
 
 		return () => {
