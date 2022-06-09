@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.7](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.6...v3.0.0-beta.7) (2022-06-09)
+
+
+### Features
+
+* add `fallback` prop to `<PrismicRichText />` and `<PrismicText />` ([689fb1f](https://github.com/prismicio/prismic-vue/commit/689fb1f8e7b4d73bc9ae70036da688431a52ad51))
+* support GraphQL API in `<SliceZone />` ([82bad5d](https://github.com/prismicio/prismic-vue/commit/82bad5df5343f75b32c8b9ba083031bae6145338))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([e9f9ec7](https://github.com/prismicio/prismic-vue/commit/e9f9ec71569dc980ff174f3538e08cb00a7fccb1))
+
+
+### Refactor
+
+* warn in development mode only ([8a76d3f](https://github.com/prismicio/prismic-vue/commit/8a76d3fc4f514cb1a5773af9cfc178d8fb65b2d0))
+
 ## [3.0.0-beta.6](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.5...v3.0.0-beta.6) (2022-04-29)
 
 
