@@ -1,5 +1,4 @@
-import test from "ava";
-import * as sinon from "sinon";
+import { it, expect, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 import * as mock from "@prismicio/mock";
 
@@ -9,8 +8,8 @@ import { createPrismic } from "../src";
 import { richTextFixture } from "./__fixtures__/richText";
 import { LinkType } from "@prismicio/types";
 
-test("`asHTML` uses provided default link resolver", (t) => {
-	const spiedLinkResolver = sinon.spy();
+it("`asHTML` uses provided default link resolver", () => {
+	const spiedLinkResolver = vi.fn();
 
 	const prismic = createPrismic({
 		endpoint: "test",
@@ -25,12 +24,12 @@ test("`asHTML` uses provided default link resolver", (t) => {
 
 	wrapper.vm.$prismic.asHTML(richTextFixture.en);
 
-	t.true(spiedLinkResolver.called);
+	expect(spiedLinkResolver).toHaveBeenCalled();
 });
 
-test("`asHTML` uses provided link resolver over default provided", (t) => {
-	const spiedLinkResolver1 = sinon.spy();
-	const spiedLinkResolver2 = sinon.spy();
+it("`asHTML` uses provided link resolver over default provided", () => {
+	const spiedLinkResolver1 = vi.fn();
+	const spiedLinkResolver2 = vi.fn();
 
 	const prismic = createPrismic({
 		endpoint: "test",
@@ -45,12 +44,12 @@ test("`asHTML` uses provided link resolver over default provided", (t) => {
 
 	wrapper.vm.$prismic.asHTML(richTextFixture.en, spiedLinkResolver2);
 
-	t.false(spiedLinkResolver1.called);
-	t.true(spiedLinkResolver2.called);
+	expect(spiedLinkResolver1).not.toHaveBeenCalled();
+	expect(spiedLinkResolver2).toHaveBeenCalled();
 });
 
-test("`asHTML` uses provided default HTML serializer", (t) => {
-	const spiedHTMLSerializer = sinon.spy();
+it("`asHTML` uses provided default HTML serializer", () => {
+	const spiedHTMLSerializer = vi.fn();
 
 	const prismic = createPrismic({
 		endpoint: "test",
@@ -65,12 +64,12 @@ test("`asHTML` uses provided default HTML serializer", (t) => {
 
 	wrapper.vm.$prismic.asHTML(richTextFixture.en);
 
-	t.true(spiedHTMLSerializer.called);
+	expect(spiedHTMLSerializer).toHaveBeenCalled();
 });
 
-test("`asHTML` uses provided HTML serializer over default provided", (t) => {
-	const spiedHTMLSerializer1 = sinon.spy();
-	const spiedHTMLSerializer2 = sinon.spy();
+it("`asHTML` uses provided HTML serializer over default provided", () => {
+	const spiedHTMLSerializer1 = vi.fn();
+	const spiedHTMLSerializer2 = vi.fn();
 
 	const prismic = createPrismic({
 		endpoint: "test",
@@ -85,12 +84,12 @@ test("`asHTML` uses provided HTML serializer over default provided", (t) => {
 
 	wrapper.vm.$prismic.asHTML(richTextFixture.en, null, spiedHTMLSerializer2);
 
-	t.false(spiedHTMLSerializer1.called);
-	t.true(spiedHTMLSerializer2.called);
+	expect(spiedHTMLSerializer1).not.toHaveBeenCalled();
+	expect(spiedHTMLSerializer2).toHaveBeenCalled();
 });
 
-test("`asLink` uses provided default link resolver", (t) => {
-	const spiedLinkResolver = sinon.spy();
+it("`asLink` uses provided default link resolver", () => {
+	const spiedLinkResolver = vi.fn();
 
 	const prismic = createPrismic({
 		endpoint: "test",
@@ -108,12 +107,12 @@ test("`asLink` uses provided default link resolver", (t) => {
 		url: undefined,
 	});
 
-	t.is(spiedLinkResolver.callCount, 1);
+	expect(spiedLinkResolver).toHaveBeenCalledOnce();
 });
 
-test("`asLink` uses provided link resolver over default provided", (t) => {
-	const spiedLinkResolver1 = sinon.spy();
-	const spiedLinkResolver2 = sinon.spy();
+it("`asLink` uses provided link resolver over default provided", () => {
+	const spiedLinkResolver1 = vi.fn();
+	const spiedLinkResolver2 = vi.fn();
 
 	const prismic = createPrismic({
 		endpoint: "test",
@@ -131,6 +130,6 @@ test("`asLink` uses provided link resolver over default provided", (t) => {
 		spiedLinkResolver2,
 	);
 
-	t.false(spiedLinkResolver1.called);
-	t.is(spiedLinkResolver2.callCount, 1);
+	expect(spiedLinkResolver1).not.toHaveBeenCalled();
+	expect(spiedLinkResolver2).toHaveBeenCalledOnce();
 });

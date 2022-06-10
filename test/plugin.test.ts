@@ -1,8 +1,8 @@
-import test from "ava";
+import { it, expect } from "vitest";
 
 import * as lib from "../src";
 
 // TODO: Dummy test, meant to be removed when real tests come in
-test("exports something", (t) => {
-	t.truthy(lib);
+it("exports something", () => {
+	expect(lib).toBeTruthy();
 });

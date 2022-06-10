@@ -1,5 +1,4 @@
-import test from "ava";
-import * as sinon from "sinon";
+import { it, expect, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 import * as mock from "@prismicio/mock";
 
@@ -15,7 +14,7 @@ import router from "./__fixtures__/router";
 import { PrismicLinkImpl } from "../src/components";
 import { createPrismic } from "../src";
 
-test("renders empty link field", (t) => {
+it("renders empty link field", () => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: mock.value.link({ seed: 1, state: "empty", type: LinkType.Any }),
@@ -23,10 +22,10 @@ test("renders empty link field", (t) => {
 		slots: { default: "foo" },
 	});
 
-	t.is(wrapper.html(), '<a href="">foo</a>');
+	expect(wrapper.html()).toBe('<a href="">foo</a>');
 });
 
-test("renders link to web field", (t) => {
+it("renders link to web field", () => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
@@ -41,10 +40,10 @@ test("renders link to web field", (t) => {
 		slots: { default: "foo" },
 	});
 
-	t.is(wrapper.html(), '<a href="https://example.com">foo</a>');
+	expect(wrapper.html()).toBe('<a href="https://example.com">foo</a>');
 });
 
-test("renders link to media field", (t) => {
+it("renders link to media field", () => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
@@ -55,10 +54,12 @@ test("renders link to media field", (t) => {
 		slots: { default: "foo" },
 	});
 
-	t.is(wrapper.html(), '<a href="https://example.com/image.png">foo</a>');
+	expect(wrapper.html()).toBe(
+		'<a href="https://example.com/image.png">foo</a>',
+	);
 });
 
-test("renders link to document field", (t) => {
+it("renders link to document field", () => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
@@ -72,10 +73,10 @@ test("renders link to document field", (t) => {
 		},
 	});
 
-	t.is(wrapper.html(), '<a href="/bar" class="">foo</a>');
+	expect(wrapper.html()).toBe('<a href="/bar" class="">foo</a>');
 });
 
-test("renders document as link", (t) => {
+it("renders document as link", () => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
@@ -89,10 +90,10 @@ test("renders document as link", (t) => {
 		},
 	});
 
-	t.is(wrapper.html(), '<a href="/bar" class="">foo</a>');
+	expect(wrapper.html()).toBe('<a href="/bar" class="">foo</a>');
 });
 
-test("renders non-resolvable document as link", (t) => {
+it("renders non-resolvable document as link", () => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
@@ -106,11 +107,11 @@ test("renders non-resolvable document as link", (t) => {
 		},
 	});
 
-	t.is(wrapper.html(), '<a href="">foo</a>');
+	expect(wrapper.html()).toBe('<a href="">foo</a>');
 });
 
-test("uses plugin provided link resolver", (t) => {
-	const spiedLinkResolver = sinon.spy(() => "/bar");
+it("uses plugin provided link resolver", () => {
+	const spiedLinkResolver = vi.fn(() => "/bar");
 
 	const prismic = createPrismic({
 		endpoint: "test",
@@ -130,13 +131,13 @@ test("uses plugin provided link resolver", (t) => {
 		},
 	});
 
-	t.is(spiedLinkResolver.callCount, 1);
-	t.is(wrapper.html(), '<a href="/bar" class="">foo</a>');
+	expect(spiedLinkResolver).toHaveBeenCalledOnce();
+	expect(wrapper.html()).toBe('<a href="/bar" class="">foo</a>');
 });
 
-test("uses provided link resolver over plugin provided", (t) => {
-	const spiedLinkResolver1 = sinon.spy(() => "/bar");
-	const spiedLinkResolver2 = sinon.spy(() => "/baz");
+it("uses provided link resolver over plugin provided", () => {
+	const spiedLinkResolver1 = vi.fn(() => "/bar");
+	const spiedLinkResolver2 = vi.fn(() => "/baz");
 
 	const prismic = createPrismic({
 		endpoint: "test",
@@ -157,12 +158,12 @@ test("uses provided link resolver over plugin provided", (t) => {
 		},
 	});
 
-	t.false(spiedLinkResolver1.called);
-	t.is(spiedLinkResolver2.callCount, 1);
-	t.is(wrapper.html(), '<a href="/baz" class="">foo</a>');
+	expect(spiedLinkResolver1).not.toHaveBeenCalled();
+	expect(spiedLinkResolver2).toHaveBeenCalledOnce();
+	expect(wrapper.html()).toBe('<a href="/baz" class="">foo</a>');
 });
 
-test("renders link with blank target", (t) => {
+it("renders link with blank target", () => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
@@ -177,13 +178,12 @@ test("renders link with blank target", (t) => {
 		slots: { default: "foo" },
 	});
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		'<a href="https://example.com" target="_blank" rel="noopener noreferrer">foo</a>',
 	);
 });
 
-test("renders link with blank target using plugin provided default rel attribute", (t) => {
+it("renders link with blank target using plugin provided default rel attribute", () => {
 	const prismic = createPrismic({
 		endpoint: "test",
 		components: {
@@ -208,13 +208,12 @@ test("renders link with blank target using plugin provided default rel attribute
 		},
 	});
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		'<a href="https://example.com" target="_blank" rel="bar">foo</a>',
 	);
 });
 
-test("renders link with blank target using provided default rel attribute over plugin provided", (t) => {
+it("renders link with blank target using provided default rel attribute over plugin provided", () => {
 	const prismic = createPrismic({
 		endpoint: "test",
 		components: {
@@ -240,13 +239,12 @@ test("renders link with blank target using provided default rel attribute over p
 		},
 	});
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		'<a href="https://example.com" target="_blank" rel="baz">foo</a>',
 	);
 });
 
-test("uses provided blank and rel attribute", (t) => {
+it("uses provided blank and rel attribute", () => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
@@ -259,13 +257,12 @@ test("uses provided blank and rel attribute", (t) => {
 		slots: { default: "foo" },
 	});
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		'<a href="https://example.com" target="bar" rel="baz">foo</a>',
 	);
 });
 
-test("uses plugin provided external link component on external link", (t) => {
+it("uses plugin provided external link component on external link", () => {
 	const prismic = createPrismic({
 		endpoint: "test",
 		components: {
@@ -283,13 +280,12 @@ test("uses plugin provided external link component on external link", (t) => {
 		global: { plugins: [prismic] },
 	});
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		'<div class="wrapperComponent" to="https://example.com"></div>',
 	);
 });
 
-test("uses provided external link component over plugin provided on external link", (t) => {
+it("uses provided external link component over plugin provided on external link", () => {
 	const prismic = createPrismic({
 		endpoint: "test",
 		components: {
@@ -308,13 +304,12 @@ test("uses provided external link component over plugin provided on external lin
 		global: { plugins: [prismic] },
 	});
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		'<div class="wrapperComponent2" to="https://example.com"></div>',
 	);
 });
 
-test("uses plugin provided internal link component on internal link", (t) => {
+it("uses plugin provided internal link component on internal link", () => {
 	const prismic = createPrismic({
 		endpoint: "test",
 		components: {
@@ -332,10 +327,10 @@ test("uses plugin provided internal link component on internal link", (t) => {
 		global: { plugins: [prismic] },
 	});
 
-	t.is(wrapper.html(), '<div class="wrapperComponent" to="/bar"></div>');
+	expect(wrapper.html()).toBe('<div class="wrapperComponent" to="/bar"></div>');
 });
 
-test("uses provided internal link component over plugin provided on internal link", (t) => {
+it("uses provided internal link component over plugin provided on internal link", () => {
 	const prismic = createPrismic({
 		endpoint: "test",
 		components: {
@@ -354,30 +349,30 @@ test("uses provided internal link component over plugin provided on internal lin
 		global: { plugins: [prismic] },
 	});
 
-	t.is(wrapper.html(), '<div class="wrapperComponent2" to="/bar"></div>');
+	expect(wrapper.html()).toBe(
+		'<div class="wrapperComponent2" to="/bar"></div>',
+	);
 });
 
-test("renders nothing when invalid", (t) => {
-	const consoleWarnStub = sinon.stub(console, "warn");
+it("renders nothing when invalid", () => {
+	vi.stubGlobal("console", { warn: vi.fn() });
 
 	const wrapper = mount(PrismicLinkImpl, {
 		props: { field: null as unknown as LinkField },
 		slots: { default: "foo" },
 	});
 
-	t.is(wrapper.html(), "");
-	t.is(
-		consoleWarnStub.withArgs(
-			sinon.match(/Invalid prop: type check failed for prop/i),
-		).callCount,
-		1,
+	expect(wrapper.html()).toBe("");
+	expect(console.warn).toHaveBeenCalledOnce();
+	// @ts-expect-error - actually, it's there :thinking:
+	expect(vi.mocked(console.warn).calls[0]).toMatch(
+		/Invalid prop: type check failed for prop/i,
 	);
-	t.is(consoleWarnStub.callCount, 1);
 
-	consoleWarnStub.restore();
+	vi.resetAllMocks();
 });
 
-test("reacts to changes properly", async (t) => {
+it("reacts to changes properly", async () => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
@@ -404,6 +399,8 @@ test("reacts to changes properly", async (t) => {
 
 	const secondRender = wrapper.html();
 
-	t.not(secondRender, firstRender);
-	t.is(secondRender, '<a href="https://prismic.io">foo</a>');
+	expect(secondRender).not.toBe(firstRender);
+	expect(secondRender).toMatchInlineSnapshot(
+		'"<a href=\\"https://prismic.io\\">foo</a>"',
+	);
 });

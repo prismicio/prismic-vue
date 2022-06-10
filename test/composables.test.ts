@@ -1,11 +1,8 @@
-import test, { ExecutionContext } from "ava";
-import * as sinon from "sinon";
-import { mount } from "@vue/test-utils";
+import { it, expect, vi } from "vitest";
+import { mount, flushPromises } from "@vue/test-utils";
 
 import { defineComponent, ref } from "vue";
 import { Client } from "@prismicio/client";
-
-import { sleep } from "./__testutils__/sleep";
 
 import {
 	createPrismic,
@@ -31,422 +28,389 @@ import {
 } from "../src";
 import { useStatefulPrismicClientMethod } from "../src/useStatefulPrismicClientMethod";
 
-const usesPluginClient = async (
-	t: ExecutionContext,
+const usesPluginClient = (
 	methodName: string,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	composable: (...args: any[]) => Promise<any> | any,
 	additionalParams: (unknown | Record<string, unknown>)[] = [],
-) => {
-	const spiedClient = {
-		[methodName]: sinon.spy((..._args: unknown[]) => {
-			return "bar";
-		}),
-	};
-	const prismic = createPrismic({
-		client: spiedClient as unknown as Client,
-	});
+): [string, () => Promise<void>] => [
+	`\`${composable.name}\` uses plugin client`,
+	async () => {
+		const spiedClient = {
+			[methodName]: vi.fn((..._args: unknown[]) => {
+				return "bar";
+			}),
+		};
+		const prismic = createPrismic({
+			client: spiedClient as unknown as Client,
+		});
 
-	let payload: ReturnType<typeof useStatefulPrismicClientMethod> =
-		{} as ReturnType<typeof useStatefulPrismicClientMethod>;
+		let payload: ReturnType<typeof useStatefulPrismicClientMethod> =
+			{} as ReturnType<typeof useStatefulPrismicClientMethod>;
 
-	const wrapper = mount(
-		defineComponent({
-			setup() {
-				payload = composable(...additionalParams);
+		const wrapper = mount(
+			defineComponent({
+				setup() {
+					payload = composable(...additionalParams);
 
-				return () => payload?.data.value;
+					return () => payload?.data.value;
+				},
+			}),
+			{
+				global: {
+					plugins: [prismic],
+				},
 			},
-		}),
-		{
-			global: {
-				plugins: [prismic],
-			},
-		},
-	);
+		);
 
-	await sleep();
+		await flushPromises();
 
-	t.is(wrapper.html(), "bar");
-	t.is(payload?.state.value, PrismicClientComposableState.Success);
-	t.is(spiedClient[methodName].callCount, 1);
-	t.is(spiedClient[methodName].withArgs(...additionalParams).callCount, 1);
-};
-usesPluginClient.title = (
-	providedTitle = "",
-	_methodName: string,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	composable: (...args: any[]) => Promise<any> | any,
-	_additionalParams: (unknown | Record<string, unknown>)[] = [],
-) => providedTitle || `\`${composable.name}\` uses plugin client`;
+		expect(wrapper.html()).toBe("bar");
+		expect(payload?.state.value).toBe(PrismicClientComposableState.Success);
+		expect(spiedClient[methodName]).toHaveBeenCalledOnce();
+		expect(spiedClient[methodName]).toHaveBeenCalledWith(
+			...additionalParams,
+			{},
+		);
+	},
+];
 
 /* eslint-disable prettier/prettier */
 
-test(usesPluginClient, "get", usePrismicDocuments);
-test(usesPluginClient, "getFirst", useFirstPrismicDocument);
-test(usesPluginClient, "getByID", usePrismicDocumentByID, ["qux"]);
-test(usesPluginClient, "getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]);
-test(usesPluginClient, "getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]);
-test(usesPluginClient, "getByUID", usePrismicDocumentByUID, ["qux", "quux"]);
-test(usesPluginClient, "getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
-test(usesPluginClient, "getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
-test(usesPluginClient, "getSingle", useSinglePrismicDocument, ["qux"]);
-test(usesPluginClient, "getByType", usePrismicDocumentsByType, ["qux"]);
-test(usesPluginClient, "getAllByType", useAllPrismicDocumentsByType, ["qux"]);
-test(usesPluginClient, "getByTag", usePrismicDocumentsByTag, ["qux"]);
-test(usesPluginClient, "getAllByTag", useAllPrismicDocumentsByTag, ["qux"]);
-test(usesPluginClient, "getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]);
-test(usesPluginClient, "getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]);
-test(usesPluginClient, "getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]);
-test(usesPluginClient, "getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]);
-test(usesPluginClient, "dangerouslyGetAll", dangerouslyUseAllPrismicDocuments);
+it(...usesPluginClient("get", usePrismicDocuments));
+it(...usesPluginClient("getFirst", useFirstPrismicDocument));
+it(...usesPluginClient("getByID", usePrismicDocumentByID, ["qux"]));
+it(...usesPluginClient("getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]));
+it(...usesPluginClient("getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]));
+it(...usesPluginClient("getByUID", usePrismicDocumentByUID, ["qux", "quux"]));
+it(...usesPluginClient("getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]));
+it(...usesPluginClient("getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]));
+it(...usesPluginClient("getSingle", useSinglePrismicDocument, ["qux"]));
+it(...usesPluginClient("getByType", usePrismicDocumentsByType, ["qux"]));
+it(...usesPluginClient("getAllByType", useAllPrismicDocumentsByType, ["qux"]));
+it(...usesPluginClient("getByTag", usePrismicDocumentsByTag, ["qux"]));
+it(...usesPluginClient("getAllByTag", useAllPrismicDocumentsByTag, ["qux"]));
+it(...usesPluginClient("getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]));
+it(...usesPluginClient("getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]));
+it(...usesPluginClient("getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]));
+it(...usesPluginClient("getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]));
+it(...usesPluginClient("dangerouslyGetAll", dangerouslyUseAllPrismicDocuments));
 
 /* eslint-enable prettier/prettier */
 
-const usesProvidedClient = async (
-	t: ExecutionContext,
+const usesProvidedClient = (
 	methodName: string,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	composable: (...args: any[]) => Promise<any> | any,
 	additionalParams: (unknown | Record<string, unknown>)[] = [],
-) => {
-	const spiedClient1 = {
-		[methodName]: sinon.spy((..._args: unknown[]) => {
-			return "bar";
-		}),
-	};
-	const spiedClient2 = {
-		[methodName]: sinon.spy((..._args: unknown[]) => {
-			return "baz";
-		}),
-	};
-	const prismic = createPrismic({
-		client: spiedClient1 as unknown as Client,
-	});
+): [string, () => Promise<void>] => [
+	`\`${composable.name}\` uses provided client over plugin client`,
+	async () => {
+		const spiedClient1 = {
+			[methodName]: vi.fn((..._args: unknown[]) => {
+				return "bar";
+			}),
+		};
+		const spiedClient2 = {
+			[methodName]: vi.fn((..._args: unknown[]) => {
+				return "baz";
+			}),
+		};
+		const prismic = createPrismic({
+			client: spiedClient1 as unknown as Client,
+		});
 
-	let payload: ReturnType<typeof useStatefulPrismicClientMethod> =
-		{} as ReturnType<typeof useStatefulPrismicClientMethod>;
+		let payload: ReturnType<typeof useStatefulPrismicClientMethod> =
+			{} as ReturnType<typeof useStatefulPrismicClientMethod>;
 
-	const wrapper = mount(
-		defineComponent({
-			setup() {
-				payload = composable(...additionalParams, {
-					client: spiedClient2 as unknown as Client,
-				});
+		const wrapper = mount(
+			defineComponent({
+				setup() {
+					payload = composable(...additionalParams, {
+						client: spiedClient2 as unknown as Client,
+					});
 
-				return () => payload?.data.value;
+					return () => payload?.data.value;
+				},
+			}),
+			{
+				global: {
+					plugins: [prismic],
+				},
 			},
-		}),
-		{
-			global: {
-				plugins: [prismic],
-			},
-		},
-	);
+		);
 
-	await sleep();
+		await flushPromises();
 
-	t.is(wrapper.html(), "baz");
-	t.is(payload?.state.value, PrismicClientComposableState.Success);
-	t.false(spiedClient1[methodName].called);
-	t.is(spiedClient2[methodName].callCount, 1);
-	t.is(spiedClient2[methodName].withArgs(...additionalParams).callCount, 1);
-};
-usesProvidedClient.title = (
-	providedTitle = "",
-	_methodName: string,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	composable: (...args: any[]) => Promise<any> | any,
-	_additionalParams: (unknown | Record<string, unknown>)[] = [],
-) =>
-	providedTitle ||
-	`\`${composable.name}\` uses provided client over plugin client`;
+		expect(wrapper.html()).toBe("baz");
+		expect(payload?.state.value).toBe(PrismicClientComposableState.Success);
+		expect(spiedClient1[methodName]).not.toHaveBeenCalled();
+		expect(spiedClient2[methodName]).toHaveBeenCalledOnce();
+		expect(spiedClient2[methodName]).toHaveBeenCalledWith(
+			...additionalParams,
+			{},
+		);
+	},
+];
 
 /* eslint-disable prettier/prettier */
 
-test(usesProvidedClient, "get", usePrismicDocuments);
-test(usesProvidedClient, "getFirst", useFirstPrismicDocument);
-test(usesProvidedClient, "getByID", usePrismicDocumentByID, ["qux"]);
-test(usesProvidedClient, "getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]);
-test(usesProvidedClient, "getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]);
-test(usesProvidedClient, "getByUID", usePrismicDocumentByUID, ["qux", "quux"]);
-test(usesProvidedClient, "getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
-test(usesProvidedClient, "getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
-test(usesProvidedClient, "getSingle", useSinglePrismicDocument, ["qux"]);
-test(usesProvidedClient, "getByType", usePrismicDocumentsByType, ["qux"]);
-test(usesProvidedClient, "getAllByType", useAllPrismicDocumentsByType, ["qux"]);
-test(usesProvidedClient, "getByTag", usePrismicDocumentsByTag, ["qux"]);
-test(usesProvidedClient, "getAllByTag", useAllPrismicDocumentsByTag, ["qux"]);
-test(usesProvidedClient, "getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]);
-test(usesProvidedClient, "getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]);
-test(usesProvidedClient, "getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]);
-test(usesProvidedClient, "getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]);
-test(usesProvidedClient, "dangerouslyGetAll", dangerouslyUseAllPrismicDocuments);
+it(...usesProvidedClient("get", usePrismicDocuments));
+it(...usesProvidedClient("getFirst", useFirstPrismicDocument));
+it(...usesProvidedClient("getByID", usePrismicDocumentByID, ["qux"]));
+it(...usesProvidedClient("getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]));
+it(...usesProvidedClient("getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]));
+it(...usesProvidedClient("getByUID", usePrismicDocumentByUID, ["qux", "quux"]));
+it(...usesProvidedClient("getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]));
+it(...usesProvidedClient("getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]));
+it(...usesProvidedClient("getSingle", useSinglePrismicDocument, ["qux"]));
+it(...usesProvidedClient("getByType", usePrismicDocumentsByType, ["qux"]));
+it(...usesProvidedClient("getAllByType", useAllPrismicDocumentsByType, ["qux"]));
+it(...usesProvidedClient("getByTag", usePrismicDocumentsByTag, ["qux"]));
+it(...usesProvidedClient("getAllByTag", useAllPrismicDocumentsByTag, ["qux"]));
+it(...usesProvidedClient("getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]));
+it(...usesProvidedClient("getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]));
+it(...usesProvidedClient("getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]));
+it(...usesProvidedClient("getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]));
+it(...usesProvidedClient("dangerouslyGetAll", dangerouslyUseAllPrismicDocuments));
 
 /* eslint-enable prettier/prettier */
 
-const supportsParams = async (
-	t: ExecutionContext,
+const supportsParams = (
 	methodName: string,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	composable: (...args: any[]) => Promise<any> | any,
 	additionalParams: (unknown | Record<string, unknown>)[] = [],
-) => {
-	const spiedClient = {
-		[methodName]: sinon.spy((..._args: unknown[]) => {
-			return "bar";
-		}),
-	};
-	const prismic = createPrismic({
-		client: spiedClient as unknown as Client,
-	});
+): [string, () => Promise<void>] => [
+	`\`${composable.name}\` supports params`,
+	async () => {
+		const spiedClient = {
+			[methodName]: vi.fn((..._args: unknown[]) => {
+				return "bar";
+			}),
+		};
+		const prismic = createPrismic({
+			client: spiedClient as unknown as Client,
+		});
 
-	let payload: ReturnType<typeof useStatefulPrismicClientMethod> =
-		{} as ReturnType<typeof useStatefulPrismicClientMethod>;
+		let payload: ReturnType<typeof useStatefulPrismicClientMethod> =
+			{} as ReturnType<typeof useStatefulPrismicClientMethod>;
 
-	const params = { ref: "foo" };
+		const params = { ref: "foo" };
 
-	const wrapper = mount(
-		defineComponent({
-			setup() {
-				payload = composable(...additionalParams, params);
+		const wrapper = mount(
+			defineComponent({
+				setup() {
+					payload = composable(...additionalParams, params);
 
-				return () => payload?.data.value;
+					return () => payload?.data.value;
+				},
+			}),
+			{
+				global: {
+					plugins: [prismic],
+				},
 			},
-		}),
-		{
-			global: {
-				plugins: [prismic],
-			},
-		},
-	);
+		);
 
-	await sleep();
+		await flushPromises();
 
-	t.is(wrapper.html(), "bar");
-	t.is(payload?.state.value, PrismicClientComposableState.Success);
-	t.is(spiedClient[methodName].callCount, 1);
-	t.is(
-		spiedClient[methodName].withArgs(...additionalParams, params).callCount,
-		1,
-	);
-};
-supportsParams.title = (
-	providedTitle = "",
-	_methodName: string,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	composable: (...args: any[]) => Promise<any> | any,
-	_additionalParams: (unknown | Record<string, unknown>)[] = [],
-) => providedTitle || `\`${composable.name}\` supports params`;
+		expect(wrapper.html()).toBe("bar");
+		expect(payload?.state.value).toBe(PrismicClientComposableState.Success);
+		expect(spiedClient[methodName]).toHaveBeenCalledOnce();
+		expect(spiedClient[methodName]).toHaveBeenCalledWith(...additionalParams, {
+			ref: "foo",
+		});
+	},
+];
 
 /* eslint-disable prettier/prettier */
 
-test(supportsParams, "get", usePrismicDocuments);
-test(supportsParams, "getFirst", useFirstPrismicDocument);
-test(supportsParams, "getByID", usePrismicDocumentByID, ["qux"]);
-test(supportsParams, "getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]);
-test(supportsParams, "getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]);
-test(supportsParams, "getByUID", usePrismicDocumentByUID, ["qux", "quux"]);
-test(supportsParams, "getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
-test(supportsParams, "getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
-test(supportsParams, "getSingle", useSinglePrismicDocument, ["qux"]);
-test(supportsParams, "getByType", usePrismicDocumentsByType, ["qux"]);
-test(supportsParams, "getAllByType", useAllPrismicDocumentsByType, ["qux"]);
-test(supportsParams, "getByTag", usePrismicDocumentsByTag, ["qux"]);
-test(supportsParams, "getAllByTag", useAllPrismicDocumentsByTag, ["qux"]);
-test(supportsParams, "getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]);
-test(supportsParams, "getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]);
-test(supportsParams, "getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]);
-test(supportsParams, "getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]);
-test(supportsParams, "dangerouslyGetAll", dangerouslyUseAllPrismicDocuments);
+it(...supportsParams("get", usePrismicDocuments));
+it(...supportsParams("getFirst", useFirstPrismicDocument));
+it(...supportsParams("getByID", usePrismicDocumentByID, ["qux"]));
+it(...supportsParams("getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]));
+it(...supportsParams("getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]));
+it(...supportsParams("getByUID", usePrismicDocumentByUID, ["qux", "quux"]));
+it(...supportsParams("getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]));
+it(...supportsParams("getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]));
+it(...supportsParams("getSingle", useSinglePrismicDocument, ["qux"]));
+it(...supportsParams("getByType", usePrismicDocumentsByType, ["qux"]));
+it(...supportsParams("getAllByType", useAllPrismicDocumentsByType, ["qux"]));
+it(...supportsParams("getByTag", usePrismicDocumentsByTag, ["qux"]));
+it(...supportsParams("getAllByTag", useAllPrismicDocumentsByTag, ["qux"]));
+it(...supportsParams("getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]));
+it(...supportsParams("getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]));
+it(...supportsParams("getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]));
+it(...supportsParams("getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]));
+it(...supportsParams("dangerouslyGetAll", dangerouslyUseAllPrismicDocuments));
 
 /* eslint-enable prettier/prettier */
 
-const watchesReactiveParams = async (
-	t: ExecutionContext,
+const watchesReactiveParams = (
 	methodName: string,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	composable: (...args: any[]) => Promise<any> | any,
 	additionalParams: (unknown | Record<string, unknown>)[] = [],
-) => {
-	const spiedClient = {
-		[methodName]: sinon.spy((...args: unknown[]) => {
-			return (args[args.length - 1] as Record<string, string>).ref === "foo"
-				? "bar"
-				: "baz";
-		}),
-	};
-	const prismic = createPrismic({
-		client: spiedClient as unknown as Client,
-	});
+): [string, () => Promise<void>] => [
+	`\`${composable.name}\` watches reactive parameters`,
+	async () => {
+		const spiedClient = {
+			[methodName]: vi.fn((...args: unknown[]) => {
+				return (args[args.length - 1] as Record<string, string>).ref === "foo"
+					? "bar"
+					: "baz";
+			}),
+		};
+		const prismic = createPrismic({
+			client: spiedClient as unknown as Client,
+		});
 
-	let payload: ReturnType<typeof useStatefulPrismicClientMethod> =
-		{} as ReturnType<typeof useStatefulPrismicClientMethod>;
+		let payload: ReturnType<typeof useStatefulPrismicClientMethod> =
+			{} as ReturnType<typeof useStatefulPrismicClientMethod>;
 
-	const params = ref<Record<string, string | null>>({ ref: "foo" });
+		const params = ref<Record<string, string | null>>({ ref: "foo" });
 
-	const wrapper = mount(
-		defineComponent({
-			setup() {
-				payload = composable(...additionalParams, params);
+		const wrapper = mount(
+			defineComponent({
+				setup() {
+					payload = composable(...additionalParams, params);
 
-				return () => payload?.data.value;
+					return () => payload?.data.value;
+				},
+			}),
+			{
+				global: {
+					plugins: [prismic],
+				},
 			},
-		}),
-		{
-			global: {
-				plugins: [prismic],
-			},
-		},
-	);
+		);
 
-	await sleep();
+		await flushPromises();
 
-	t.is(wrapper.html(), "bar");
-	t.is(payload?.state.value, PrismicClientComposableState.Success);
-	t.is(spiedClient[methodName].callCount, 1);
-	t.is(
-		spiedClient[methodName].withArgs(...additionalParams, params.value)
-			.callCount,
-		1,
-	);
+		expect(wrapper.html()).toBe("bar");
+		expect(payload?.state.value, PrismicClientComposableState.Success);
+		expect(spiedClient[methodName]).toHaveBeenCalledOnce();
+		expect(spiedClient[methodName]).toHaveBeenCalledWith(...additionalParams, {
+			ref: "foo",
+		});
 
-	params.value = { ref: null };
+		params.value = { ref: null };
 
-	await sleep();
+		await flushPromises();
 
-	t.is(wrapper.html(), "baz");
-	t.is(payload?.state.value, PrismicClientComposableState.Success);
-	t.is(spiedClient[methodName].callCount, 2);
-	t.is(
-		spiedClient[methodName].withArgs(...additionalParams, params.value)
-			.callCount,
-		1,
-	);
-};
-watchesReactiveParams.title = (
-	providedTitle = "",
-	_methodName: string,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	composable: (...args: any[]) => Promise<any> | any,
-	_additionalParams: (unknown | Record<string, unknown>)[] = [],
-) => providedTitle || `\`${composable.name}\` watches reactive parameters`;
+		expect(wrapper.html()).toBe("baz");
+		expect(payload?.state.value, PrismicClientComposableState.Success);
+		expect(spiedClient[methodName]).toHaveBeenCalledTimes(2);
+		expect(spiedClient[methodName]).toHaveBeenCalledWith(...additionalParams, {
+			ref: null,
+		});
+	},
+];
 
 /* eslint-disable prettier/prettier */
 
-test(watchesReactiveParams, "get", usePrismicDocuments);
-test(watchesReactiveParams, "getFirst", useFirstPrismicDocument);
-test(watchesReactiveParams, "getByID", usePrismicDocumentByID, ["qux"]);
-test(watchesReactiveParams, "getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]);
-test(watchesReactiveParams, "getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]);
-test(watchesReactiveParams, "getByUID", usePrismicDocumentByUID, ["qux", "quux"]);
-test(watchesReactiveParams, "getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
-test(watchesReactiveParams, "getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
-test(watchesReactiveParams, "getSingle", useSinglePrismicDocument, ["qux"]);
-test(watchesReactiveParams, "getByType", usePrismicDocumentsByType, ["qux"]);
-test(watchesReactiveParams, "getAllByType", useAllPrismicDocumentsByType, ["qux",]);
-test(watchesReactiveParams, "getByTag", usePrismicDocumentsByTag, ["qux"]);
-test(watchesReactiveParams, "getAllByTag", useAllPrismicDocumentsByTag, ["qux",]);
-test(watchesReactiveParams, "getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]);
-test(watchesReactiveParams, "getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]);
-test(watchesReactiveParams, "getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]);
-test(watchesReactiveParams, "getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]);
-test(watchesReactiveParams, "dangerouslyGetAll", dangerouslyUseAllPrismicDocuments);
+it(...watchesReactiveParams("get", usePrismicDocuments));
+it(...watchesReactiveParams("getFirst", useFirstPrismicDocument));
+it(...watchesReactiveParams("getByID", usePrismicDocumentByID, ["qux"]));
+it(...watchesReactiveParams("getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]));
+it(...watchesReactiveParams("getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]));
+it(...watchesReactiveParams("getByUID", usePrismicDocumentByUID, ["qux", "quux"]));
+it(...watchesReactiveParams("getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]));
+it(...watchesReactiveParams("getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]));
+it(...watchesReactiveParams("getSingle", useSinglePrismicDocument, ["qux"]));
+it(...watchesReactiveParams("getByType", usePrismicDocumentsByType, ["qux"]));
+it(...watchesReactiveParams("getAllByType", useAllPrismicDocumentsByType, ["qux",]));
+it(...watchesReactiveParams("getByTag", usePrismicDocumentsByTag, ["qux"]));
+it(...watchesReactiveParams("getAllByTag", useAllPrismicDocumentsByTag, ["qux",]));
+it(...watchesReactiveParams("getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]));
+it(...watchesReactiveParams("getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]));
+it(...watchesReactiveParams("getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]));
+it(...watchesReactiveParams("getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]));
+it(...watchesReactiveParams("dangerouslyGetAll", dangerouslyUseAllPrismicDocuments));
 
-/* eslint-enable prettier/prettier */
+// /* eslint-enable prettier/prettier */
 
-const providesErrorStateOnError = async (
-	t: ExecutionContext,
+const providesErrorStateOnError = (
 	methodName: string,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	composable: (...args: any[]) => Promise<any> | any,
-	additionalParams: (unknown | Record<string, unknown>)[] = [],
-) => {
-	const spiedClient = {
-		[methodName]: sinon.spy((...args: unknown[]) => {
-			if ((args[args.length - 1] as Record<string, string>).ref !== "foo") {
-				throw new Error("baz");
-			}
+	additionalParams: (unknown | Record<string, unknown>)[] = []
+): [string, () => Promise<void>] => [
+	`\`${composable.name}\` provides error state on error`,
+	async () => {
+		const spiedClient = {
+			[methodName]: vi.fn((...args: unknown[]) => {
+				if ((args[args.length - 1] as Record<string, string>).ref !== "foo") {
+					throw new Error("baz");
+				}
 
-			return "bar";
-		}),
-	};
-	const prismic = createPrismic({
-		client: spiedClient as unknown as Client,
-	});
+				return "bar";
+			}),
+		};
+		const prismic = createPrismic({
+			client: spiedClient as unknown as Client,
+		});
 
-	let payload: ReturnType<typeof useStatefulPrismicClientMethod> =
-		{} as ReturnType<typeof useStatefulPrismicClientMethod>;
+		let payload: ReturnType<typeof useStatefulPrismicClientMethod> =
+			{} as ReturnType<typeof useStatefulPrismicClientMethod>;
 
-	const params = ref<Record<string, string | null>>({ ref: null });
+		const params = ref<Record<string, string | null>>({ ref: null });
 
-	const wrapper = mount(
-		defineComponent({
-			setup() {
-				payload = composable(...additionalParams, params);
+		const wrapper = mount(
+			defineComponent({
+				setup() {
+					payload = composable(...additionalParams, params);
 
-				return () => payload?.data.value;
+					return () => payload?.data.value;
+				},
+			}),
+			{
+				global: {
+					plugins: [prismic],
+				},
 			},
-		}),
-		{
-			global: {
-				plugins: [prismic],
-			},
-		},
-	);
+		);
 
-	await sleep();
+		await flushPromises();
 
-	t.is(wrapper.html(), "");
-	t.is(payload?.state.value, PrismicClientComposableState.Error);
-	t.is(spiedClient[methodName].callCount, 1);
-	t.is(spiedClient[methodName].exceptions.length, 1);
-	t.is(
-		spiedClient[methodName].withArgs(...additionalParams, params.value)
-			.callCount,
-		1,
-	);
+		expect(wrapper.html()).toBe("");
+		expect(payload?.state.value).toBe(PrismicClientComposableState.Error);
+		expect(spiedClient[methodName]).toHaveBeenCalledOnce();
+		// @ts-expect-error - actually, it's there :thinking:
+		expect(vi.mocked(spiedClient[methodName]).results[0][0]).toBe("error");
+		expect(spiedClient[methodName]).toHaveBeenCalledWith(...additionalParams, { ref: null });
 
-	params.value = { ref: "foo" };
+		params.value = { ref: "foo" };
 
-	await sleep();
+		await flushPromises();
 
-	t.is(wrapper.html(), "bar");
-	t.is(payload?.state.value, PrismicClientComposableState.Success);
-	t.is(spiedClient[methodName].callCount, 2);
-	t.is(
-		spiedClient[methodName].withArgs(...additionalParams, params.value)
-			.callCount,
-		1,
-	);
-};
-providesErrorStateOnError.title = (
-	providedTitle = "",
-	_methodName: string,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	composable: (...args: any[]) => Promise<any> | any,
-	_additionalParams: (unknown | Record<string, unknown>)[] = [],
-) => providedTitle || `\`${composable.name}\` provides error state on error`;
+		expect(wrapper.html()).toBe("bar");
+		expect(payload?.state.value).toBe(PrismicClientComposableState.Success);
+		expect(spiedClient[methodName]).toHaveBeenCalledTimes(2);
+		expect(spiedClient[methodName]).toHaveBeenCalledWith(...additionalParams, { ref: "foo" });
+	},
+];
 
 /* eslint-disable prettier/prettier */
 
-test(providesErrorStateOnError, "get", usePrismicDocuments);
-test(providesErrorStateOnError, "getFirst", useFirstPrismicDocument);
-test(providesErrorStateOnError, "getByID", usePrismicDocumentByID, ["qux"]);
-test(providesErrorStateOnError, "getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]);
-test(providesErrorStateOnError, "getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]);
-test(providesErrorStateOnError, "getByUID", usePrismicDocumentByUID, ["qux", "quux"]);
-test(providesErrorStateOnError, "getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
-test(providesErrorStateOnError, "getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]);
-test(providesErrorStateOnError, "getSingle", useSinglePrismicDocument, ["qux"]);
-test(providesErrorStateOnError, "getByType", usePrismicDocumentsByType, ["qux",]);
-test(providesErrorStateOnError, "getAllByType", useAllPrismicDocumentsByType, ["qux"]);
-test(providesErrorStateOnError, "getByTag", usePrismicDocumentsByTag, ["qux"]);
-test(providesErrorStateOnError, "getAllByTag", useAllPrismicDocumentsByTag, ["qux"]);
-test(providesErrorStateOnError, "getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]);
-test(providesErrorStateOnError, "getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]);
-test(providesErrorStateOnError, "getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]);
-test(providesErrorStateOnError, "getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]);
-test(providesErrorStateOnError, "dangerouslyGetAll", dangerouslyUseAllPrismicDocuments);
+it(...providesErrorStateOnError("get", usePrismicDocuments));
+it(...providesErrorStateOnError("getFirst", useFirstPrismicDocument));
+it(...providesErrorStateOnError("getByID", usePrismicDocumentByID, ["qux"]));
+it(...providesErrorStateOnError("getByIDs", usePrismicDocumentsByIDs, [["qux", "quux"]]));
+it(...providesErrorStateOnError("getAllByIDs", useAllPrismicDocumentsByIDs, [["qux", "quux"]]));
+it(...providesErrorStateOnError("getByUID", usePrismicDocumentByUID, ["qux", "quux"]));
+it(...providesErrorStateOnError("getByUIDs", usePrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]));
+it(...providesErrorStateOnError("getAllByUIDs", useAllPrismicDocumentsByUIDs, ["qux", ["quux", "quuz"]]));
+it(...providesErrorStateOnError("getSingle", useSinglePrismicDocument, ["qux"]));
+it(...providesErrorStateOnError("getByType", usePrismicDocumentsByType, ["qux",]));
+it(...providesErrorStateOnError("getAllByType", useAllPrismicDocumentsByType, ["qux"]));
+it(...providesErrorStateOnError("getByTag", usePrismicDocumentsByTag, ["qux"]));
+it(...providesErrorStateOnError("getAllByTag", useAllPrismicDocumentsByTag, ["qux"]));
+it(...providesErrorStateOnError("getByEveryTag", usePrismicDocumentsByEveryTag, [["qux", "quux"]]));
+it(...providesErrorStateOnError("getAllByEveryTag", useAllPrismicDocumentsByEveryTag, [["qux", "quux"]]));
+it(...providesErrorStateOnError("getBySomeTags", usePrismicDocumentsBySomeTags, [["qux", "quux"]]));
+it(...providesErrorStateOnError("getAllBySomeTags", useAllPrismicDocumentsBySomeTags, [["qux", "quux"]]));
+it(...providesErrorStateOnError("dangerouslyGetAll", dangerouslyUseAllPrismicDocuments));
 
 /* eslint-enable prettier/prettier */

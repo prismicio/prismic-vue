@@ -1,14 +1,14 @@
-import test from "ava";
-import * as sinon from "sinon";
+import { it, expect, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 
+import unfetch from "isomorphic-unfetch";
 import { createClient, getRepositoryEndpoint } from "@prismicio/client";
 
 import { WrapperComponent } from "./__fixtures__/WrapperComponent";
 
 import { createPrismic } from "../src";
 
-test("creates client from repository name", (t) => {
+it("creates client from repository name", () => {
 	const prismic = createPrismic({ endpoint: "test" });
 
 	const wrapper = mount(WrapperComponent, {
@@ -17,14 +17,12 @@ test("creates client from repository name", (t) => {
 		},
 	});
 
-	t.is(
-		wrapper.vm.$prismic.client.endpoint,
+	expect(wrapper.vm.$prismic.client.endpoint).toBe(
 		"https://test.cdn.prismic.io/api/v2",
 	);
 });
 
-test("creates client from repository endpoint", (t) => {
-	let i = 0;
+it("creates client from repository endpoint", () => {
 	[
 		"https://test.cdn.prismic.io/api/v2",
 		"https://test.prismic.io/api/v2",
@@ -40,16 +38,15 @@ test("creates client from repository endpoint", (t) => {
 			},
 		});
 
-		t.is(wrapper.vm.$prismic.client.endpoint, endpoint);
-		i++;
+		expect(wrapper.vm.$prismic.client.endpoint).toBe(endpoint);
 	});
 
-	t.is(i, 3);
+	expect.assertions(3);
 });
 
-test("uses provided client", (t) => {
+it("uses provided client", () => {
 	const client = createClient(getRepositoryEndpoint("test"), {
-		fetch: sinon.stub(),
+		fetch: vi.fn(),
 	});
 
 	const prismic = createPrismic({ client });
@@ -60,12 +57,12 @@ test("uses provided client", (t) => {
 		},
 	});
 
-	t.is(wrapper.vm.$prismic.client, client);
-	t.is(wrapper.vm.$prismic.client.endpoint, client.endpoint);
+	expect(wrapper.vm.$prismic.client).toBe(client);
+	expect(wrapper.vm.$prismic.client.endpoint).toBe(client.endpoint);
 });
 
-test("uses provided fetch function", (t) => {
-	const spiedFetch = sinon.spy();
+it("uses provided fetch function", () => {
+	const spiedFetch = vi.fn();
 
 	const prismic = createPrismic({
 		endpoint: "test",
@@ -80,15 +77,15 @@ test("uses provided fetch function", (t) => {
 		},
 	});
 
-	t.is(wrapper.vm.$prismic.client.fetchFn, spiedFetch);
-	t.false(spiedFetch.called);
+	expect(wrapper.vm.$prismic.client.fetchFn).toBe(spiedFetch);
+	expect(spiedFetch).not.toHaveBeenCalled();
 	wrapper.vm.$prismic.client.fetchFn("foo", {});
-	t.is(spiedFetch.callCount, 1);
+	expect(spiedFetch).toHaveBeenCalledOnce();
 });
 
-test("uses `globalThis` fetch function when available", (t) => {
+it("uses `globalThis` fetch function when available", () => {
 	// `globalThis.fetch` does not exists in our Node.js context
-	const fetchStub = (globalThis.fetch = sinon.stub());
+	const fetchStub = (globalThis.fetch = vi.fn());
 
 	const prismic = createPrismic({ endpoint: "test" });
 
@@ -98,15 +95,21 @@ test("uses `globalThis` fetch function when available", (t) => {
 		},
 	});
 
-	t.false(fetchStub.called);
+	expect(fetchStub).not.toHaveBeenCalled();
 	wrapper.vm.$prismic.client.fetchFn("foo", {});
-	t.is(fetchStub.callCount, 1);
+	expect(fetchStub).toHaveBeenCalledOnce();
 
 	// @ts-expect-error `globalThis.fetch` does not exists in our Node.js context
 	delete globalThis.fetch;
 });
 
-test("uses `isomorphic-unfetch` when `globalThis` fetch function is not available", async (t) => {
+it("uses `isomorphic-unfetch` when `globalThis` fetch function is not available", async () => {
+	vi.mock("isomorphic-unfetch", () => {
+		return {
+			default: vi.fn(),
+		};
+	});
+
 	const prismic = createPrismic({ endpoint: "test" });
 
 	const wrapper = mount(WrapperComponent, {
@@ -115,11 +118,9 @@ test("uses `isomorphic-unfetch` when `globalThis` fetch function is not availabl
 		},
 	});
 
-	// We test for fetch to throw by providing invalid arguments
-	await t.throwsAsync(
-		async () => {
-			await wrapper.vm.$prismic.client.fetchFn("foo", {});
-		},
-		{ instanceOf: TypeError, message: "Only absolute URLs are supported" },
-	);
+	expect(unfetch).not.toHaveBeenCalled();
+	await wrapper.vm.$prismic.client.fetchFn("foo", {});
+	expect(unfetch).toHaveBeenCalledOnce();
+
+	vi.unmock("isomorphic-unfetch");
 });

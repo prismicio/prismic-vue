@@ -1,5 +1,4 @@
-import test from "ava";
-import * as sinon from "sinon";
+import { it, expect, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 import * as mock from "@prismicio/mock";
 
@@ -10,15 +9,17 @@ import { WrapperComponent } from "./__fixtures__/WrapperComponent";
 
 import { PrismicEmbedImpl } from "../src/components";
 
-test("renders embed field", (t) => {
+it("renders embed field", () => {
 	const wrapper = mount(PrismicEmbedImpl, {
 		props: { field: mock.value.embed({ seed: 1 }) },
 	});
 
-	t.snapshot(wrapper.html());
+	expect(wrapper.html()).toMatchInlineSnapshot(
+		'"<div data-oembed=\\"https://www.youtube.com/embed/c-ATzcy6VkI\\" data-oembed-type=\\"video\\"><iframe width=\\"200\\" height=\\"113\\" src=\\"https://www.youtube.com/embed/c-ATzcy6VkI?feature=oembed\\" frameborder=\\"0\\" allow=\\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\\" allowfullscreen=\\"\\"></iframe></div>"',
+	);
 });
 
-test("renders embed field with no HTML", (t) => {
+it("renders embed field with no HTML", () => {
 	const wrapper = mount(PrismicEmbedImpl, {
 		props: {
 			field: {
@@ -28,18 +29,22 @@ test("renders embed field with no HTML", (t) => {
 		},
 	});
 
-	t.snapshot(wrapper.html());
+	expect(wrapper.html()).toMatchInlineSnapshot(
+		'"<div data-oembed=\\"https://www.youtube.com/watch?v=fiOwHYFkUz0\\" data-oembed-type=\\"video\\"></div>"',
+	);
 });
 
-test("uses provided wrapper tag", (t) => {
+it("uses provided wrapper tag", () => {
 	const wrapper = mount(PrismicEmbedImpl, {
 		props: { field: mock.value.embed({ seed: 3 }), wrapper: "section" },
 	});
 
-	t.snapshot(wrapper.html());
+	expect(wrapper.html()).toMatchInlineSnapshot(
+		'"<section data-oembed=\\"https://www.youtube.com/embed/c-ATzcy6VkI\\" data-oembed-type=\\"video\\"><iframe width=\\"200\\" height=\\"113\\" src=\\"https://www.youtube.com/embed/c-ATzcy6VkI?feature=oembed\\" frameborder=\\"0\\" allow=\\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\\" allowfullscreen=\\"\\"></iframe></section>"',
+	);
 });
 
-test("uses provided wrapper component", (t) => {
+it("uses provided wrapper component", () => {
 	const wrapper = mount(PrismicEmbedImpl, {
 		props: {
 			field: mock.value.embed({ seed: 4 }),
@@ -47,29 +52,34 @@ test("uses provided wrapper component", (t) => {
 		},
 	});
 
-	t.snapshot(wrapper.html());
+	expect(wrapper.html()).toMatchInlineSnapshot(`
+		"<div class=\\"wrapperComponent\\" data-oembed=\\"https://twitter.com/prismicio/status/1354835716430319617\\" data-oembed-type=\\"rich\\">
+		  <blockquote class=\\"twitter-tweet\\">
+		    <p lang=\\"en\\" dir=\\"ltr\\">Does anyone want to create a wildly popular website for discussing 'Wall Street Bets' using Prismic?<br><br>It may or may not have to look a lot like <a href=\\"https://twitter.com/hashtag/reddit?src=hash&amp;ref_src=twsrc%5Etfw\\">#reddit</a> and we won't make it private.<br><br>Just asking for some friends...</p>— Prismic (@prismicio) <a href=\\"https://twitter.com/prismicio/status/1354835716430319617?ref_src=twsrc%5Etfw\\">January 28, 2021</a>
+		  </blockquote>
+		  <script async=\\"\\" src=\\"https://platform.twitter.com/widgets.js\\" charset=\\"utf-8\\"></script>
+		</div>"
+	`);
 });
 
-test("renders nothing when invalid", (t) => {
-	const consoleWarnStub = sinon.stub(console, "warn");
+it("renders nothing when invalid", () => {
+	vi.stubGlobal("console", { warn: vi.fn() });
 
 	const wrapper = mount(PrismicEmbedImpl, {
 		props: { field: null as unknown as EmbedField },
 	});
 
-	t.is(wrapper.html(), "");
-	t.is(
-		consoleWarnStub.withArgs(
-			sinon.match(/Invalid prop: type check failed for prop/i),
-		).callCount,
-		1,
+	expect(wrapper.html()).toBe("");
+	expect(console.warn).toHaveBeenCalledOnce();
+	// @ts-expect-error - actually, it's there :thinking:
+	expect(vi.mocked(console.warn).calls[0]).toMatch(
+		/Invalid prop: type check failed for prop/i,
 	);
-	t.is(consoleWarnStub.callCount, 1);
 
-	consoleWarnStub.restore();
+	vi.resetAllMocks();
 });
 
-test("reacts to changes properly", async (t) => {
+it("reacts to changes properly", async () => {
 	const wrapper = mount(PrismicEmbedImpl, {
 		props: { field: mock.value.embed({ seed: 5 }) },
 	});
@@ -82,6 +92,8 @@ test("reacts to changes properly", async (t) => {
 
 	const secondRender = wrapper.html();
 
-	t.not(secondRender, firstRender);
-	t.snapshot(secondRender);
+	expect(secondRender).not.toBe(firstRender);
+	expect(secondRender).toMatchInlineSnapshot(
+		'"<div data-oembed=\\"https://www.youtube.com/embed/c-ATzcy6VkI\\" data-oembed-type=\\"video\\"><iframe width=\\"200\\" height=\\"113\\" src=\\"https://www.youtube.com/embed/c-ATzcy6VkI?feature=oembed\\" frameborder=\\"0\\" allow=\\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\\" allowfullscreen=\\"\\"></iframe></div>"',
+	);
 });

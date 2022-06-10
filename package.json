@@ -45,7 +45,8 @@
 		"release:dry": "standard-version --dry-run",
 		"size": "size-limit",
 		"test": "npm run lint && npm run unit && npm run build && npm run size",
-		"unit": "nyc --reporter=lcovonly --reporter=text --exclude-after-remap=false ava"
+		"unit": "vitest run --coverage",
+		"unit:watch": "vitest watch"
 	},
 	"dependencies": {
 		"@prismicio/client": "^6.5.1",
@@ -59,14 +60,13 @@
 		"@size-limit/preset-small-lib": "^7.0.8",
 		"@types/escape-html": "^1.0.2",
 		"@types/jsdom-global": "^3.0.2",
-		"@types/sinon": "^10.0.11",
 		"@typescript-eslint/eslint-plugin": "^5.27.1",
 		"@typescript-eslint/parser": "^5.27.1",
 		"@vitejs/plugin-vue": "^2.3.3",
 		"@vue/compiler-sfc": "^3.2.37",
 		"@vue/eslint-config-typescript": "^10.0.0",
 		"@vue/test-utils": "^2.0.0",
-		"ava": "^3.15.0",
+		"c8": "^7.11.3",
 		"eslint": "^8.17.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-prettier": "^4.0.0",
@@ -74,16 +74,14 @@
 		"eslint-plugin-vue": "^9.1.0",
 		"jsdom": "^19.0.0",
 		"jsdom-global": "^3.0.2",
-		"nyc": "^15.1.0",
 		"prettier": "^2.6.2",
 		"prettier-plugin-jsdoc": "^0.3.38",
-		"sinon": "^14.0.0",
 		"siroc": "^0.16.0",
 		"size-limit": "^7.0.8",
 		"standard-version": "^9.5.0",
-		"ts-eager": "^2.0.2",
 		"typescript": "^4.7.3",
 		"vite": "^2.9.10",
+		"vitest": "^0.14.1",
 		"vue": "^3.2.37"
 	},
 	"peerDependencies": {

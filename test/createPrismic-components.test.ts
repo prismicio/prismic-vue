@@ -1,25 +1,42 @@
-import test from "ava";
+import { it, expect, vi, SpyInstanceFn } from "vitest";
 
-import { createSpiedApp } from "./__testutils__/createSpiedApp";
+import { App } from "vue";
 
 import { createPrismic } from "../src";
 
-test("injects components by default", (t) => {
+interface SpiedApp extends App {
+	provide: SpyInstanceFn;
+	component: SpyInstanceFn;
+}
+
+/**
+ * Creates a simily-Vue.js app instance spied for test purposes.
+ */
+const createSpiedApp = (): SpiedApp =>
+	({
+		provide: vi.fn(() => null),
+		config: {
+			globalProperties: {},
+		},
+		component: vi.fn(() => null),
+	} as SpiedApp);
+
+it("injects components by default", () => {
 	const prismic = createPrismic({ endpoint: "test" });
 
 	const spiedApp = createSpiedApp();
 
 	prismic.install(spiedApp);
 
-	t.true(spiedApp.component.called);
+	expect(spiedApp.component).toHaveBeenCalled();
 });
 
-test("doesn't inject components if explicitely false", (t) => {
+it("doesn't inject components if explicitely false", () => {
 	const prismic = createPrismic({ endpoint: "test", injectComponents: false });
 
 	const spiedApp = createSpiedApp();
 
 	prismic.install(spiedApp);
 
-	t.false(spiedApp.component.called);
+	expect(spiedApp.component).not.toHaveBeenCalled();
 });

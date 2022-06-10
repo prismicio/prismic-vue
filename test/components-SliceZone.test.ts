@@ -1,6 +1,5 @@
-import test from "ava";
-import * as sinon from "sinon";
-import { mount } from "@vue/test-utils";
+import { it, expect, vi } from "vitest";
+import { mount, flushPromises } from "@vue/test-utils";
 
 import { defineAsyncComponent, DefineComponent, markRaw } from "vue";
 
@@ -11,19 +10,16 @@ import {
 
 import {
 	defineSliceZoneComponents,
+	getSliceComponentProps,
 	SliceComponentType,
+	SliceLike,
+	SliceZoneLike,
 	SliceZoneImpl,
 	SliceZoneResolver,
 } from "../src/components";
-import {
-	getSliceComponentProps,
-	SliceLike,
-	SliceZoneLike,
-	createPrismic,
-} from "../src";
-import { sleep } from "./__testutils__/sleep";
+import { createPrismic } from "../src";
 
-test("renders slice zone with correct component mapping from components", async (t) => {
+it("renders slice zone with correct component mapping from components", async () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
 		getSliceComponentProps(),
@@ -59,17 +55,16 @@ test("renders slice zone with correct component mapping from components", async 
 		},
 	});
 
-	await sleep();
+	await flushPromises();
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		`<div class="wrapperComponentFoo"></div>
 <div class="wrapperComponentBar"></div>
 <div class="wrapperComponentBaz"></div>`,
 	);
 });
 
-test("renders slice zone with correct component mapping from resolver", async (t) => {
+it("renders slice zone with correct component mapping from resolver", async () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
 		getSliceComponentProps(),
@@ -109,17 +104,16 @@ test("renders slice zone with correct component mapping from resolver", async (t
 		},
 	});
 
-	await sleep();
+	await flushPromises();
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		`<div class="wrapperComponentFoo"></div>
 <div class="wrapperComponentBar"></div>
 <div class="wrapperComponentBaz"></div>`,
 	);
 });
 
-test("provides context to each slice", (t) => {
+it("provides context to each slice", () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
 		getSliceComponentProps(),
@@ -142,18 +136,16 @@ test("provides context to each slice", (t) => {
 		},
 	});
 
-	t.deepEqual(
+	expect(
 		wrapper.getComponent(Foo as DefineComponent).props().context,
-		context,
-	);
-	t.deepEqual(
+	).toStrictEqual(context);
+	expect(
 		wrapper.getComponent(Bar as DefineComponent).props().context,
-		context,
-	);
+	).toStrictEqual(context);
 });
 
-test("renders TODO component if component mapping is missing", (t) => {
-	const consoleWarnStub = sinon.stub(console, "warn");
+it("renders TODO component if component mapping is missing", () => {
+	vi.stubGlobal("console", { warn: vi.fn() });
 
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
@@ -169,22 +161,20 @@ test("renders TODO component if component mapping is missing", (t) => {
 		},
 	});
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		`<div class="wrapperComponentFoo"></div>
 <section data-slice-zone-todo-component="" data-slice-type="bar">Could not find a component for Slice type "bar"</section>`,
 	);
-	t.is(
-		consoleWarnStub.withArgs(sinon.match(/could not find a component/i))
-			.callCount,
-		1,
+	expect(console.warn).toHaveBeenCalledOnce();
+	// @ts-expect-error - actually, it's there :thinking:
+	expect(vi.mocked(console.warn).calls[0]).toMatch(
+		/could not find a component/i,
 	);
-	t.is(consoleWarnStub.callCount, 1);
 
-	consoleWarnStub.restore();
+	vi.resetAllMocks();
 });
 
-test("renders plugin provided TODO component if component mapping is missing", (t) => {
+it("renders plugin provided TODO component if component mapping is missing", () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
 		getSliceComponentProps(),
@@ -211,14 +201,13 @@ test("renders plugin provided TODO component if component mapping is missing", (
 		},
 	});
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		`<div class="wrapperComponentFoo"></div>
 <div class="wrapperComponentBar"></div>`,
 	);
 });
 
-test("renders provided TODO component over plugin provided if component mapping is missing", (t) => {
+it("renders provided TODO component over plugin provided if component mapping is missing", () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
 		getSliceComponentProps(),
@@ -250,20 +239,19 @@ test("renders provided TODO component over plugin provided if component mapping 
 		},
 	});
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		`<div class="wrapperComponentFoo"></div>
 <div class="wrapperComponentBaz"></div>`,
 	);
 });
 
-test.skip("doesn't render TODO component in production", () => {
+it.skip("doesn't render TODO component in production", () => {
 	// ts-eager does not allow esbuild configuration.
 	// We cannot override the `process.env.NODE_ENV` inline replacement.
 	// As a result, we cannot test for production currently.
 });
 
-test("wraps output with provided wrapper tag", (t) => {
+it("wraps output with provided wrapper tag", () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
 		getSliceComponentProps(),
@@ -284,8 +272,7 @@ test("wraps output with provided wrapper tag", (t) => {
 		},
 	});
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		`<main>
   <div class="wrapperComponentFoo"></div>
   <div class="wrapperComponentBar"></div>
@@ -293,7 +280,7 @@ test("wraps output with provided wrapper tag", (t) => {
 	);
 });
 
-test("wraps output with provided wrapper component", (t) => {
+it("wraps output with provided wrapper component", () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
 		getSliceComponentProps(),
@@ -314,8 +301,7 @@ test("wraps output with provided wrapper component", (t) => {
 		},
 	});
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		`<div class="wrapperComponent">
   <div class="wrapperComponentFoo"></div>
   <div class="wrapperComponentBar"></div>
@@ -323,7 +309,7 @@ test("wraps output with provided wrapper component", (t) => {
 	);
 });
 
-test("supports GraphQL API", async (t) => {
+it("supports GraphQL API", async () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
 		getSliceComponentProps(),
@@ -343,17 +329,16 @@ test("supports GraphQL API", async (t) => {
 		},
 	});
 
-	await sleep();
+	await flushPromises();
 
-	t.is(
-		wrapper.html(),
+	expect(wrapper.html()).toBe(
 		`<div class="wrapperComponentFoo"></div>
 <div class="wrapperComponentBar"></div>`,
 	);
 });
 
-test("renders nothing when invalid", (t) => {
-	const consoleWarnStub = sinon.stub(console, "warn");
+it("renders nothing when invalid", () => {
+	vi.stubGlobal("console", { warn: vi.fn() });
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
@@ -362,19 +347,17 @@ test("renders nothing when invalid", (t) => {
 		},
 	});
 
-	t.is(wrapper.html(), "");
-	t.is(
-		consoleWarnStub.withArgs(
-			sinon.match(/Invalid prop: type check failed for prop/i),
-		).callCount,
-		1,
+	expect(wrapper.html()).toBe("");
+	expect(console.warn).toHaveBeenCalledOnce();
+	// @ts-expect-error - actually, it's there :thinking:
+	expect(vi.mocked(console.warn).calls[0]).toMatch(
+		/Invalid prop: type check failed for prop/i,
 	);
-	t.is(consoleWarnStub.callCount, 1);
 
-	consoleWarnStub.restore();
+	vi.resetAllMocks();
 });
 
-test("reacts to changes properly", async (t) => {
+it("reacts to changes properly", async () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
 		getSliceComponentProps(),
@@ -406,6 +389,6 @@ test("reacts to changes properly", async (t) => {
 
 	const secondRender = wrapper.html();
 
-	t.not(secondRender, firstRender);
-	t.is(secondRender, `<div class="wrapperComponentBar"></div>`);
+	expect(secondRender).not.toBe(firstRender);
+	expect(secondRender).toBe(`<div class="wrapperComponentBar"></div>`);
 });
