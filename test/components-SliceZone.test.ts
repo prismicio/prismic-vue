@@ -113,6 +113,34 @@ it("renders slice zone with correct component mapping from resolver", async () =
 	);
 });
 
+it("supports GraphQL API", async () => {
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+	const Bar = createWrapperComponent<SliceComponentType>(
+		"Bar",
+		getSliceComponentProps(),
+	);
+
+	const wrapper = mount(SliceZoneImpl, {
+		props: {
+			slices: [{ type: "foo" }, { type: "bar" }],
+			components: defineSliceZoneComponents({
+				foo: Foo,
+				bar: Bar,
+			}),
+		},
+	});
+
+	await flushPromises();
+
+	expect(wrapper.html()).toBe(
+		`<div class="wrapperComponentFoo"></div>
+<div class="wrapperComponentBar"></div>`,
+	);
+});
+
 it("provides context to each slice", () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
@@ -155,6 +183,36 @@ it("renders TODO component if component mapping is missing", () => {
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
 			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
+			components: defineSliceZoneComponents({
+				foo: Foo,
+			}),
+		},
+	});
+
+	expect(wrapper.html()).toBe(
+		`<div class="wrapperComponentFoo"></div>
+<section data-slice-zone-todo-component="" data-slice-type="bar">Could not find a component for Slice type "bar"</section>`,
+	);
+	expect(console.warn).toHaveBeenCalledOnce();
+	// @ts-expect-error - actually, it's there :thinking:
+	expect(vi.mocked(console.warn).calls[0]).toMatch(
+		/could not find a component/i,
+	);
+
+	vi.resetAllMocks();
+});
+
+it("renders TODO component if component mapping is missing with GraphQL API", () => {
+	vi.stubGlobal("console", { warn: vi.fn() });
+
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+
+	const wrapper = mount(SliceZoneImpl, {
+		props: {
+			slices: [{ type: "foo" }, { type: "bar" }],
 			components: defineSliceZoneComponents({
 				foo: Foo,
 			}),
@@ -306,34 +364,6 @@ it("wraps output with provided wrapper component", () => {
   <div class="wrapperComponentFoo"></div>
   <div class="wrapperComponentBar"></div>
 </div>`,
-	);
-});
-
-it("supports GraphQL API", async () => {
-	const Foo = createWrapperComponent<SliceComponentType>(
-		"Foo",
-		getSliceComponentProps(),
-	);
-	const Bar = createWrapperComponent<SliceComponentType>(
-		"Bar",
-		getSliceComponentProps(),
-	);
-
-	const wrapper = mount(SliceZoneImpl, {
-		props: {
-			slices: [{ type: "foo" }, { type: "bar" }],
-			components: defineSliceZoneComponents({
-				foo: Foo,
-				bar: Bar,
-			}),
-		},
-	});
-
-	await flushPromises();
-
-	expect(wrapper.html()).toBe(
-		`<div class="wrapperComponentFoo"></div>
-<div class="wrapperComponentBar"></div>`,
 	);
 });
 
