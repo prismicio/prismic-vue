@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.8](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.7...v3.0.0-beta.8) (2022-06-10)
+
+
+### Bug Fixes
+
+* loosen type on `<SliceZone />` ([5a78c15](https://github.com/prismicio/prismic-vue/commit/5a78c15d55060633c44ba1f3bf021711b6ab1b96))
+* prop types on `<PrismicRichText />` and `<PrismicText />` ([2709c32](https://github.com/prismicio/prismic-vue/commit/2709c32fc3c5ffca3b32ced0fa11ec382b3e15d3))
+
 ## [3.0.0-beta.7](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.6...v3.0.0-beta.7) (2022-06-09)
 
 
