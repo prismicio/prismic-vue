@@ -124,7 +124,8 @@ export type SliceComponentProps<
  *   available to all Slice components
  */
 export type DefineComponentSliceComponentProps<
-	TSlice extends SliceLike = SliceLike,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	TSlice extends SliceLike = any,
 	TContext = unknown,
 > = {
 	slice: {
@@ -317,7 +318,8 @@ export type SliceZoneComponents<
  * @returns A new optimized record of {@link SliceZoneComponents}
  */
 export const defineSliceZoneComponents = <
-	TSlice extends SliceLike = SliceLike,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	TSlice extends SliceLike = any,
 	TContext = unknown,
 >(
 	components: SliceZoneComponents<TSlice, TContext>,
