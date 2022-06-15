@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.9](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.8...v3.0.0-beta.9) (2022-06-15)
+
+
+### Bug Fixes
+
+* reactivity issue on `<PrismicRichText />` ([5c824e8](https://github.com/prismicio/prismic-vue/commit/5c824e88b51681088a4f202fa7fe7109c490fc7b))
+
 ## [3.0.0-beta.8](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.7...v3.0.0-beta.8) (2022-06-10)
 
 
