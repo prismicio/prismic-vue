@@ -169,7 +169,7 @@ export const PrismicRichTextImpl = /*#__PURE__*/ defineComponent({
 		const root = ref<HTMLElement | Comment | Component | null>(null);
 
 		const maybeRouter = inject(routerKey, null);
-		if (maybeRouter && html.value) {
+		if (maybeRouter) {
 			type InternalLink = {
 				element: HTMLAnchorElement;
 				listener: EventListener;
