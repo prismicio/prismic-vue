@@ -3,7 +3,7 @@ import Image from "./Image";
 import Link from "./Link";
 import RichText from "./RichText";
 import Text from "./Text";
-import { SliceZone } from "./SliceZone";
+import { SliceZone, getSliceComponentProps } from "./SliceZone";
 
 const NuxtLink = Link({ component: "nuxt-link" });
 const VueRouterLink = Link({ component: "router-link" });
@@ -15,6 +15,7 @@ const exp = {
 		RichText,
 		Text,
 		SliceZone,
+		getSliceComponentProps
 	},
 	nuxt: {
 		Link: NuxtLink,
