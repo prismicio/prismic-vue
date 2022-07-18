@@ -16,83 +16,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 * fix links ([767c145](https://github.com/prismicio/prismic-vue/commit/767c1457713d2301be7bddbf53467653838b83db))
 
-### [2.1.2](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.3...v2.1.2) (2022-02-24)
-
-
-### Bug Fixes
-
-* render alt attribute properly for a11y, fixes [#55](https://github.com/prismicio/prismic-vue/issues/55) ([58aa764](https://github.com/prismicio/prismic-vue/commit/58aa7646e97ef4afc11986b048d96ee66389bc06))
-
-
-### Chore
-
-* **release:** 2.1.2 ([31626f3](https://github.com/prismicio/prismic-vue/commit/31626f32b14dc657e903e51668e4123a0219a15e))
-
-### [2.1.1](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.2...v2.1.1) (2022-02-16)
-
-
-### Bug Fixes
-
-* prop type for wrapper component ([1f0c800](https://github.com/prismicio/prismic-vue/commit/1f0c80024c50681a66f3e67fe6eba9245cc6f750))
-
-
-### Chore
-
-* **release:** 2.1.1 ([2bb7594](https://github.com/prismicio/prismic-vue/commit/2bb759466fe43799bc62c5e97faedd210e728013))
-* typo in component name ([62c0568](https://github.com/prismicio/prismic-vue/commit/62c0568fa2c119165720103f65e41568515d0c93))
-* update license ([228cfaa](https://github.com/prismicio/prismic-vue/commit/228cfaa5ca9a7202112a514bdfaee9da4902ea06))
-
-## [2.1.0](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.0...v2.1.0) (2021-12-02)
-
-
-### Features
-
-* provide `predicate` and `cookie` like v3 ([1ac9ad9](https://github.com/prismicio/prismic-vue/commit/1ac9ad9b986291ef12f93ee920bdd5ffea5cf64c))
-
-
-### Refactor
-
-* link target attribute definition ([1e049ca](https://github.com/prismicio/prismic-vue/commit/1e049ca5e789ae5c193db2af13d4e8f86a6bc3e5))
-* use `PrismicVue` ([b4be607](https://github.com/prismicio/prismic-vue/commit/b4be6076b6cc7b8dd72c84e5067acafb6a5df973))
-
-
-### Chore
-
-* **release:** 2.1.0 ([fe98386](https://github.com/prismicio/prismic-vue/commit/fe98386deb77f3af5a8c6705a0700c7a6cc018e9))
-
-## [2.1.0-alpha.1](https://github.com/prismicio/prismic-vue/compare/v2.1.0-alpha.0...v2.1.0-alpha.1) (2021-11-30)
-
-
-### Chore
-
-* add lint and unit test setup ([d555d0a](https://github.com/prismicio/prismic-vue/commit/d555d0a43d5185547e0f859dc63d7ad2f661750d))
-* **deps:** maintain dependencies ([0edd8aa](https://github.com/prismicio/prismic-vue/commit/0edd8aa1a956b84fa5ac3f5f07b6337c18dd35d3))
-* **deps:** maintain dependencies ([cdf6d2a](https://github.com/prismicio/prismic-vue/commit/cdf6d2a663e809c13719ca8bf8529f784cef926e))
-* **deps:** maintain dependencies ([c67db0a](https://github.com/prismicio/prismic-vue/commit/c67db0a5c7a8f8f667e1076743c3551bbe1110f0))
-* **deps:** update dependencies ([ba52780](https://github.com/prismicio/prismic-vue/commit/ba52780a92b1303666fe2dfc02a9105f84fd2cd0))
-* **release:** 2.1.0-alpha.1 ([06bc936](https://github.com/prismicio/prismic-vue/commit/06bc9369c1090ca0fc732af36f1b31c32d0881a6))
-* update release script ([235d9b1](https://github.com/prismicio/prismic-vue/commit/235d9b182bf502b6271f5c66a22ecaec187083d4))
-
-## [2.1.0-alpha.0](https://github.com/prismicio/prismic-vue/compare/v3.0.0-alpha.6...v2.1.0-alpha.0) (2021-11-23)
-
-
-### Features
-
-* add `<PrismicText>` component ([4c0ef01](https://github.com/prismicio/prismic-vue/commit/4c0ef01d5a61ceace8567021658b7f6cdc438b18))
-* add `asHTML` alias for `asHtml` ([0d6f17b](https://github.com/prismicio/prismic-vue/commit/0d6f17b2c8881b80c3f06ffa03240d7a946cbd1c))
-* add slicezone component ([8d042ef](https://github.com/prismicio/prismic-vue/commit/8d042efe9231a4892afe2fe335a4d9cfee925d06))
-* add vetur support ([a58aae8](https://github.com/prismicio/prismic-vue/commit/a58aae8f2e967c27a906ca06c3f4e0ae2e571da4))
-* allow `<PrismicLink>` finer control over `target`, `rel` attributes ([437359d](https://github.com/prismicio/prismic-vue/commit/437359d4bbdf0197d37b538cd957ddbc554560f9))
-* allow passing a link resolver to `<PrismicRichText>` ([88f7f11](https://github.com/prismicio/prismic-vue/commit/88f7f1169a96110779e41ef5a865ad9caf1c8c24))
-
-
-### Chore
-
-* cleanup unused properties ([5b89495](https://github.com/prismicio/prismic-vue/commit/5b894953204a0e654de379dc10fe2b5e141aefa3))
-* **deps:** maintain dependencies ([4e0af6d](https://github.com/prismicio/prismic-vue/commit/4e0af6def82382c722bf709b188acc99617a0846))
-* normalize repository index ([2e0d618](https://github.com/prismicio/prismic-vue/commit/2e0d618a996171fab04c363288a60141d360dee7))
-* **release:** 2.1.0-alpha.0 ([6f05a23](https://github.com/prismicio/prismic-vue/commit/6f05a23adbc6ac8f02adf2ac6fb334b2e39a1c82))
-
 ## [3.0.0-beta.9](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.8...v3.0.0-beta.9) (2022-06-15)
 
 
@@ -364,3 +287,48 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 * migrate client and dom sdk ([cd46806](https://github.com/prismicio/prismic-vue/commit/cd468068c70ce37b86bdbd17fc4dfdf6e08e2a44))
+
+### [2.1.2](https://github.com/prismicio/prismic-vue/compare/v2.1.1...v2.1.2) (2022-02-24)
+
+
+### Bug Fixes
+
+* render alt attribute properly for a11y, fixes [#55](https://github.com/prismicio/prismic-vue/issues/55) ([58aa764](https://github.com/prismicio/prismic-vue/commit/58aa7646e97ef4afc11986b048d96ee66389bc06))
+
+### [2.1.1](https://github.com/prismicio/prismic-vue/compare/v2.1.0...v2.1.1) (2022-02-16)
+
+
+### Bug Fixes
+
+* prop type for wrapper component ([1f0c800](https://github.com/prismicio/prismic-vue/commit/1f0c80024c50681a66f3e67fe6eba9245cc6f750))
+
+
+### Chore
+
+* typo in component name ([62c0568](https://github.com/prismicio/prismic-vue/commit/62c0568fa2c119165720103f65e41568515d0c93))
+* update license ([228cfaa](https://github.com/prismicio/prismic-vue/commit/228cfaa5ca9a7202112a514bdfaee9da4902ea06))
+
+## [2.1.0](https://github.com/prismicio/prismic-vue/compare/v2.1.0-alpha.1...v2.1.0) (2021-12-02)
+
+
+### Features
+
+* provide `predicate` and `cookie` like v3 ([1ac9ad9](https://github.com/prismicio/prismic-vue/commit/1ac9ad9b986291ef12f93ee920bdd5ffea5cf64c))
+
+
+### Refactor
+
+* link target attribute definition ([1e049ca](https://github.com/prismicio/prismic-vue/commit/1e049ca5e789ae5c193db2af13d4e8f86a6bc3e5))
+* use `PrismicVue` ([b4be607](https://github.com/prismicio/prismic-vue/commit/b4be6076b6cc7b8dd72c84e5067acafb6a5df973))
+
+## [2.1.0-alpha.1](https://github.com/prismicio/prismic-vue/compare/v2.1.0-alpha.0...v2.1.0-alpha.1) (2021-11-30)
+
+
+### Chore
+
+* add lint and unit test setup ([d555d0a](https://github.com/prismicio/prismic-vue/commit/d555d0a43d5185547e0f859dc63d7ad2f661750d))
+* **deps:** maintain dependencies ([0edd8aa](https://github.com/prismicio/prismic-vue/commit/0edd8aa1a956b84fa5ac3f5f07b6337c18dd35d3))
+* **deps:** maintain dependencies ([cdf6d2a](https://github.com/prismicio/prismic-vue/commit/cdf6d2a663e809c13719ca8bf8529f784cef926e))
+* **deps:** maintain dependencies ([c67db0a](https://github.com/prismicio/prismic-vue/commit/c67db0a5c7a8f8f667e1076743c3551bbe1110f0))
+* **deps:** update dependencies ([ba52780](https://github.com/prismicio/prismic-vue/commit/ba52780a92b1303666fe2dfc02a9105f84fd2cd0))
+* update release script ([235d9b1](https://github.com/prismicio/prismic-vue/commit/235d9b182bf502b6271f5c66a22ecaec187083d4))
