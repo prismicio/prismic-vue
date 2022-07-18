@@ -12,6 +12,22 @@
 		"type": "object",
 		"description": "The Prismic image field to render."
 	},
+	"prismic-image/image-component": {
+		"type": "string | object | function",
+		"description": "An HTML tag name, a component, or a functional component used to render images. Defaults to the one provided to `@prismicio/vue` plugin if configured, `\"img\"` otherwise."
+	},
+	"prismic-image/imgix-params": {
+		"type": "object",
+		"description": "An object of Imgix URL API parameters."
+	},
+	"prismic-image/widths": {
+		"type": "array | string",
+		"description": "Adds an additional `srcset` attribute to the image following given widths."
+	},
+	"prismic-image/pixel-densities": {
+		"type": "array | string",
+		"description": "Adds an additional `srcset` attribute to the image following giving pixel densities."
+	},
 
 	"prismic-link/field": {
 		"type": "object",
@@ -33,6 +49,14 @@
 		"type": "string",
 		"description": "Value of the `rel` attribute to use on links rendered with `target=\"_blank\"`. Defaults to the one provided to `@prismicio/vue` plugin if configured, `\"noopener noreferrer\"` otherwise."
 	},
+	"prismic-link/internal-component": {
+		"type": "string | object | function",
+		"description": "An HTML tag name, a component, or a functional component used to render internal links. Defaults to the one provided to `@prismicio/vue` plugin if configured, `\"router-link\"` otherwise."
+	},
+	"prismic-link/external-component": {
+		"type": "string | object | function",
+		"description": "An HTML tag name, a component, or a functional component used to render external links. Defaults to the one provided to `@prismicio/vue` plugin if configured, `\"a\"` otherwise."
+	},
 
 	"prismic-rich-text/field": {
 		"type": "array",
@@ -50,6 +74,10 @@
 		"type": "string | object | function",
 		"description": "An HTML tag name, a component, or a functional component used to wrap the output. Defaults to `\"div\"`."
 	},
+	"prismic-rich-text/fallback": {
+		"type": "string",
+		"description": "The HTML value to be rendered when the field is empty. If a fallback is not given, `\"\"` (nothing) will be rendered."
+	},
 
 	"prismic-text/field": {
 		"type": "array",
@@ -62,6 +90,10 @@
 	"prismic-text/wrapper": {
 		"type": "string | object | function",
 		"description": "An HTML tag name, a component, or a functional component used to wrap the output. Defaults to `\"div\"`."
+	},
+	"prismic-text/fallback": {
+		"type": "string",
+		"description": "The string value to be rendered when the field is empty. If a fallback is not given, `\"\"` (nothing) will be rendered."
 	},
 
 	"slice-zone/slices": {
@@ -81,6 +113,6 @@
 	},
 	"slice-zone/wrapper": {
 		"type": "string | object | function",
-		"description": "An HTML tag name, a component, or a functional component used to wrap the output. Defaults to `\"div\"`."
+		"description": "An HTML tag name, a component, or a functional component used to wrap the output. The Slice Zone is not wrapped by default."
 	}
 }

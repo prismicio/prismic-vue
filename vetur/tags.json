@@ -4,7 +4,13 @@
 		"description": "Component to render a Prismic embed field."
 	},
 	"prismic-image": {
-		"attributes": ["field"],
+		"attributes": [
+			"field",
+			"image-component",
+			"imgix-params",
+			"widths",
+			"pixel-densities"
+		],
 		"description": "Component to render a Prismic image field."
 	},
 	"prismic-link": {
@@ -13,16 +19,18 @@
 			"link-resolver",
 			"target",
 			"rel",
-			"blank-target-rel-attribute"
+			"blank-target-rel-attribute",
+			"internal-component",
+			"external-component"
 		],
 		"description": "Component to render a Prismic link field."
 	},
 	"prismic-rich-text": {
-		"attributes": ["field", "link-resolver", "html-serializer", "wrapper"],
+		"attributes": ["field", "link-resolver", "html-serializer", "wrapper", "fallback"],
 		"description": "Component to render a Prismic rich text field as HTML."
 	},
 	"prismic-text": {
-		"attributes": ["field", "separator", "wrapper"],
+		"attributes": ["field", "separator", "wrapper", "fallback"],
 		"description": "Component to render a Prismic rich text field as plain text."
 	},
 	"slice-zone": {

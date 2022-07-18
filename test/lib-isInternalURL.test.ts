@@ -1,0 +1,18 @@
+import { it, expect } from "vitest";
+
+import { isInternalURL } from "../src/lib/isInternalURL";
+
+it("returns true for internal URLs", () => {
+	expect(isInternalURL("/")).toBe(true);
+	expect(isInternalURL("/internal")).toBe(true);
+});
+
+it("returns false for external URLs", () => {
+	expect(isInternalURL("//example.com")).toBe(false);
+	expect(isInternalURL("//example.com/image.png")).toBe(false);
+	expect(isInternalURL("//example.com#anchor")).toBe(false);
+	expect(isInternalURL("https://example.com")).toBe(false);
+	expect(isInternalURL("mailto:example.com")).toBe(false);
+	expect(isInternalURL("tel:example.com")).toBe(false);
+	expect(isInternalURL("ftp:example.com")).toBe(false);
+});

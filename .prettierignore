@@ -2,10 +2,7 @@
 
 # custom
 dist
-components
-!src/components
 examples/**/package-lock.json
-stats.html
 
 # os
 .DS_Store
