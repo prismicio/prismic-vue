@@ -1,9 +1,7 @@
-import { createClient } from "@prismicio/client";
 import { createPrismic } from "../../../src";
 
 const prismic = createPrismic({
-	client: createClient(""),
-	// endpoint: "https://200629-sms-hoy.cdn.prismic.io/api/v2",
+	endpoint: "200629-sms-hoy",
 	linkResolver: (doc) => `/${doc.uid}`,
 });
 

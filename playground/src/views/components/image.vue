@@ -11,7 +11,7 @@
 			:imgix-params="{ sat: 100 }"
 			widths="defaults"
 		/>
-		<prismic-image :field="simple" widths="auto" />
+		<prismic-image :field="simple" widths="thumbnails" />
 		<prismic-image
 			:field="simple"
 			:imgix-params="{ sat: 100 }"
