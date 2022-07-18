@@ -23,7 +23,7 @@ Replace all on all files (README.md, CONTRIBUTING.md, bug_report.md, package.jso
 
 - 📝 &nbsp;Display content from Prismic like [Rich Text][prismic-rich-text] and [Link][prismic-link] fields;
 - 🍡 &nbsp;Render Prismic [Slice Zones][prismic-slices] declaratively with Vue components;
-- 🎣 &nbsp;Fetch Prismic content using Vue [composition API][composition-api] or [options-api].
+- 🎣 &nbsp;Fetch Prismic content using Vue [composition API][vue-composition] or [vue-options].
 
 ## Install
 
