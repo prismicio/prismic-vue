@@ -1,12 +1,12 @@
-import { it, expect, vi, SpyInstanceFn } from "vitest";
+import { it, expect, vi, Mock } from "vitest";
 
 import { App } from "vue";
 
 import { createPrismic } from "../src";
 
 interface SpiedApp extends App {
-	provide: SpyInstanceFn;
-	component: SpyInstanceFn;
+	provide: Mock;
+	component: Mock;
 }
 
 /**

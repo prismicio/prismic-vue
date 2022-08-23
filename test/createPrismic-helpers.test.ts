@@ -88,7 +88,7 @@ it("`asHTML` uses provided HTML serializer over default provided", () => {
 	expect(spiedHTMLSerializer2).toHaveBeenCalled();
 });
 
-it("`asLink` uses provided default link resolver", () => {
+it("`asLink` uses provided default link resolver", (ctx) => {
 	const spiedLinkResolver = vi.fn();
 
 	const prismic = createPrismic({
@@ -103,14 +103,14 @@ it("`asLink` uses provided default link resolver", () => {
 	});
 
 	wrapper.vm.$prismic.asLink({
-		...mock.value.link({ type: LinkType.Document }),
+		...mock.value.link({ type: LinkType.Document, seed: ctx.meta.name }),
 		url: undefined,
 	});
 
 	expect(spiedLinkResolver).toHaveBeenCalledOnce();
 });
 
-it("`asLink` uses provided link resolver over default provided", () => {
+it("`asLink` uses provided link resolver over default provided", (ctx) => {
 	const spiedLinkResolver1 = vi.fn();
 	const spiedLinkResolver2 = vi.fn();
 
@@ -126,7 +126,10 @@ it("`asLink` uses provided link resolver over default provided", () => {
 	});
 
 	wrapper.vm.$prismic.asLink(
-		{ ...mock.value.link({ type: LinkType.Document }), url: undefined },
+		{
+			...mock.value.link({ type: LinkType.Document, seed: ctx.meta.name }),
+			url: undefined,
+		},
 		spiedLinkResolver2,
 	);
 

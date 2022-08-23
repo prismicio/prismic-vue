@@ -76,11 +76,11 @@ it("renders link to document field", () => {
 	expect(wrapper.html()).toBe('<a href="/bar" class="">foo</a>');
 });
 
-it("renders document as link", () => {
+it("renders document as link", (ctx) => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.document(),
+				...mock.value.document({ seed: ctx.meta.name }),
 				url: "/bar",
 			},
 		},
@@ -93,11 +93,11 @@ it("renders document as link", () => {
 	expect(wrapper.html()).toBe('<a href="/bar" class="">foo</a>');
 });
 
-it("renders non-resolvable document as link", () => {
+it("renders non-resolvable document as link", (ctx) => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.document(),
+				...mock.value.document({ seed: ctx.meta.name }),
 				url: null,
 			},
 		},

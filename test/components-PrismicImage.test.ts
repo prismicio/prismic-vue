@@ -42,7 +42,7 @@ it("renders image field with provided alt value", () => {
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<img src=\\"https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?w=6373&amp;h=4253&amp;fit=crop\\" alt=\\"bar\\">"',
+		'"<img src=\\"https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=4554&amp;h=3036&amp;fit=crop\\" alt=\\"bar\\">"',
 	);
 });
 
