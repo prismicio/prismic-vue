@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/prismicio/prismic-vue/compare/v2.1.2...v2.2.0) (2022-08-23)
+
+
+### Features
+
+* use Slice `id` property to key Slices in `<SliceZone>` when available ([e9694e3](https://github.com/prismicio/prismic-vue/commit/e9694e338d3b197458a700fcd49da5552588d88d))
+
 ### [2.1.2](https://github.com/prismicio/prismic-vue/compare/v2.1.1...v2.1.2) (2022-02-24)
 
 
