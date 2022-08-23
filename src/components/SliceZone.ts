@@ -41,6 +41,7 @@ type ExtractSliceType<TSlice extends SliceLike> = TSlice extends SliceLikeRestV2
  */
 export type SliceLikeRestV2<TSliceType extends string = string> = {
 	slice_type: Slice<TSliceType>["slice_type"];
+	id?: string;
 };
 
 /**
@@ -506,8 +507,13 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 					}
 				}
 
+				const key =
+					"id" in slice && slice.id
+						? slice.id
+						: `${index}-${JSON.stringify(slice)}`;
+
 				const p = {
-					key: `${index}-${JSON.stringify(slice)}`,
+					key,
 					slice,
 					index,
 					context: props.context,

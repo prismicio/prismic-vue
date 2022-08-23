@@ -64,6 +64,51 @@ it("renders slice zone with correct component mapping from components", async ()
 	);
 });
 
+it("renders slice zone with correct component mapping from components with slice IDs", async () => {
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+	const Bar = createWrapperComponent<SliceComponentType>(
+		"Bar",
+		getSliceComponentProps(),
+	);
+	const Baz = createWrapperComponent<SliceComponentType>(
+		"Baz",
+		getSliceComponentProps(),
+	);
+
+	const wrapper = mount(SliceZoneImpl, {
+		props: {
+			slices: [
+				{ slice_type: "foo", id: "foo" },
+				{ slice_type: "bar", id: "bar" },
+				{ slice_type: "baz", id: "baz" },
+			],
+			components: defineSliceZoneComponents({
+				foo: Foo,
+				bar: defineAsyncComponent(
+					() => new Promise<SliceComponentType>((res) => res(Bar)),
+				),
+				baz: "Baz",
+			}),
+		},
+		global: {
+			components: {
+				Baz,
+			},
+		},
+	});
+
+	await flushPromises();
+
+	expect(wrapper.html()).toBe(
+		`<div class="wrapperComponentFoo"></div>
+<div class="wrapperComponentBar"></div>
+<div class="wrapperComponentBaz"></div>`,
+	);
+});
+
 it("renders slice zone with correct component mapping from resolver", async () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
