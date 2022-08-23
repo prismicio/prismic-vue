@@ -120,8 +120,12 @@ export const SliceZone = {
 					}
 				}
 
+				const key = "id" in slice && slice.id
+					? slice.id
+					: `${index}-${JSON.stringify(slice)}`;
+
 				const p = {
-					key: `${slice.slice_type}-${index}`,
+					key,
 					props: {
 						slice,
 						index,
