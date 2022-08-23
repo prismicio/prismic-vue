@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/prismicio/prismic-vue/compare/v3.0.0...v3.1.0) (2022-08-23)
+
+
+### Features
+
+* use Slice `id` property to key Slices in `<SliceZone>` when available ([c74f188](https://github.com/prismicio/prismic-vue/commit/c74f18866ff12097b6718e3a120d16ec8ba72a12))
+
+
+### Documentation
+
+* fix changelog following merge ([93c9048](https://github.com/prismicio/prismic-vue/commit/93c9048ee6cd7858ce34a0accd6c6977536aeac9))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([7976de4](https://github.com/prismicio/prismic-vue/commit/7976de4c46f00b6bc3b42fdd7391b8da39ad7684))
+
 ## [3.0.0](https://github.com/prismicio/prismic-vue/compare/v3.0.0-beta.9...v3.0.0) (2022-07-18)
 
 
