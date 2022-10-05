@@ -66,7 +66,8 @@ export type PrismicLinkProps = {
 	rel?: string | null;
 
 	/**
-	 * Value of the `rel` attribute to use on links rendered with `target="_blank"`.
+	 * Value of the `rel` attribute to use on links rendered with
+	 * `target="_blank"`.
 	 *
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"noopener noreferrer"` otherwise.
 	 */
@@ -132,7 +133,8 @@ export type UsePrismicLinkReturnType = {
 };
 
 /**
- * A low level composable that returns resolved information about a Prismic link field.
+ * A low level composable that returns resolved information about a Prismic link
+ * field.
  *
  * @param props - {@link UsePrismicLinkOptions}
  *

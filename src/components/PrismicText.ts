@@ -39,7 +39,8 @@ export type PrismicTextProps = {
 	separator?: string;
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to wrap the output.
+	 * An HTML tag name, a component, or a functional component used to wrap the
+	 * output.
 	 *
 	 * @defaultValue `"div"`
 	 */
@@ -70,11 +71,13 @@ export type UsePrismicTextReturnType = {
 };
 
 /**
- * A low level composable that returns a serialized rich text field as plain text.
+ * A low level composable that returns a serialized rich text field as plain
+ * text.
  *
  * @param props - {@link UsePrismicTextOptions}
  *
- * @returns - Serialized rich text field as plain text {@link UsePrismicTextReturnType}
+ * @returns - Serialized rich text field as plain text
+ *   {@link UsePrismicTextReturnType}
  */
 export const usePrismicText = (
 	props: UsePrismicTextOptions,

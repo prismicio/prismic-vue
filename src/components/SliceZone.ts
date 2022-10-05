@@ -68,7 +68,8 @@ export type SliceLike<TSliceType extends string = string> =
 	| SliceLikeGraphQL<TSliceType>;
 
 /**
- * A looser version of the `SliceZone` type from `@prismicio/types` using `SliceLike`.
+ * A looser version of the `SliceZone` type from `@prismicio/types` using
+ * `SliceLike`.
  *
  * If using Prismic's REST API, use the `SliceZone` export from
  * `@prismicio/types` for the full type.
@@ -111,7 +112,8 @@ export type SliceComponentProps<
 	slices: SliceZoneLike<SliceLike>;
 
 	/**
-	 * Arbitrary data passed to `<SliceZone />` and made available to all Slice components.
+	 * Arbitrary data passed to `<SliceZone />` and made available to all Slice
+	 * components.
 	 */
 	context: TContext;
 };
@@ -223,7 +225,8 @@ export type SliceComponentType<
 	| FunctionalComponent<SliceComponentProps<TSlice, TContext>>;
 
 /**
- * This Slice component can be used as a reminder to provide a proper implementation.
+ * This Slice component can be used as a reminder to provide a proper
+ * implementation.
  *
  * This is also the default Vue component rendered when a component mapping
  * cannot be found in `<SliceZone />`.
@@ -367,7 +370,8 @@ export type SliceZoneResolverArgs<TSlice extends SliceLike = SliceLike> = {
 /**
  * A function that determines the rendered Vue component for each Slice in the
  * Slice Zone. If a nullish value is returned, the component will fallback to
- * the `components` or `defaultComponent` props to determine the rendered component.
+ * the `components` or `defaultComponent` props to determine the rendered
+ * component.
  *
  * @deprecated Use the `components` prop instead.
  *

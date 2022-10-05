@@ -41,7 +41,8 @@ import type { usePrismicDocuments } from "./composables";
  */
 type PrismicPluginComponentsOptions = {
 	/**
-	 * Value of the `rel` attribute to use on links rendered with `target="_blank"`
+	 * Value of the `rel` attribute to use on links rendered with
+	 * `target="_blank"`
 	 *
 	 * @defaultValue `"noopener noreferrer"`
 	 */
@@ -76,7 +77,8 @@ type PrismicPluginComponentsOptions = {
 	linkExternalComponent?: string | ConcreteComponent;
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to render images.
+	 * An HTML tag name, a component, or a functional component used to render
+	 * images.
 	 *
 	 * @remarks
 	 * HTML tag names and components will be rendered using the `img` tag
@@ -123,14 +125,16 @@ type PrismicPluginComponentsOptions = {
 type PrismicPluginOptionsBase = {
 	/**
 	 * An optional link resolver function used to resolve links to Prismic
-	 * documents when not using the route resolver parameter with `@prismicio/client`.
+	 * documents when not using the route resolver parameter with
+	 * `@prismicio/client`.
 	 *
 	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
 	 */
 	linkResolver?: LinkResolverFunction;
 
 	/**
-	 * An optional HTML serializer to customize the way rich text fields are rendered.
+	 * An optional HTML serializer to customize the way rich text fields are
+	 * rendered.
 	 *
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */
@@ -265,7 +269,8 @@ export type PrismicPluginOptions =
 
 /**
  * `@prismicio/client` related methods and properties exposed by
- * `@prismicio/vue` plugin and accessible through `this.$prismic` and `usePrismic()`.
+ * `@prismicio/vue` plugin and accessible through `this.$prismic` and
+ * `usePrismic()`.
  */
 export type PrismicPluginClient = {
 	/**
@@ -333,7 +338,8 @@ export type PrismicPluginHelpers = {
 
 	/**
 	 * Returns the URL of an Image field with optional image transformations (via
-	 * Imgix URL parameters). This is `@prismicio/helpers` {@link asImageSrc} function.
+	 * Imgix URL parameters). This is `@prismicio/helpers` {@link asImageSrc}
+	 * function.
 	 */
 	asImageSrc: typeof asImageSrc;
 
@@ -409,7 +415,8 @@ export const enum PrismicClientComposableState {
 // Helpers
 
 /**
- * Type to transform a static object into one that allows passing Refs as values.
+ * Type to transform a static object into one that allows passing Refs as
+ * values.
  *
  * @internal
  */

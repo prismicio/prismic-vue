@@ -66,7 +66,8 @@ export type PrismicRichTextProps = {
 	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer;
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to wrap the output.
+	 * An HTML tag name, a component, or a functional component used to wrap the
+	 * output.
 	 *
 	 * @defaultValue `"div"`
 	 */
@@ -101,7 +102,8 @@ export type UsePrismicRichTextReturnType = {
  *
  * @param props - {@link UsePrismicRichTextOptions}
  *
- * @returns - Serialized rich text field as HTML {@link UsePrismicRichTextReturnType}
+ * @returns - Serialized rich text field as HTML
+ *   {@link UsePrismicRichTextReturnType}
  */
 export const usePrismicRichText = (
 	props: UsePrismicRichTextOptions,

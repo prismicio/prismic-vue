@@ -11,7 +11,8 @@ import type { usePrismic } from "./usePrismic";
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
 /**
- * `@prismicio/vue` plugin interface interface location used for {@link usePrismic}.
+ * `@prismicio/vue` plugin interface interface location used for
+ * {@link usePrismic}.
  *
  * @internal
  */

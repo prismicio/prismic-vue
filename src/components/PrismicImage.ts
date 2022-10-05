@@ -39,7 +39,8 @@ export type PrismicImageProps = {
 	field: ImageField;
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to render images.
+	 * An HTML tag name, a component, or a functional component used to render
+	 * images.
 	 *
 	 * @remarks
 	 * HTML tag names and components will be rendered using the `img` tag
@@ -75,7 +76,8 @@ export type PrismicImageProps = {
 		| "defaults";
 
 	/**
-	 * Adds an additional `srcset` attribute to the image following giving pixel densities.
+	 * Adds an additional `srcset` attribute to the image following giving pixel
+	 * densities.
 	 *
 	 * @remarks
 	 * A special value of `"defaults"` is accepted to automatically use image
@@ -124,7 +126,8 @@ export type UsePrismicImageReturnType = {
 };
 
 /**
- * A low level composable that returns a resolved information about a Prismic image field.
+ * A low level composable that returns a resolved information about a Prismic
+ * image field.
  *
  * @param props - {@link UsePrismicImageOptions}
  *

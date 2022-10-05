@@ -45,7 +45,8 @@ export type ComposableOnlyParameters = {
 /**
  * The return type of a `@prismicio/client` Vue composable.
  *
- * @typeParam TData - The expected format of the `data` property of the returned object
+ * @typeParam TData - The expected format of the `data` property of the returned
+ *   object
  */
 export type ClientComposableReturnType<TData = unknown> = {
 	/**
@@ -59,7 +60,8 @@ export type ClientComposableReturnType<TData = unknown> = {
 	data: Ref<TData | null>;
 
 	/**
-	 * Error returned by the composable's client method call if in an errror state.
+	 * Error returned by the composable's client method call if in an errror
+	 * state.
 	 */
 	error: Ref<ClientError | Error | null>;
 
@@ -74,7 +76,8 @@ export type ClientComposableReturnType<TData = unknown> = {
  *
  * @param value - The value to check
  *
- * @returns `true` if `value` is a `@prismicio/client` params object, `false` otherwise
+ * @returns `true` if `value` is a `@prismicio/client` params object, `false`
+ *   otherwise
  */
 const isParams = (
 	value: unknown,
