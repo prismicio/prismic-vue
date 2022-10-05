@@ -122,7 +122,7 @@ export type SliceComponentProps<
  * Native Vue props for a component rendering content from a Prismic Slice using
  * the `<SliceZone />` component.
  *
- * @typeParam TSlice - The type(s) of slices in the Slice Zone
+ * @typeParam TSlice - The Slice type
  * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made
  *   available to all Slice components
  */
@@ -174,7 +174,7 @@ export type DefineComponentSliceComponentProps<
  * };
  * ```
  *
- * @typeParam TSlice - The type(s) of slices in the Slice Zone
+ * @typeParam TSlice - The Slice type
  * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made
  *   available to all Slice components
  * @param propsHint - An optional array of prop names used for the sole purpose
@@ -184,7 +184,8 @@ export type DefineComponentSliceComponentProps<
  * @returns Props object to use with {@link defineComponent}
  */
 export const getSliceComponentProps = <
-	TSlice extends SliceLike = SliceLike,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	TSlice extends SliceLike = any,
 	TContext = unknown,
 >(
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
