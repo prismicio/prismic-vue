@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.1](https://github.com/prismicio/prismic-vue/compare/v3.1.0...v3.1.1) (2022-10-05)
+
+
+### Bug Fixes
+
+* `getSliceComponentProps` default generic value ([28c328f](https://github.com/prismicio/prismic-vue/commit/28c328fc9a610ed7990938f4dcaeff762b81d3f6))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([ba28d73](https://github.com/prismicio/prismic-vue/commit/ba28d73ed9a380708bad725d5e8d972fc1cb8cc8))
+* **deps:** use caret version ([5e253e4](https://github.com/prismicio/prismic-vue/commit/5e253e43ea3f3fc12535765dcdfc1a73911aaaaf))
+
 ## [3.1.0](https://github.com/prismicio/prismic-vue/compare/v3.0.0...v3.1.0) (2022-08-23)
 
 
