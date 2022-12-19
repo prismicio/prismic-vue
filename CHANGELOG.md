@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.2](https://github.com/prismicio/prismic-vue/compare/v3.1.1...v3.1.2) (2022-12-19)
+
+
+### Chore
+
+* **deps:** maintain dependencies ([0b012a8](https://github.com/prismicio/prismic-vue/commit/0b012a8bda8620e403e1088fd256710f78190b14))
+
 ### [3.1.1](https://github.com/prismicio/prismic-vue/compare/v3.1.0...v3.1.1) (2022-10-05)
 
 
