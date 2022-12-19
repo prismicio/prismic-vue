@@ -36,7 +36,7 @@ export type PrismicImageProps = {
 	/**
 	 * The Prismic image field to render.
 	 */
-	field: ImageField;
+	field: ImageField | ImageField<string>;
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -213,7 +213,7 @@ export const PrismicImageImpl = /*#__PURE__*/ defineComponent({
 	name: "PrismicImage",
 	props: {
 		field: {
-			type: Object as PropType<ImageField>,
+			type: Object as PropType<ImageField | ImageField<string>>,
 			required: true,
 		},
 		imageComponent: {
