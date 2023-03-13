@@ -100,7 +100,7 @@ it("uses provided link resolver over plugin provided", (ctx) => {
 
 it("uses plugin provided HTML function serializer", (ctx) => {
 	const spiedHTMLSerializer = vi.fn(
-		(type: typeof Element[keyof typeof Element]) =>
+		(type: (typeof Element)[keyof typeof Element]) =>
 			type === Element.paragraph ? `<p>${ctx.meta.name}</p>` : null,
 	);
 
@@ -122,11 +122,11 @@ it("uses plugin provided HTML function serializer", (ctx) => {
 
 it("uses provided HTML function serializer over plugin provided", (ctx) => {
 	const spiedHTMLSerializer1 = vi.fn(
-		(type: typeof Element[keyof typeof Element]) =>
+		(type: (typeof Element)[keyof typeof Element]) =>
 			type === Element.paragraph ? `<p>${ctx.meta.name}1</p>` : null,
 	);
 	const spiedHTMLSerializer2 = vi.fn(
-		(type: typeof Element[keyof typeof Element]) =>
+		(type: (typeof Element)[keyof typeof Element]) =>
 			type === Element.paragraph ? `<p>${ctx.meta.name}2</p>` : null,
 	);
 
