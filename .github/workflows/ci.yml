@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Set up Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
 
@@ -27,6 +27,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Cache node_modules
+        id: cache
         uses: actions/cache@v2
         with:
           path: node_modules
@@ -50,7 +51,7 @@ jobs:
 
       - name: Coverage
         if: matrix.os == 'ubuntu-latest' && matrix.node == 14
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
 
       - name: Size
         if: github.event_name == 'pull_request' && matrix.os == 'ubuntu-latest' && matrix.node == 14
