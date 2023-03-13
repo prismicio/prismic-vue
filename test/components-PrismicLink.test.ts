@@ -262,6 +262,27 @@ it("uses provided blank and rel attribute", () => {
 	);
 });
 
+it("forwards blank and rel attribute to component links", () => {
+	const wrapper = mount(PrismicLinkImpl, {
+		props: {
+			field: {
+				...mock.value.link({
+					seed: 10,
+					type: LinkType.Web,
+					withTargetBlank: true,
+				}),
+				url: "https://example.com",
+			},
+			externalComponent: markRaw(WrapperComponent),
+		},
+		slots: { default: "foo" },
+	});
+
+	expect(wrapper.html()).toBe(
+		'<div class="wrapperComponent" to="https://example.com" target="_blank" rel="noopener noreferrer">foo</div>',
+	);
+});
+
 it("uses plugin provided external link component on external link", () => {
 	const prismic = createPrismic({
 		endpoint: "test",
@@ -273,7 +294,11 @@ it("uses plugin provided external link component on external link", () => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.link({ seed: 11, type: LinkType.Web }),
+				...mock.value.link({
+					seed: 11,
+					type: LinkType.Web,
+					withTargetBlank: false,
+				}),
 				url: "https://example.com",
 			},
 		},
@@ -296,7 +321,11 @@ it("uses provided external link component over plugin provided on external link"
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
-				...mock.value.link({ seed: 12, type: LinkType.Web }),
+				...mock.value.link({
+					seed: 12,
+					type: LinkType.Web,
+					withTargetBlank: false,
+				}),
 				url: "https://example.com",
 			},
 			externalComponent: markRaw(createWrapperComponent(2)),

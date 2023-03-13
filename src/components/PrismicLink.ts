@@ -274,7 +274,11 @@ export const PrismicLinkImpl = /*#__PURE__*/ defineComponent({
 				);
 			} else {
 				// Fitting Vue Router Link interface
-				return h(parent, { to: href.value }, computedSlots);
+				return h(
+					parent,
+					{ to: href.value, target: target.value, rel: rel.value },
+					computedSlots,
+				);
 			}
 		};
 	},
