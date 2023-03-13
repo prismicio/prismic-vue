@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.3](https://github.com/prismicio/prismic-vue/compare/v3.1.2...v3.1.3) (2023-03-13)
+
+
+### Bug Fixes
+
+* forward `blank` and `rel` attributes to external link component ([e6d9e74](https://github.com/prismicio/prismic-vue/commit/e6d9e745e75e0a2c1dd1902eb1099e57e8d023d6))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([366999c](https://github.com/prismicio/prismic-vue/commit/366999c37981971bebab24bd13b7a3d0dddaf13f))
+
 ### [3.1.2](https://github.com/prismicio/prismic-vue/compare/v3.1.1...v3.1.2) (2022-12-19)
 
 
