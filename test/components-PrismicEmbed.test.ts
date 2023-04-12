@@ -66,8 +66,7 @@ it("renders nothing when invalid", () => {
 
 	expect(wrapper.html()).toBe("");
 	expect(console.warn).toHaveBeenCalledOnce();
-	// @ts-expect-error - actually, it's there :thinking:
-	expect(vi.mocked(console.warn).calls[0]).toMatch(
+	expect(vi.mocked(console.warn).mock.calls[0]).toMatch(
 		/Invalid prop: type check failed for prop/i,
 	);
 

@@ -239,8 +239,7 @@ it("renders TODO component if component mapping is missing", () => {
 <section data-slice-zone-todo-component="" data-slice-type="bar">Could not find a component for Slice type "bar"</section>`,
 	);
 	expect(console.warn).toHaveBeenCalledOnce();
-	// @ts-expect-error - actually, it's there :thinking:
-	expect(vi.mocked(console.warn).calls[0]).toMatch(
+	expect(vi.mocked(console.warn).mock.calls[0]).toMatch(
 		/could not find a component/i,
 	);
 
@@ -269,8 +268,7 @@ it("renders TODO component if component mapping is missing with GraphQL API", ()
 <section data-slice-zone-todo-component="" data-slice-type="bar">Could not find a component for Slice type "bar"</section>`,
 	);
 	expect(console.warn).toHaveBeenCalledOnce();
-	// @ts-expect-error - actually, it's there :thinking:
-	expect(vi.mocked(console.warn).calls[0]).toMatch(
+	expect(vi.mocked(console.warn).mock.calls[0]).toMatch(
 		/could not find a component/i,
 	);
 
@@ -424,8 +422,7 @@ it("renders nothing when invalid", () => {
 
 	expect(wrapper.html()).toBe("");
 	expect(console.warn).toHaveBeenCalledOnce();
-	// @ts-expect-error - actually, it's there :thinking:
-	expect(vi.mocked(console.warn).calls[0]).toMatch(
+	expect(vi.mocked(console.warn).mock.calls[0]).toMatch(
 		/Invalid prop: type check failed for prop/i,
 	);
 

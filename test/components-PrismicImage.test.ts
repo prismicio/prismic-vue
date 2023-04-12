@@ -194,8 +194,7 @@ it("renders image field using width-based over pixel-density-based `srcset` and 
 		'"<img src=\\"https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=640 640w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=828 828w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=1200 1200w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=2048 2048w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=3840 3840w\\" alt=\\"Suspendisse in est ante in nibh\\">"',
 	);
 	expect(console.warn).toHaveBeenCalledOnce();
-	// @ts-expect-error - actually, it's there :thinking:
-	expect(vi.mocked(console.warn).calls[0]).toMatch(
+	expect(vi.mocked(console.warn).mock.calls[0]).toMatch(
 		/\[PrismicImage\] Only one of `widths` or `pixelDensities`/i,
 	);
 
@@ -285,8 +284,7 @@ it("renders nothing when invalid", () => {
 
 	expect(wrapper.html()).toBe("");
 	expect(console.warn).toHaveBeenCalledOnce();
-	// @ts-expect-error - actually, it's there :thinking:
-	expect(vi.mocked(console.warn).calls[0]).toMatch(
+	expect(vi.mocked(console.warn).mock.calls[0]).toMatch(
 		/Invalid prop: type check failed for prop/i,
 	);
 

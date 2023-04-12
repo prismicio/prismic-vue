@@ -377,8 +377,7 @@ const providesErrorStateOnError = (
 		expect(wrapper.html()).toBe("");
 		expect(payload?.state.value).toBe(PrismicClientComposableState.Error);
 		expect(spiedClient[methodName]).toHaveBeenCalledOnce();
-		// @ts-expect-error - actually, it's there :thinking:
-		expect(vi.mocked(spiedClient[methodName]).results[0][0]).toBe("error");
+		expect(vi.mocked(spiedClient[methodName]).mock.results[0].type).toBe("throw");
 		expect(spiedClient[methodName]).toHaveBeenCalledWith(...additionalParams, { ref: null });
 
 		params.value = { ref: "foo" };
