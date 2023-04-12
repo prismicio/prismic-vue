@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.4](https://github.com/prismicio/prismic-vue/compare/v3.1.3...v3.1.4) (2023-04-12)
+
+
+### Bug Fixes
+
+* allow looser `SliceComponentType` for TypeScript reference ([0f96b7a](https://github.com/prismicio/prismic-vue/commit/0f96b7a37fc45dfac522bbbf17a677fe2aaabe73))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([b8f1c7d](https://github.com/prismicio/prismic-vue/commit/b8f1c7de1d7dd6c3c20b8384df1f76ddf727383b))
+
+
+### Documentation
+
+* update license ([64a0b0a](https://github.com/prismicio/prismic-vue/commit/64a0b0a230124df12f5987fbe1fb4d21137d6128))
+
 ### [3.1.3](https://github.com/prismicio/prismic-vue/compare/v3.1.2...v3.1.3) (2023-03-13)
 
 

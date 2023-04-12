@@ -1,6 +1,6 @@
 {
 	"name": "@prismicio/vue",
-	"version": "3.1.3",
+	"version": "3.1.4",
 	"description": "Vue plugin, components, and composables to fetch and present Prismic content",
 	"keywords": [
 		"typescript",
