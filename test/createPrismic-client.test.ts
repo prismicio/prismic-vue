@@ -8,6 +8,12 @@ import { WrapperComponent } from "./__fixtures__/WrapperComponent";
 
 import { createPrismic } from "../src";
 
+vi.mock("isomorphic-unfetch", () => {
+	return {
+		default: vi.fn(),
+	};
+});
+
 it("creates client from repository name", () => {
 	const prismic = createPrismic({ endpoint: "test" });
 
@@ -104,12 +110,6 @@ it("uses `globalThis` fetch function when available", () => {
 });
 
 it("uses `isomorphic-unfetch` when `globalThis` fetch function is not available", async () => {
-	vi.mock("isomorphic-unfetch", () => {
-		return {
-			default: vi.fn(),
-		};
-	});
-
 	const prismic = createPrismic({ endpoint: "test" });
 
 	const wrapper = mount(WrapperComponent, {
@@ -121,6 +121,4 @@ it("uses `isomorphic-unfetch` when `globalThis` fetch function is not available"
 	expect(unfetch).not.toHaveBeenCalled();
 	await wrapper.vm.$prismic.client.fetchFn("foo", {});
 	expect(unfetch).toHaveBeenCalledOnce();
-
-	vi.unmock("isomorphic-unfetch");
 });

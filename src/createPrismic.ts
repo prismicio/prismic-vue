@@ -54,12 +54,9 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 			fetch: async (endpoint, options) => {
 				let fetchFunction: FetchLike;
 				if (typeof globalThis.fetch === "function") {
-					// TODO: Remove after https://github.com/prismicio/prismic-client/issues/254
-					fetchFunction = globalThis.fetch as FetchLike;
+					fetchFunction = globalThis.fetch;
 				} else {
-					// TODO: Remove after https://github.com/prismicio/prismic-client/issues/254
-					fetchFunction = (await import("isomorphic-unfetch"))
-						.default as FetchLike;
+					fetchFunction = (await import("isomorphic-unfetch")).default;
 				}
 
 				return await fetchFunction(endpoint, options);

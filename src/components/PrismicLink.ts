@@ -10,6 +10,8 @@ import {
 	ConcreteComponent,
 	computed,
 	ComputedRef,
+	Raw,
+	DefineComponent,
 } from "vue";
 
 import { asLink, LinkResolverFunction } from "@prismicio/helpers";
@@ -85,7 +87,7 @@ export type PrismicLinkProps = {
 	 * (`to` props).
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, {@link RouterLink} otherwise.
 	 */
-	internalComponent?: string | ConcreteComponent;
+	internalComponent?: string | ConcreteComponent | Raw<DefineComponent>;
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -99,7 +101,7 @@ export type PrismicLinkProps = {
 	 * (`to` props).
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"a"` otherwise.
 	 */
-	externalComponent?: string | ConcreteComponent;
+	externalComponent?: string | ConcreteComponent | Raw<DefineComponent>;
 };
 
 /**
@@ -114,7 +116,7 @@ export type UsePrismicLinkReturnType = {
 	/**
 	 * Suggested component to render for provided link field.
 	 */
-	type: ComputedRef<string | ConcreteComponent>;
+	type: ComputedRef<string | ConcreteComponent | Raw<DefineComponent>>;
 
 	/**
 	 * Resolved anchor `href` value.
@@ -238,12 +240,16 @@ export const PrismicLinkImpl = /*#__PURE__*/ defineComponent({
 			required: false,
 		},
 		internalComponent: {
-			type: [String, Object, Function] as PropType<string | ConcreteComponent>,
+			type: [String, Object, Function] as PropType<
+				string | ConcreteComponent | Raw<DefineComponent>
+			>,
 			default: undefined,
 			required: false,
 		},
 		externalComponent: {
-			type: [String, Object, Function] as PropType<string | ConcreteComponent>,
+			type: [String, Object, Function] as PropType<
+				string | ConcreteComponent | Raw<DefineComponent>
+			>,
 			default: undefined,
 			required: false,
 		},

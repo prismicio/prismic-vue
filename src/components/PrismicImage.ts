@@ -9,6 +9,8 @@ import {
 	PropType,
 	VNodeProps,
 	unref,
+	DefineComponent,
+	Raw,
 } from "vue";
 
 import { ImageField } from "@prismicio/types";
@@ -48,7 +50,7 @@ export type PrismicImageProps = {
 	 * receive an additional `copyright` props.
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"img"` otherwise.
 	 */
-	imageComponent?: string | ConcreteComponent;
+	imageComponent?: string | ConcreteComponent | Raw<DefineComponent>;
 
 	/**
 	 * An object of Imgix URL API parameters.
@@ -217,7 +219,9 @@ export const PrismicImageImpl = /*#__PURE__*/ defineComponent({
 			required: true,
 		},
 		imageComponent: {
-			type: [String, Object] as PropType<string | ConcreteComponent>,
+			type: [String, Object] as PropType<
+				string | ConcreteComponent | Raw<DefineComponent>
+			>,
 			default: undefined,
 			required: false,
 		},

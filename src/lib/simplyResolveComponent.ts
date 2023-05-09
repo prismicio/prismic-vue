@@ -1,4 +1,10 @@
-import { ConcreteComponent, resolveDynamicComponent, VNode } from "vue";
+import {
+	ConcreteComponent,
+	DefineComponent,
+	Raw,
+	resolveDynamicComponent,
+	VNode,
+} from "vue";
 
 /**
  * A stricter version of {@link resolveDynamicComponent} that resolves only type
@@ -11,7 +17,7 @@ import { ConcreteComponent, resolveDynamicComponent, VNode } from "vue";
  * @internal
  */
 export const simplyResolveComponent = (
-	component: string | ConcreteComponent,
+	component: string | ConcreteComponent | Raw<DefineComponent>,
 ): string | VNode => {
 	return resolveDynamicComponent(component) as string | VNode;
 };

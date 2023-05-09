@@ -4,9 +4,11 @@ import {
 	computed,
 	ComputedRef,
 	ConcreteComponent,
+	DefineComponent,
 	defineComponent,
 	h,
 	PropType,
+	Raw,
 	unref,
 	VNode,
 	VNodeProps,
@@ -44,7 +46,7 @@ export type PrismicTextProps = {
 	 *
 	 * @defaultValue `"div"`
 	 */
-	wrapper?: string | ConcreteComponent;
+	wrapper?: string | ConcreteComponent | Raw<DefineComponent>;
 
 	/**
 	 * The string value to be rendered when the field is empty. If a fallback is
@@ -116,7 +118,9 @@ export const PrismicTextImpl = /*#__PURE__*/ defineComponent({
 			required: false,
 		},
 		wrapper: {
-			type: [String, Object, Function] as PropType<string | ConcreteComponent>,
+			type: [String, Object, Function] as PropType<
+				string | ConcreteComponent | Raw<DefineComponent>
+			>,
 			default: undefined,
 			required: false,
 		},

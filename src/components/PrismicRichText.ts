@@ -5,12 +5,14 @@ import {
 	computed,
 	ComputedRef,
 	ConcreteComponent,
+	DefineComponent,
 	defineComponent,
 	h,
 	inject,
 	nextTick,
 	onBeforeUnmount,
 	PropType,
+	Raw,
 	ref,
 	unref,
 	VNodeProps,
@@ -71,7 +73,7 @@ export type PrismicRichTextProps = {
 	 *
 	 * @defaultValue `"div"`
 	 */
-	wrapper?: string | ConcreteComponent;
+	wrapper?: string | ConcreteComponent | Raw<DefineComponent>;
 
 	/**
 	 * The HTML value to be rendered when the field is empty. If a fallback is not
@@ -155,7 +157,9 @@ export const PrismicRichTextImpl = /*#__PURE__*/ defineComponent({
 			required: false,
 		},
 		wrapper: {
-			type: [String, Object, Function] as PropType<string | ConcreteComponent>,
+			type: [String, Object, Function] as PropType<
+				string | ConcreteComponent | Raw<DefineComponent>
+			>,
 			default: undefined,
 			required: false,
 		},

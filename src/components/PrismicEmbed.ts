@@ -2,9 +2,11 @@ import {
 	AllowedComponentProps,
 	ComponentCustomProps,
 	ConcreteComponent,
+	DefineComponent,
 	defineComponent,
 	h,
 	PropType,
+	Raw,
 	VNodeProps,
 } from "vue";
 
@@ -31,7 +33,7 @@ export type PrismicEmbedProps = {
 	 *
 	 * @defaultValue `"div"`
 	 */
-	wrapper?: string | ConcreteComponent;
+	wrapper?: string | ConcreteComponent | Raw<DefineComponent>;
 };
 
 /**
@@ -47,7 +49,9 @@ export const PrismicEmbedImpl = /*#__PURE__*/ defineComponent({
 			required: true,
 		},
 		wrapper: {
-			type: [String, Object, Function] as PropType<string | ConcreteComponent>,
+			type: [String, Object, Function] as PropType<
+				string | ConcreteComponent | Raw<DefineComponent>
+			>,
 			default: undefined,
 			required: false,
 		},

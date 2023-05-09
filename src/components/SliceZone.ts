@@ -9,6 +9,7 @@ import {
 	h,
 	markRaw,
 	PropType,
+	Raw,
 	VNodeProps,
 	watchEffect,
 } from "vue";
@@ -442,7 +443,7 @@ export type SliceZoneProps<TContext = unknown> = {
 	 * An HTML tag name, a component, or a functional component used to wrap the
 	 * output. The Slice Zone is not wrapped by default.
 	 */
-	wrapper?: string | ConcreteComponent;
+	wrapper?: string | ConcreteComponent | Raw<DefineComponent>;
 };
 
 /**
@@ -478,7 +479,9 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 			required: false,
 		},
 		wrapper: {
-			type: [String, Object, Function] as PropType<string | ConcreteComponent>,
+			type: [String, Object, Function] as PropType<
+				string | ConcreteComponent | Raw<DefineComponent>
+			>,
 			default: undefined,
 			required: false,
 		},

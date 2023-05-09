@@ -1,4 +1,4 @@
-import type { App, ConcreteComponent, Ref } from "vue";
+import type { App, ConcreteComponent, DefineComponent, Raw, Ref } from "vue";
 
 import type {
 	Client,
@@ -60,7 +60,7 @@ type PrismicPluginComponentsOptions = {
 	 * (`to` props).
 	 * @defaultValue {@link RouterLink}
 	 */
-	linkInternalComponent?: string | ConcreteComponent;
+	linkInternalComponent?: string | ConcreteComponent | Raw<DefineComponent>;
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -74,7 +74,7 @@ type PrismicPluginComponentsOptions = {
 	 * (`to` props).
 	 * @defaultValue `"a"`
 	 */
-	linkExternalComponent?: string | ConcreteComponent;
+	linkExternalComponent?: string | ConcreteComponent | Raw<DefineComponent>;
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -86,7 +86,7 @@ type PrismicPluginComponentsOptions = {
 	 * additional `copyright` props.
 	 * @defaultValue `"img"`
 	 */
-	imageComponent?: string | ConcreteComponent;
+	imageComponent?: string | ConcreteComponent | Raw<DefineComponent>;
 
 	/**
 	 * Default widths to use when rendering an image with `widths="defaults"`
