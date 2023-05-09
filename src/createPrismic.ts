@@ -2,21 +2,21 @@ import { App } from "vue";
 
 import {
 	createClient,
-	predicate,
+	filter,
 	cookie,
 	Client,
 	FetchLike,
-} from "@prismicio/client";
-import {
 	asText,
 	asHTML,
 	asLink,
+	asLinkAttrs,
 	asDate,
 	asImageSrc,
 	asImageWidthSrcSet,
 	asImagePixelDensitySrcSet,
 	documentToLinkField,
-} from "@prismicio/helpers";
+	LinkResolverFunction,
+} from "@prismicio/client";
 
 import {
 	PrismicEmbed,
@@ -67,22 +67,52 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 
 	const prismicClient: PrismicPluginClient = {
 		client,
-		predicate,
+		filter,
 		cookie,
 	};
 
 	// Create plugin helpers
 	const prismicHelpers: PrismicPluginHelpers = {
 		asText,
-		asHTML: (richTextField, linkResolver, htmlSerializer) => {
+		asHTML: (richTextField, ...config) => {
+			const [configOrLinkResolver, maybeHTMLSerializer] = config;
+
 			return asHTML(
 				richTextField,
-				linkResolver || options.linkResolver,
-				htmlSerializer || options.htmlSerializer,
+				typeof configOrLinkResolver === "function" ||
+					configOrLinkResolver == null
+					? {
+							linkResolver: configOrLinkResolver || options.linkResolver,
+							htmlRichTextSerializer:
+								maybeHTMLSerializer || options.htmlSerializer,
+					  }
+					: {
+							linkResolver: options.linkResolver,
+							htmlRichTextSerializer: options.htmlSerializer,
+							...config,
+					  },
 			);
 		},
-		asLink: (linkField, linkResolver) => {
-			return asLink(linkField, linkResolver || options.linkResolver);
+		asLink: (linkField, config) => {
+			return asLink(
+				linkField,
+				typeof config === "function"
+					? { linkResolver: config }
+					: {
+							linkResolver: options.linkResolver,
+							// TODO: For some reasons, TypeScript narrows the type to "unknown" where it's supposed to be a union
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							...(config as any),
+					  },
+			);
+		},
+		asLinkAttrs: (linkField, config) => {
+			return asLinkAttrs(linkField, {
+				// TODO: We can't really retrieve the generic type here, this might cause some unexpected type error in some edge-case scenario
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				linkResolver: options.linkResolver as LinkResolverFunction<any>,
+				...config,
+			});
 		},
 		asDate,
 		asImageSrc,

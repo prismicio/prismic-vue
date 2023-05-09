@@ -26,8 +26,8 @@ import {
 	HTMLMapSerializer,
 	isFilled,
 	LinkResolverFunction,
-} from "@prismicio/helpers";
-import { RichTextField } from "@prismicio/types";
+	RichTextField,
+} from "@prismicio/client";
 
 import { VueUseOptions } from "../types";
 import { usePrismic } from "../usePrismic";

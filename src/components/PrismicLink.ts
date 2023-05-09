@@ -14,8 +14,12 @@ import {
 	DefineComponent,
 } from "vue";
 
-import { asLink, LinkResolverFunction } from "@prismicio/helpers";
-import { LinkField, PrismicDocument } from "@prismicio/types";
+import {
+	asLink,
+	LinkResolverFunction,
+	LinkField,
+	PrismicDocument,
+} from "@prismicio/client";
 
 import { isInternalURL } from "../lib/isInternalURL";
 import { usePrismic } from "../usePrismic";

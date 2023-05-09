@@ -152,8 +152,9 @@ export type DefineComponentSliceComponentProps<
 
 /**
  * Gets native Vue props for a component rendering content from a Prismic Slice
- * using the `<SliceZone />` component. Props are: `["slice", "index", "slices",
- * "context"]`
+ * using the `<SliceZone />` component.
+ *
+ * Props are: `["slice", "index", "slices", "context"]`
  *
  * @example Defining a new slice component:
  *

@@ -14,8 +14,7 @@ import {
 	VNodeProps,
 } from "vue";
 
-import { asText, isFilled } from "@prismicio/helpers";
-import { RichTextField } from "@prismicio/types";
+import { asText, isFilled, RichTextField } from "@prismicio/client";
 
 import { VueUseOptions } from "../types";
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";

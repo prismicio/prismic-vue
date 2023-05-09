@@ -4,21 +4,20 @@ import type {
 	Client,
 	ClientConfig,
 	cookie,
-	predicate,
-} from "@prismicio/client";
-import type {
+	filter,
 	asText,
 	asHTML,
 	asLink,
+	asLinkAttrs,
 	asDate,
 	documentToLinkField,
-	HTMLFunctionSerializer,
-	HTMLMapSerializer,
+	HTMLRichTextFunctionSerializer,
+	HTMLRichTextMapSerializer,
 	LinkResolverFunction,
 	asImageSrc,
 	asImageWidthSrcSet,
 	asImagePixelDensitySrcSet,
-} from "@prismicio/helpers";
+} from "@prismicio/client";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -95,7 +94,7 @@ type PrismicPluginComponentsOptions = {
 	 * Consider configuring image widths within your content type definition and
 	 * using `widths="auto"` instead to give content writers the ability to crop
 	 * images in the editor.
-	 * @defaultValue `@prismicio/helpers` defaults
+	 * @defaultValue `@prismicio/client` defaults
 	 */
 	imageWidthSrcSetDefaults?: number[];
 
@@ -103,7 +102,7 @@ type PrismicPluginComponentsOptions = {
 	 * Default pixel densities to use when rendering an image with
 	 * `pixel-densities="defaults"`
 	 *
-	 * @defaultValue `@prismicio/helpers` defaults
+	 * @defaultValue `@prismicio/client` defaults
 	 */
 	imagePixelDensitySrcSetDefaults?: number[];
 
@@ -138,7 +137,7 @@ type PrismicPluginOptionsBase = {
 	 *
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */
-	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer;
+	htmlSerializer?: HTMLRichTextFunctionSerializer | HTMLRichTextMapSerializer;
 
 	/**
 	 * Whether or not to inject components globally.
@@ -279,9 +278,9 @@ export type PrismicPluginClient = {
 	client: Client;
 
 	/**
-	 * Query predicates from `@prismicio/client`.
+	 * Query filters from `@prismicio/client`.
 	 */
-	predicate: typeof predicate;
+	filter: typeof filter;
 
 	/**
 	 * Prismic cookies from `@prismicio/client`.
@@ -290,13 +289,13 @@ export type PrismicPluginClient = {
 };
 
 /**
- * `@prismicio/helpers` related methods exposed by `@prismicio/vue` plugin and
+ * `@prismicio/client` related methods exposed by `@prismicio/vue` plugin and
  * accessible through `this.$prismic` and `usePrismic()`.
  */
 export type PrismicPluginHelpers = {
 	/**
 	 * Serializes a rich text or title field to a plain text string. This is
-	 * `@prismicio/helpers` {@link asText} function.
+	 * `@prismicio/client` {@link asText} function.
 	 *
 	 * @see Templating rich text and title fields {@link https://prismic.io/docs/technologies/vue-template-content#rich-text-and-titles}
 	 */
@@ -304,7 +303,7 @@ export type PrismicPluginHelpers = {
 
 	/**
 	 * Serializes a rich text or title field to an HTML string. This is
-	 * `@prismicio/helpers` {@link asHTML} function.
+	 * `@prismicio/client` {@link asHTML} function.
 	 *
 	 * @remarks
 	 * If no `linkResolver` is provided the function will use the one provided to
@@ -318,34 +317,42 @@ export type PrismicPluginHelpers = {
 
 	/**
 	 * Resolves any type of link field or document to a URL. This is
-	 * `@prismicio/helpers` {@link asLink} function.
+	 * `@prismicio/client` {@link asLink} function.
 	 *
 	 * @remarks
 	 * If no `linkResolver` is provided the function will use the one provided to
 	 * the plugin at {@link PrismicPluginOptions.linkResolver} if available.
 	 * @see Templating link fields {@link https://prismic.io/docs/technologies/vue-template-content#links-and-content-relationships}
 	 */
-	asLink: (
-		linkField: Parameters<typeof asLink>[0],
-		linkResolver?: LinkResolverFunction,
-	) => string | null;
+	asLink: typeof asLink;
+
+	/**
+	 * Resolves any type of link field or document to a set of link attributes.
+	 * This is `@prismicio/client` {@link asLinkAttrs} function.
+	 *
+	 * @remarks
+	 * If no `linkResolver` is provided the function will use the one provided to
+	 * the plugin at {@link PrismicPluginOptions.linkResolver} if available.
+	 * @see Templating link fields {@link https://prismic.io/docs/technologies/vue-template-content#links-and-content-relationships}
+	 */
+	asLinkAttrs: typeof asLinkAttrs;
 
 	/**
 	 * Transforms a date or timestamp field into a JavaScript Date object. This is
-	 * `@prismicio/helpers` {@link asDate} function.
+	 * `@prismicio/client` {@link asDate} function.
 	 */
 	asDate: typeof asDate;
 
 	/**
 	 * Returns the URL of an Image field with optional image transformations (via
-	 * Imgix URL parameters). This is `@prismicio/helpers` {@link asImageSrc}
+	 * Imgix URL parameters). This is `@prismicio/client` {@link asImageSrc}
 	 * function.
 	 */
 	asImageSrc: typeof asImageSrc;
 
 	/**
 	 * Creates a width-based `srcset` from an Image field with optional image
-	 * transformations (via Imgix URL parameters). This is `@prismicio/helpers`
+	 * transformations (via Imgix URL parameters). This is `@prismicio/client`
 	 * {@link asImageWidthSrcSet} function.
 	 */
 	asImageWidthSrcSet: typeof asImageWidthSrcSet;
@@ -353,12 +360,12 @@ export type PrismicPluginHelpers = {
 	/**
 	 * Creates a pixel-density-based `srcset` from an Image field with optional
 	 * image transformations (via Imgix URL parameters). This is
-	 * `@prismicio/helpers` {@link asImagePixelDensitySrcSet} function.
+	 * `@prismicio/client` {@link asImagePixelDensitySrcSet} function.
 	 */
 	asImagePixelDensitySrcSet: typeof asImagePixelDensitySrcSet;
 
 	/**
-	 * Converts a document into a link field. This is `@prismicio/helpers`
+	 * Converts a document into a link field. This is `@prismicio/client`
 	 * {@link documentToLinkField} function.
 	 *
 	 * @internal

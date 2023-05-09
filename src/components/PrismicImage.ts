@@ -13,13 +13,13 @@ import {
 	Raw,
 } from "vue";
 
-import { ImageField } from "@prismicio/types";
 import {
 	asImageSrc,
 	asImageWidthSrcSet,
 	asImagePixelDensitySrcSet,
 	isFilled,
-} from "@prismicio/helpers";
+	ImageField,
+} from "@prismicio/client";
 
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 import { __PRODUCTION__ } from "../lib/__PRODUCTION__";
