@@ -65,6 +65,17 @@ export type PrismicRichTextProps = {
 	 *
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */
+	serializer?: HTMLFunctionSerializer | HTMLMapSerializer;
+
+	/**
+	 * An HTML serializer to customize the way rich text fields are rendered.
+	 *
+	 * @deprecated Use `serializer` instead.
+	 *
+	 * @defaultValue The HTML serializer provided to `@prismicio/vue` plugin if configured.
+	 *
+	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
+	 */
 	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer;
 
 	/**
@@ -120,10 +131,13 @@ export const usePrismicRichText = (
 		}
 
 		const linkResolver = unref(props.linkResolver) ?? options.linkResolver;
-		const htmlSerializer =
-			unref(props.htmlSerializer) ?? options.htmlSerializer;
+		const serializer =
+			unref(props.serializer) ??
+			unref(props.htmlSerializer) ??
+			options.richTextSerializer ??
+			options.htmlSerializer;
 
-		return asHTML(unref(field), linkResolver, htmlSerializer);
+		return asHTML(unref(field), linkResolver, serializer);
 	});
 
 	return {
@@ -146,6 +160,13 @@ export const PrismicRichTextImpl = /*#__PURE__*/ defineComponent({
 		},
 		linkResolver: {
 			type: Function as PropType<LinkResolverFunction>,
+			default: undefined,
+			required: false,
+		},
+		serializer: {
+			type: [Function, Object] as PropType<
+				HTMLFunctionSerializer | HTMLMapSerializer
+			>,
 			default: undefined,
 			required: false,
 		},

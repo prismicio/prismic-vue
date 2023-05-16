@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/prismicio/prismic-vue/compare/v3.1.4...v3.2.0) (2023-05-16)
+
+
+### Features
+
+* deprecate `htmlSerializer` in favor of `serializer` and `richTextSerializer` ([a73284e](https://github.com/prismicio/prismic-vue/commit/a73284eaafb6e17f760722893be2855458ee4cc7))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([c8ad43f](https://github.com/prismicio/prismic-vue/commit/c8ad43fa86d5c562b1e45c8a25f8aa81f1b8c3f9))
+
 ### [3.1.4](https://github.com/prismicio/prismic-vue/compare/v3.1.3...v3.1.4) (2023-04-12)
 
 

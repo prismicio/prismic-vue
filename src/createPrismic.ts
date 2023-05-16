@@ -84,11 +84,14 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 					? {
 							linkResolver: configOrLinkResolver || options.linkResolver,
 							htmlRichTextSerializer:
-								maybeHTMLSerializer || options.htmlSerializer,
+								maybeHTMLSerializer ||
+								options.richTextSerializer ||
+								options.htmlSerializer,
 					  }
 					: {
 							linkResolver: options.linkResolver,
-							htmlRichTextSerializer: options.htmlSerializer,
+							htmlRichTextSerializer:
+								options.richTextSerializer || options.htmlSerializer,
 							...config,
 					  },
 			);
