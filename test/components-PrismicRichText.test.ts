@@ -99,14 +99,14 @@ it("uses provided link resolver over plugin provided", (ctx) => {
 });
 
 it("uses plugin provided HTML function serializer", (ctx) => {
-	const spiedHTMLSerializer = vi.fn(
+	const spiedSerializer = vi.fn(
 		(type: (typeof Element)[keyof typeof Element]) =>
 			type === Element.paragraph ? `<p>${ctx.meta.name}</p>` : null,
 	);
 
 	const prismic = createPrismic({
 		endpoint: "test",
-		htmlSerializer: spiedHTMLSerializer,
+		richTextSerializer: spiedSerializer,
 	});
 
 	const wrapper = mount(PrismicRichTextImpl, {
@@ -116,46 +116,46 @@ it("uses plugin provided HTML function serializer", (ctx) => {
 		global: { plugins: [prismic] },
 	});
 
-	expect(spiedHTMLSerializer).toHaveBeenCalled();
+	expect(spiedSerializer).toHaveBeenCalled();
 	expect(wrapper.html()).toMatch(`<p>${ctx.meta.name}</p>`);
 });
 
 it("uses provided HTML function serializer over plugin provided", (ctx) => {
-	const spiedHTMLSerializer1 = vi.fn(
+	const spiedSerializer1 = vi.fn(
 		(type: (typeof Element)[keyof typeof Element]) =>
 			type === Element.paragraph ? `<p>${ctx.meta.name}1</p>` : null,
 	);
-	const spiedHTMLSerializer2 = vi.fn(
+	const spiedSerializer2 = vi.fn(
 		(type: (typeof Element)[keyof typeof Element]) =>
 			type === Element.paragraph ? `<p>${ctx.meta.name}2</p>` : null,
 	);
 
 	const prismic = createPrismic({
 		endpoint: "test",
-		htmlSerializer: spiedHTMLSerializer1,
+		richTextSerializer: spiedSerializer1,
 	});
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
 			field: richTextFixture.en,
-			htmlSerializer: spiedHTMLSerializer2,
+			serializer: spiedSerializer2,
 		},
 		global: { plugins: [prismic] },
 	});
 
-	expect(spiedHTMLSerializer1).not.toHaveBeenCalled();
-	expect(spiedHTMLSerializer2).toHaveBeenCalled();
+	expect(spiedSerializer1).not.toHaveBeenCalled();
+	expect(spiedSerializer2).toHaveBeenCalled();
 	expect(wrapper.html()).toMatch(`<p>${ctx.meta.name}2</p>`);
 });
 
 it("uses plugin provided HTML map serializer", (ctx) => {
-	const spiedHTMLSerializer = {
+	const spiedSerializer = {
 		paragraph: vi.fn(() => `<p>${ctx.meta.name}</p>`),
 	};
 
 	const prismic = createPrismic({
 		endpoint: "test",
-		htmlSerializer: spiedHTMLSerializer,
+		richTextSerializer: spiedSerializer,
 	});
 
 	const wrapper = mount(PrismicRichTextImpl, {
@@ -165,33 +165,82 @@ it("uses plugin provided HTML map serializer", (ctx) => {
 		global: { plugins: [prismic] },
 	});
 
-	expect(spiedHTMLSerializer.paragraph).toHaveBeenCalled();
+	expect(spiedSerializer.paragraph).toHaveBeenCalled();
 	expect(wrapper.html()).toMatch(`<p>${ctx.meta.name}</p>`);
 });
 
 it("uses provided HTML map serializer over plugin provided", (ctx) => {
-	const spiedHTMLSerializer1 = {
+	const spiedSerializer1 = {
 		paragraph: vi.fn(() => `<p>${ctx.meta.name}1</p>`),
 	};
-	const spiedHTMLSerializer2 = {
+	const spiedSerializer2 = {
 		paragraph: vi.fn(() => `<p>${ctx.meta.name}2</p>`),
 	};
 
 	const prismic = createPrismic({
 		endpoint: "test",
-		htmlSerializer: spiedHTMLSerializer1,
+		richTextSerializer: spiedSerializer1,
 	});
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
 			field: richTextFixture.en,
-			htmlSerializer: spiedHTMLSerializer2,
+			serializer: spiedSerializer2,
 		},
 		global: { plugins: [prismic] },
 	});
 
-	expect(spiedHTMLSerializer1.paragraph).not.toHaveBeenCalled();
-	expect(spiedHTMLSerializer2.paragraph).toHaveBeenCalled();
+	expect(spiedSerializer1.paragraph).not.toHaveBeenCalled();
+	expect(spiedSerializer2.paragraph).toHaveBeenCalled();
+	expect(wrapper.html()).toMatch(`<p>${ctx.meta.name}2</p>`);
+});
+
+// TODO: Remove in v5
+it("uses plugin provided deprecated HTML serializer", (ctx) => {
+	const spiedSerializer = {
+		paragraph: vi.fn(() => `<p>${ctx.meta.name}</p>`),
+	};
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		htmlSerializer: spiedSerializer,
+	});
+
+	const wrapper = mount(PrismicRichTextImpl, {
+		props: {
+			field: richTextFixture.en,
+		},
+		global: { plugins: [prismic] },
+	});
+
+	expect(spiedSerializer.paragraph).toHaveBeenCalled();
+	expect(wrapper.html()).toMatch(`<p>${ctx.meta.name}</p>`);
+});
+
+// TODO: Remove in v5
+it("uses provided deprecated HTML serializer over plugin provided", (ctx) => {
+	const spiedSerializer1 = {
+		paragraph: vi.fn(() => `<p>${ctx.meta.name}1</p>`),
+	};
+	const spiedSerializer2 = {
+		paragraph: vi.fn(() => `<p>${ctx.meta.name}2</p>`),
+	};
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		richTextSerializer: spiedSerializer1,
+	});
+
+	const wrapper = mount(PrismicRichTextImpl, {
+		props: {
+			field: richTextFixture.en,
+			htmlSerializer: spiedSerializer2,
+		},
+		global: { plugins: [prismic] },
+	});
+
+	expect(spiedSerializer1.paragraph).not.toHaveBeenCalled();
+	expect(spiedSerializer2.paragraph).toHaveBeenCalled();
 	expect(wrapper.html()).toMatch(`<p>${ctx.meta.name}2</p>`);
 });
 
@@ -201,7 +250,7 @@ it("navigates internal links using Vue Router if available on click", async () =
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
 			field: richTextFixture.link,
-			htmlSerializer: {
+			serializer: {
 				hyperlink: () => `<a href="/foo">link</a>`,
 			},
 		},
@@ -233,7 +282,7 @@ it("navigates internal links using Vue Router if available on click when using c
 		props: {
 			field: richTextFixture.link,
 			wrapper: markRaw(WrapperComponent),
-			htmlSerializer: {
+			serializer: {
 				hyperlink: () => `<a href="/foo">link</a>`,
 			},
 		},
@@ -261,7 +310,7 @@ it("navigates internal links using Vue Router if available on inner tag click", 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
 			field: richTextFixture.link,
-			htmlSerializer: {
+			serializer: {
 				hyperlink: () => `<a href="/foo"><em>link</em></a>`,
 			},
 		},
@@ -289,7 +338,7 @@ it("navigates internal links using Vue Router if available on deep inner tag cli
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
 			field: richTextFixture.link,
-			htmlSerializer: {
+			serializer: {
 				hyperlink: () =>
 					`<a href="/foo"><span><span><span><span><span><em>link<em></span></span></span></span></span></a>`,
 			},
@@ -318,7 +367,7 @@ it("doesn't navigate external links using Vue Router if available on click (navi
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
 			field: richTextFixture.link,
-			htmlSerializer: {
+			serializer: {
 				hyperlink: () =>
 					`<a data-external href="https://google.com">link</a><a data-internal href="/foo">link</a>`,
 			},
@@ -353,7 +402,7 @@ it("doesn't try to bind on click events when Vue Router is available when render
 			props: {
 				field: richTextFixture.link,
 				wrapper: markRaw(() => null),
-				htmlSerializer: {
+				serializer: {
 					hyperlink: () => `<a href="/foo">link</a>`,
 				},
 			},

@@ -78,7 +78,7 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 			return asHTML(
 				richTextField,
 				linkResolver || options.linkResolver,
-				htmlSerializer || options.htmlSerializer,
+				htmlSerializer || options.richTextSerializer || options.htmlSerializer,
 			);
 		},
 		asLink: (linkField, linkResolver) => {

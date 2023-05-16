@@ -138,6 +138,17 @@ type PrismicPluginOptionsBase = {
 	 *
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */
+	richTextSerializer?: HTMLFunctionSerializer | HTMLMapSerializer;
+
+	/**
+	 * An optional HTML serializer to customize the way rich text fields are
+	 * rendered.
+	 *
+	 * @deprecated Use `richTextSerializer` instead.
+	 *
+	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
+	 */
+	// TODO: Remove in v5
 	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer;
 
 	/**

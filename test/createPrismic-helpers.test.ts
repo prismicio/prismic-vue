@@ -48,12 +48,12 @@ it("`asHTML` uses provided link resolver over default provided", () => {
 	expect(spiedLinkResolver2).toHaveBeenCalled();
 });
 
-it("`asHTML` uses provided default HTML serializer", () => {
-	const spiedHTMLSerializer = vi.fn();
+it("`asHTML` uses provided default serializer", () => {
+	const spiedRichTextSerializer = vi.fn();
 
 	const prismic = createPrismic({
 		endpoint: "test",
-		htmlSerializer: spiedHTMLSerializer,
+		richTextSerializer: spiedRichTextSerializer,
 	});
 
 	const wrapper = mount(WrapperComponent, {
@@ -64,16 +64,16 @@ it("`asHTML` uses provided default HTML serializer", () => {
 
 	wrapper.vm.$prismic.asHTML(richTextFixture.en);
 
-	expect(spiedHTMLSerializer).toHaveBeenCalled();
+	expect(spiedRichTextSerializer).toHaveBeenCalled();
 });
 
-it("`asHTML` uses provided HTML serializer over default provided", () => {
-	const spiedHTMLSerializer1 = vi.fn();
-	const spiedHTMLSerializer2 = vi.fn();
+// TODO: Remove in v5
+it("`asHTML` uses provided default deprecated serializer", () => {
+	const spiedRichTextSerializer = vi.fn();
 
 	const prismic = createPrismic({
 		endpoint: "test",
-		htmlSerializer: spiedHTMLSerializer1,
+		htmlSerializer: spiedRichTextSerializer,
 	});
 
 	const wrapper = mount(WrapperComponent, {
@@ -82,10 +82,34 @@ it("`asHTML` uses provided HTML serializer over default provided", () => {
 		},
 	});
 
-	wrapper.vm.$prismic.asHTML(richTextFixture.en, null, spiedHTMLSerializer2);
+	wrapper.vm.$prismic.asHTML(richTextFixture.en);
 
-	expect(spiedHTMLSerializer1).not.toHaveBeenCalled();
-	expect(spiedHTMLSerializer2).toHaveBeenCalled();
+	expect(spiedRichTextSerializer).toHaveBeenCalled();
+});
+
+it("`asHTML` uses provided HTML serializer over default provided", () => {
+	const spiedRichTextSerializer1 = vi.fn();
+	const spiedRichTextSerializer2 = vi.fn();
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		richTextSerializer: spiedRichTextSerializer1,
+	});
+
+	const wrapper = mount(WrapperComponent, {
+		global: {
+			plugins: [prismic],
+		},
+	});
+
+	wrapper.vm.$prismic.asHTML(
+		richTextFixture.en,
+		null,
+		spiedRichTextSerializer2,
+	);
+
+	expect(spiedRichTextSerializer1).not.toHaveBeenCalled();
+	expect(spiedRichTextSerializer2).toHaveBeenCalled();
 });
 
 it("`asLink` uses provided default link resolver", (ctx) => {
