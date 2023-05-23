@@ -1,18 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 // Imports for @link references:
-
 import type { Client } from "@prismicio/client";
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
-
-import { PrismicDocument, Query } from "@prismicio/types";
+import { PrismicDocument, Query } from "@prismicio/client";
 
 import {
-	ClientMethodParameters,
 	ClientComposableReturnType,
-	useStatefulPrismicClientMethod,
+	ClientMethodParameters,
 	ComposableOnlyParameters,
+	useStatefulPrismicClientMethod,
 } from "./useStatefulPrismicClientMethod";
 
 // Composables

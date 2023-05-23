@@ -1,18 +1,18 @@
-import { it, expect, vi } from "vitest";
-import { mount } from "@vue/test-utils";
-import * as mock from "@prismicio/mock";
+import { expect, it, vi } from "vitest";
 
+import * as mock from "@prismicio/mock";
+import { LinkField, LinkType } from "@prismicio/client";
+import { mount } from "@vue/test-utils";
 import { markRaw } from "vue";
-import { LinkField, LinkType } from "@prismicio/types";
 
 import {
-	createWrapperComponent,
 	WrapperComponent,
+	createWrapperComponent,
 } from "./__fixtures__/WrapperComponent";
 import router from "./__fixtures__/router";
 
-import { PrismicLinkImpl } from "../src/components";
 import { createPrismic } from "../src";
+import { PrismicLinkImpl } from "../src/components";
 
 it("renders empty link field", () => {
 	const wrapper = mount(PrismicLinkImpl, {

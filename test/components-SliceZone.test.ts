@@ -1,23 +1,23 @@
-import { it, expect, vi } from "vitest";
-import { mount, flushPromises } from "@vue/test-utils";
+import { expect, it, vi } from "vitest";
 
-import { defineAsyncComponent, DefineComponent, markRaw } from "vue";
+import { flushPromises, mount } from "@vue/test-utils";
+import { DefineComponent, defineAsyncComponent, markRaw } from "vue";
 
 import {
-	createWrapperComponent,
 	WrapperComponent,
+	createWrapperComponent,
 } from "./__fixtures__/WrapperComponent";
 
+import { createPrismic } from "../src";
 import {
-	defineSliceZoneComponents,
-	getSliceComponentProps,
 	SliceComponentType,
 	SliceLike,
-	SliceZoneLike,
 	SliceZoneImpl,
+	SliceZoneLike,
 	SliceZoneResolver,
+	defineSliceZoneComponents,
+	getSliceComponentProps,
 } from "../src/components";
-import { createPrismic } from "../src";
 
 it("renders slice zone with correct component mapping from components", async () => {
 	const Foo = createWrapperComponent<SliceComponentType>(

@@ -2,8 +2,8 @@ import {
 	ConcreteComponent,
 	DefineComponent,
 	Raw,
-	resolveDynamicComponent,
 	VNode,
+	resolveDynamicComponent,
 } from "vue";
 
 /**

@@ -1,31 +1,32 @@
 import {
+	LinkField,
+	LinkResolverFunction,
+	PrismicDocument,
+	asLink,
+} from "@prismicio/client";
+import {
 	AllowedComponentProps,
 	ComponentCustomProps,
+	ComputedRef,
+	ConcreteComponent,
+	DefineComponent,
+	PropType,
+	Raw,
+	VNodeProps,
+	computed,
 	defineComponent,
 	h,
-	PropType,
-	VNodeProps,
-	unref,
 	reactive,
-	ConcreteComponent,
-	computed,
-	ComputedRef,
-	Raw,
-	DefineComponent,
+	unref,
 } from "vue";
 
-import {
-	asLink,
-	LinkResolverFunction,
-	LinkField,
-	PrismicDocument,
-} from "@prismicio/client";
-
-import { isInternalURL } from "../lib/isInternalURL";
-import { usePrismic } from "../usePrismic";
-import { VueUseOptions } from "../types";
-import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 import { getSlots } from "../lib/getSlots";
+import { isInternalURL } from "../lib/isInternalURL";
+import { simplyResolveComponent } from "../lib/simplyResolveComponent";
+
+import { VueUseOptions } from "../types";
+
+import { usePrismic } from "../usePrismic";
 
 /**
  * The default component rendered for internal URLs.

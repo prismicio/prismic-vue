@@ -1,4 +1,4 @@
-import { it, expect } from "vitest";
+import { expect, it } from "vitest";
 
 import { isInternalURL } from "../src/lib/isInternalURL";
 

@@ -1,22 +1,28 @@
-import { App } from "vue";
-
 import {
-	createClient,
-	filter,
-	cookie,
 	Client,
 	FetchLike,
-	asText,
-	asHTML,
-	asLink,
-	asLinkAttrs,
+	LinkResolverFunction,
 	asDate,
+	asHTML,
+	asImagePixelDensitySrcSet,
 	asImageSrc,
 	asImageWidthSrcSet,
-	asImagePixelDensitySrcSet,
+	asLink,
+	asLinkAttrs,
+	asText,
+	cookie,
+	createClient,
 	documentToLinkField,
-	LinkResolverFunction,
+	filter,
 } from "@prismicio/client";
+import { App } from "vue";
+
+import type {
+	PrismicPlugin,
+	PrismicPluginClient,
+	PrismicPluginHelpers,
+	PrismicPluginOptions,
+} from "./types";
 
 import {
 	PrismicEmbed,
@@ -27,12 +33,6 @@ import {
 	SliceZone,
 } from "./components";
 import { prismicKey } from "./injectionSymbols";
-import type {
-	PrismicPlugin,
-	PrismicPluginClient,
-	PrismicPluginHelpers,
-	PrismicPluginOptions,
-} from "./types";
 
 /**
  * Creates a `@prismicio/vue` plugin instance that can be used by a Vue app.
@@ -83,15 +83,14 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 					configOrLinkResolver == null
 					? {
 							linkResolver: configOrLinkResolver || options.linkResolver,
-							htmlRichTextSerializer:
+							serializer:
 								maybeHTMLSerializer ||
 								options.richTextSerializer ||
 								options.htmlSerializer,
 					  }
 					: {
 							linkResolver: options.linkResolver,
-							htmlRichTextSerializer:
-								options.richTextSerializer || options.htmlSerializer,
+							serializer: options.richTextSerializer || options.htmlSerializer,
 							...config,
 					  },
 			);

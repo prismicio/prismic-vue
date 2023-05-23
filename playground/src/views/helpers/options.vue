@@ -16,7 +16,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { simple, blank, internal } from "../../mocks/link.json";
+
+import { blank, internal, simple } from "../../mocks/link.json";
 
 export default defineComponent({
 	data() {

@@ -1,4 +1,4 @@
-import { createMemoryHistory, createRouter, RouteRecordRaw } from "vue-router";
+import { RouteRecordRaw, createMemoryHistory, createRouter } from "vue-router";
 
 import { WrapperComponent } from "./WrapperComponent";
 

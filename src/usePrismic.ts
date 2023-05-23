@@ -1,7 +1,8 @@
 import { inject } from "vue";
 
-import { prismicKey } from "./injectionSymbols";
 import { PrismicPlugin } from "./types";
+
+import { prismicKey } from "./injectionSymbols";
 
 /**
  * Accesses `@prismicio/vue` plugin interface.

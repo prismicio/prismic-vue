@@ -7,7 +7,6 @@
 		"type": "string | object | function",
 		"description": "An HTML tag name, a component, or a functional component used to wrap the output. Defaults to `\"div\"`."
 	},
-
 	"prismic-image/field": {
 		"type": "object",
 		"description": "The Prismic image field to render."
@@ -28,7 +27,6 @@
 		"type": "array | string",
 		"description": "Adds an additional `srcset` attribute to the image following giving pixel densities."
 	},
-
 	"prismic-link/field": {
 		"type": "object",
 		"description": "The Prismic link field or document to render."
@@ -57,7 +55,6 @@
 		"type": "string | object | function",
 		"description": "An HTML tag name, a component, or a functional component used to render external links. Defaults to the one provided to `@prismicio/vue` plugin if configured, `\"a\"` otherwise."
 	},
-
 	"prismic-rich-text/field": {
 		"type": "array",
 		"description": "The Prismic rich text or title field to render."
@@ -66,7 +63,7 @@
 		"type": "function",
 		"description": "A link resolver function used to resolve links when not using the route resolver parameter with `@prismicio/client`. Defaults to the link resolver provided to `@prismicio/vue` plugin if configured."
 	},
-	"prismic-rich-text/html-serializer": {
+	"prismic-rich-text/serializer": {
 		"type": "function | object",
 		"description": "An HTML serializer to customize the way rich text fields are rendered. Defaults to the HTML serializer provided to `@prismicio/vue` plugin if configured."
 	},
@@ -78,7 +75,6 @@
 		"type": "string",
 		"description": "The HTML value to be rendered when the field is empty. If a fallback is not given, `\"\"` (nothing) will be rendered."
 	},
-
 	"prismic-text/field": {
 		"type": "array",
 		"description": "The Prismic rich text or title field to render."
@@ -95,7 +91,6 @@
 		"type": "string",
 		"description": "The string value to be rendered when the field is empty. If a fallback is not given, `\"\"` (nothing) will be rendered."
 	},
-
 	"slice-zone/slices": {
 		"type": "array",
 		"description": "List of Slice data from the Slice Zone."

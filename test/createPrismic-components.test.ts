@@ -1,4 +1,4 @@
-import { it, expect, vi, Mock } from "vitest";
+import { Mock, expect, it, vi } from "vitest";
 
 import { App } from "vue";
 

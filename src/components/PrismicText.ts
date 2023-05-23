@@ -1,23 +1,23 @@
+import { RichTextField, asText, isFilled } from "@prismicio/client";
 import {
 	AllowedComponentProps,
 	ComponentCustomProps,
-	computed,
 	ComputedRef,
 	ConcreteComponent,
 	DefineComponent,
-	defineComponent,
-	h,
 	PropType,
 	Raw,
-	unref,
 	VNode,
 	VNodeProps,
+	computed,
+	defineComponent,
+	h,
+	unref,
 } from "vue";
 
-import { asText, isFilled, RichTextField } from "@prismicio/client";
+import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 
 import { VueUseOptions } from "../types";
-import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 
 /**
  * The default component rendered to wrap the text output.

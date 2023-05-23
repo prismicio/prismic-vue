@@ -1,4 +1,4 @@
-import { RichTextField } from "@prismicio/types";
+import { RichTextField } from "@prismicio/client";
 
 import enRichTextJSON from "./enRichText.json";
 import linkRichTextJSON from "./linkRichText.json";

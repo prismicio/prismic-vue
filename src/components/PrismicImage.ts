@@ -1,30 +1,31 @@
 import {
-	AllowedComponentProps,
-	ComponentCustomProps,
-	computed,
-	ConcreteComponent,
-	ComputedRef,
-	defineComponent,
-	h,
-	PropType,
-	VNodeProps,
-	unref,
-	DefineComponent,
-	Raw,
-} from "vue";
-
-import {
+	ImageField,
+	asImagePixelDensitySrcSet,
 	asImageSrc,
 	asImageWidthSrcSet,
-	asImagePixelDensitySrcSet,
 	isFilled,
-	ImageField,
 } from "@prismicio/client";
+import {
+	AllowedComponentProps,
+	ComponentCustomProps,
+	ComputedRef,
+	ConcreteComponent,
+	DefineComponent,
+	PropType,
+	Raw,
+	VNodeProps,
+	computed,
+	defineComponent,
+	h,
+	unref,
+} from "vue";
 
-import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 import { __PRODUCTION__ } from "../lib/__PRODUCTION__";
-import { usePrismic } from "../usePrismic";
+import { simplyResolveComponent } from "../lib/simplyResolveComponent";
+
 import { VueUseOptions } from "../types";
+
+import { usePrismic } from "../usePrismic";
 
 /**
  * The default component rendered for images.

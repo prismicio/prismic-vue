@@ -1,28 +1,25 @@
-import type { App, ConcreteComponent, DefineComponent, Raw, Ref } from "vue";
-
 import type {
 	Client,
 	ClientConfig,
-	cookie,
-	filter,
-	asText,
-	asHTML,
-	asLink,
-	asLinkAttrs,
-	asDate,
-	documentToLinkField,
 	HTMLRichTextFunctionSerializer,
 	HTMLRichTextMapSerializer,
 	LinkResolverFunction,
+	asDate,
+	asHTML,
+	asImagePixelDensitySrcSet,
 	asImageSrc,
 	asImageWidthSrcSet,
-	asImagePixelDensitySrcSet,
+	asLink,
+	asLinkAttrs,
+	asText,
+	cookie,
+	documentToLinkField,
+	filter,
 } from "@prismicio/client";
+import type { App, ConcreteComponent, DefineComponent, Raw, Ref } from "vue";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 // Imports for @link references:
-
 import type { RouterLink } from "vue-router";
 
 import type {

@@ -1,16 +1,16 @@
+import { EmbedField } from "@prismicio/client";
 import {
 	AllowedComponentProps,
 	ComponentCustomProps,
 	ConcreteComponent,
 	DefineComponent,
-	defineComponent,
-	h,
 	PropType,
 	Raw,
 	VNodeProps,
+	defineComponent,
+	h,
 } from "vue";
 
-import { EmbedField } from "@prismicio/types";
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 
 /**
