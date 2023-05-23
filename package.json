@@ -18,8 +18,14 @@
 	"type": "module",
 	"exports": {
 		".": {
-			"require": "./dist/index.cjs",
-			"import": "./dist/index.js"
+			"require": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.cjs"
+			},
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
 		},
 		"./package.json": "./package.json"
 	},
@@ -35,7 +41,6 @@
 		"build": "vite build",
 		"dev": "vite build --watch",
 		"format": "prettier --write .",
-		"lint": "eslint --ext .js,.ts .",
 		"playground:build": "vite build playground",
 		"playground:dev": "vite playground",
 		"prepare": "npm run build",
@@ -43,35 +48,38 @@
 		"release:beta": "npm run test && standard-version --release-as major --prerelease beta && git push --follow-tags && npm run build && npm publish --tag beta",
 		"release:beta:dry": "standard-version --release-as major --prerelease beta --dry-run",
 		"release:dry": "standard-version --dry-run",
-		"size": "size-limit",
-		"test": "npm run lint && npm run types && npm run unit && npm run build && npm run size",
-		"types": "tsc --noEmit",
+		"lint": "eslint --ext .js,.ts .",
+		"types": "vitest typecheck --run && tsc --noEmit",
+		"types:watch": "vitest typecheck",
 		"unit": "vitest run --coverage",
-		"unit:watch": "vitest watch"
+		"unit:watch": "vitest watch",
+		"size": "size-limit",
+		"test": "npm run lint && npm run types && npm run unit && npm run build && npm run size"
 	},
 	"dependencies": {
 		"@prismicio/client": "^6.7.3",
 		"@prismicio/helpers": "^2.3.9",
 		"@prismicio/types": "^0.2.7",
 		"isomorphic-unfetch": "^3.1.0",
-		"vue-router": "^4.1.6"
+		"vue-router": "^4.2.1"
 	},
 	"devDependencies": {
 		"@prismicio/mock": "^0.2.0",
 		"@size-limit/preset-small-lib": "^8.2.4",
+		"@trivago/prettier-plugin-sort-imports": "^4.1.1",
 		"@types/jsdom-global": "^3.0.4",
-		"@typescript-eslint/eslint-plugin": "^5.59.5",
-		"@typescript-eslint/parser": "^5.59.5",
-		"@vitejs/plugin-vue": "^4.2.1",
-		"@vitest/coverage-c8": "^0.31.0",
-		"@vue/compiler-sfc": "^3.2.47",
+		"@typescript-eslint/eslint-plugin": "^5.59.7",
+		"@typescript-eslint/parser": "^5.59.7",
+		"@vitejs/plugin-vue": "^4.2.3",
+		"@vitest/coverage-c8": "^0.31.1",
+		"@vue/compiler-sfc": "^3.3.4",
 		"@vue/eslint-config-typescript": "^11.0.3",
 		"@vue/test-utils": "^2.3.2",
-		"eslint": "^8.40.0",
+		"eslint": "^8.41.0",
 		"eslint-config-prettier": "^8.8.0",
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-tsdoc": "^0.2.17",
-		"eslint-plugin-vue": "^9.11.1",
+		"eslint-plugin-vue": "^9.14.0",
 		"jsdom": "^22.0.0",
 		"jsdom-global": "^3.0.2",
 		"prettier": "^2.8.8",
@@ -79,10 +87,10 @@
 		"size-limit": "^8.2.4",
 		"standard-version": "^9.5.0",
 		"typescript": "^5.0.4",
-		"vite": "^4.3.5",
+		"vite": "^4.3.8",
 		"vite-plugin-sdk": "^0.1.1",
-		"vitest": "^0.31.0",
-		"vue": "^3.2.47"
+		"vitest": "^0.31.1",
+		"vue": "^3.3.4"
 	},
 	"peerDependencies": {
 		"vue": "^3.0.0"

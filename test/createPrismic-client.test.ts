@@ -1,8 +1,8 @@
-import { it, expect, vi } from "vitest";
-import { mount } from "@vue/test-utils";
+import { expect, it, vi } from "vitest";
 
-import unfetch from "isomorphic-unfetch";
 import { createClient, getRepositoryEndpoint } from "@prismicio/client";
+import { mount } from "@vue/test-utils";
+import unfetch from "isomorphic-unfetch";
 
 import { WrapperComponent } from "./__fixtures__/WrapperComponent";
 

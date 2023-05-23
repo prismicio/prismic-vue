@@ -1,12 +1,14 @@
-import { it, expect, vi } from "vitest";
-import { mount } from "@vue/test-utils";
+import { expect, it, vi } from "vitest";
+
 import * as mock from "@prismicio/mock";
+import { mount } from "@vue/test-utils";
 
 import { WrapperComponent } from "./__fixtures__/WrapperComponent";
+import { richTextFixture } from "./__fixtures__/richText";
+
+import { LinkType } from "@prismicio/types";
 
 import { createPrismic } from "../src";
-import { richTextFixture } from "./__fixtures__/richText";
-import { LinkType } from "@prismicio/types";
 
 it("`asHTML` uses provided default link resolver", () => {
 	const spiedLinkResolver = vi.fn();

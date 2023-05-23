@@ -1,16 +1,17 @@
-import { it, expect, vi } from "vitest";
-import { mount, flushPromises } from "@vue/test-utils";
+import { expect, it, vi } from "vitest";
 
+import { Element } from "@prismicio/richtext";
+import { flushPromises, mount } from "@vue/test-utils";
 import { markRaw } from "vue";
 import { routerKey } from "vue-router";
-import { RichTextField } from "@prismicio/types";
-import { Element } from "@prismicio/richtext";
 
-import { richTextFixture } from "./__fixtures__/richText";
 import { WrapperComponent } from "./__fixtures__/WrapperComponent";
+import { richTextFixture } from "./__fixtures__/richText";
 
-import { PrismicRichTextImpl } from "../src/components";
+import { RichTextField } from "@prismicio/types";
+
 import { createPrismic } from "../src";
+import { PrismicRichTextImpl } from "../src/components";
 
 it("renders rich text field as HTML", () => {
 	const wrapper = mount(PrismicRichTextImpl, {

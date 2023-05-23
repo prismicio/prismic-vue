@@ -1,14 +1,14 @@
-import { isRef, ref, Ref, shallowRef, unref, watch } from "vue";
-
 import {
 	Client,
 	ForbiddenError,
 	ParsingError,
 	PrismicError,
 } from "@prismicio/client";
+import { Ref, isRef, ref, shallowRef, unref, watch } from "vue";
+
+import { PrismicClientComposableState, VueUseParameters } from "./types";
 
 import { usePrismic } from "./usePrismic";
-import { PrismicClientComposableState, VueUseParameters } from "./types";
 
 // Helpers
 type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;

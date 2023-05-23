@@ -1,22 +1,28 @@
-import { App } from "vue";
-
 import {
-	createClient,
-	predicate,
-	cookie,
 	Client,
 	FetchLike,
+	cookie,
+	createClient,
+	predicate,
 } from "@prismicio/client";
 import {
-	asText,
-	asHTML,
-	asLink,
 	asDate,
+	asHTML,
+	asImagePixelDensitySrcSet,
 	asImageSrc,
 	asImageWidthSrcSet,
-	asImagePixelDensitySrcSet,
+	asLink,
+	asText,
 	documentToLinkField,
 } from "@prismicio/helpers";
+import { App } from "vue";
+
+import type {
+	PrismicPlugin,
+	PrismicPluginClient,
+	PrismicPluginHelpers,
+	PrismicPluginOptions,
+} from "./types";
 
 import {
 	PrismicEmbed,
@@ -27,12 +33,6 @@ import {
 	SliceZone,
 } from "./components";
 import { prismicKey } from "./injectionSymbols";
-import type {
-	PrismicPlugin,
-	PrismicPluginClient,
-	PrismicPluginHelpers,
-	PrismicPluginOptions,
-} from "./types";
 
 /**
  * Creates a `@prismicio/vue` plugin instance that can be used by a Vue app.

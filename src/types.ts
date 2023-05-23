@@ -1,5 +1,3 @@
-import type { App, ConcreteComponent, DefineComponent, Raw, Ref } from "vue";
-
 import type {
 	Client,
 	ClientConfig,
@@ -7,23 +5,22 @@ import type {
 	predicate,
 } from "@prismicio/client";
 import type {
-	asText,
-	asHTML,
-	asLink,
-	asDate,
-	documentToLinkField,
 	HTMLFunctionSerializer,
 	HTMLMapSerializer,
 	LinkResolverFunction,
+	asDate,
+	asHTML,
+	asImagePixelDensitySrcSet,
 	asImageSrc,
 	asImageWidthSrcSet,
-	asImagePixelDensitySrcSet,
+	asLink,
+	asText,
+	documentToLinkField,
 } from "@prismicio/helpers";
+import type { App, ConcreteComponent, DefineComponent, Raw, Ref } from "vue";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 // Imports for @link references:
-
 import type { RouterLink } from "vue-router";
 
 import type {

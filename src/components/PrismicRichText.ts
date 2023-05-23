@@ -1,38 +1,39 @@
 import {
+	HTMLFunctionSerializer,
+	HTMLMapSerializer,
+	LinkResolverFunction,
+	asHTML,
+	isFilled,
+} from "@prismicio/helpers";
+import {
 	AllowedComponentProps,
 	Component,
 	ComponentCustomProps,
-	computed,
 	ComputedRef,
 	ConcreteComponent,
 	DefineComponent,
+	PropType,
+	Raw,
+	VNodeProps,
+	computed,
 	defineComponent,
 	h,
 	inject,
 	nextTick,
 	onBeforeUnmount,
-	PropType,
-	Raw,
 	ref,
 	unref,
-	VNodeProps,
 	watch,
 } from "vue";
 import { routerKey } from "vue-router";
 
-import {
-	asHTML,
-	HTMLFunctionSerializer,
-	HTMLMapSerializer,
-	isFilled,
-	LinkResolverFunction,
-} from "@prismicio/helpers";
-import { RichTextField } from "@prismicio/types";
+import { isInternalURL } from "../lib/isInternalURL";
+import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 
 import { VueUseOptions } from "../types";
+import { RichTextField } from "@prismicio/types";
+
 import { usePrismic } from "../usePrismic";
-import { simplyResolveComponent } from "../lib/simplyResolveComponent";
-import { isInternalURL } from "../lib/isInternalURL";
 
 /**
  * The default component rendered to wrap the HTML output.

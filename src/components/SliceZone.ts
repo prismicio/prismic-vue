@@ -1,23 +1,24 @@
 import {
 	AllowedComponentProps,
 	ComponentCustomProps,
-	computed,
 	ConcreteComponent,
 	DefineComponent,
-	defineComponent,
 	FunctionalComponent,
-	h,
-	markRaw,
 	PropType,
 	Raw,
 	VNodeProps,
+	computed,
+	defineComponent,
+	h,
+	markRaw,
 	watchEffect,
 } from "vue";
 
+import { __PRODUCTION__ } from "../lib/__PRODUCTION__";
+import { simplyResolveComponent } from "../lib/simplyResolveComponent";
+
 import { Slice } from "@prismicio/types";
 
-import { simplyResolveComponent } from "../lib/simplyResolveComponent";
-import { __PRODUCTION__ } from "../lib/__PRODUCTION__";
 import { usePrismic } from "../usePrismic";
 
 /**

@@ -16,8 +16,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
+import { blank, internal, simple } from "../../mocks/link.json";
+
 import { usePrismic } from "../../../../src";
-import { simple, blank, internal } from "../../mocks/link.json";
 
 export default defineComponent({
 	setup(): {

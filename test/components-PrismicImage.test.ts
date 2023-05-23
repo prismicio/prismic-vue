@@ -1,17 +1,18 @@
-import { it, expect, vi } from "vitest";
-import { mount } from "@vue/test-utils";
-import * as mock from "@prismicio/mock";
+import { expect, it, vi } from "vitest";
 
+import * as mock from "@prismicio/mock";
+import { mount } from "@vue/test-utils";
 import { markRaw } from "vue";
-import { ImageField } from "@prismicio/types";
 
 import {
-	createWrapperComponent,
 	WrapperComponent,
+	createWrapperComponent,
 } from "./__fixtures__/WrapperComponent";
 
-import { PrismicImageImpl } from "../src/components";
+import { ImageField } from "@prismicio/types";
+
 import { createPrismic } from "../src";
+import { PrismicImageImpl } from "../src/components";
 
 it("renders image field", () => {
 	const wrapper = mount(PrismicImageImpl, {

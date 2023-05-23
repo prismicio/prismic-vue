@@ -1,11 +1,12 @@
-import { it, expect } from "vitest";
+import { expect, it } from "vitest";
+
 import { mount } from "@vue/test-utils";
-
 import { markRaw } from "vue";
-import { RichTextField } from "@prismicio/types";
 
-import { richTextFixture } from "./__fixtures__/richText";
 import { WrapperComponent } from "./__fixtures__/WrapperComponent";
+import { richTextFixture } from "./__fixtures__/richText";
+
+import { RichTextField } from "@prismicio/types";
 
 import { PrismicTextImpl } from "../src/components";
 
