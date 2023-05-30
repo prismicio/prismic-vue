@@ -1,6 +1,6 @@
 import type {
-	Client,
 	ClientConfig,
+	CreateClient,
 	cookie,
 	predicate,
 } from "@prismicio/client";
@@ -179,7 +179,7 @@ type PrismicPluginOptionsWithClient = PrismicPluginOptionsBase & {
 	 * `usePrismic().client`.
 	 * @see Prismic client documentation {@link https://prismic.io/docs/technologies/javascript}
 	 */
-	client: Client;
+	client: ReturnType<CreateClient>;
 
 	/**
 	 * Ensures type union is a strict or.
@@ -284,7 +284,7 @@ export type PrismicPluginClient = {
 	/**
 	 * A `@prismicio/client` instance.
 	 */
-	client: Client;
+	client: ReturnType<CreateClient>;
 
 	/**
 	 * Query predicates from `@prismicio/client`.
