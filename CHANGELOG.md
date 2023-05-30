@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.1](https://github.com/prismicio/prismic-vue/compare/v3.2.0...v3.2.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* allow client type extensions ([bb63a73](https://github.com/prismicio/prismic-vue/commit/bb63a73c9efc500f5ba79c3a979e72f5e99b1c14))
+
+
+### Chore
+
+* update project structure ([d680ecb](https://github.com/prismicio/prismic-vue/commit/d680ecb756401970f373086ee94204070e31609b))
+
 ## [3.2.0](https://github.com/prismicio/prismic-vue/compare/v3.1.4...v3.2.0) (2023-05-16)
 
 
