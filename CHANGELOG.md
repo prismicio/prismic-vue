@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/prismicio/prismic-vue/compare/v3.2.1...v4.0.0) (2023-06-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* update to client v7 (#64)
+
+### Features
+
+* update to client v7 ([#64](https://github.com/prismicio/prismic-vue/issues/64)) ([00a71ca](https://github.com/prismicio/prismic-vue/commit/00a71cae45f562746654e91cff2b24278ecdf25f))
+
 ### [3.2.1](https://github.com/prismicio/prismic-vue/compare/v3.2.0...v3.2.1) (2023-05-30)
 
 
