@@ -1,3 +1,4 @@
+import { EmbedField } from "@prismicio/client";
 import {
 	AllowedComponentProps,
 	ComponentCustomProps,
@@ -11,8 +12,6 @@ import {
 } from "vue";
 
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
-
-import { EmbedField } from "@prismicio/types";
 
 /**
  * The default component rendered to wrap the embed.

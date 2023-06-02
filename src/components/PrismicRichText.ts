@@ -2,9 +2,10 @@ import {
 	HTMLFunctionSerializer,
 	HTMLMapSerializer,
 	LinkResolverFunction,
+	RichTextField,
 	asHTML,
 	isFilled,
-} from "@prismicio/helpers";
+} from "@prismicio/client";
 import {
 	AllowedComponentProps,
 	Component,
@@ -31,7 +32,6 @@ import { isInternalURL } from "../lib/isInternalURL";
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 
 import { VueUseOptions } from "../types";
-import { RichTextField } from "@prismicio/types";
 
 import { usePrismic } from "../usePrismic";
 

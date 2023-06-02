@@ -3,7 +3,7 @@
 import type { Client } from "@prismicio/client";
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
-import { PrismicDocument, Query } from "@prismicio/types";
+import { PrismicDocument, Query } from "@prismicio/client";
 
 import {
 	ClientComposableReturnType,

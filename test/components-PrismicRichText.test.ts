@@ -1,5 +1,6 @@
 import { expect, it, vi } from "vitest";
 
+import { RichTextField } from "@prismicio/client";
 import { Element } from "@prismicio/richtext";
 import { flushPromises, mount } from "@vue/test-utils";
 import { markRaw } from "vue";
@@ -7,8 +8,6 @@ import { routerKey } from "vue-router";
 
 import { WrapperComponent } from "./__fixtures__/WrapperComponent";
 import { richTextFixture } from "./__fixtures__/richText";
-
-import { RichTextField } from "@prismicio/types";
 
 import { createPrismic } from "../src";
 import { PrismicRichTextImpl } from "../src/components";

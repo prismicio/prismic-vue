@@ -1,3 +1,4 @@
+import { Slice } from "@prismicio/client";
 import {
 	AllowedComponentProps,
 	ComponentCustomProps,
@@ -17,8 +18,6 @@ import {
 import { __PRODUCTION__ } from "../lib/__PRODUCTION__";
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 
-import { Slice } from "@prismicio/types";
-
 import { usePrismic } from "../usePrismic";
 
 /**
@@ -37,7 +36,7 @@ type ExtractSliceType<TSlice extends SliceLike> = TSlice extends SliceLikeRestV2
  * Rest API V2 for the `<SliceZone>` component.
  *
  * If using Prismic's Rest API V2, use the `Slice` export from
- * `@prismicio/types` for a full interface.
+ * `@prismicio/client` for a full interface.
  *
  * @typeParam TSliceType - Type name of the Slice.
  */
@@ -60,7 +59,7 @@ export type SliceLikeGraphQL<TSliceType extends string = string> = {
  * The minimum required properties to represent a Prismic Slice for the
  * `<SliceZone />` component.
  *
- * If using Prismic's REST API, use the `Slice` export from `@prismicio/types`
+ * If using Prismic's REST API, use the `Slice` export from `@prismicio/client`
  * for a full interface.
  *
  * @typeParam TSliceType - Type name of the Slice
@@ -70,11 +69,11 @@ export type SliceLike<TSliceType extends string = string> =
 	| SliceLikeGraphQL<TSliceType>;
 
 /**
- * A looser version of the `SliceZone` type from `@prismicio/types` using
+ * A looser version of the `SliceZone` type from `@prismicio/client` using
  * `SliceLike`.
  *
  * If using Prismic's REST API, use the `SliceZone` export from
- * `@prismicio/types` for the full type.
+ * `@prismicio/client` for the full type.
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
  */
@@ -153,8 +152,9 @@ export type DefineComponentSliceComponentProps<
 
 /**
  * Gets native Vue props for a component rendering content from a Prismic Slice
- * using the `<SliceZone />` component. Props are: `["slice", "index", "slices",
- * "context"]`
+ * using the `<SliceZone />` component.
+ *
+ * Props are: `["slice", "index", "slices", "context"]`
  *
  * @example Defining a new slice component:
  *

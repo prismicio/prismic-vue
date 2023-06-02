@@ -1,9 +1,10 @@
 import {
+	ImageField,
 	asImagePixelDensitySrcSet,
 	asImageSrc,
 	asImageWidthSrcSet,
 	isFilled,
-} from "@prismicio/helpers";
+} from "@prismicio/client";
 import {
 	AllowedComponentProps,
 	ComponentCustomProps,
@@ -23,7 +24,6 @@ import { __PRODUCTION__ } from "../lib/__PRODUCTION__";
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 
 import { VueUseOptions } from "../types";
-import { ImageField } from "@prismicio/types";
 
 import { usePrismic } from "../usePrismic";
 

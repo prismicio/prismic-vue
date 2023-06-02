@@ -1,6 +1,7 @@
 import { expect, it, vi } from "vitest";
 
 import * as mock from "@prismicio/mock";
+import { ImageField } from "@prismicio/client";
 import { mount } from "@vue/test-utils";
 import { markRaw } from "vue";
 
@@ -8,8 +9,6 @@ import {
 	WrapperComponent,
 	createWrapperComponent,
 } from "./__fixtures__/WrapperComponent";
-
-import { ImageField } from "@prismicio/types";
 
 import { createPrismic } from "../src";
 import { PrismicImageImpl } from "../src/components";

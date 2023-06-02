@@ -1,4 +1,9 @@
-import { LinkResolverFunction, asLink } from "@prismicio/helpers";
+import {
+	LinkField,
+	LinkResolverFunction,
+	PrismicDocument,
+	asLink,
+} from "@prismicio/client";
 import {
 	AllowedComponentProps,
 	ComponentCustomProps,
@@ -20,7 +25,6 @@ import { isInternalURL } from "../lib/isInternalURL";
 import { simplyResolveComponent } from "../lib/simplyResolveComponent";
 
 import { VueUseOptions } from "../types";
-import { LinkField, PrismicDocument } from "@prismicio/types";
 
 import { usePrismic } from "../usePrismic";
 

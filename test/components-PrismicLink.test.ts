@@ -1,6 +1,7 @@
 import { expect, it, vi } from "vitest";
 
 import * as mock from "@prismicio/mock";
+import { LinkField, LinkType } from "@prismicio/client";
 import { mount } from "@vue/test-utils";
 import { markRaw } from "vue";
 
@@ -9,8 +10,6 @@ import {
 	createWrapperComponent,
 } from "./__fixtures__/WrapperComponent";
 import router from "./__fixtures__/router";
-
-import { LinkField, LinkType } from "@prismicio/types";
 
 import { createPrismic } from "../src";
 import { PrismicLinkImpl } from "../src/components";

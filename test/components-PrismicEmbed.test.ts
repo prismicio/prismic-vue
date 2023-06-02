@@ -1,12 +1,11 @@
 import { expect, it, vi } from "vitest";
 
 import * as mock from "@prismicio/mock";
+import { EmbedField } from "@prismicio/client";
 import { mount } from "@vue/test-utils";
 import { markRaw } from "vue";
 
 import { WrapperComponent } from "./__fixtures__/WrapperComponent";
-
-import { EmbedField } from "@prismicio/types";
 
 import { PrismicEmbedImpl } from "../src/components";
 
