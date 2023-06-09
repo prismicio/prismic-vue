@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/prismicio/prismic-vue/compare/v4.0.0...v4.0.1) (2023-06-09)
+
+
+### Bug Fixes
+
+* use config object serializer properly with `asHTML` ([dfc0558](https://github.com/prismicio/prismic-vue/commit/dfc0558df0746e6a8fcd847b1d646136f12c31ab))
+
 ## [4.0.0](https://github.com/prismicio/prismic-vue/compare/v3.2.1...v4.0.0) (2023-06-02)
 
 
