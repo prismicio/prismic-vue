@@ -91,7 +91,7 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 					: {
 							linkResolver: options.linkResolver,
 							serializer: options.richTextSerializer || options.htmlSerializer,
-							...config,
+							...configOrLinkResolver,
 					  },
 			);
 		},

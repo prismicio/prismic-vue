@@ -88,7 +88,31 @@ it("`asHTML` uses provided default deprecated serializer", () => {
 	expect(spiedRichTextSerializer).toHaveBeenCalled();
 });
 
-it("`asHTML` uses provided HTML serializer over default provided", () => {
+it("`asHTML` uses provided serializer over default provided", () => {
+	const spiedRichTextSerializer1 = vi.fn();
+	const spiedRichTextSerializer2 = vi.fn();
+
+	const prismic = createPrismic({
+		endpoint: "test",
+		richTextSerializer: spiedRichTextSerializer1,
+	});
+
+	const wrapper = mount(WrapperComponent, {
+		global: {
+			plugins: [prismic],
+		},
+	});
+
+	wrapper.vm.$prismic.asHTML(richTextFixture.en, {
+		serializer: spiedRichTextSerializer2,
+	});
+
+	expect(spiedRichTextSerializer1).not.toHaveBeenCalled();
+	expect(spiedRichTextSerializer2).toHaveBeenCalled();
+});
+
+// TODO: Remove in v5
+it("`asHTML` uses provided deprecated serializer over default provided", () => {
 	const spiedRichTextSerializer1 = vi.fn();
 	const spiedRichTextSerializer2 = vi.fn();
 
