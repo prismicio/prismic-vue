@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.2](https://github.com/prismicio/prismic-vue/compare/v4.0.1...v4.0.2) (2023-07-06)
+
+
+### Chore
+
+* **deps:** maintain dependencies ([7dd808f](https://github.com/prismicio/prismic-vue/commit/7dd808fc0c867ad8548461ac083447e71d1ed386))
+
+
+### Documentation
+
+* tsdoc `[@example](https://github.com/example)` code snippet format ([#62](https://github.com/prismicio/prismic-vue/issues/62), [#67](https://github.com/prismicio/prismic-vue/issues/67)) ([eeaddc4](https://github.com/prismicio/prismic-vue/commit/eeaddc42a258e63c415464a3c0e98944fe551daf))
+
 ### [4.0.1](https://github.com/prismicio/prismic-vue/compare/v4.0.0...v4.0.1) (2023-06-09)
 
 
