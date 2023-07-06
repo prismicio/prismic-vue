@@ -211,13 +211,15 @@ type PrismicPluginOptionsWithEndpoint = PrismicPluginOptionsBase & {
 	 * Said client will be used by `@prismicio/vue` composables, such as
 	 * {@link usePrismicDocuments} and exposed through `this.$prismic.client` and
 	 * `usePrismic().client`.
-	 * @example A repository ID:
+	 * @example
 	 *
-	 *     "my-repo";
+	 * ```javascript
+	 * // A repository ID
+	 * "my-repo";
 	 *
-	 * @example A full repository endpoint:
-	 *
-	 *     "https://my-repo.cdn.prismic.io/api/v2";
+	 * //A full repository endpoint
+	 * "https://my-repo.cdn.prismic.io/api/v2";
+	 * ```
 	 *
 	 * @see Prismic client documentation {@link https://prismic.io/docs/technologies/javascript}
 	 */
@@ -226,17 +228,19 @@ type PrismicPluginOptionsWithEndpoint = PrismicPluginOptionsBase & {
 	/**
 	 * An optional object to configure `@prismicio/client` instance further.
 	 *
-	 * @example Accessing a private private repository:
+	 * @example
 	 *
 	 * ```javascript
+	 * // Accessing a private private repository
 	 * {
 	 * 	"accessToken": "abc"
 	 * }
 	 * ```
 	 *
-	 * @example Using a route resolver:
+	 * @example
 	 *
 	 * ```javascript
+	 * // Using a route resolver
 	 * {
 	 * 	"defaultParams": {
 	 * 		"routes": [

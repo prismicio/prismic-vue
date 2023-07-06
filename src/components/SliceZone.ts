@@ -156,9 +156,10 @@ export type DefineComponentSliceComponentProps<
  *
  * Props are: `["slice", "index", "slices", "context"]`
  *
- * @example Defining a new slice component:
+ * @example
  *
  * ```javascript
+ * // Defining a new slice component
  * import { getSliceComponentProps } from "@prismicio/vue";
  *
  * export default {
@@ -166,9 +167,10 @@ export type DefineComponentSliceComponentProps<
  * };
  * ```
  *
- * @example Defining a new slice component with visual hint:
+ * @example
  *
  * ```javascript
+ * // Defining a new slice component with visual hint
  * import { getSliceComponentProps } from "@prismicio/vue";
  *
  * export default {
@@ -302,9 +304,10 @@ export type SliceZoneComponents<
  * @remarks
  * This is essentially an helper function to ensure {@link markRaw} is correctly
  * applied on each components, improving performances.
- * @example Defining a slice components:
+ * @example
  *
  * ```javascript
+ * // Defining a slice components
  * import { defineSliceZoneComponents } from "@prismicio/vue";
  *
  * export default {

@@ -7,9 +7,10 @@ import { prismicKey } from "./injectionSymbols";
 /**
  * Accesses `@prismicio/vue` plugin interface.
  *
- * @example With the composition API:
+ * @example
  *
  * ```javascript
+ * // With the composition API
  * import { usePrismic } from "@prismicio/vue";
  *
  * export default {
