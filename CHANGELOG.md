@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.3](https://github.com/prismicio/prismic-vue/compare/v4.0.2...v4.0.3) (2023-08-30)
+
+
+### Bug Fixes
+
+* looser slice component type ([61c87e3](https://github.com/prismicio/prismic-vue/commit/61c87e3c43811529cb5ceada953b43e6525a0881))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([49a2e4f](https://github.com/prismicio/prismic-vue/commit/49a2e4fae4cc6cd44d1fce7f98e0b0eb2f93cfec))
+
 ### [4.0.2](https://github.com/prismicio/prismic-vue/compare/v4.0.1...v4.0.2) (2023-07-06)
 
 
