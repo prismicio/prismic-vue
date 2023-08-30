@@ -9,6 +9,7 @@ import {
 	Raw,
 	VNodeProps,
 	computed,
+	defineAsyncComponent,
 	defineComponent,
 	h,
 	markRaw,
@@ -229,6 +230,8 @@ export type SliceComponentType<
 	// For reference within TypeScript files when `*.vue` type cannot be inferred
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
 	| DefineComponent<{}, {}, any>
+	// Likewise, for reference with TypeScript files.
+	| ReturnType<typeof defineAsyncComponent>
 	| DefineComponent<SliceComponentProps<TSlice, TContext>>
 	| FunctionalComponent<SliceComponentProps<TSlice, TContext>>;
 
