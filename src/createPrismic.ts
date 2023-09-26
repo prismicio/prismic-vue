@@ -14,6 +14,7 @@ import {
 	createClient,
 	documentToLinkField,
 	filter,
+	isFilled,
 } from "@prismicio/client";
 import { App } from "vue";
 
@@ -120,6 +121,7 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 		asImageSrc,
 		asImageWidthSrcSet,
 		asImagePixelDensitySrcSet,
+		isFilled,
 		documentToLinkField,
 	};
 

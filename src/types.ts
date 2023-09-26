@@ -15,6 +15,7 @@ import type {
 	cookie,
 	documentToLinkField,
 	filter,
+	isFilled,
 } from "@prismicio/client";
 import type { App, ConcreteComponent, DefineComponent, Raw, Ref } from "vue";
 
@@ -377,6 +378,12 @@ export type PrismicPluginHelpers = {
 	 * `@prismicio/client` {@link asImagePixelDensitySrcSet} function.
 	 */
 	asImagePixelDensitySrcSet: typeof asImagePixelDensitySrcSet;
+
+	/**
+	 * Helpers to determine if a field is filled. This is `@prismicio/client`
+	 * {@link isFilled} object.
+	 */
+	isFilled: typeof isFilled;
 
 	/**
 	 * Converts a document into a link field. This is `@prismicio/client`
