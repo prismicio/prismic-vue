@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/prismicio/prismic-vue/compare/v4.0.3...v4.1.0) (2023-09-26)
+
+
+### Features
+
+* export `isFilled` object to helpers ([e51adf2](https://github.com/prismicio/prismic-vue/commit/e51adf27cf0c90f145d7c1b4d2a953ad3d46468e))
+
 ### [4.0.3](https://github.com/prismicio/prismic-vue/compare/v4.0.2...v4.0.3) (2023-08-30)
 
 
