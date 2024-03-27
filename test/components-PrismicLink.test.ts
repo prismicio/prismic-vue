@@ -420,7 +420,7 @@ it("reacts to changes properly", async () => {
 				type: LinkType.Web,
 				withTargetBlank: false,
 			}),
-			target: null,
+			target: undefined,
 			url: "https://prismic.io",
 		},
 	});

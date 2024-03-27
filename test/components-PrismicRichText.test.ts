@@ -1,7 +1,6 @@
 import { expect, it, vi } from "vitest";
 
-import { RichTextField } from "@prismicio/client";
-import { Element } from "@prismicio/richtext";
+import { Element, RichTextField } from "@prismicio/client";
 import { flushPromises, mount } from "@vue/test-utils";
 import { markRaw } from "vue";
 import { routerKey } from "vue-router";

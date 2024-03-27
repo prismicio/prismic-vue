@@ -10,6 +10,7 @@ import {
 
 import { createPrismic } from "../src";
 import {
+	SliceComponentProps,
 	SliceComponentType,
 	SliceLike,
 	SliceZoneImpl,
@@ -210,10 +211,12 @@ it("provides context to each slice", () => {
 	});
 
 	expect(
-		wrapper.getComponent(Foo as DefineComponent).props().context,
+		wrapper.getComponent(Foo as DefineComponent<SliceComponentProps>).props()
+			.context,
 	).toStrictEqual(context);
 	expect(
-		wrapper.getComponent(Bar as DefineComponent).props().context,
+		wrapper.getComponent(Bar as DefineComponent<SliceComponentProps>).props()
+			.context,
 	).toStrictEqual(context);
 });
 
