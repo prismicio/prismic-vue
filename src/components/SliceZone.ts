@@ -260,26 +260,23 @@ export const TODOSliceComponent = __PRODUCTION__
 			props: [],
 			inheritAttrs: false,
 			setup(_props, { attrs }) {
-				const type = computed(() =>
-					attrs.slice && typeof attrs.slice === "object"
-						? "slice_type" in attrs.slice
+				const type = computed(() => {
+					// API slices
+					if (attrs.slice && typeof attrs.slice === "object") {
+						return "slice_type" in attrs.slice
 							? (attrs.slice as Record<string, unknown>).slice_type
-							: "type" in attrs.slice
-							? (attrs.slice as Record<string, unknown>).type
-							: null
-						: null,
-				);
+							: (attrs.slice as Record<string, unknown>).type;
+					}
+
+					// Mapped slices
+					return "slice_type" in attrs ? attrs.slice_type : attrs.type;
+				});
 
 				watchEffect(() => {
-					type.value
-						? console.warn(
-								`[SliceZone] Could not find a component for Slice type "${type.value}"`,
-								attrs.slice,
-						  )
-						: console.warn(
-								"[SliceZone] Could not find a component for mapped Slice",
-								attrs,
-						  );
+					console.warn(
+						`[SliceZone] Could not find a component for Slice type "${type.value}"`,
+						attrs.slice || attrs,
+					);
 				});
 
 				return () => {
@@ -287,13 +284,9 @@ export const TODOSliceComponent = __PRODUCTION__
 						"section",
 						{
 							"data-slice-zone-todo-component": "",
-							"data-slice-type": type.value ? type.value : null,
+							"data-slice-type": type.value,
 						},
-						[
-							type.value
-								? `Could not find a component for Slice type "${type.value}"`
-								: "Could not find a component for mapped Slice",
-						],
+						[`Could not find a component for Slice type "${type.value}"`],
 					);
 				};
 			},

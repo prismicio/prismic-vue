@@ -325,7 +325,7 @@ it("renders TODO component if component mapping is missing", () => {
 	expect(wrapper.html()).toBe(
 		`<div class="wrapperComponentFoo"></div>
 <section data-slice-zone-todo-component="" data-slice-type="bar">Could not find a component for Slice type "bar"</section>
-<section data-slice-zone-todo-component="">Could not find a component for mapped Slice</section>`,
+<section data-slice-zone-todo-component="" data-slice-type="baz">Could not find a component for Slice type "baz"</section>`,
 	);
 	expect(console.warn).toHaveBeenCalledTimes(2);
 	expect(vi.mocked(console.warn).mock.calls[0]).toMatch(
