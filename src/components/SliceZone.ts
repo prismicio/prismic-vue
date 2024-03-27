@@ -41,10 +41,10 @@ type ExtractSliceType<TSlice extends SliceLike> = TSlice extends SliceLikeRestV2
  *
  * @typeParam TSliceType - Type name of the Slice.
  */
-export type SliceLikeRestV2<TSliceType extends string = string> = {
-	slice_type: Slice<TSliceType>["slice_type"];
-	id?: string;
-};
+export type SliceLikeRestV2<TSliceType extends string = string> = Pick<
+	Slice<TSliceType>,
+	"id" | "slice_type"
+>;
 
 /**
  * The minimum required properties to represent a Prismic Slice from the Prismic
@@ -60,14 +60,23 @@ export type SliceLikeGraphQL<TSliceType extends string = string> = {
  * The minimum required properties to represent a Prismic Slice for the
  * `<SliceZone />` component.
  *
- * If using Prismic's REST API, use the `Slice` export from `@prismicio/client`
- * for a full interface.
+ * If using Prismic's Rest API V2, use the `Slice` export from
+ * `@prismicio/client` for a full interface.
  *
  * @typeParam TSliceType - Type name of the Slice
  */
-export type SliceLike<TSliceType extends string = string> =
+export type SliceLike<TSliceType extends string = string> = (
 	| SliceLikeRestV2<TSliceType>
-	| SliceLikeGraphQL<TSliceType>;
+	| SliceLikeGraphQL<TSliceType>
+) & {
+	/**
+	 * If `true`, this Slice has been modified from its original value using a
+	 * mapper and `@prismicio/client`'s `mapSliceZone()`.
+	 *
+	 * @internal
+	 */
+	__mapped?: true;
+};
 
 /**
  * A looser version of the `SliceZone` type from `@prismicio/client` using
@@ -78,8 +87,9 @@ export type SliceLike<TSliceType extends string = string> =
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
  */
-export type SliceZoneLike<TSlice extends SliceLike = SliceLike> =
-	readonly TSlice[];
+export type SliceZoneLike<
+	TSlice extends SliceLike = SliceLike & Record<string, unknown>,
+> = readonly TSlice[];
 
 /**
  * Vue props for a component rendering content from a Prismic Slice using the
@@ -90,8 +100,7 @@ export type SliceZoneLike<TSlice extends SliceLike = SliceLike> =
  *   available to all Slice components
  */
 export type SliceComponentProps<
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	TSlice extends SliceLike = any,
+	TSlice extends SliceLike = SliceLike,
 	TContext = unknown,
 > = {
 	/**
@@ -111,7 +120,9 @@ export type SliceComponentProps<
 	// reference limtiations. If we had another generic to determine the full
 	// union of Slice types, it would include TSlice. This causes TypeScript to
 	// throw a compilation error.
-	slices: SliceZoneLike<SliceLike>;
+	slices: SliceZoneLike<
+		TSlice extends SliceLikeGraphQL ? SliceLikeGraphQL : SliceLikeRestV2
+	>;
 
 	/**
 	 * Arbitrary data passed to `<SliceZone />` and made available to all Slice
@@ -246,19 +257,29 @@ export const TODOSliceComponent = __PRODUCTION__
 	? ((() => null) as FunctionalComponent<SliceComponentProps>)
 	: /*#__PURE__*/ (defineComponent({
 			name: "TODOSliceComponent",
-			props: getSliceComponentProps(),
-			setup(props) {
+			props: [],
+			inheritAttrs: false,
+			setup(_props, { attrs }) {
 				const type = computed(() =>
-					"slice_type" in props.slice
-						? props.slice.slice_type
-						: props.slice.type,
+					attrs.slice && typeof attrs.slice === "object"
+						? "slice_type" in attrs.slice
+							? attrs.slice.slice_type
+							: "type" in attrs.slice
+							? attrs.slice.type
+							: null
+						: null,
 				);
 
 				watchEffect(() => {
-					console.warn(
-						`[SliceZone] Could not find a component for Slice type "${type.value}"`,
-						props.slice,
-					);
+					type.value
+						? console.warn(
+								`[SliceZone] Could not find a component for Slice type "${type.value}"`,
+								attrs.slice,
+						  )
+						: console.warn(
+								"[SliceZone] Could not find a component for mapped Slice",
+								attrs,
+						  );
 				});
 
 				return () => {
@@ -266,9 +287,13 @@ export const TODOSliceComponent = __PRODUCTION__
 						"section",
 						{
 							"data-slice-zone-todo-component": "",
-							"data-slice-type": type.value,
+							"data-slice-type": type.value ? type.value : null,
 						},
-						[`Could not find a component for Slice type "${type.value}"`],
+						[
+							type.value
+								? `Could not find a component for Slice type "${type.value}"`
+								: "Could not find a component for mapped Slice",
+						],
 					);
 				};
 			},
@@ -426,6 +451,7 @@ export type SliceZoneProps<TContext = unknown> = {
 	 *
 	 * @returns The Vue component to render for a Slice.
 	 */
+	// TODO: Remove in v5 when the `resolver` prop is removed.
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	resolver?: SliceZoneResolver<any, TContext>;
 
@@ -499,11 +525,21 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 			return () => null;
 		}
 
+		// TODO: Remove in v3 when the `resolver` prop is removed.
+		if (!__PRODUCTION__) {
+			if (props.resolver) {
+				console.warn(
+					"The `resolver` prop is deprecated. Please replace it with a components map using the `components` prop.",
+				);
+			}
+		}
+
 		const { options } = usePrismic();
 
 		const renderedSlices = computed(() => {
 			return props.slices.map((slice, index) => {
-				const type = "slice_type" in slice ? slice.slice_type : slice.type;
+				const type =
+					"slice_type" in slice ? (slice.slice_type as string) : slice.type;
 
 				let component =
 					props.components && type in props.components
@@ -512,7 +548,7 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 						  options.components?.sliceZoneDefaultComponent ||
 						  TODOSliceComponent;
 
-				// TODO: Remove `resolver` in v3 in favor of `components`.
+				// TODO: Remove `resolver` in v5 in favor of `components`.
 				if (props.resolver) {
 					const resolvedComponent = props.resolver({
 						slice,
@@ -526,17 +562,23 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 				}
 
 				const key =
-					"id" in slice && slice.id
+					"id" in slice && typeof slice.id === "string"
 						? slice.id
 						: `${index}-${JSON.stringify(slice)}`;
 
-				const p = {
-					key,
-					slice,
-					index,
-					context: props.context,
-					slices: props.slices,
-				};
+				let p;
+				if (slice.__mapped) {
+					const { __mapped, ...mappedProps } = slice;
+					p = { key, ...mappedProps };
+				} else {
+					p = {
+						key,
+						slice,
+						index,
+						context: props.context,
+						slices: props.slices,
+					};
+				}
 
 				return h(simplyResolveComponent(component as ConcreteComponent), p);
 			});

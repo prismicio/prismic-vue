@@ -23,9 +23,9 @@ import { usePrismic } from "../../../../src";
 
 export default defineComponent({
 	setup(): {
-		resolvedSimple: string;
-		resolvedBlank: string;
-		resolvedInternal: string;
+		resolvedSimple: string | null;
+		resolvedBlank: string | null;
+		resolvedInternal: string | null;
 	} {
 		const prismic = usePrismic();
 

@@ -37,9 +37,9 @@ it("renders slice zone with correct component mapping from components", async ()
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
 			slices: [
-				{ slice_type: "foo" },
-				{ slice_type: "bar" },
-				{ slice_type: "baz" },
+				{ id: "1", slice_type: "foo" },
+				{ id: "2", slice_type: "bar" },
+				{ id: "3", slice_type: "baz" },
 			],
 			components: defineSliceZoneComponents({
 				foo: Foo,
@@ -110,7 +110,12 @@ it("renders slice zone with correct component mapping from components with slice
 	);
 });
 
+// TODO: Remove in v5 when the `resolver` prop is removed.
 it("renders slice zone with correct component mapping from resolver", async () => {
+	const consoleWarnSpy = vi
+		.spyOn(console, "warn")
+		.mockImplementation(() => void 0);
+
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
 		getSliceComponentProps(),
@@ -127,9 +132,9 @@ it("renders slice zone with correct component mapping from resolver", async () =
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
 			slices: [
-				{ slice_type: "foo" },
-				{ slice_type: "bar" },
-				{ slice_type: "baz" },
+				{ id: "1", slice_type: "foo" },
+				{ id: "2", slice_type: "bar" },
+				{ id: "3", slice_type: "baz" },
 			],
 			resolver: (({ sliceName }) => {
 				const components = defineSliceZoneComponents({
@@ -157,6 +162,34 @@ it("renders slice zone with correct component mapping from resolver", async () =
 <div class="wrapperComponentBar"></div>
 <div class="wrapperComponentBaz"></div>`,
 	);
+
+	consoleWarnSpy.mockRestore();
+});
+
+// TODO: Remove in v5 when the `resolver` prop is removed.
+it("logs a deprecation warning when using a resolver only in development", async () => {
+	const originalNodeEnv = process.env.NODE_ENV;
+	process.env.NODE_ENV = "development";
+
+	const consoleWarnSpy = vi
+		.spyOn(console, "warn")
+		.mockImplementation(() => void 0);
+
+	mount(SliceZoneImpl, {
+		props: {
+			slices: [],
+			resolver: (() => void 0) as SliceZoneResolver,
+		},
+	});
+
+	await flushPromises();
+
+	expect(consoleWarnSpy).toHaveBeenCalledWith(
+		expect.stringMatching(/the `resolver` prop is deprecated/i),
+	);
+
+	consoleWarnSpy.mockRestore();
+	process.env.NODE_ENV = originalNodeEnv;
 });
 
 it("supports GraphQL API", async () => {
@@ -187,6 +220,51 @@ it("supports GraphQL API", async () => {
 	);
 });
 
+it("supports mapped slices from @prismicio/client's mapSliceZone()", async () => {
+	const Foo = createWrapperComponent<{ id: string; slice_type: string }>(
+		"Foo",
+		["id", "slice_type"],
+	);
+	const Bar = createWrapperComponent<{ id: string; slice_type: string }>(
+		"Bar",
+		["id", "slice_type"],
+	);
+	const Baz = createWrapperComponent<SliceComponentType>(
+		"Baz",
+		getSliceComponentProps(),
+	);
+
+	const wrapper = mount(SliceZoneImpl, {
+		props: {
+			slices: [
+				{ __mapped: true, id: "1", slice_type: "foo", abc: "123" },
+				{ __mapped: true, id: "2", slice_type: "bar", def: "456" },
+				{ id: "3", slice_type: "baz" },
+			],
+			components: defineSliceZoneComponents({
+				foo: Foo,
+				bar: defineAsyncComponent(
+					() => new Promise<SliceComponentType>((res) => res(Bar)),
+				),
+				baz: "Baz",
+			}),
+		},
+		global: {
+			components: {
+				Baz,
+			},
+		},
+	});
+
+	await flushPromises();
+
+	expect(wrapper.html()).toBe(
+		`<div class="wrapperComponentFoo" abc="123"></div>
+<div class="wrapperComponentBar" def="456"></div>
+<div class="wrapperComponentBaz"></div>`,
+	);
+});
+
 it("provides context to each slice", () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
 		"Foo",
@@ -201,7 +279,10 @@ it("provides context to each slice", () => {
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
-			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
+			slices: [
+				{ id: "1", slice_type: "foo" },
+				{ id: "2", slice_type: "bar" },
+			],
 			components: defineSliceZoneComponents({
 				foo: Foo,
 				bar: Bar,
@@ -230,7 +311,11 @@ it("renders TODO component if component mapping is missing", () => {
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
-			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
+			slices: [
+				{ id: "1", slice_type: "foo" },
+				{ id: "2", slice_type: "bar" },
+				{ __mapped: true, id: "3", slice_type: "baz", abc: "123" },
+			],
 			components: defineSliceZoneComponents({
 				foo: Foo,
 			}),
@@ -239,10 +324,14 @@ it("renders TODO component if component mapping is missing", () => {
 
 	expect(wrapper.html()).toBe(
 		`<div class="wrapperComponentFoo"></div>
-<section data-slice-zone-todo-component="" data-slice-type="bar">Could not find a component for Slice type "bar"</section>`,
+<section data-slice-zone-todo-component="" data-slice-type="bar">Could not find a component for Slice type "bar"</section>
+<section data-slice-zone-todo-component="">Could not find a component for mapped Slice</section>`,
 	);
-	expect(console.warn).toHaveBeenCalledOnce();
+	expect(console.warn).toHaveBeenCalledTimes(2);
 	expect(vi.mocked(console.warn).mock.calls[0]).toMatch(
+		/could not find a component/i,
+	);
+	expect(vi.mocked(console.warn).mock.calls[1]).toMatch(
 		/could not find a component/i,
 	);
 
@@ -295,7 +384,10 @@ it("renders plugin provided TODO component if component mapping is missing", () 
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
-			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
+			slices: [
+				{ id: "1", slice_type: "foo" },
+				{ id: "2", slice_type: "bar" },
+			],
 			components: defineSliceZoneComponents({
 				foo: Foo,
 			}),
@@ -332,7 +424,10 @@ it("renders provided TODO component over plugin provided if component mapping is
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
-			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
+			slices: [
+				{ id: "1", slice_type: "foo" },
+				{ id: "2", slice_type: "bar" },
+			],
 			components: defineSliceZoneComponents({
 				foo: Foo,
 			}),
@@ -350,9 +445,37 @@ it("renders provided TODO component over plugin provided if component mapping is
 });
 
 it.skip("doesn't render TODO component in production", () => {
-	// ts-eager does not allow esbuild configuration.
-	// We cannot override the `process.env.NODE_ENV` inline replacement.
-	// As a result, we cannot test for production currently.
+	const originalNodeEnv = process.env.NODE_ENV;
+	process.env.NODE_ENV = "production";
+	const consoleWarnSpy = vi
+		.spyOn(console, "warn")
+		.mockImplementation(() => void 0);
+
+	const Foo = createWrapperComponent<SliceComponentType>(
+		"Foo",
+		getSliceComponentProps(),
+	);
+
+	const wrapper = mount(SliceZoneImpl, {
+		props: {
+			slices: [
+				{ id: "1", slice_type: "foo" },
+				{ id: "2", slice_type: "bar" },
+			],
+			components: defineSliceZoneComponents({
+				foo: Foo,
+			}),
+		},
+	});
+
+	expect(wrapper.html()).toBe(`<div class="wrapperComponentFoo"></div>`);
+	expect(consoleWarnSpy).not.toHaveBeenCalledWith(
+		expect.stringMatching(/could not find a component/i),
+		{ id: "2", slice_type: "bar" },
+	);
+
+	consoleWarnSpy.mockRestore();
+	process.env.NODE_ENV = originalNodeEnv;
 });
 
 it("wraps output with provided wrapper tag", () => {
@@ -367,7 +490,10 @@ it("wraps output with provided wrapper tag", () => {
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
-			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
+			slices: [
+				{ id: "1", slice_type: "foo" },
+				{ id: "2", slice_type: "bar" },
+			],
 			components: defineSliceZoneComponents({
 				foo: Foo,
 				bar: Bar,
@@ -396,7 +522,10 @@ it("wraps output with provided wrapper component", () => {
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
-			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
+			slices: [
+				{ id: "1", slice_type: "foo" },
+				{ id: "2", slice_type: "bar" },
+			],
 			components: defineSliceZoneComponents({
 				foo: Foo,
 				bar: Bar,
@@ -444,7 +573,10 @@ it("reacts to changes properly", async () => {
 
 	const wrapper = mount(SliceZoneImpl, {
 		props: {
-			slices: [{ slice_type: "foo" }, { slice_type: "bar" }],
+			slices: [
+				{ id: "1", slice_type: "foo" },
+				{ id: "2", slice_type: "bar" },
+			],
 			components: defineSliceZoneComponents({
 				foo: Foo,
 				bar: Bar,
@@ -455,7 +587,7 @@ it("reacts to changes properly", async () => {
 	const firstRender = wrapper.html();
 
 	await wrapper.setProps({
-		slices: [{ slice_type: "bar" }],
+		slices: [{ id: "2", slice_type: "bar" }],
 		components: defineSliceZoneComponents({
 			foo: Foo,
 			bar: Bar,

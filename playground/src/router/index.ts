@@ -65,6 +65,14 @@ const routes: Array<RouteRecordRaw> = [
 				/* webpackChunkName: "components--richtext" */ "../views/components/richtext.vue"
 			),
 	},
+	{
+		path: "/components/slicezone",
+		name: "ComponentsSliceZone",
+		component: () =>
+			import(
+				/* webpackChunkName: "components--slicezone" */ "../views/components/slicezone.vue"
+			),
+	},
 ];
 
 const router = createRouter({

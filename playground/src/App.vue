@@ -33,6 +33,9 @@
 					<li>
 						<router-link to="/components/richtext">richtext</router-link>
 					</li>
+					<li>
+						<router-link to="/components/slicezone">slicezone</router-link>
+					</li>
 				</ul>
 			</li>
 		</ul>
