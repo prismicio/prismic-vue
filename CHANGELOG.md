@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/prismicio/prismic-vue/compare/v4.1.0...v4.2.0) (2024-03-27)
+
+
+### Features
+
+* support @prismicio/client `mapSliceZone` ([528581d](https://github.com/prismicio/prismic-vue/commit/528581dd0fda06a84ff048b64689f5c187532724))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([581ea59](https://github.com/prismicio/prismic-vue/commit/581ea59c927f24ff6480e8117d8bf94c30004121))
+* typescript compat ([9d7d481](https://github.com/prismicio/prismic-vue/commit/9d7d4816a15cb4452a9f6d79a1e88c17c085acb0))
+
 ## [4.1.0](https://github.com/prismicio/prismic-vue/compare/v4.0.3...v4.1.0) (2023-09-26)
 
 
