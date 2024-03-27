@@ -254,28 +254,28 @@ export type SliceComponentType<
  * cannot be found in `<SliceZone />`.
  */
 export const TODOSliceComponent = __PRODUCTION__
-	? ((() => null) as FunctionalComponent<SliceComponentProps>)
+	? ((() => null) as FunctionalComponent<{
+			slice: SliceLike;
+	  }>)
 	: /*#__PURE__*/ (defineComponent({
 			name: "TODOSliceComponent",
-			props: [],
-			inheritAttrs: false,
-			setup(_props, { attrs }) {
+			props: {
+				slice: {
+					type: Object as PropType<SliceLike>,
+					required: true,
+				},
+			},
+			setup(props) {
 				const type = computed(() => {
-					// API slices
-					if (attrs.slice && typeof attrs.slice === "object") {
-						return "slice_type" in attrs.slice
-							? (attrs.slice as Record<string, unknown>).slice_type
-							: (attrs.slice as Record<string, unknown>).type;
-					}
-
-					// Mapped slices
-					return "slice_type" in attrs ? attrs.slice_type : attrs.type;
+					return "slice_type" in props.slice
+						? props.slice.slice_type
+						: props.slice.type;
 				});
 
 				watchEffect(() => {
 					console.warn(
 						`[SliceZone] Could not find a component for Slice type "${type.value}"`,
-						attrs.slice || attrs,
+						props.slice,
 					);
 				});
 
@@ -538,8 +538,7 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 					props.components && type in props.components
 						? props.components[type]
 						: props.defaultComponent ||
-						  options.components?.sliceZoneDefaultComponent ||
-						  TODOSliceComponent;
+						  options.components?.sliceZoneDefaultComponent;
 
 				// TODO: Remove `resolver` in v5 in favor of `components`.
 				if (props.resolver) {
@@ -559,21 +558,29 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 						? slice.id
 						: `${index}-${JSON.stringify(slice)}`;
 
-				let p;
-				if (slice.__mapped) {
-					const { __mapped, ...mappedProps } = slice;
-					p = { key, ...mappedProps };
-				} else {
-					p = {
+				if (component) {
+					if (slice.__mapped) {
+						const { __mapped, ...mappedProps } = slice;
+
+						return h(simplyResolveComponent(component as ConcreteComponent), {
+							key,
+							...mappedProps,
+						});
+					}
+
+					return h(simplyResolveComponent(component as ConcreteComponent), {
 						key,
 						slice,
 						index,
 						context: props.context,
 						slices: props.slices,
-					};
+					});
+				} else {
+					return h(
+						simplyResolveComponent(TODOSliceComponent as ConcreteComponent),
+						{ key, slice },
+					);
 				}
-
-				return h(simplyResolveComponent(component as ConcreteComponent), p);
 			});
 		});
 
