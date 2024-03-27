@@ -263,9 +263,9 @@ export const TODOSliceComponent = __PRODUCTION__
 				const type = computed(() =>
 					attrs.slice && typeof attrs.slice === "object"
 						? "slice_type" in attrs.slice
-							? attrs.slice.slice_type
+							? (attrs.slice as Record<string, unknown>).slice_type
 							: "type" in attrs.slice
-							? attrs.slice.type
+							? (attrs.slice as Record<string, unknown>).type
 							: null
 						: null,
 				);
