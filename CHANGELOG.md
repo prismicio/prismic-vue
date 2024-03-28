@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.1](https://github.com/prismicio/prismic-vue/compare/v4.2.0...v4.2.1) (2024-03-28)
+
+
+### Bug Fixes
+
+* display slice type for mapped slices in todo component ([95d5771](https://github.com/prismicio/prismic-vue/commit/95d5771b51dc45df5bd6663178afceae8942dc4c))
+
+
+### Refactor
+
+* `<TodoSliceComponent />` ([#70](https://github.com/prismicio/prismic-vue/issues/70)) ([436834a](https://github.com/prismicio/prismic-vue/commit/436834a233acaefcb595d5e282862613439f9900))
+
 ## [4.2.0](https://github.com/prismicio/prismic-vue/compare/v4.1.0...v4.2.0) (2024-03-27)
 
 
