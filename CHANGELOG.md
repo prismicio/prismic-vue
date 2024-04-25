@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.2](https://github.com/prismicio/prismic-vue/compare/v4.2.1...v4.2.2) (2024-04-25)
+
+
+### Bug Fixes
+
+* `<SliceZone />`'s `slices` type issue ([f88c6b4](https://github.com/prismicio/prismic-vue/commit/f88c6b460d2c12dcce6ea437c8a8d84f08eb3abc))
+
 ### [4.2.1](https://github.com/prismicio/prismic-vue/compare/v4.2.0...v4.2.1) (2024-03-28)
 
 
