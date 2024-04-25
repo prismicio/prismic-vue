@@ -87,9 +87,8 @@ export type SliceLike<TSliceType extends string = string> = (
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
  */
-export type SliceZoneLike<
-	TSlice extends SliceLike = SliceLike & Record<string, unknown>,
-> = readonly TSlice[];
+export type SliceZoneLike<TSlice extends SliceLike = SliceLike> =
+	readonly TSlice[];
 
 /**
  * Vue props for a component rendering content from a Prismic Slice using the
@@ -481,7 +480,9 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 	name: "SliceZone",
 	props: {
 		slices: {
-			type: Array as PropType<SliceZoneLike>,
+			type: Array as PropType<
+				SliceZoneLike<SliceLike & Record<string, unknown>>
+			>,
 			required: true,
 		},
 		components: {
