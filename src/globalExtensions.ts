@@ -1,6 +1,6 @@
 import type { PrismicPlugin } from "./types";
 
-declare module "@vue/runtime-core" {
+declare module "vue" {
 	export interface ComponentCustomProperties {
 		/**
 		 * `@prismicio/vue` plugin interface exposed on `this`.
