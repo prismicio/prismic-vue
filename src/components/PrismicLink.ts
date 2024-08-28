@@ -285,7 +285,7 @@ export const PrismicLinkImpl = /*#__PURE__*/ defineComponent({
 			const computedSlots = getSlots(
 				parent,
 				slots,
-				reactive({ href: href.value }),
+				reactive({ href: href.value, text: text.value }),
 				text.value,
 			);
 
