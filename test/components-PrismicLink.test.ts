@@ -93,6 +93,43 @@ it("renders document as link", (ctx) => {
 	expect(wrapper.html()).toBe('<a href="/bar" class="">foo</a>');
 });
 
+it("renders link text when slot is not provided", () => {
+	const wrapper = mount(PrismicLinkImpl, {
+		props: {
+			field: {
+				...mock.value.link({
+					seed: 2,
+					type: LinkType.Web,
+					withTargetBlank: false,
+				}),
+				url: "https://example.com",
+				text: "bar",
+			},
+		},
+	});
+
+	expect(wrapper.html()).toBe('<a href="https://example.com">bar</a>');
+});
+
+it("renders slot over link text when slot is provided", () => {
+	const wrapper = mount(PrismicLinkImpl, {
+		props: {
+			field: {
+				...mock.value.link({
+					seed: 2,
+					type: LinkType.Web,
+					withTargetBlank: false,
+				}),
+				url: "https://example.com",
+				text: "bar",
+			},
+		},
+		slots: { default: "foo" },
+	});
+
+	expect(wrapper.html()).toBe('<a href="https://example.com">foo</a>');
+});
+
 it("renders non-resolvable document as link", (ctx) => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {

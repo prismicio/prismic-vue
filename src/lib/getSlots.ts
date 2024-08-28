@@ -16,19 +16,22 @@ export const getSlots = (
 	parent: string | ConcreteComponent,
 	slots: Slots,
 	defaultPayload?: unknown,
-): VNode[] | undefined | Slots => {
+	fallback?: string,
+): VNode[] | undefined | Slots | string => {
 	if (typeof parent === "string") {
-		return slots.default && slots.default(defaultPayload);
+		return slots.default ? slots.default(defaultPayload) : fallback;
 	} else {
 		if (slots.default) {
 			const content = slots.default(defaultPayload);
 
-			return {
-				...slots,
-				default: () => content,
-			};
+			return content.length
+				? {
+						...slots,
+						default: () => content,
+				  }
+				: fallback;
 		} else {
-			return slots;
+			return fallback;
 		}
 	}
 };
