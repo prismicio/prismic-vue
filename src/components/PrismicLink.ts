@@ -212,7 +212,7 @@ export const usePrismicLink = (
 	const text = computed(() => {
 		const field = unref(props.field);
 
-		return field && "text" in field ? field.text : undefined;
+		return isFilled.link(field) ? field.text : undefined;
 	});
 
 	return {
