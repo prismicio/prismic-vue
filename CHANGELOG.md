@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.3](https://github.com/prismicio/prismic-vue/compare/v4.2.2...v4.2.3) (2024-09-16)
+
+
+### Bug Fixes
+
+* augment `vue` rather than `@vue/runtime-core` ([#71](https://github.com/prismicio/prismic-vue/issues/71)) ([fc66c4b](https://github.com/prismicio/prismic-vue/commit/fc66c4ba20472acf3884fb7174b9519e2d664c7b))
+
 ### [4.2.2](https://github.com/prismicio/prismic-vue/compare/v4.2.1...v4.2.2) (2024-04-25)
 
 
