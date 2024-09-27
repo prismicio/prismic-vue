@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/prismicio/prismic-vue/compare/v4.2.3...v4.3.0) (2024-09-27)
+
+
+### Features
+
+* expose text to default slot ([0fbd7b4](https://github.com/prismicio/prismic-vue/commit/0fbd7b474edc0cf6295fb5ed1e2744c874b8f3bd))
+* support link text ([24e6464](https://github.com/prismicio/prismic-vue/commit/24e6464b016b47c107a93454028aa813de093bb9))
+
 ### [4.2.3](https://github.com/prismicio/prismic-vue/compare/v4.2.2...v4.2.3) (2024-09-16)
 
 
