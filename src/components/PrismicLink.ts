@@ -137,6 +137,11 @@ export type UsePrismicLinkReturnType = {
 	 * Resolved anchor `rel` value.
 	 */
 	rel: ComputedRef<string | null>;
+
+	/**
+	 * Resolved link text.
+	 */
+	text: ComputedRef<string | undefined>;
 };
 
 /**
@@ -204,11 +209,18 @@ export const usePrismicLink = (
 		}
 	});
 
+	const text = computed(() => {
+		const field = unref(props.field);
+
+		return field && "text" in field ? field.text : undefined;
+	});
+
 	return {
 		type,
 		href,
 		target,
 		rel,
+		text,
 	};
 };
 
@@ -265,7 +277,7 @@ export const PrismicLinkImpl = /*#__PURE__*/ defineComponent({
 			return () => null;
 		}
 
-		const { type, href, target, rel } = usePrismicLink(props);
+		const { type, href, target, rel, text } = usePrismicLink(props);
 
 		return () => {
 			const parent =
@@ -273,7 +285,8 @@ export const PrismicLinkImpl = /*#__PURE__*/ defineComponent({
 			const computedSlots = getSlots(
 				parent,
 				slots,
-				reactive({ href: href.value }),
+				reactive({ href: href.value, text: text.value }),
+				text.value,
 			);
 
 			if (typeof parent === "string") {
