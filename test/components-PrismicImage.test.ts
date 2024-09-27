@@ -19,7 +19,7 @@ it("renders image field", () => {
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<img src=\\"https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=5616&amp;h=3744&amp;fit=crop\\" alt=\\"Quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna\\">"',
+		'"<img src=\\"https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=5616&amp;h=3744&amp;fit=crop\\" alt=\\"Maecenas sed enim ut sem viverra aliquet eget sit\\">"',
 	);
 });
 
@@ -55,7 +55,7 @@ it("renders image field with imgix URL parameters", () => {
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<img src=\\"https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=2560&amp;h=1440&amp;fit=crop&amp;sat=100\\" alt=\\"In cursus turpis massa tincidunt dui ut ornare lectus sit amet est placerat\\">"',
+		'"<img src=\\"https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=2560&amp;h=1440&amp;fit=crop&amp;sat=100\\" alt=\\"Faucibus a pellentesque sit amet porttitor eget dolor morbi non\\">"',
 	);
 });
 
@@ -69,7 +69,7 @@ it("renders image field with width-based `srcset`", () => {
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<img src=\\"https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?w=6373&amp;h=4253&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?h=4253&amp;fit=crop&amp;sat=100&amp;width=100 100w, https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?h=4253&amp;fit=crop&amp;sat=100&amp;width=200 200w, https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?h=4253&amp;fit=crop&amp;sat=100&amp;width=300 300w\\" alt=\\"Aliquam etiam erat velit scelerisque in dictum non consectetur a erat\\">"',
+		'"<img src=\\"https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?w=6373&amp;h=4253&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?h=4253&amp;fit=crop&amp;sat=100&amp;width=100 100w, https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?h=4253&amp;fit=crop&amp;sat=100&amp;width=200 200w, https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?h=4253&amp;fit=crop&amp;sat=100&amp;width=300 300w\\" alt=\\"Lobortis feugiat vivamus at augue eget arcu\\">"',
 	);
 });
 
@@ -88,7 +88,7 @@ it("renders image field with thumbnails width-based `srcset`", () => {
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<img src=\\"https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=7372&amp;h=4392&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?h=4392&amp;fit=crop&amp;sat=100&amp;width=7372 7372w, https://images.unsplash.com/photo-1604537466608-109fa2f16c3b?h=2832&amp;fit=crop&amp;sat=100&amp;width=4240 4240w, https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?h=1467&amp;fit=crop&amp;sat=100&amp;width=2200 2200w, https://images.unsplash.com/photo-1504198266287-1659872e6590?h=2848&amp;fit=crop&amp;sat=100&amp;width=4272 4272w\\" alt=\\"Enim facilisis gravida neque convallis a cras semper auctor\\">"',
+		'"<img src=\\"https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=7372&amp;h=4392&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?h=4392&amp;fit=crop&amp;sat=100&amp;width=7372 7372w, https://images.unsplash.com/photo-1604537466608-109fa2f16c3b?h=2832&amp;fit=crop&amp;sat=100&amp;width=4240 4240w, https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?h=1467&amp;fit=crop&amp;sat=100&amp;width=2200 2200w, https://images.unsplash.com/photo-1504198266287-1659872e6590?h=2848&amp;fit=crop&amp;sat=100&amp;width=4272 4272w\\" alt=\\"Diam maecenas sed enim ut sem\\">"',
 	);
 });
 
@@ -102,7 +102,7 @@ it("renders image field with defaults width-based `srcset`", () => {
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<img src=\\"https://images.unsplash.com/photo-1444464666168-49d633b86797?w=4844&amp;h=3234&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1444464666168-49d633b86797?h=3234&amp;fit=crop&amp;sat=100&amp;width=640 640w, https://images.unsplash.com/photo-1444464666168-49d633b86797?h=3234&amp;fit=crop&amp;sat=100&amp;width=828 828w, https://images.unsplash.com/photo-1444464666168-49d633b86797?h=3234&amp;fit=crop&amp;sat=100&amp;width=1200 1200w, https://images.unsplash.com/photo-1444464666168-49d633b86797?h=3234&amp;fit=crop&amp;sat=100&amp;width=2048 2048w, https://images.unsplash.com/photo-1444464666168-49d633b86797?h=3234&amp;fit=crop&amp;sat=100&amp;width=3840 3840w\\" alt=\\"Faucibus et molestie ac feugiat sed lectus\\">"',
+		'"<img src=\\"https://images.unsplash.com/photo-1444464666168-49d633b86797?w=4844&amp;h=3234&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1444464666168-49d633b86797?h=3234&amp;fit=crop&amp;sat=100&amp;width=640 640w, https://images.unsplash.com/photo-1444464666168-49d633b86797?h=3234&amp;fit=crop&amp;sat=100&amp;width=828 828w, https://images.unsplash.com/photo-1444464666168-49d633b86797?h=3234&amp;fit=crop&amp;sat=100&amp;width=1200 1200w, https://images.unsplash.com/photo-1444464666168-49d633b86797?h=3234&amp;fit=crop&amp;sat=100&amp;width=2048 2048w, https://images.unsplash.com/photo-1444464666168-49d633b86797?h=3234&amp;fit=crop&amp;sat=100&amp;width=3840 3840w\\" alt=\\"Sed pulvinar proin gravida hendrerit lectus a molestie lorem ipsum dolor sit\\">"',
 	);
 });
 
@@ -124,7 +124,7 @@ it("renders image field with plugin defaults width-based `srcset`", () => {
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<img src=\\"https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=5616&amp;h=3744&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;sat=100&amp;width=400 400w, https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;sat=100&amp;width=500 500w, https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;sat=100&amp;width=600 600w\\" alt=\\"Pulvinar proin gravida hendrerit lectus a molestie\\">"',
+		'"<img src=\\"https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=5616&amp;h=3744&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;sat=100&amp;width=400 400w, https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;sat=100&amp;width=500 500w, https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;sat=100&amp;width=600 600w\\" alt=\\"Ipsum suspendisse ultrices gravida dictum fusce ut placerat orci\\">"',
 	);
 });
 
@@ -138,7 +138,7 @@ it("renders image field with pixel-density-based `srcset`", () => {
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<img src=\\"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2560&amp;h=1705&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2560&amp;h=1705&amp;fit=crop&amp;sat=100&amp;dpr=1 1x, https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2560&amp;h=1705&amp;fit=crop&amp;sat=100&amp;dpr=2 2x\\" alt=\\"Dictum varius duis at consectetur lorem donec massa sapien faucibus et\\">"',
+		'"<img src=\\"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2560&amp;h=1705&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2560&amp;h=1705&amp;fit=crop&amp;sat=100&amp;dpr=1 1x, https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2560&amp;h=1705&amp;fit=crop&amp;sat=100&amp;dpr=2 2x\\" alt=\\"At erat pellentesque adipiscing commodo elit\\">"',
 	);
 });
 
@@ -152,7 +152,7 @@ it("renders image field with defaults pixel-density-based `srcset`", () => {
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<img src=\\"https://images.unsplash.com/photo-1444464666168-49d633b86797?w=4844&amp;h=3234&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1444464666168-49d633b86797?w=4844&amp;h=3234&amp;fit=crop&amp;sat=100&amp;dpr=1 1x, https://images.unsplash.com/photo-1444464666168-49d633b86797?w=4844&amp;h=3234&amp;fit=crop&amp;sat=100&amp;dpr=2 2x, https://images.unsplash.com/photo-1444464666168-49d633b86797?w=4844&amp;h=3234&amp;fit=crop&amp;sat=100&amp;dpr=3 3x\\" alt=\\"Suscipit tellus mauris a diam maecenas sed enim\\">"',
+		'"<img src=\\"https://images.unsplash.com/photo-1444464666168-49d633b86797?w=4844&amp;h=3234&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1444464666168-49d633b86797?w=4844&amp;h=3234&amp;fit=crop&amp;sat=100&amp;dpr=1 1x, https://images.unsplash.com/photo-1444464666168-49d633b86797?w=4844&amp;h=3234&amp;fit=crop&amp;sat=100&amp;dpr=2 2x, https://images.unsplash.com/photo-1444464666168-49d633b86797?w=4844&amp;h=3234&amp;fit=crop&amp;sat=100&amp;dpr=3 3x\\" alt=\\"Risus nullam eget felis eget nunc lobortis\\">"',
 	);
 });
 
@@ -174,7 +174,7 @@ it("renders image field with plugin defaults pixel-density-based `srcset`", () =
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<img src=\\"https://images.unsplash.com/photo-1504198266287-1659872e6590?w=4272&amp;h=2848&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1504198266287-1659872e6590?w=4272&amp;h=2848&amp;fit=crop&amp;sat=100&amp;dpr=3 3x, https://images.unsplash.com/photo-1504198266287-1659872e6590?w=4272&amp;h=2848&amp;fit=crop&amp;sat=100&amp;dpr=4 4x\\" alt=\\"Enim diam vulputate ut pharetra sit amet aliquam id diam\\">"',
+		'"<img src=\\"https://images.unsplash.com/photo-1504198266287-1659872e6590?w=4272&amp;h=2848&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1504198266287-1659872e6590?w=4272&amp;h=2848&amp;fit=crop&amp;sat=100&amp;dpr=3 3x, https://images.unsplash.com/photo-1504198266287-1659872e6590?w=4272&amp;h=2848&amp;fit=crop&amp;sat=100&amp;dpr=4 4x\\" alt=\\"Nunc id cursus metus aliquam eleifend mi in\\">"',
 	);
 });
 
@@ -191,7 +191,7 @@ it("renders image field using width-based over pixel-density-based `srcset` and 
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<img src=\\"https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=640 640w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=828 828w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=1200 1200w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=2048 2048w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=3840 3840w\\" alt=\\"Suspendisse in est ante in nibh\\">"',
+		'"<img src=\\"https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100\\" srcset=\\"https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=640 640w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=828 828w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=1200 1200w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=2048 2048w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=3840 3840w\\" alt=\\"Commodo quis imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada\\">"',
 	);
 	expect(console.warn).toHaveBeenCalledOnce();
 	expect(vi.mocked(console.warn).mock.calls[0]).toMatch(
@@ -232,7 +232,7 @@ it("uses plugin provided image component", () => {
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<div class=\\"wrapperComponent\\" src=\\"https://images.unsplash.com/photo-1431794062232-2a99a5431c6c?w=6000&amp;h=4000&amp;fit=crop\\" alt=\\"In fermentum posuere urna nec tincidunt praesent semper feugiat nibh\\" copyright=\\"Massa tincidunt dui ut ornare lectus sit amet est placerat in\\"></div>"',
+		'"<div class=\\"wrapperComponent\\" src=\\"https://images.unsplash.com/photo-1431794062232-2a99a5431c6c?w=6000&amp;h=4000&amp;fit=crop\\" alt=\\"Amet risus nullam eget felis eget nunc lobortis mattis\\" copyright=\\"Lacinia at quis risus sed vulputate odio ut enim\\"></div>"',
 	);
 });
 
@@ -253,7 +253,7 @@ it("uses provided image component over plugin provided", () => {
 	});
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		'"<div class=\\"wrapperComponent2\\" src=\\"https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop\\" alt=\\"Molestie ac feugiat sed lectus vestibulum mattis\\" copyright=\\"Diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget\\"></div>"',
+		'"<div class=\\"wrapperComponent2\\" src=\\"https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop\\" alt=\\"Id cursus metus aliquam eleifend mi\\" copyright=\\"Etiam non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet\\"></div>"',
 	);
 });
 
@@ -306,6 +306,6 @@ it("reacts to changes properly", async () => {
 
 	expect(secondRender).not.toBe(firstRender);
 	expect(secondRender).toMatchInlineSnapshot(
-		'"<img src=\\"https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=2560&amp;h=1440&amp;fit=crop\\" alt=\\"Amet nisl suscipit adipiscing bibendum est\\">"',
+		'"<img src=\\"https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=2560&amp;h=1440&amp;fit=crop\\" alt=\\"Eget felis eget nunc lobortis mattis aliquam faucibus purus in massa\\">"',
 	);
 });
