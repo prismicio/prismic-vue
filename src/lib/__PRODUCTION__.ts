@@ -1,6 +1,6 @@
 // We need to polyfill process if it doesn't exist, such as in the browser.
 if (typeof process === "undefined") {
-	globalThis.process = { env: {} } as typeof process;
+	globalThis.process = { env: {} } as typeof process
 }
 
 /**
@@ -9,4 +9,4 @@ if (typeof process === "undefined") {
  * This boolean can be used to perform actions only in development environments,
  * such as logging.
  */
-export const __PRODUCTION__ = process.env.NODE_ENV === "production";
+export const __PRODUCTION__ = process.env.NODE_ENV === "production"

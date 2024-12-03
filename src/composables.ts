@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Imports for @link references:
-import type { Client } from "@prismicio/client";
+import type { Client } from "@prismicio/client"
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
-import { PrismicDocument, Query } from "@prismicio/client";
+import type { PrismicDocument, Query } from "@prismicio/client"
 
-import {
+import type {
 	ClientComposableReturnType,
 	ClientMethodParameters,
 	ComposableOnlyParameters,
-	useStatefulPrismicClientMethod,
-} from "./useStatefulPrismicClientMethod";
+} from "./useStatefulPrismicClientMethod"
+import { useStatefulPrismicClientMethod } from "./useStatefulPrismicClientMethod"
 
 // Composables
 
@@ -20,6 +20,7 @@ import {
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param params - Parameters to filter, sort, and paginate results
@@ -33,7 +34,7 @@ export const usePrismicDocuments = <TDocument extends PrismicDocument>(
 		params?: ClientMethodParameters<"get">[0] & ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<Query<TDocument>> =>
-	useStatefulPrismicClientMethod("get", args);
+	useStatefulPrismicClientMethod("get", args)
 
 /**
  * A composable that queries content from the Prismic repository and returns
@@ -42,6 +43,7 @@ export const usePrismicDocuments = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of the Prismic document returned
  *
  * @param params - Parameters to filter, sort, and paginate results
@@ -55,7 +57,7 @@ export const useFirstPrismicDocument = <TDocument extends PrismicDocument>(
 		params?: ClientMethodParameters<"getFirst">[0] & ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<TDocument> =>
-	useStatefulPrismicClientMethod("getFirst", args);
+	useStatefulPrismicClientMethod("getFirst", args)
 
 /**
  * A composable that queries a document from the Prismic repository with a
@@ -64,6 +66,7 @@ export const useFirstPrismicDocument = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of the Prismic document returned
  *
  * @param id - ID of the document
@@ -79,7 +82,7 @@ export const usePrismicDocumentByID = <TDocument extends PrismicDocument>(
 		params?: ClientMethodParameters<"getByID">[1] & ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<TDocument> =>
-	useStatefulPrismicClientMethod("getByID", args);
+	useStatefulPrismicClientMethod("getByID", args)
 
 /**
  * A composable that queries documents from the Prismic repository with specific
@@ -88,6 +91,7 @@ export const usePrismicDocumentByID = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param ids - A list of document IDs
@@ -103,7 +107,7 @@ export const usePrismicDocumentsByIDs = <TDocument extends PrismicDocument>(
 		params?: ClientMethodParameters<"getByIDs">[1] & ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<Query<TDocument>> =>
-	useStatefulPrismicClientMethod("getByIDs", args);
+	useStatefulPrismicClientMethod("getByIDs", args)
 
 /**
  * A composable that queries all documents from the Prismic repository with
@@ -112,6 +116,7 @@ export const usePrismicDocumentsByIDs = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param ids - A list of document IDs
@@ -128,7 +133,7 @@ export const useAllPrismicDocumentsByIDs = <TDocument extends PrismicDocument>(
 			ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<TDocument[]> =>
-	useStatefulPrismicClientMethod("getAllByIDs", args);
+	useStatefulPrismicClientMethod("getAllByIDs", args)
 
 /**
  * A composable that queries a document from the Prismic repository with a
@@ -137,6 +142,7 @@ export const useAllPrismicDocumentsByIDs = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of the Prismic document returned
  *
  * @param documentType - The API ID of the document's Custom Type
@@ -154,7 +160,7 @@ export const usePrismicDocumentByUID = <TDocument extends PrismicDocument>(
 		params?: ClientMethodParameters<"getByUID">[2] & ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<TDocument> =>
-	useStatefulPrismicClientMethod("getByUID", args);
+	useStatefulPrismicClientMethod("getByUID", args)
 
 /**
  * A composable that queries documents from the Prismic repository with specific
@@ -163,6 +169,7 @@ export const usePrismicDocumentByUID = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param documentType - The API ID of the document's Custom Type
@@ -180,7 +187,7 @@ export const usePrismicDocumentsByUIDs = <TDocument extends PrismicDocument>(
 		params?: ClientMethodParameters<"getByUIDs">[2] & ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<Query<TDocument>> =>
-	useStatefulPrismicClientMethod("getByUIDs", args);
+	useStatefulPrismicClientMethod("getByUIDs", args)
 
 /**
  * A composable that queries all documents from the Prismic repository with
@@ -189,6 +196,7 @@ export const usePrismicDocumentsByUIDs = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param documentType - The API ID of the document's Custom Type
@@ -207,7 +215,7 @@ export const useAllPrismicDocumentsByUIDs = <TDocument extends PrismicDocument>(
 			ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<TDocument[]> =>
-	useStatefulPrismicClientMethod("getAllByUIDs", args);
+	useStatefulPrismicClientMethod("getAllByUIDs", args)
 
 /**
  * A composable that queries a singleton document from the Prismic repository
@@ -216,6 +224,7 @@ export const useAllPrismicDocumentsByUIDs = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of the Prismic document returned
  *
  * @param documentType - The API ID of the singleton Custom Type
@@ -231,7 +240,7 @@ export const useSinglePrismicDocument = <TDocument extends PrismicDocument>(
 		params?: ClientMethodParameters<"getSingle">[1] & ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<TDocument> =>
-	useStatefulPrismicClientMethod("getSingle", args);
+	useStatefulPrismicClientMethod("getSingle", args)
 
 /**
  * A composable that queries documents from the Prismic repository for a
@@ -240,6 +249,7 @@ export const useSinglePrismicDocument = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param documentType - The API ID of the Custom Type
@@ -255,7 +265,7 @@ export const usePrismicDocumentsByType = <TDocument extends PrismicDocument>(
 		params?: ClientMethodParameters<"getByType">[1] & ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<Query<TDocument>> =>
-	useStatefulPrismicClientMethod("getByType", args);
+	useStatefulPrismicClientMethod("getByType", args)
 
 /**
  * A composable that queries all documents from the Prismic repository for a
@@ -264,6 +274,7 @@ export const usePrismicDocumentsByType = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param documentType - The API ID of the Custom Type
@@ -280,7 +291,7 @@ export const useAllPrismicDocumentsByType = <TDocument extends PrismicDocument>(
 			ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<TDocument[]> =>
-	useStatefulPrismicClientMethod("getAllByType", args);
+	useStatefulPrismicClientMethod("getAllByType", args)
 
 /**
  * A composable that queries documents from the Prismic repository with a
@@ -289,6 +300,7 @@ export const useAllPrismicDocumentsByType = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param tag - The tag that must be included on a document
@@ -304,7 +316,7 @@ export const usePrismicDocumentsByTag = <TDocument extends PrismicDocument>(
 		params?: ClientMethodParameters<"getByTag">[1] & ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<Query<TDocument>> =>
-	useStatefulPrismicClientMethod("getByTag", args);
+	useStatefulPrismicClientMethod("getByTag", args)
 
 /**
  * A composable that queries all documents from the Prismic repository with a
@@ -313,6 +325,7 @@ export const usePrismicDocumentsByTag = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param tag - The tag that must be included on a document
@@ -329,7 +342,7 @@ export const useAllPrismicDocumentsByTag = <TDocument extends PrismicDocument>(
 			ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<TDocument[]> =>
-	useStatefulPrismicClientMethod("getAllByTag", args);
+	useStatefulPrismicClientMethod("getAllByTag", args)
 
 /**
  * A composable that queries documents from the Prismic repository with specific
@@ -338,6 +351,7 @@ export const useAllPrismicDocumentsByTag = <TDocument extends PrismicDocument>(
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param tags - A list of tags that must be included on a document
@@ -356,7 +370,7 @@ export const usePrismicDocumentsByEveryTag = <
 			ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<Query<TDocument>> =>
-	useStatefulPrismicClientMethod("getByEveryTag", args);
+	useStatefulPrismicClientMethod("getByEveryTag", args)
 
 /**
  * A composable that queries all documents from the Prismic repository with
@@ -366,6 +380,7 @@ export const usePrismicDocumentsByEveryTag = <
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param tags - A list of tags that must be included on a document
@@ -384,7 +399,7 @@ export const useAllPrismicDocumentsByEveryTag = <
 			ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<TDocument[]> =>
-	useStatefulPrismicClientMethod("getAllByEveryTag", args);
+	useStatefulPrismicClientMethod("getAllByEveryTag", args)
 
 /**
  * A composable that queries documents from the Prismic repository with specific
@@ -394,6 +409,7 @@ export const useAllPrismicDocumentsByEveryTag = <
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param tags - A list of tags that must be included on a document
@@ -412,7 +428,7 @@ export const usePrismicDocumentsBySomeTags = <
 			ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<Query<TDocument>> =>
-	useStatefulPrismicClientMethod("getBySomeTags", args);
+	useStatefulPrismicClientMethod("getBySomeTags", args)
 
 /**
  * A composable that queries all documents from the Prismic repository with
@@ -422,6 +438,7 @@ export const usePrismicDocumentsBySomeTags = <
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param tags - A list of tags that must be included on a document
@@ -440,7 +457,7 @@ export const useAllPrismicDocumentsBySomeTags = <
 			ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<TDocument[]> =>
-	useStatefulPrismicClientMethod("getAllBySomeTags", args);
+	useStatefulPrismicClientMethod("getAllBySomeTags", args)
 
 /**
  * **IMPORTANT**: Avoid using `dangerouslyUseAllPrismicDocuments` as it may be
@@ -455,6 +472,7 @@ export const useAllPrismicDocumentsBySomeTags = <
  * @remarks
  * An additional `@prismicio/client` instance can be provided at
  * `params.client`.
+ *
  * @typeParam TDocument - Type of Prismic documents returned
  *
  * @param params - Parameters to filter and sort results
@@ -471,4 +489,4 @@ export const dangerouslyUseAllPrismicDocuments = <
 			ComposableOnlyParameters,
 	]
 ): ClientComposableReturnType<TDocument[]> =>
-	useStatefulPrismicClientMethod("dangerouslyGetAll", args);
+	useStatefulPrismicClientMethod("dangerouslyGetAll", args)

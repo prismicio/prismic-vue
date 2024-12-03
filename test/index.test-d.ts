@@ -1,7 +1,7 @@
-import { expectTypeOf, it } from "vitest";
+import { expectTypeOf, it } from "vitest"
 
-import * as lib from "../src";
+import * as lib from "../src"
 
 it("returns void", () => {
-	expectTypeOf(lib.createPrismic).returns.toBeObject();
-});
+	expectTypeOf(lib.createPrismic).returns.toBeObject()
+})

@@ -1,4 +1,4 @@
-import { defineComponent, h } from "vue";
+import { defineComponent, h } from "vue"
 
 export const WrapperComponent = defineComponent({
 	name: "WrapperComponent",
@@ -10,7 +10,7 @@ export const WrapperComponent = defineComponent({
 					class: "wrapperComponent",
 				},
 				slots.default && slots.default(),
-			);
-		};
+			)
+		}
 	},
-});
+})

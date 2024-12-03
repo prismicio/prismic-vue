@@ -1,138 +1,136 @@
-import { expect, it, vi } from "vitest";
+import { expect, it, vi } from "vitest"
 
-import { Element, RichTextField } from "@prismicio/client";
-import { flushPromises, mount } from "@vue/test-utils";
-import { markRaw } from "vue";
-import { routerKey } from "vue-router";
+import type { RichTextField, RichTextNodeTypes } from "@prismicio/client"
+import { RichTextNodeType } from "@prismicio/client"
+import { flushPromises, mount } from "@vue/test-utils"
+import { markRaw } from "vue"
+import { routerKey } from "vue-router"
 
-import { WrapperComponent } from "./__fixtures__/WrapperComponent";
-import { richTextFixture } from "./__fixtures__/richText";
+import { WrapperComponent } from "./__fixtures__/WrapperComponent"
+import { richTextFixture } from "./__fixtures__/richText"
 
-import { createPrismic } from "../src";
-import { PrismicRichTextImpl } from "../src/components";
+import { createPrismic } from "../src"
+import { PrismicRichTextImpl } from "../src/components"
 
 it("renders rich text field as HTML", () => {
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: { field: richTextFixture.en },
-	});
+	})
 
-	expect(wrapper.html()).toMatchSnapshot();
-});
+	expect(wrapper.html()).toMatchSnapshot()
+})
 
 it("renders fallback when rich text is empty", () => {
 	const wrapper1 = mount(PrismicRichTextImpl, {
 		props: { field: [] },
-	});
+	})
 
-	expect(wrapper1.html()).toBe("<div></div>");
+	expect(wrapper1.html()).toBe("<div></div>")
 
 	const wrapper2 = mount(PrismicRichTextImpl, {
 		props: { field: [], fallback: "foo" },
-	});
+	})
 
-	expect(wrapper2.html()).toBe("<div>foo</div>");
+	expect(wrapper2.html()).toBe("<div>foo</div>")
 
 	const wrapper3 = mount(PrismicRichTextImpl, {
 		props: { field: null, fallback: "bar" },
-	});
+	})
 
-	expect(wrapper3.html()).toBe("<div>bar</div>");
+	expect(wrapper3.html()).toBe("<div>bar</div>")
 
 	const wrapper4 = mount(PrismicRichTextImpl, {
 		props: { field: undefined, fallback: "baz" },
-	});
+	})
 
-	expect(wrapper4.html()).toBe("<div>baz</div>");
-});
+	expect(wrapper4.html()).toBe("<div>baz</div>")
+})
 
 it("uses provided wrapper tag", () => {
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: { field: richTextFixture.en, wrapper: "section" },
-	});
+	})
 
-	expect(wrapper.html()).toMatchSnapshot();
-});
+	expect(wrapper.html()).toMatchSnapshot()
+})
 
 it("uses provided wrapper component", () => {
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: { field: richTextFixture.en, wrapper: markRaw(WrapperComponent) },
-	});
+	})
 
-	expect(wrapper.html()).toMatchSnapshot();
-});
+	expect(wrapper.html()).toMatchSnapshot()
+})
 
 it("uses plugin provided link resolver", (ctx) => {
-	const spiedLinkResolver = vi.fn(() => ctx.meta.name);
+	const spiedLinkResolver = vi.fn(() => ctx.task.name)
 
 	const prismic = createPrismic({
 		endpoint: "test",
 		linkResolver: spiedLinkResolver,
-	});
+	})
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: { field: richTextFixture.en },
 		global: { plugins: [prismic] },
-	});
+	})
 
-	expect(spiedLinkResolver).toHaveBeenCalled();
-	expect(wrapper.html()).toMatch(`href="${ctx.meta.name}"`);
-});
+	expect(spiedLinkResolver).toHaveBeenCalled()
+	expect(wrapper.html()).toMatch(`href="${ctx.task.name}"`)
+})
 
 it("uses provided link resolver over plugin provided", (ctx) => {
-	const spiedLinkResolver1 = vi.fn(() => `${ctx.meta.name}1`);
-	const spiedLinkResolver2 = vi.fn(() => `${ctx.meta.name}2`);
+	const spiedLinkResolver1 = vi.fn(() => `${ctx.task.name}1`)
+	const spiedLinkResolver2 = vi.fn(() => `${ctx.task.name}2`)
 
 	const prismic = createPrismic({
 		endpoint: "test",
 		linkResolver: spiedLinkResolver1,
-	});
+	})
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: { field: richTextFixture.en, linkResolver: spiedLinkResolver2 },
 		global: { plugins: [prismic] },
-	});
+	})
 
-	expect(spiedLinkResolver1).not.toHaveBeenCalled();
-	expect(spiedLinkResolver2).toHaveBeenCalled();
-	expect(wrapper.html()).toMatch(`href="${ctx.meta.name}2"`);
-});
+	expect(spiedLinkResolver1).not.toHaveBeenCalled()
+	expect(spiedLinkResolver2).toHaveBeenCalled()
+	expect(wrapper.html()).toMatch(`href="${ctx.task.name}2"`)
+})
 
 it("uses plugin provided HTML function serializer", (ctx) => {
-	const spiedSerializer = vi.fn(
-		(type: (typeof Element)[keyof typeof Element]) =>
-			type === Element.paragraph ? `<p>${ctx.meta.name}</p>` : null,
-	);
+	const spiedSerializer = vi.fn((type: RichTextNodeTypes) =>
+		type === RichTextNodeType.paragraph ? `<p>${ctx.task.name}</p>` : null,
+	)
 
 	const prismic = createPrismic({
 		endpoint: "test",
 		richTextSerializer: spiedSerializer,
-	});
+	})
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
 			field: richTextFixture.en,
 		},
 		global: { plugins: [prismic] },
-	});
+	})
 
-	expect(spiedSerializer).toHaveBeenCalled();
-	expect(wrapper.html()).toMatch(`<p>${ctx.meta.name}</p>`);
-});
+	expect(spiedSerializer).toHaveBeenCalled()
+	expect(wrapper.html()).toMatch(`<p>${ctx.task.name}</p>`)
+})
 
 it("uses provided HTML function serializer over plugin provided", (ctx) => {
-	const spiedSerializer1 = vi.fn(
-		(type: (typeof Element)[keyof typeof Element]) =>
-			type === Element.paragraph ? `<p>${ctx.meta.name}1</p>` : null,
-	);
-	const spiedSerializer2 = vi.fn(
-		(type: (typeof Element)[keyof typeof Element]) =>
-			type === Element.paragraph ? `<p>${ctx.meta.name}2</p>` : null,
-	);
+	const spiedSerializer1 = vi.fn((type: RichTextNodeTypes) =>
+		type === RichTextNodeType.paragraph ? `<p>${ctx.task.name}1</p>` : null,
+	)
+	const spiedSerializer2 = vi.fn((type: RichTextNodeTypes) =>
+		type === RichTextNodeType.paragraph ? `<p>${ctx.task.name}2</p>` : null,
+	)
 
 	const prismic = createPrismic({
 		endpoint: "test",
 		richTextSerializer: spiedSerializer1,
-	});
+	})
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
@@ -140,46 +138,46 @@ it("uses provided HTML function serializer over plugin provided", (ctx) => {
 			serializer: spiedSerializer2,
 		},
 		global: { plugins: [prismic] },
-	});
+	})
 
-	expect(spiedSerializer1).not.toHaveBeenCalled();
-	expect(spiedSerializer2).toHaveBeenCalled();
-	expect(wrapper.html()).toMatch(`<p>${ctx.meta.name}2</p>`);
-});
+	expect(spiedSerializer1).not.toHaveBeenCalled()
+	expect(spiedSerializer2).toHaveBeenCalled()
+	expect(wrapper.html()).toMatch(`<p>${ctx.task.name}2</p>`)
+})
 
 it("uses plugin provided HTML map serializer", (ctx) => {
 	const spiedSerializer = {
-		paragraph: vi.fn(() => `<p>${ctx.meta.name}</p>`),
-	};
+		paragraph: vi.fn(() => `<p>${ctx.task.name}</p>`),
+	}
 
 	const prismic = createPrismic({
 		endpoint: "test",
 		richTextSerializer: spiedSerializer,
-	});
+	})
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
 			field: richTextFixture.en,
 		},
 		global: { plugins: [prismic] },
-	});
+	})
 
-	expect(spiedSerializer.paragraph).toHaveBeenCalled();
-	expect(wrapper.html()).toMatch(`<p>${ctx.meta.name}</p>`);
-});
+	expect(spiedSerializer.paragraph).toHaveBeenCalled()
+	expect(wrapper.html()).toMatch(`<p>${ctx.task.name}</p>`)
+})
 
 it("uses provided HTML map serializer over plugin provided", (ctx) => {
 	const spiedSerializer1 = {
-		paragraph: vi.fn(() => `<p>${ctx.meta.name}1</p>`),
-	};
+		paragraph: vi.fn(() => `<p>${ctx.task.name}1</p>`),
+	}
 	const spiedSerializer2 = {
-		paragraph: vi.fn(() => `<p>${ctx.meta.name}2</p>`),
-	};
+		paragraph: vi.fn(() => `<p>${ctx.task.name}2</p>`),
+	}
 
 	const prismic = createPrismic({
 		endpoint: "test",
 		richTextSerializer: spiedSerializer1,
-	});
+	})
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
@@ -187,48 +185,48 @@ it("uses provided HTML map serializer over plugin provided", (ctx) => {
 			serializer: spiedSerializer2,
 		},
 		global: { plugins: [prismic] },
-	});
+	})
 
-	expect(spiedSerializer1.paragraph).not.toHaveBeenCalled();
-	expect(spiedSerializer2.paragraph).toHaveBeenCalled();
-	expect(wrapper.html()).toMatch(`<p>${ctx.meta.name}2</p>`);
-});
+	expect(spiedSerializer1.paragraph).not.toHaveBeenCalled()
+	expect(spiedSerializer2.paragraph).toHaveBeenCalled()
+	expect(wrapper.html()).toMatch(`<p>${ctx.task.name}2</p>`)
+})
 
 // TODO: Remove in v5
 it("uses plugin provided deprecated HTML serializer", (ctx) => {
 	const spiedSerializer = {
-		paragraph: vi.fn(() => `<p>${ctx.meta.name}</p>`),
-	};
+		paragraph: vi.fn(() => `<p>${ctx.task.name}</p>`),
+	}
 
 	const prismic = createPrismic({
 		endpoint: "test",
 		htmlSerializer: spiedSerializer,
-	});
+	})
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
 			field: richTextFixture.en,
 		},
 		global: { plugins: [prismic] },
-	});
+	})
 
-	expect(spiedSerializer.paragraph).toHaveBeenCalled();
-	expect(wrapper.html()).toMatch(`<p>${ctx.meta.name}</p>`);
-});
+	expect(spiedSerializer.paragraph).toHaveBeenCalled()
+	expect(wrapper.html()).toMatch(`<p>${ctx.task.name}</p>`)
+})
 
 // TODO: Remove in v5
 it("uses provided deprecated HTML serializer over plugin provided", (ctx) => {
 	const spiedSerializer1 = {
-		paragraph: vi.fn(() => `<p>${ctx.meta.name}1</p>`),
-	};
+		paragraph: vi.fn(() => `<p>${ctx.task.name}1</p>`),
+	}
 	const spiedSerializer2 = {
-		paragraph: vi.fn(() => `<p>${ctx.meta.name}2</p>`),
-	};
+		paragraph: vi.fn(() => `<p>${ctx.task.name}2</p>`),
+	}
 
 	const prismic = createPrismic({
 		endpoint: "test",
 		richTextSerializer: spiedSerializer1,
-	});
+	})
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
@@ -236,15 +234,15 @@ it("uses provided deprecated HTML serializer over plugin provided", (ctx) => {
 			htmlSerializer: spiedSerializer2,
 		},
 		global: { plugins: [prismic] },
-	});
+	})
 
-	expect(spiedSerializer1.paragraph).not.toHaveBeenCalled();
-	expect(spiedSerializer2.paragraph).toHaveBeenCalled();
-	expect(wrapper.html()).toMatch(`<p>${ctx.meta.name}2</p>`);
-});
+	expect(spiedSerializer1.paragraph).not.toHaveBeenCalled()
+	expect(spiedSerializer2.paragraph).toHaveBeenCalled()
+	expect(wrapper.html()).toMatch(`<p>${ctx.task.name}2</p>`)
+})
 
 it("navigates internal links using Vue Router if available on click", async () => {
-	const spiedPush = vi.fn();
+	const spiedPush = vi.fn()
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
@@ -260,22 +258,22 @@ it("navigates internal links using Vue Router if available on click", async () =
 				},
 			},
 		},
-	});
+	})
 
 	// Click doesn't propagate if we don't wait here
-	await flushPromises();
+	await flushPromises()
 
-	await wrapper.get("a").trigger("click");
+	await wrapper.get("a").trigger("click")
 
-	expect(spiedPush).toHaveBeenCalledOnce();
-	expect(spiedPush).toHaveBeenCalledWith(`/foo`);
+	expect(spiedPush).toHaveBeenCalledOnce()
+	expect(spiedPush).toHaveBeenCalledWith(`/foo`)
 
 	// This is used to make sure `removeListeners()` is called upon unmount
-	wrapper.unmount();
-});
+	wrapper.unmount()
+})
 
 it("navigates internal links using Vue Router if available on click when using custom wrapper", async () => {
-	const spiedPush = vi.fn();
+	const spiedPush = vi.fn()
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
@@ -292,19 +290,19 @@ it("navigates internal links using Vue Router if available on click when using c
 				},
 			},
 		},
-	});
+	})
 
 	// Click doesn't propagate if we don't wait here
-	await flushPromises();
+	await flushPromises()
 
-	await wrapper.get("a").trigger("click");
+	await wrapper.get("a").trigger("click")
 
-	expect(spiedPush).toHaveBeenCalledOnce();
-	expect(spiedPush).toHaveBeenCalledWith(`/foo`);
-});
+	expect(spiedPush).toHaveBeenCalledOnce()
+	expect(spiedPush).toHaveBeenCalledWith(`/foo`)
+})
 
 it("navigates internal links using Vue Router if available on inner tag click", async () => {
-	const spiedPush = vi.fn();
+	const spiedPush = vi.fn()
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
@@ -320,19 +318,19 @@ it("navigates internal links using Vue Router if available on inner tag click", 
 				},
 			},
 		},
-	});
+	})
 
 	// Click doesn't propagate if we don't wait here
-	await flushPromises();
+	await flushPromises()
 
-	await wrapper.get("a em").trigger("click");
+	await wrapper.get("a em").trigger("click")
 
-	expect(spiedPush).toHaveBeenCalledOnce();
-	expect(spiedPush).toHaveBeenCalledWith(`/foo`);
-});
+	expect(spiedPush).toHaveBeenCalledOnce()
+	expect(spiedPush).toHaveBeenCalledWith(`/foo`)
+})
 
 it("navigates internal links using Vue Router if available on deep inner tag click", async () => {
-	const spiedPush = vi.fn();
+	const spiedPush = vi.fn()
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
@@ -349,19 +347,19 @@ it("navigates internal links using Vue Router if available on deep inner tag cli
 				},
 			},
 		},
-	});
+	})
 
 	// Click doesn't propagate if we don't wait here
-	await flushPromises();
+	await flushPromises()
 
-	await wrapper.get("a em").trigger("click");
+	await wrapper.get("a em").trigger("click")
 
-	expect(spiedPush).toHaveBeenCalledOnce();
-	expect(spiedPush).toHaveBeenCalledWith(`/foo`);
-});
+	expect(spiedPush).toHaveBeenCalledOnce()
+	expect(spiedPush).toHaveBeenCalledWith(`/foo`)
+})
 
 it("doesn't navigate external links using Vue Router if available on click (navigation error is expected)", async () => {
-	const spiedPush = vi.fn();
+	const spiedPush = vi.fn()
 
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: {
@@ -378,24 +376,24 @@ it("doesn't navigate external links using Vue Router if available on click (navi
 				},
 			},
 		},
-	});
+	})
 
 	// Click doesn't propagate if we don't wait here
-	await flushPromises();
+	await flushPromises()
 
-	await wrapper.get("a[data-external]").trigger("click");
+	await wrapper.get("a[data-external]").trigger("click")
 
-	expect(spiedPush).not.toHaveBeenCalled();
+	expect(spiedPush).not.toHaveBeenCalled()
 
-	await wrapper.get("a[data-internal]").trigger("click");
+	await wrapper.get("a[data-internal]").trigger("click")
 
-	expect(spiedPush).toHaveBeenCalledOnce();
-	expect(spiedPush).toHaveBeenCalledWith(`/foo`);
-});
+	expect(spiedPush).toHaveBeenCalledOnce()
+	expect(spiedPush).toHaveBeenCalledWith(`/foo`)
+})
 
 it("doesn't try to bind on click events when Vue Router is available when rendering a comment node", async () => {
 	await expect(async () => {
-		const spiedPush = vi.fn();
+		const spiedPush = vi.fn()
 
 		mount(PrismicRichTextImpl, {
 			props: {
@@ -412,30 +410,30 @@ it("doesn't try to bind on click events when Vue Router is available when render
 					},
 				},
 			},
-		});
+		})
 
 		// Click doesn't propagate if we don't wait here
-		await flushPromises();
-	}).not.toThrow();
-});
+		await flushPromises()
+	}).not.toThrow()
+})
 
 it("reacts to changes properly", async () => {
 	const wrapper = mount(PrismicRichTextImpl, {
 		props: { field: richTextFixture.en },
-	});
+	})
 
-	const firstRender = wrapper.html();
+	const firstRender = wrapper.html()
 
 	await wrapper.setProps({
 		field: [{ type: "paragraph", text: "foo", spans: [] }] as RichTextField,
-	});
+	})
 
-	const secondRender = wrapper.html();
+	const secondRender = wrapper.html()
 
-	expect(secondRender).not.toBe(firstRender);
+	expect(secondRender).not.toBe(firstRender)
 	expect(secondRender).toBe(
 		`<div>
   <p>foo</p>
 </div>`,
-	);
-});
+	)
+})

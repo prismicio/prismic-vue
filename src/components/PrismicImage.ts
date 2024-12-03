@@ -1,11 +1,11 @@
+import type { ImageField } from "@prismicio/client"
 import {
-	ImageField,
 	asImagePixelDensitySrcSet,
 	asImageSrc,
 	asImageWidthSrcSet,
 	isFilled,
-} from "@prismicio/client";
-import {
+} from "@prismicio/client"
+import type {
 	AllowedComponentProps,
 	ComponentCustomProps,
 	ComputedRef,
@@ -14,23 +14,20 @@ import {
 	PropType,
 	Raw,
 	VNodeProps,
-	computed,
-	defineComponent,
-	h,
-	unref,
-} from "vue";
+} from "vue"
+import { computed, defineComponent, h, unref } from "vue"
 
-import { __PRODUCTION__ } from "../lib/__PRODUCTION__";
-import { simplyResolveComponent } from "../lib/simplyResolveComponent";
+import { __PRODUCTION__ } from "../lib/__PRODUCTION__"
+import { simplyResolveComponent } from "../lib/simplyResolveComponent"
 
-import { VueUseOptions } from "../types";
+import type { VueUseOptions } from "../types"
 
-import { usePrismic } from "../usePrismic";
+import { usePrismic } from "../usePrismic"
 
 /**
  * The default component rendered for images.
  */
-const defaultImageComponent = "img";
+const defaultImageComponent = "img"
 
 /**
  * Props for `<PrismicImage />`.
@@ -39,7 +36,7 @@ export type PrismicImageProps = {
 	/**
 	 * The Prismic image field to render.
 	 */
-	field: ImageField | ImageField<string>;
+	field: ImageField | ImageField<string>
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -49,16 +46,17 @@ export type PrismicImageProps = {
 	 * HTML tag names and components will be rendered using the `img` tag
 	 * interface (`src`, `srcset`, and `alt` attribute). Components will also
 	 * receive an additional `copyright` props.
+	 *
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"img"` otherwise.
 	 */
-	imageComponent?: string | ConcreteComponent | Raw<DefineComponent>;
+	imageComponent?: string | ConcreteComponent | Raw<DefineComponent>
 
 	/**
 	 * An object of Imgix URL API parameters.
 	 *
 	 * @see Imgix URL parameters reference: https://docs.imgix.com/apis/rendering
 	 */
-	imgixParams?: Parameters<typeof asImageSrc>[1];
+	imgixParams?: Parameters<typeof asImageSrc>[1]
 
 	/**
 	 * Adds an additional `srcset` attribute to the image following given widths.
@@ -76,7 +74,7 @@ export type PrismicImageProps = {
 	widths?:
 		| NonNullable<Parameters<typeof asImageWidthSrcSet>[1]>["widths"]
 		| "thumbnails"
-		| "defaults";
+		| "defaults"
 
 	/**
 	 * Adds an additional `srcset` attribute to the image following giving pixel
@@ -93,15 +91,15 @@ export type PrismicImageProps = {
 		| NonNullable<
 				Parameters<typeof asImagePixelDensitySrcSet>[1]
 		  >["pixelDensities"]
-		| "defaults";
-};
+		| "defaults"
+}
 
 /**
  * Options for {@link usePrismicImage}.
  */
 export type UsePrismicImageOptions = VueUseOptions<
 	Omit<PrismicImageProps, "imageComponent">
->;
+>
 
 /**
  * Return type of {@link usePrismicImage}.
@@ -110,23 +108,23 @@ export type UsePrismicImageReturnType = {
 	/**
 	 * Resolved image `src` value.
 	 */
-	src: ComputedRef<string | null>;
+	src: ComputedRef<string | null>
 
 	/**
 	 * Resolved image `srcset` value.
 	 */
-	srcset: ComputedRef<string | null>;
+	srcset: ComputedRef<string | null>
 
 	/**
 	 * Resolved image `alt` value.
 	 */
-	alt: ComputedRef<string>;
+	alt: ComputedRef<string>
 
 	/**
 	 * Resolved image `copyright` value.
 	 */
-	copyright: ComputedRef<string | null>;
-};
+	copyright: ComputedRef<string | null>
+}
 
 /**
  * A low level composable that returns a resolved information about a Prismic
@@ -139,28 +137,28 @@ export type UsePrismicImageReturnType = {
 export const usePrismicImage = (
 	props: UsePrismicImageOptions,
 ): UsePrismicImageReturnType => {
-	const { options } = usePrismic();
+	const { options } = usePrismic()
 
 	const asImage = computed(() => {
-		const field = unref(props.field);
+		const field = unref(props.field)
 
 		if (!isFilled.image(field)) {
 			return {
 				src: null,
 				srcset: null,
-			};
+			}
 		}
 
-		const imgixParams = unref(props.imgixParams);
-		const widths = unref(props.widths);
-		const pixelDensities = unref(props.pixelDensities);
+		const imgixParams = unref(props.imgixParams)
+		const widths = unref(props.widths)
+		const pixelDensities = unref(props.pixelDensities)
 
 		if (widths) {
 			if (!__PRODUCTION__ && pixelDensities) {
 				console.warn(
 					"[PrismicImage] Only one of `widths` or `pixelDensities` props can be provided. You can resolve this warning by removing either the `widths` or `pixelDensities` prop. `widths` will be used in this case.",
 					props,
-				);
+				)
 			}
 
 			return asImageWidthSrcSet(field, {
@@ -169,7 +167,7 @@ export const usePrismicImage = (
 					widths === "defaults"
 						? options.components?.imageWidthSrcSetDefaults
 						: widths,
-			});
+			})
 		} else if (pixelDensities) {
 			return asImagePixelDensitySrcSet(field, {
 				...imgixParams,
@@ -177,35 +175,35 @@ export const usePrismicImage = (
 					pixelDensities === "defaults"
 						? options.components?.imagePixelDensitySrcSetDefaults
 						: pixelDensities,
-			});
+			})
 		} else {
 			return {
 				src: asImageSrc(field, imgixParams),
 				srcset: null,
-			};
+			}
 		}
-	});
+	})
 
 	const src = computed(() => {
-		return asImage.value.src;
-	});
+		return asImage.value.src
+	})
 	const srcset = computed(() => {
-		return asImage.value.srcset;
-	});
+		return asImage.value.srcset
+	})
 	const alt = computed(() => {
-		return unref(props.field).alt || "";
-	});
+		return unref(props.field).alt || ""
+	})
 	const copyright = computed(() => {
-		return unref(props.field).copyright || null;
-	});
+		return unref(props.field).copyright || null
+	})
 
 	return {
 		src,
 		srcset,
 		alt,
 		copyright,
-	};
-};
+	}
+}
 
 /**
  * `<PrismicImage />` implementation.
@@ -254,42 +252,42 @@ export const PrismicImageImpl = /*#__PURE__*/ defineComponent({
 	setup(props) {
 		// Prevent fatal if user didn't check for field, throws `Invalid prop` warn
 		if (!props.field) {
-			return () => null;
+			return () => null
 		}
 
-		const { options } = usePrismic();
+		const { options } = usePrismic()
 
 		const type = computed(() => {
 			return (
 				props.imageComponent ||
 				options.components?.imageComponent ||
 				defaultImageComponent
-			);
-		});
+			)
+		})
 
-		const { src, srcset, alt, copyright } = usePrismicImage(props);
+		const { src, srcset, alt, copyright } = usePrismicImage(props)
 
 		return () => {
 			const attributes = {
 				src: src.value,
 				srcset: srcset.value,
 				alt: alt.value,
-			};
+			}
 
 			switch (type.value) {
 				case "img":
 					// Fitting img tag interface
-					return h("img", attributes);
+					return h("img", attributes)
 
 				default:
 					return h(simplyResolveComponent(type.value), {
 						...attributes,
 						copyright: copyright.value,
-					});
+					})
 			}
-		};
+		}
 	},
-});
+})
 
 // export the public type for h/tsx inference
 // also to avoid inline import() in generated d.ts files
@@ -304,6 +302,6 @@ export const PrismicImage = PrismicImageImpl as unknown as {
 		$props: AllowedComponentProps &
 			ComponentCustomProps &
 			VNodeProps &
-			PrismicImageProps;
-	};
-};
+			PrismicImageProps
+	}
+}

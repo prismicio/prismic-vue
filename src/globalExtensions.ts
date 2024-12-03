@@ -1,4 +1,4 @@
-import type { PrismicPlugin } from "./types";
+import type { PrismicPlugin } from "./types"
 
 declare module "vue" {
 	export interface ComponentCustomProperties {
@@ -7,6 +7,6 @@ declare module "vue" {
 		 *
 		 * @see `@prismicio/vue` plugin interface {@link PrismicPlugin}
 		 */
-		$prismic: PrismicPlugin;
+		$prismic: PrismicPlugin
 	}
 }

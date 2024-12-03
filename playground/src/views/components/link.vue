@@ -45,10 +45,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, markRaw } from "vue";
+import { defineComponent, markRaw } from "vue"
 
-import { WrapperComponent } from "../../components/WrapperComponent";
-import { blank, empty, internal, simple } from "../../mocks/link.json";
+import { WrapperComponent } from "../../components/WrapperComponent"
+import { blank, empty, internal, simple } from "../../mocks/link.json"
 
 export default defineComponent({
 	name: "ComponentsLink",
@@ -60,15 +60,15 @@ export default defineComponent({
 			internal,
 			inputText: "",
 			WrapperComponent: markRaw(WrapperComponent),
-		};
+		}
 	},
 	computed: {
 		computed() {
 			return {
 				...this.simple,
 				url: this.inputText,
-			};
+			}
 		},
 	},
-});
+})
 </script>

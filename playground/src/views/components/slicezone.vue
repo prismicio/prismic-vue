@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from "vue"
 
 export default defineComponent({
 	name: "ComponentsSliceZone",
@@ -16,7 +16,7 @@ export default defineComponent({
 				{ __mapped: true, id: "2", slice_type: "bar", def: "456" },
 				{ id: "3", slice_type: "baz", primary: { ghi: "789" } },
 			],
-		};
+		}
 	},
-});
+})
 </script>

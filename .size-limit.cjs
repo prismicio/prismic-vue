@@ -1,13 +1,13 @@
-const pkg = require("./package.json");
+const pkg = require("./package.json")
 
 function getObjectValues(input, acc = []) {
 	if (typeof input === "string") {
-		return input;
+		return input
 	} else {
 		return [
 			...acc,
 			...Object.values(input).flatMap((value) => getObjectValues(value)),
-		];
+		]
 	}
 }
 
@@ -16,7 +16,7 @@ module.exports = [
 ]
 	.sort()
 	.filter((path) => {
-		return path && path !== "./package.json" && !path.endsWith(".d.ts");
+		return path && path !== "./package.json" && !path.endsWith(".d.ts")
 	})
 	.map((path) => {
 		return {
@@ -27,5 +27,5 @@ module.exports = [
 			// 	return config;
 			// },
 			ignore: ["vue-router"],
-		};
-	});
+		}
+	})

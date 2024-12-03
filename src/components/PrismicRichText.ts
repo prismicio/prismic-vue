@@ -1,12 +1,11 @@
-import {
+import type {
 	HTMLFunctionSerializer,
 	HTMLMapSerializer,
 	LinkResolverFunction,
 	RichTextField,
-	asHTML,
-	isFilled,
-} from "@prismicio/client";
-import {
+} from "@prismicio/client"
+import { asHTML, isFilled } from "@prismicio/client"
+import type {
 	AllowedComponentProps,
 	Component,
 	ComponentCustomProps,
@@ -16,6 +15,8 @@ import {
 	PropType,
 	Raw,
 	VNodeProps,
+} from "vue"
+import {
 	computed,
 	defineComponent,
 	h,
@@ -25,20 +26,20 @@ import {
 	ref,
 	unref,
 	watch,
-} from "vue";
-import { routerKey } from "vue-router";
+} from "vue"
+import { routerKey } from "vue-router"
 
-import { isInternalURL } from "../lib/isInternalURL";
-import { simplyResolveComponent } from "../lib/simplyResolveComponent";
+import { isInternalURL } from "../lib/isInternalURL"
+import { simplyResolveComponent } from "../lib/simplyResolveComponent"
 
-import { VueUseOptions } from "../types";
+import type { VueUseOptions } from "../types"
 
-import { usePrismic } from "../usePrismic";
+import { usePrismic } from "../usePrismic"
 
 /**
  * The default component rendered to wrap the HTML output.
  */
-const defaultWrapper = "div";
+const defaultWrapper = "div"
 
 /**
  * Props for `<PrismicRichText />`.
@@ -47,7 +48,7 @@ export type PrismicRichTextProps = {
 	/**
 	 * The Prismic rich text or title field to render.
 	 */
-	field: RichTextField | null | undefined;
+	field: RichTextField | null | undefined
 
 	/**
 	 * A link resolver function used to resolve link when not using the route
@@ -57,7 +58,7 @@ export type PrismicRichTextProps = {
 	 *
 	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
 	 */
-	linkResolver?: LinkResolverFunction;
+	linkResolver?: LinkResolverFunction
 
 	/**
 	 * An HTML serializer to customize the way rich text fields are rendered.
@@ -66,7 +67,7 @@ export type PrismicRichTextProps = {
 	 *
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */
-	serializer?: HTMLFunctionSerializer | HTMLMapSerializer;
+	serializer?: HTMLFunctionSerializer | HTMLMapSerializer
 
 	/**
 	 * An HTML serializer to customize the way rich text fields are rendered.
@@ -77,7 +78,7 @@ export type PrismicRichTextProps = {
 	 *
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */
-	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer;
+	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to wrap the
@@ -85,21 +86,21 @@ export type PrismicRichTextProps = {
 	 *
 	 * @defaultValue `"div"`
 	 */
-	wrapper?: string | ConcreteComponent | Raw<DefineComponent>;
+	wrapper?: string | ConcreteComponent | Raw<DefineComponent>
 
 	/**
 	 * The HTML value to be rendered when the field is empty. If a fallback is not
 	 * given, `""` (nothing) will be rendered.
 	 */
-	fallback?: string;
-};
+	fallback?: string
+}
 
 /**
  * Options for {@link usePrismicRichText}.
  */
 export type UsePrismicRichTextOptions = VueUseOptions<
 	Omit<PrismicRichTextProps, "wrapper">
->;
+>
 
 /**
  * Return type of {@link usePrismicRichText}.
@@ -108,8 +109,8 @@ export type UsePrismicRichTextReturnType = {
 	/**
 	 * Serialized rich text field as HTML.
 	 */
-	html: ComputedRef<string>;
-};
+	html: ComputedRef<string>
+}
 
 /**
  * A low level composable that returns a serialized rich text field as HTML.
@@ -122,29 +123,29 @@ export type UsePrismicRichTextReturnType = {
 export const usePrismicRichText = (
 	props: UsePrismicRichTextOptions,
 ): UsePrismicRichTextReturnType => {
-	const { options } = usePrismic();
+	const { options } = usePrismic()
 
 	const html = computed(() => {
-		const field = unref(props.field);
+		const field = unref(props.field)
 
 		if (!isFilled.richText(field)) {
-			return unref(props.fallback) ?? "";
+			return unref(props.fallback) ?? ""
 		}
 
-		const linkResolver = unref(props.linkResolver) ?? options.linkResolver;
+		const linkResolver = unref(props.linkResolver) ?? options.linkResolver
 		const serializer =
 			unref(props.serializer) ??
 			unref(props.htmlSerializer) ??
 			options.richTextSerializer ??
-			options.htmlSerializer;
+			options.htmlSerializer
 
-		return asHTML(unref(field), linkResolver, serializer);
-	});
+		return asHTML(unref(field), linkResolver, serializer)
+	})
 
 	return {
 		html,
-	};
-};
+	}
+}
 
 /**
  * `<PrismicRichText />` implementation.
@@ -192,77 +193,77 @@ export const PrismicRichTextImpl = /*#__PURE__*/ defineComponent({
 		},
 	},
 	setup(props) {
-		const { html } = usePrismicRichText(props);
+		const { html } = usePrismicRichText(props)
 
-		const root = ref<HTMLElement | Comment | Component | null>(null);
+		const root = ref<HTMLElement | Comment | Component | null>(null)
 
-		const maybeRouter = inject(routerKey, null);
+		const maybeRouter = inject(routerKey, null)
 		if (maybeRouter) {
 			type InternalLink = {
-				element: HTMLAnchorElement;
-				listener: EventListener;
-			};
-			let links: InternalLink[] = [];
+				element: HTMLAnchorElement
+				listener: EventListener
+			}
+			let links: InternalLink[] = []
 
 			const navigate: EventListener = function (
 				this: { href: string },
 				event: Event,
 			) {
-				event.preventDefault();
-				maybeRouter.push(this.href);
-			};
+				event.preventDefault()
+				maybeRouter.push(this.href)
+			}
 
 			const addListeners = () => {
 				const node: HTMLElement | Comment | null =
-					root.value && "$el" in root.value ? root.value.$el : root.value;
+					root.value && "$el" in root.value ? root.value.$el : root.value
 				if (node && "querySelectorAll" in node) {
 					// Get all internal link tags and add listeners on them
 					links = Array.from(node.querySelectorAll("a"))
 						.map((element) => {
-							const href = element.getAttribute("href");
+							const href = element.getAttribute("href")
 
 							if (href && isInternalURL(href)) {
-								const listener = navigate.bind({ href });
-								element.addEventListener("click", listener);
+								const listener = navigate.bind({ href })
+								element.addEventListener("click", listener)
 
-								return { element, listener };
+								return { element, listener }
 							} else {
-								return false;
+								return false
 							}
 						})
-						.filter((link): link is InternalLink => link as boolean);
+						.filter((link): link is InternalLink => link as boolean)
 				}
-			};
+			}
 
 			const removeListeners = () => {
 				links.forEach(({ element, listener }) =>
 					element.removeEventListener("click", listener),
-				);
-				links = [];
-			};
+				)
+				links = []
+			}
 
 			watch(
 				html,
 				() => {
-					removeListeners();
-					nextTick(addListeners);
+					removeListeners()
+					nextTick(addListeners)
 				},
 				{ immediate: true },
-			);
+			)
 
 			onBeforeUnmount(() => {
-				removeListeners();
-			});
+				removeListeners()
+			})
 		}
 
 		return () => {
 			return h(simplyResolveComponent(props.wrapper || defaultWrapper), {
 				innerHTML: html.value,
 				ref: root,
-			});
-		};
+			})
+		}
 	},
-});
+})
 
 // export the public type for h/tsx inference
 // also to avoid inline import() in generated d.ts files
@@ -277,6 +278,6 @@ export const PrismicRichText = PrismicRichTextImpl as unknown as {
 		$props: AllowedComponentProps &
 			ComponentCustomProps &
 			VNodeProps &
-			PrismicRichTextProps;
-	};
-};
+			PrismicRichTextProps
+	}
+}

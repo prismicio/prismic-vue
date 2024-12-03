@@ -1,6 +1,7 @@
-import { RouteRecordRaw, createMemoryHistory, createRouter } from "vue-router";
+import type { RouteRecordRaw } from "vue-router"
+import { createMemoryHistory, createRouter } from "vue-router"
 
-import { WrapperComponent } from "./WrapperComponent";
+import { WrapperComponent } from "./WrapperComponent"
 
 const routes: Array<RouteRecordRaw> = [
 	{
@@ -23,11 +24,11 @@ const routes: Array<RouteRecordRaw> = [
 		name: "Baz",
 		component: WrapperComponent,
 	},
-];
+]
 
 const router = createRouter({
 	history: createMemoryHistory(),
 	routes,
-});
+})
 
-export default router;
+export default router

@@ -1,10 +1,5 @@
-import {
-	ConcreteComponent,
-	DefineComponent,
-	Raw,
-	VNode,
-	resolveDynamicComponent,
-} from "vue";
+import type { ConcreteComponent, DefineComponent, Raw, VNode } from "vue"
+import { resolveDynamicComponent } from "vue"
 
 /**
  * A stricter version of {@link resolveDynamicComponent} that resolves only type
@@ -19,5 +14,5 @@ import {
 export const simplyResolveComponent = (
 	component: string | ConcreteComponent | Raw<DefineComponent>,
 ): string | VNode => {
-	return resolveDynamicComponent(component) as string | VNode;
-};
+	return resolveDynamicComponent(component) as string | VNode
+}

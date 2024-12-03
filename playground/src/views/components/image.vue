@@ -30,9 +30,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from "vue"
 
-import { empty, simple } from "../../mocks/image.json";
+import { empty, simple } from "../../mocks/image.json"
 
 export default defineComponent({
 	name: "ComponentsImage",
@@ -41,15 +41,15 @@ export default defineComponent({
 			empty,
 			simple,
 			inputText: "",
-		};
+		}
 	},
 	computed: {
 		computed() {
 			return {
 				...this.simple,
 				alt: this.inputText,
-			};
+			}
 		},
 	},
-});
+})
 </script>

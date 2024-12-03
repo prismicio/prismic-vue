@@ -1,10 +1,10 @@
-import type { InjectionKey } from "vue";
+import type { InjectionKey } from "vue"
 
-import type { PrismicPlugin } from "./types";
+import type { PrismicPlugin } from "./types"
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Imports for @link references:
-import type { usePrismic } from "./usePrismic";
+import type { usePrismic } from "./usePrismic"
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -14,4 +14,4 @@ import type { usePrismic } from "./usePrismic";
  *
  * @internal
  */
-export const prismicKey = Symbol("prismic") as InjectionKey<PrismicPlugin>;
+export const prismicKey = Symbol("prismic") as InjectionKey<PrismicPlugin>

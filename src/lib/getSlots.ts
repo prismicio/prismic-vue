@@ -1,4 +1,4 @@
-import { ConcreteComponent, Slots, VNode } from "vue";
+import type { ConcreteComponent, Slots, VNode } from "vue"
 
 /**
  * Get the appropriate `slots` object/array according to the provided parent,
@@ -19,19 +19,19 @@ export const getSlots = (
 	fallback?: string,
 ): VNode[] | undefined | Slots | string => {
 	if (typeof parent === "string") {
-		return slots.default ? slots.default(defaultPayload) : fallback;
+		return slots.default ? slots.default(defaultPayload) : fallback
 	} else {
 		if (slots.default) {
-			const content = slots.default(defaultPayload);
+			const content = slots.default(defaultPayload)
 
 			return content.length
 				? {
 						...slots,
 						default: () => content,
-				  }
-				: fallback;
+					}
+				: fallback
 		} else {
-			return fallback;
+			return fallback
 		}
 	}
-};
+}

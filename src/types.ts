@@ -16,20 +16,20 @@ import type {
 	documentToLinkField,
 	filter,
 	isFilled,
-} from "@prismicio/client";
-import type { App, ConcreteComponent, DefineComponent, Raw, Ref } from "vue";
+} from "@prismicio/client"
+import type { App, ConcreteComponent, DefineComponent, Raw, Ref } from "vue"
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Imports for @link references:
-import type { RouterLink } from "vue-router";
+import type { RouterLink } from "vue-router"
 
 import type {
 	SliceComponentProps,
 	SliceComponentType,
 	TODOSliceComponent,
-} from "./components/SliceZone";
+} from "./components/SliceZone"
 
-import type { usePrismicDocuments } from "./composables";
+import type { usePrismicDocuments } from "./composables"
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -43,7 +43,7 @@ type PrismicPluginComponentsOptions = {
 	 *
 	 * @defaultValue `"noopener noreferrer"`
 	 */
-	linkBlankTargetRelAttribute?: string;
+	linkBlankTargetRelAttribute?: string
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -55,9 +55,10 @@ type PrismicPluginComponentsOptions = {
 	 * @remarks
 	 * Components will be rendered using Vue Router {@link RouterLink} interface
 	 * (`to` props).
+	 *
 	 * @defaultValue {@link RouterLink}
 	 */
-	linkInternalComponent?: string | ConcreteComponent | Raw<DefineComponent>;
+	linkInternalComponent?: string | ConcreteComponent | Raw<DefineComponent>
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -69,9 +70,10 @@ type PrismicPluginComponentsOptions = {
 	 * @remarks
 	 * Components will be rendered using Vue Router {@link RouterLink} interface
 	 * (`to` props).
+	 *
 	 * @defaultValue `"a"`
 	 */
-	linkExternalComponent?: string | ConcreteComponent | Raw<DefineComponent>;
+	linkExternalComponent?: string | ConcreteComponent | Raw<DefineComponent>
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -81,9 +83,10 @@ type PrismicPluginComponentsOptions = {
 	 * HTML tag names and components will be rendered using the `img` tag
 	 * interface (`src` and `alt` attribute). Components will also receive an
 	 * additional `copyright` props.
+	 *
 	 * @defaultValue `"img"`
 	 */
-	imageComponent?: string | ConcreteComponent | Raw<DefineComponent>;
+	imageComponent?: string | ConcreteComponent | Raw<DefineComponent>
 
 	/**
 	 * Default widths to use when rendering an image with `widths="defaults"`
@@ -92,9 +95,10 @@ type PrismicPluginComponentsOptions = {
 	 * Consider configuring image widths within your content type definition and
 	 * using `widths="auto"` instead to give content writers the ability to crop
 	 * images in the editor.
+	 *
 	 * @defaultValue `@prismicio/client` defaults
 	 */
-	imageWidthSrcSetDefaults?: number[];
+	imageWidthSrcSetDefaults?: number[]
 
 	/**
 	 * Default pixel densities to use when rendering an image with
@@ -102,7 +106,7 @@ type PrismicPluginComponentsOptions = {
 	 *
 	 * @defaultValue `@prismicio/client` defaults
 	 */
-	imagePixelDensitySrcSetDefaults?: number[];
+	imagePixelDensitySrcSetDefaults?: number[]
 
 	/**
 	 * A component or a functional component rendered if a component mapping from
@@ -113,8 +117,8 @@ type PrismicPluginComponentsOptions = {
 	 *
 	 * @defaultValue `null` when `process.env.NODE_ENV === "production"` else {@link TODOSliceComponent}
 	 */
-	sliceZoneDefaultComponent?: SliceComponentType;
-};
+	sliceZoneDefaultComponent?: SliceComponentType
+}
 
 /**
  * Common options supported by `@prismicio/vue` plugin.
@@ -127,7 +131,7 @@ type PrismicPluginOptionsBase = {
 	 *
 	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
 	 */
-	linkResolver?: LinkResolverFunction;
+	linkResolver?: LinkResolverFunction
 
 	/**
 	 * An optional HTML serializer to customize the way rich text fields are
@@ -137,7 +141,7 @@ type PrismicPluginOptionsBase = {
 	 */
 	richTextSerializer?:
 		| HTMLRichTextFunctionSerializer
-		| HTMLRichTextMapSerializer;
+		| HTMLRichTextMapSerializer
 
 	/**
 	 * An optional HTML serializer to customize the way rich text fields are
@@ -148,22 +152,22 @@ type PrismicPluginOptionsBase = {
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */
 	// TODO: Remove in v5
-	htmlSerializer?: HTMLRichTextFunctionSerializer | HTMLRichTextMapSerializer;
+	htmlSerializer?: HTMLRichTextFunctionSerializer | HTMLRichTextMapSerializer
 
 	/**
 	 * Whether or not to inject components globally.
 	 *
 	 * @defaultValue `true`
 	 */
-	injectComponents?: boolean;
+	injectComponents?: boolean
 
 	/**
 	 * Options used by Prismic Vue components.
 	 *
 	 * @see Components options {@link PrismicPluginComponentsOptions}
 	 */
-	components?: PrismicPluginComponentsOptions;
-};
+	components?: PrismicPluginComponentsOptions
+}
 
 /**
  * Options to init `@prismicio/vue` plugin with a client instance.
@@ -179,24 +183,25 @@ type PrismicPluginOptionsWithClient = PrismicPluginOptionsBase & {
 	 * The client will be used by `@prismicio/vue` composables, such as
 	 * {@link usePrismicDocuments} and exposed through `this.$prismic.client` and
 	 * `usePrismic().client`.
+	 *
 	 * @see Prismic client documentation {@link https://prismic.io/docs/technologies/javascript}
 	 */
-	client: ReturnType<CreateClient>;
+	client: ReturnType<CreateClient>
 
 	/**
 	 * Ensures type union is a strict or.
 	 *
 	 * @internal
 	 */
-	endpoint?: never;
+	endpoint?: never
 
 	/**
 	 * Ensures type union is a strict or.
 	 *
 	 * @internal
 	 */
-	clientConfig?: never;
-};
+	clientConfig?: never
+}
 
 /**
  * Options to init `@prismicio/vue` plugin with a repository ID or API endpoint.
@@ -212,19 +217,20 @@ type PrismicPluginOptionsWithEndpoint = PrismicPluginOptionsBase & {
 	 * Said client will be used by `@prismicio/vue` composables, such as
 	 * {@link usePrismicDocuments} and exposed through `this.$prismic.client` and
 	 * `usePrismic().client`.
+	 *
 	 * @example
 	 *
 	 * ```javascript
 	 * // A repository ID
-	 * "my-repo";
+	 * "my-repo"
 	 *
 	 * //A full repository endpoint
-	 * "https://my-repo.cdn.prismic.io/api/v2";
+	 * "https://my-repo.cdn.prismic.io/api/v2"
 	 * ```
 	 *
 	 * @see Prismic client documentation {@link https://prismic.io/docs/technologies/javascript}
 	 */
-	endpoint: string;
+	endpoint: string
 
 	/**
 	 * An optional object to configure `@prismicio/client` instance further.
@@ -261,15 +267,15 @@ type PrismicPluginOptionsWithEndpoint = PrismicPluginOptionsBase & {
 	 * @see Prismic client documentation {@link https://prismic.io/docs/technologies/javascript}
 	 * @see Route resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#route-resolver}
 	 */
-	clientConfig?: ClientConfig;
+	clientConfig?: ClientConfig
 
 	/**
 	 * Ensures type union is a strict or.
 	 *
 	 * @internal
 	 */
-	client?: never;
-};
+	client?: never
+}
 
 /**
  * `@prismicio/vue` plugin options.
@@ -279,7 +285,7 @@ type PrismicPluginOptionsWithEndpoint = PrismicPluginOptionsBase & {
  */
 export type PrismicPluginOptions =
 	| PrismicPluginOptionsWithClient
-	| PrismicPluginOptionsWithEndpoint;
+	| PrismicPluginOptionsWithEndpoint
 
 /**
  * `@prismicio/client` related methods and properties exposed by
@@ -290,18 +296,18 @@ export type PrismicPluginClient = {
 	/**
 	 * A `@prismicio/client` instance.
 	 */
-	client: ReturnType<CreateClient>;
+	client: ReturnType<CreateClient>
 
 	/**
 	 * Query filters from `@prismicio/client`.
 	 */
-	filter: typeof filter;
+	filter: typeof filter
 
 	/**
 	 * Prismic cookies from `@prismicio/client`.
 	 */
-	cookie: typeof cookie;
-};
+	cookie: typeof cookie
+}
 
 /**
  * `@prismicio/client` related methods exposed by `@prismicio/vue` plugin and
@@ -314,7 +320,7 @@ export type PrismicPluginHelpers = {
 	 *
 	 * @see Templating rich text and title fields {@link https://prismic.io/docs/technologies/vue-template-content#rich-text-and-titles}
 	 */
-	asText: typeof asText;
+	asText: typeof asText
 
 	/**
 	 * Serializes a rich text or title field to an HTML string. This is
@@ -326,9 +332,10 @@ export type PrismicPluginHelpers = {
 	 * @remarks
 	 * If no `htmlSerializer` is provided the function will use the one provided
 	 * to the plugin at {@link PrismicPluginOptions.htmlSerializer} if available.
+	 *
 	 * @see Templating rich text and title fields {@link https://prismic.io/docs/technologies/vue-template-content#rich-text-and-titles}
 	 */
-	asHTML: typeof asHTML;
+	asHTML: typeof asHTML
 
 	/**
 	 * Resolves any type of link field or document to a URL. This is
@@ -337,9 +344,10 @@ export type PrismicPluginHelpers = {
 	 * @remarks
 	 * If no `linkResolver` is provided the function will use the one provided to
 	 * the plugin at {@link PrismicPluginOptions.linkResolver} if available.
+	 *
 	 * @see Templating link fields {@link https://prismic.io/docs/technologies/vue-template-content#links-and-content-relationships}
 	 */
-	asLink: typeof asLink;
+	asLink: typeof asLink
 
 	/**
 	 * Resolves any type of link field or document to a set of link attributes.
@@ -348,42 +356,43 @@ export type PrismicPluginHelpers = {
 	 * @remarks
 	 * If no `linkResolver` is provided the function will use the one provided to
 	 * the plugin at {@link PrismicPluginOptions.linkResolver} if available.
+	 *
 	 * @see Templating link fields {@link https://prismic.io/docs/technologies/vue-template-content#links-and-content-relationships}
 	 */
-	asLinkAttrs: typeof asLinkAttrs;
+	asLinkAttrs: typeof asLinkAttrs
 
 	/**
 	 * Transforms a date or timestamp field into a JavaScript Date object. This is
 	 * `@prismicio/client` {@link asDate} function.
 	 */
-	asDate: typeof asDate;
+	asDate: typeof asDate
 
 	/**
 	 * Returns the URL of an Image field with optional image transformations (via
 	 * Imgix URL parameters). This is `@prismicio/client` {@link asImageSrc}
 	 * function.
 	 */
-	asImageSrc: typeof asImageSrc;
+	asImageSrc: typeof asImageSrc
 
 	/**
 	 * Creates a width-based `srcset` from an Image field with optional image
 	 * transformations (via Imgix URL parameters). This is `@prismicio/client`
 	 * {@link asImageWidthSrcSet} function.
 	 */
-	asImageWidthSrcSet: typeof asImageWidthSrcSet;
+	asImageWidthSrcSet: typeof asImageWidthSrcSet
 
 	/**
 	 * Creates a pixel-density-based `srcset` from an Image field with optional
 	 * image transformations (via Imgix URL parameters). This is
 	 * `@prismicio/client` {@link asImagePixelDensitySrcSet} function.
 	 */
-	asImagePixelDensitySrcSet: typeof asImagePixelDensitySrcSet;
+	asImagePixelDensitySrcSet: typeof asImagePixelDensitySrcSet
 
 	/**
 	 * Helpers to determine if a field is filled. This is `@prismicio/client`
 	 * {@link isFilled} object.
 	 */
-	isFilled: typeof isFilled;
+	isFilled: typeof isFilled
 
 	/**
 	 * Converts a document into a link field. This is `@prismicio/client`
@@ -391,8 +400,8 @@ export type PrismicPluginHelpers = {
 	 *
 	 * @internal
 	 */
-	documentToLinkField: typeof documentToLinkField;
-};
+	documentToLinkField: typeof documentToLinkField
+}
 
 /**
  * Methods and properties exposed by `@prismicio/vue` plugin and accessible
@@ -404,16 +413,16 @@ export type PrismicPlugin = {
 	 *
 	 * @see `@prismicio/vue` plugin options {@link PrismicPluginOptions}
 	 */
-	readonly options: PrismicPluginOptions;
+	readonly options: PrismicPluginOptions
 
 	/**
 	 * `@prismicio/vue` plugin install function used by Vue.
 	 *
 	 * @internal
 	 */
-	install: (app: App) => void;
+	install: (app: App) => void
 } & PrismicPluginClient &
-	PrismicPluginHelpers;
+	PrismicPluginHelpers
 
 /**
  * States of a `@prismicio/client` composable.
@@ -449,8 +458,8 @@ export const enum PrismicClientComposableState {
  * @internal
  */
 export type VueUseOptions<T> = {
-	[K in keyof T]: Ref<T[K]> | T[K];
-};
+	[K in keyof T]: Ref<T[K]> | T[K]
+}
 
 /**
  * Type to transform a static tuple into one that allows passing Refs as values.
@@ -458,5 +467,5 @@ export type VueUseOptions<T> = {
  * @internal
  */
 export type VueUseParameters<T> = {
-	[K in keyof T]: T extends number ? Ref<T[K]> | T[K] : T[K];
-};
+	[K in keyof T]: T extends number ? Ref<T[K]> | T[K] : T[K]
+}

@@ -1,5 +1,6 @@
-import { RichTextField, asText, isFilled } from "@prismicio/client";
-import {
+import type { RichTextField } from "@prismicio/client"
+import { asText, isFilled } from "@prismicio/client"
+import type {
 	AllowedComponentProps,
 	ComponentCustomProps,
 	ComputedRef,
@@ -9,20 +10,17 @@ import {
 	Raw,
 	VNode,
 	VNodeProps,
-	computed,
-	defineComponent,
-	h,
-	unref,
-} from "vue";
+} from "vue"
+import { computed, defineComponent, h, unref } from "vue"
 
-import { simplyResolveComponent } from "../lib/simplyResolveComponent";
+import { simplyResolveComponent } from "../lib/simplyResolveComponent"
 
-import { VueUseOptions } from "../types";
+import type { VueUseOptions } from "../types"
 
 /**
  * The default component rendered to wrap the text output.
  */
-const defaultWrapper = "div";
+const defaultWrapper = "div"
 /**
  * Props for `<PrismicText />`.
  */
@@ -30,14 +28,14 @@ export type PrismicTextProps = {
 	/**
 	 * The Prismic rich text or title field to render.
 	 */
-	field: RichTextField | null | undefined;
+	field: RichTextField | null | undefined
 
 	/**
 	 * Separator used to join each element.
 	 *
 	 * @defaultValue `" "` (a space)
 	 */
-	separator?: string;
+	separator?: string
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to wrap the
@@ -45,21 +43,21 @@ export type PrismicTextProps = {
 	 *
 	 * @defaultValue `"div"`
 	 */
-	wrapper?: string | ConcreteComponent | Raw<DefineComponent>;
+	wrapper?: string | ConcreteComponent | Raw<DefineComponent>
 
 	/**
 	 * The string value to be rendered when the field is empty. If a fallback is
 	 * not given, `""` (nothing) will be rendered.
 	 */
-	fallback?: string;
-};
+	fallback?: string
+}
 
 /**
  * Options for {@link usePrismicText}.
  */
 export type UsePrismicTextOptions = VueUseOptions<
 	Omit<PrismicTextProps, "wrapper">
->;
+>
 
 /**
  * Return type of {@link usePrismicText}.
@@ -68,8 +66,8 @@ export type UsePrismicTextReturnType = {
 	/**
 	 * Serialized rich text field as plain text.
 	 */
-	text: ComputedRef<string>;
-};
+	text: ComputedRef<string>
+}
 
 /**
  * A low level composable that returns a serialized rich text field as plain
@@ -84,19 +82,19 @@ export const usePrismicText = (
 	props: UsePrismicTextOptions,
 ): UsePrismicTextReturnType => {
 	const text = computed(() => {
-		const field = unref(props.field);
+		const field = unref(props.field)
 
 		if (!isFilled.richText(field)) {
-			return unref(props.fallback) ?? "";
+			return unref(props.fallback) ?? ""
 		}
 
-		return asText(unref(field), unref(props.separator));
-	});
+		return asText(unref(field), unref(props.separator))
+	})
 
 	return {
 		text,
-	};
-};
+	}
+}
 
 /**
  * `<PrismicText />` implementation.
@@ -130,10 +128,10 @@ export const PrismicTextImpl = /*#__PURE__*/ defineComponent({
 		},
 	},
 	setup(props) {
-		const { text } = usePrismicText(props);
+		const { text } = usePrismicText(props)
 
 		return () => {
-			const parent = simplyResolveComponent(props.wrapper || defaultWrapper);
+			const parent = simplyResolveComponent(props.wrapper || defaultWrapper)
 
 			// This works but is absurd
 			// if (typeof parent === "string") {
@@ -144,10 +142,10 @@ export const PrismicTextImpl = /*#__PURE__*/ defineComponent({
 
 			return h(parent as VNode, null, {
 				default: () => text.value,
-			});
-		};
+			})
+		}
 	},
-});
+})
 
 // export the public type for h/tsx inference
 // also to avoid inline import() in generated d.ts files
@@ -162,6 +160,6 @@ export const PrismicText = PrismicTextImpl as unknown as {
 		$props: AllowedComponentProps &
 			ComponentCustomProps &
 			VNodeProps &
-			PrismicTextProps;
-	};
-};
+			PrismicTextProps
+	}
+}

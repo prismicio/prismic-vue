@@ -1,10 +1,10 @@
-import {
+import type {
 	LinkField,
 	LinkResolverFunction,
 	PrismicDocument,
-	asLink,
-} from "@prismicio/client";
-import {
+} from "@prismicio/client"
+import { asLink } from "@prismicio/client"
+import type {
 	AllowedComponentProps,
 	ComponentCustomProps,
 	ComputedRef,
@@ -13,35 +13,31 @@ import {
 	PropType,
 	Raw,
 	VNodeProps,
-	computed,
-	defineComponent,
-	h,
-	reactive,
-	unref,
-} from "vue";
+} from "vue"
+import { computed, defineComponent, h, reactive, unref } from "vue"
 
-import { getSlots } from "../lib/getSlots";
-import { isInternalURL } from "../lib/isInternalURL";
-import { simplyResolveComponent } from "../lib/simplyResolveComponent";
+import { getSlots } from "../lib/getSlots"
+import { isInternalURL } from "../lib/isInternalURL"
+import { simplyResolveComponent } from "../lib/simplyResolveComponent"
 
-import { VueUseOptions } from "../types";
+import type { VueUseOptions } from "../types"
 
-import { usePrismic } from "../usePrismic";
+import { usePrismic } from "../usePrismic"
 
 /**
  * The default component rendered for internal URLs.
  */
-const defaultInternalComponent = "router-link";
+const defaultInternalComponent = "router-link"
 
 /**
  * The default component rendered for external URLs.
  */
-const defaultExternalComponent = "a";
+const defaultExternalComponent = "a"
 
 /**
  * The default rel attribute rendered for blank target URLs.
  */
-const defaultBlankTargetRelAttribute = "noopener noreferrer";
+const defaultBlankTargetRelAttribute = "noopener noreferrer"
 
 /**
  * Props for `<PrismicLink />`.
@@ -50,7 +46,7 @@ export type PrismicLinkProps = {
 	/**
 	 * The Prismic link field or document to render.
 	 */
-	field: LinkField | PrismicDocument;
+	field: LinkField | PrismicDocument
 
 	/**
 	 * A link resolver function used to resolve links when not using the route
@@ -60,17 +56,17 @@ export type PrismicLinkProps = {
 	 *
 	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
 	 */
-	linkResolver?: LinkResolverFunction;
+	linkResolver?: LinkResolverFunction
 
 	/**
 	 * An explicit `target` attribute to apply to the rendered link.
 	 */
-	target?: string | null;
+	target?: string | null
 
 	/**
 	 * An explicit `rel` attribute to apply to the rendered link.
 	 */
-	rel?: string | null;
+	rel?: string | null
 
 	/**
 	 * Value of the `rel` attribute to use on links rendered with
@@ -78,7 +74,7 @@ export type PrismicLinkProps = {
 	 *
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"noopener noreferrer"` otherwise.
 	 */
-	blankTargetRelAttribute?: string | null;
+	blankTargetRelAttribute?: string | null
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -90,9 +86,10 @@ export type PrismicLinkProps = {
 	 * @remarks
 	 * Components will be rendered using Vue Router {@link RouterLink} interface
 	 * (`to` props).
+	 *
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, {@link RouterLink} otherwise.
 	 */
-	internalComponent?: string | ConcreteComponent | Raw<DefineComponent>;
+	internalComponent?: string | ConcreteComponent | Raw<DefineComponent>
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -104,15 +101,16 @@ export type PrismicLinkProps = {
 	 * @remarks
 	 * Components will be rendered using Vue Router {@link RouterLink} interface
 	 * (`to` props).
+	 *
 	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"a"` otherwise.
 	 */
-	externalComponent?: string | ConcreteComponent | Raw<DefineComponent>;
-};
+	externalComponent?: string | ConcreteComponent | Raw<DefineComponent>
+}
 
 /**
  * Options for {@link usePrismicLink}.
  */
-export type UsePrismicLinkOptions = VueUseOptions<PrismicLinkProps>;
+export type UsePrismicLinkOptions = VueUseOptions<PrismicLinkProps>
 
 /**
  * Return type of {@link usePrismicLink}.
@@ -121,28 +119,28 @@ export type UsePrismicLinkReturnType = {
 	/**
 	 * Suggested component to render for provided link field.
 	 */
-	type: ComputedRef<string | ConcreteComponent | Raw<DefineComponent>>;
+	type: ComputedRef<string | ConcreteComponent | Raw<DefineComponent>>
 
 	/**
 	 * Resolved anchor `href` value.
 	 */
-	href: ComputedRef<string>;
+	href: ComputedRef<string>
 
 	/**
 	 * Resolved anchor `target` value.
 	 */
-	target: ComputedRef<string | null>;
+	target: ComputedRef<string | null>
 
 	/**
 	 * Resolved anchor `rel` value.
 	 */
-	rel: ComputedRef<string | null>;
+	rel: ComputedRef<string | null>
 
 	/**
 	 * Resolved link text.
 	 */
-	text: ComputedRef<string | undefined>;
-};
+	text: ComputedRef<string | undefined>
+}
 
 /**
  * A low level composable that returns resolved information about a Prismic link
@@ -155,65 +153,65 @@ export type UsePrismicLinkReturnType = {
 export const usePrismicLink = (
 	props: UsePrismicLinkOptions,
 ): UsePrismicLinkReturnType => {
-	const { options } = usePrismic();
+	const { options } = usePrismic()
 
 	const type = computed(() => {
 		const internalComponent =
 			unref(props.internalComponent) ||
 			options.components?.linkInternalComponent ||
-			defaultInternalComponent;
+			defaultInternalComponent
 
 		const externalComponent =
 			unref(props.externalComponent) ||
 			options.components?.linkExternalComponent ||
-			defaultExternalComponent;
+			defaultExternalComponent
 
 		return href.value && isInternalURL(href.value) && !target.value
 			? internalComponent
-			: externalComponent;
-	});
+			: externalComponent
+	})
 	const href = computed(() => {
-		const field = unref(props.field);
-		const linkResolver = unref(props.linkResolver) ?? options.linkResolver;
+		const field = unref(props.field)
+		const linkResolver = unref(props.linkResolver) ?? options.linkResolver
 
-		return asLink(field, linkResolver) ?? "";
-	});
+		return asLink(field, linkResolver) ?? ""
+	})
 	const target = computed(() => {
-		const field = unref(props.field);
-		const target = unref(props.target);
+		const field = unref(props.field)
+		const target = unref(props.target)
 
 		if (typeof target !== "undefined") {
-			return target;
+			return target
 		} else {
-			return field && "target" in field && field.target ? field.target : null;
+			return field && "target" in field && field.target ? field.target : null
 		}
-	});
+	})
 	const rel = computed(() => {
-		const rel = unref(props.rel);
+		const rel = unref(props.rel)
 
 		if (typeof rel !== "undefined") {
-			return rel;
+			return rel
 		} else if (target.value === "_blank") {
-			const blankTargetRelAttribute = unref(props.blankTargetRelAttribute);
+			const blankTargetRelAttribute = unref(props.blankTargetRelAttribute)
 
 			if (typeof blankTargetRelAttribute !== "undefined") {
-				return blankTargetRelAttribute;
+				return blankTargetRelAttribute
 			} else {
 				return typeof options.components?.linkBlankTargetRelAttribute !==
 					"undefined"
 					? options.components.linkBlankTargetRelAttribute
-					: defaultBlankTargetRelAttribute;
+					: defaultBlankTargetRelAttribute
 			}
 		} else {
-			return null;
+			return null
 		}
-	});
+	})
 
 	const text = computed(() => {
-		const field = unref(props.field);
+		const field = unref(props.field)
 
-		return field && "text" in field ? field.text : undefined;
-	});
+		return field && "text" in field ? field.text : undefined
+	})
 
 	return {
 		type,
@@ -221,8 +219,8 @@ export const usePrismicLink = (
 		target,
 		rel,
 		text,
-	};
-};
+	}
+}
 
 /**
  * `<PrismicLink />` implementation.
@@ -274,20 +272,20 @@ export const PrismicLinkImpl = /*#__PURE__*/ defineComponent({
 	setup(props, { slots }) {
 		// Prevent fatal if user didn't check for field, throws `Invalid prop` warn
 		if (!props.field) {
-			return () => null;
+			return () => null
 		}
 
-		const { type, href, target, rel, text } = usePrismicLink(props);
+		const { type, href, target, rel, text } = usePrismicLink(props)
 
 		return () => {
 			const parent =
-				type.value === "a" ? "a" : simplyResolveComponent(type.value);
+				type.value === "a" ? "a" : simplyResolveComponent(type.value)
 			const computedSlots = getSlots(
 				parent,
 				slots,
 				reactive({ href: href.value, text: text.value }),
 				text.value,
-			);
+			)
 
 			if (typeof parent === "string") {
 				// Fitting anchor tag interface
@@ -295,18 +293,18 @@ export const PrismicLinkImpl = /*#__PURE__*/ defineComponent({
 					parent,
 					{ href: href.value, target: target.value, rel: rel.value },
 					computedSlots,
-				);
+				)
 			} else {
 				// Fitting Vue Router Link interface
 				return h(
 					parent,
 					{ to: href.value, target: target.value, rel: rel.value },
 					computedSlots,
-				);
+				)
 			}
-		};
+		}
 	},
-});
+})
 
 // export the public type for h/tsx inference
 // also to avoid inline import() in generated d.ts files
@@ -321,6 +319,6 @@ export const PrismicLink = PrismicLinkImpl as unknown as {
 		$props: AllowedComponentProps &
 			ComponentCustomProps &
 			VNodeProps &
-			PrismicLinkProps;
-	};
-};
+			PrismicLinkProps
+	}
+}

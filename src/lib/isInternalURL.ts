@@ -10,11 +10,11 @@ export const isInternalURL = (url: string): boolean => {
 	/**
 	 * @see Regex101 expression: {@link https://regex101.com/r/1y7iod/1}
 	 */
-	const isInternal = /^\/(?!\/)/.test(url);
+	const isInternal = /^\/(?!\/)/.test(url)
 	/**
 	 * @see Regex101 expression: {@link https://regex101.com/r/RnUseS/1}
 	 */
-	const isSpecialLink = !isInternal && !/^https?:\/\//i.test(url);
+	const isSpecialLink = !isInternal && !/^https?:\/\//i.test(url)
 
-	return isInternal && !isSpecialLink;
-};
+	return isInternal && !isSpecialLink
+}

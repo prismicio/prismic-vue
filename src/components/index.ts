@@ -1,28 +1,24 @@
-export { PrismicEmbedImpl, PrismicEmbed } from "./PrismicEmbed";
-export type { PrismicEmbedProps } from "./PrismicEmbed";
+export { PrismicEmbedImpl, PrismicEmbed } from "./PrismicEmbed"
+export type { PrismicEmbedProps } from "./PrismicEmbed"
 
-export {
-	usePrismicImage,
-	PrismicImageImpl,
-	PrismicImage,
-} from "./PrismicImage";
-export type { UsePrismicImageOptions, PrismicImageProps } from "./PrismicImage";
+export { usePrismicImage, PrismicImageImpl, PrismicImage } from "./PrismicImage"
+export type { UsePrismicImageOptions, PrismicImageProps } from "./PrismicImage"
 
-export { usePrismicLink, PrismicLinkImpl, PrismicLink } from "./PrismicLink";
-export type { UsePrismicLinkOptions, PrismicLinkProps } from "./PrismicLink";
+export { usePrismicLink, PrismicLinkImpl, PrismicLink } from "./PrismicLink"
+export type { UsePrismicLinkOptions, PrismicLinkProps } from "./PrismicLink"
 
-export { usePrismicText, PrismicTextImpl, PrismicText } from "./PrismicText";
-export type { UsePrismicTextOptions, PrismicTextProps } from "./PrismicText";
+export { usePrismicText, PrismicTextImpl, PrismicText } from "./PrismicText"
+export type { UsePrismicTextOptions, PrismicTextProps } from "./PrismicText"
 
 export {
 	usePrismicRichText,
 	PrismicRichTextImpl,
 	PrismicRichText,
-} from "./PrismicRichText";
+} from "./PrismicRichText"
 export type {
 	UsePrismicRichTextOptions,
 	PrismicRichTextProps,
-} from "./PrismicRichText";
+} from "./PrismicRichText"
 
 export {
 	getSliceComponentProps,
@@ -30,7 +26,7 @@ export {
 	defineSliceZoneComponents,
 	SliceZoneImpl,
 	SliceZone,
-} from "./SliceZone";
+} from "./SliceZone"
 export type {
 	DefineComponentSliceComponentProps,
 	SliceComponentProps,
@@ -43,4 +39,4 @@ export type {
 	SliceZoneResolver,
 	SliceZoneLike,
 	SliceZoneProps,
-} from "./SliceZone";
+} from "./SliceZone"

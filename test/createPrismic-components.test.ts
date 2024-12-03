@@ -1,12 +1,13 @@
-import { Mock, expect, it, vi } from "vitest";
+import type { Mock } from "vitest"
+import { expect, it, vi } from "vitest"
 
-import { App } from "vue";
+import type { App } from "vue"
 
-import { createPrismic } from "../src";
+import { createPrismic } from "../src"
 
 interface SpiedApp extends App {
-	provide: Mock;
-	component: Mock;
+	provide: Mock
+	component: Mock
 }
 
 /**
@@ -19,24 +20,24 @@ const createSpiedApp = (): SpiedApp =>
 			globalProperties: {},
 		},
 		component: vi.fn(() => null),
-	} as SpiedApp);
+	}) as SpiedApp
 
 it("injects components by default", () => {
-	const prismic = createPrismic({ endpoint: "test" });
+	const prismic = createPrismic({ endpoint: "test" })
 
-	const spiedApp = createSpiedApp();
+	const spiedApp = createSpiedApp()
 
-	prismic.install(spiedApp);
+	prismic.install(spiedApp)
 
-	expect(spiedApp.component).toHaveBeenCalled();
-});
+	expect(spiedApp.component).toHaveBeenCalled()
+})
 
 it("doesn't inject components if explicitely false", () => {
-	const prismic = createPrismic({ endpoint: "test", injectComponents: false });
+	const prismic = createPrismic({ endpoint: "test", injectComponents: false })
 
-	const spiedApp = createSpiedApp();
+	const spiedApp = createSpiedApp()
 
-	prismic.install(spiedApp);
+	prismic.install(spiedApp)
 
-	expect(spiedApp.component).not.toHaveBeenCalled();
-});
+	expect(spiedApp.component).not.toHaveBeenCalled()
+})

@@ -1,9 +1,5 @@
-import {
-	ComponentPropsOptions,
-	DefineComponent,
-	defineComponent,
-	h,
-} from "vue";
+import type { ComponentPropsOptions, DefineComponent } from "vue"
+import { defineComponent, h } from "vue"
 
 /**
  * Creates a new component.
@@ -23,9 +19,9 @@ export const createWrapperComponent = <T = DefineComponent>(
 						class: `wrapperComponent${suffix}`,
 					},
 					slots.default && slots.default(),
-				);
-			};
+				)
+			}
 		},
-	}) as unknown as T;
+	}) as unknown as T
 
-export const WrapperComponent = createWrapperComponent();
+export const WrapperComponent = createWrapperComponent()

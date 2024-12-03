@@ -12,10 +12,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, markRaw } from "vue";
+import { defineComponent, markRaw } from "vue"
 
-import { WrapperComponent } from "../../components/WrapperComponent";
-import { empty, multi, single } from "../../mocks/richtext.json";
+import { WrapperComponent } from "../../components/WrapperComponent"
+import { empty, multi, single } from "../../mocks/richtext.json"
 
 export default defineComponent({
 	name: "ComponentsRichText",
@@ -26,7 +26,7 @@ export default defineComponent({
 			multi,
 			inputText: "",
 			WrapperComponent: markRaw(WrapperComponent),
-		};
+		}
 	},
 	computed: {
 		computed() {
@@ -34,8 +34,8 @@ export default defineComponent({
 				this.multi[0],
 				{ ...this.multi[1], text: `${this.multi[1].text}${this.inputText}` },
 				...this.multi.slice(2),
-			];
+			]
 		},
 	},
-});
+})
 </script>

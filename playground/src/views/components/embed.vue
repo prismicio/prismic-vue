@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from "vue"
 
-import { empty, twitter, youtube } from "../../mocks/embed.json";
+import { empty, twitter, youtube } from "../../mocks/embed.json"
 
 export default defineComponent({
 	name: "ComponentsEmbed",
@@ -22,15 +22,15 @@ export default defineComponent({
 			youtube,
 			twitter,
 			inputText: "",
-		};
+		}
 	},
 	computed: {
 		computed() {
 			return {
 				...this.youtube,
 				html: `${this.youtube.html}<div>${this.inputText}</div>`,
-			};
+			}
 		},
 	},
-});
+})
 </script>

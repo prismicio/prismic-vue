@@ -1,5 +1,5 @@
-import { EmbedField } from "@prismicio/client";
-import {
+import type { EmbedField } from "@prismicio/client"
+import type {
 	AllowedComponentProps,
 	ComponentCustomProps,
 	ConcreteComponent,
@@ -7,16 +7,15 @@ import {
 	PropType,
 	Raw,
 	VNodeProps,
-	defineComponent,
-	h,
-} from "vue";
+} from "vue"
+import { defineComponent, h } from "vue"
 
-import { simplyResolveComponent } from "../lib/simplyResolveComponent";
+import { simplyResolveComponent } from "../lib/simplyResolveComponent"
 
 /**
  * The default component rendered to wrap the embed.
  */
-const defaultWrapper = "div";
+const defaultWrapper = "div"
 
 /**
  * Props for `<PrismicEmbed />`.
@@ -25,7 +24,7 @@ export type PrismicEmbedProps = {
 	/**
 	 * The Prismic embed field to render.
 	 */
-	field: EmbedField;
+	field: EmbedField
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to wrap the
@@ -33,8 +32,8 @@ export type PrismicEmbedProps = {
 	 *
 	 * @defaultValue `"div"`
 	 */
-	wrapper?: string | ConcreteComponent | Raw<DefineComponent>;
-};
+	wrapper?: string | ConcreteComponent | Raw<DefineComponent>
+}
 
 /**
  * `<PrismicEmbed />` implementation.
@@ -59,7 +58,7 @@ export const PrismicEmbedImpl = /*#__PURE__*/ defineComponent({
 	setup(props) {
 		// Prevent fatal if user didn't check for field, throws `Invalid prop` warn
 		if (!props.field) {
-			return () => null;
+			return () => null
 		}
 
 		return () => {
@@ -68,10 +67,10 @@ export const PrismicEmbedImpl = /*#__PURE__*/ defineComponent({
 				"data-oembed-type": props.field.type,
 				"data-oembed-provider": props.field.provider_name,
 				innerHTML: props.field.html || null,
-			});
-		};
+			})
+		}
 	},
-});
+})
 
 // export the public type for h/tsx inference
 // also to avoid inline import() in generated d.ts files
@@ -86,6 +85,6 @@ export const PrismicEmbed = PrismicEmbedImpl as unknown as {
 		$props: AllowedComponentProps &
 			ComponentCustomProps &
 			VNodeProps &
-			PrismicEmbedProps;
-	};
-};
+			PrismicEmbedProps
+	}
+}

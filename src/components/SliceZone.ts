@@ -1,5 +1,5 @@
-import { Slice } from "@prismicio/client";
-import {
+import type { Slice } from "@prismicio/client"
+import type {
 	AllowedComponentProps,
 	ComponentCustomProps,
 	ConcreteComponent,
@@ -8,18 +8,14 @@ import {
 	PropType,
 	Raw,
 	VNodeProps,
-	computed,
 	defineAsyncComponent,
-	defineComponent,
-	h,
-	markRaw,
-	watchEffect,
-} from "vue";
+} from "vue"
+import { computed, defineComponent, h, markRaw, watchEffect } from "vue"
 
-import { __PRODUCTION__ } from "../lib/__PRODUCTION__";
-import { simplyResolveComponent } from "../lib/simplyResolveComponent";
+import { __PRODUCTION__ } from "../lib/__PRODUCTION__"
+import { simplyResolveComponent } from "../lib/simplyResolveComponent"
 
-import { usePrismic } from "../usePrismic";
+import { usePrismic } from "../usePrismic"
 
 /**
  * Returns the type of a `SliceLike` type.
@@ -29,8 +25,8 @@ import { usePrismic } from "../usePrismic";
 type ExtractSliceType<TSlice extends SliceLike> = TSlice extends SliceLikeRestV2
 	? TSlice["slice_type"]
 	: TSlice extends SliceLikeGraphQL
-	? TSlice["type"]
-	: never;
+		? TSlice["type"]
+		: never
 
 /**
  * The minimum required properties to represent a Prismic Slice from the Prismic
@@ -44,7 +40,7 @@ type ExtractSliceType<TSlice extends SliceLike> = TSlice extends SliceLikeRestV2
 export type SliceLikeRestV2<TSliceType extends string = string> = Pick<
 	Slice<TSliceType>,
 	"id" | "slice_type"
->;
+>
 
 /**
  * The minimum required properties to represent a Prismic Slice from the Prismic
@@ -53,8 +49,8 @@ export type SliceLikeRestV2<TSliceType extends string = string> = Pick<
  * @typeParam TSliceType - Type name of the Slice.
  */
 export type SliceLikeGraphQL<TSliceType extends string = string> = {
-	type: Slice<TSliceType>["slice_type"];
-};
+	type: Slice<TSliceType>["slice_type"]
+}
 
 /**
  * The minimum required properties to represent a Prismic Slice for the
@@ -75,8 +71,8 @@ export type SliceLike<TSliceType extends string = string> = (
 	 *
 	 * @internal
 	 */
-	__mapped?: true;
-};
+	__mapped?: true
+}
 
 /**
  * A looser version of the `SliceZone` type from `@prismicio/client` using
@@ -88,7 +84,7 @@ export type SliceLike<TSliceType extends string = string> = (
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
  */
 export type SliceZoneLike<TSlice extends SliceLike = SliceLike> =
-	readonly TSlice[];
+	readonly TSlice[]
 
 /**
  * Vue props for a component rendering content from a Prismic Slice using the
@@ -105,12 +101,12 @@ export type SliceComponentProps<
 	/**
 	 * Slice data for this component.
 	 */
-	slice: TSlice;
+	slice: TSlice
 
 	/**
 	 * The index of the Slice in the Slice Zone.
 	 */
-	index: number;
+	index: number
 
 	/**
 	 * All Slices from the Slice Zone to which the Slice belongs.
@@ -121,14 +117,14 @@ export type SliceComponentProps<
 	// throw a compilation error.
 	slices: SliceZoneLike<
 		TSlice extends SliceLikeGraphQL ? SliceLikeGraphQL : SliceLikeRestV2
-	>;
+	>
 
 	/**
 	 * Arbitrary data passed to `<SliceZone />` and made available to all Slice
 	 * components.
 	 */
-	context: TContext;
-};
+	context: TContext
+}
 
 /**
  * Native Vue props for a component rendering content from a Prismic Slice using
@@ -144,22 +140,22 @@ export type DefineComponentSliceComponentProps<
 	TContext = unknown,
 > = {
 	slice: {
-		type: PropType<SliceComponentProps<TSlice, TContext>["slice"]>;
-		required: true;
-	};
+		type: PropType<SliceComponentProps<TSlice, TContext>["slice"]>
+		required: true
+	}
 	index: {
-		type: PropType<SliceComponentProps<TSlice, TContext>["index"]>;
-		required: true;
-	};
+		type: PropType<SliceComponentProps<TSlice, TContext>["index"]>
+		required: true
+	}
 	slices: {
-		type: PropType<SliceComponentProps<TSlice, TContext>["slices"]>;
-		required: true;
-	};
+		type: PropType<SliceComponentProps<TSlice, TContext>["slices"]>
+		required: true
+	}
 	context: {
-		type: PropType<SliceComponentProps<TSlice, TContext>["context"]>;
-		required: true;
-	};
-};
+		type: PropType<SliceComponentProps<TSlice, TContext>["context"]>
+		required: true
+	}
+}
 
 /**
  * Gets native Vue props for a component rendering content from a Prismic Slice
@@ -171,27 +167,28 @@ export type DefineComponentSliceComponentProps<
  *
  * ```javascript
  * // Defining a new slice component
- * import { getSliceComponentProps } from "@prismicio/vue";
+ * import { getSliceComponentProps } from "@prismicio/vue"
  *
  * export default {
  * 	props: getSliceComponentProps(),
- * };
+ * }
  * ```
  *
  * @example
  *
  * ```javascript
  * // Defining a new slice component with visual hint
- * import { getSliceComponentProps } from "@prismicio/vue";
+ * import { getSliceComponentProps } from "@prismicio/vue"
  *
  * export default {
  * 	props: getSliceComponentProps(["slice", "index", "slices", "context"]),
- * };
+ * }
  * ```
  *
  * @typeParam TSlice - The Slice type
  * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made
  *   available to all Slice components
+ *
  * @param propsHint - An optional array of prop names used for the sole purpose
  *   of having a visual hint of which props are made available to the slice,
  *   this parameters doesn't have any effect
@@ -224,7 +221,7 @@ export const getSliceComponentProps = <
 		>,
 		required: true,
 	},
-});
+})
 
 /**
  * A Vue component to be rendered for each instance of its Slice.
@@ -238,12 +235,12 @@ export type SliceComponentType<
 	TContext = unknown,
 > =
 	// For reference within TypeScript files when `*.vue` type cannot be inferred
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
 	| DefineComponent<{}, {}, any>
 	// Likewise, for reference with TypeScript files.
 	| ReturnType<typeof defineAsyncComponent>
 	| DefineComponent<SliceComponentProps<TSlice, TContext>>
-	| FunctionalComponent<SliceComponentProps<TSlice, TContext>>;
+	| FunctionalComponent<SliceComponentProps<TSlice, TContext>>
 
 /**
  * This Slice component can be used as a reminder to provide a proper
@@ -254,8 +251,8 @@ export type SliceComponentType<
  */
 export const TODOSliceComponent = __PRODUCTION__
 	? ((() => null) as FunctionalComponent<{
-			slice: SliceLike;
-	  }>)
+			slice: SliceLike
+		}>)
 	: /*#__PURE__*/ (defineComponent({
 			name: "TODOSliceComponent",
 			props: {
@@ -268,15 +265,15 @@ export const TODOSliceComponent = __PRODUCTION__
 				const type = computed(() => {
 					return "slice_type" in props.slice
 						? props.slice.slice_type
-						: props.slice.type;
-				});
+						: props.slice.type
+				})
 
 				watchEffect(() => {
 					console.warn(
 						`[SliceZone] Could not find a component for Slice type "${type.value}"`,
 						props.slice,
-					);
-				});
+					)
+				})
 
 				return () => {
 					return h(
@@ -286,10 +283,10 @@ export const TODOSliceComponent = __PRODUCTION__
 							"data-slice-type": type.value,
 						},
 						[`Could not find a component for Slice type "${type.value}"`],
-					);
-				};
+					)
+				}
 			},
-	  }) as SliceComponentType);
+		}) as SliceComponentType)
 
 /**
  * A record of Slice types mapped to Vue components. Each components will be
@@ -314,8 +311,8 @@ export type SliceZoneComponents<
 	{
 		[SliceType in ExtractSliceType<TSlice>]:
 			| SliceComponentType<Extract<TSlice, SliceLike<SliceType>>, TContext>
-			| string;
-	};
+			| string
+	}
 
 /**
  * Gets an optimized record of Slice types mapped to Vue components. Each
@@ -324,6 +321,7 @@ export type SliceZoneComponents<
  * @remarks
  * This is essentially an helper function to ensure {@link markRaw} is correctly
  * applied on each components, improving performances.
+ *
  * @example
  *
  * ```javascript
@@ -357,11 +355,11 @@ export const defineSliceZoneComponents = <
 >(
 	components: SliceZoneComponents<TSlice, TContext>,
 ): SliceZoneComponents<TSlice, TContext> => {
-	const result = {} as SliceZoneComponents<TSlice, TContext>;
+	const result = {} as SliceZoneComponents<TSlice, TContext>
 
-	let type: keyof typeof components;
+	let type: keyof typeof components
 	for (type in components) {
-		const component = components[type];
+		const component = components[type]
 		result[type] =
 			typeof component === "string"
 				? component
@@ -370,11 +368,11 @@ export const defineSliceZoneComponents = <
 							Extract<TSlice, SliceLike<typeof type>>,
 							TContext
 						>,
-				  );
+					)
 	}
 
-	return result;
-};
+	return result
+}
 
 /**
  * Arguments for a `<SliceZone>` `resolver` function.
@@ -383,18 +381,18 @@ export type SliceZoneResolverArgs<TSlice extends SliceLike = SliceLike> = {
 	/**
 	 * The Slice to resolve to a Vue component..
 	 */
-	slice: TSlice;
+	slice: TSlice
 
 	/**
 	 * The name of the Slice.
 	 */
-	sliceName: ExtractSliceType<TSlice>;
+	sliceName: ExtractSliceType<TSlice>
 
 	/**
 	 * The index of the Slice in the Slice Zone.
 	 */
-	i: number;
-};
+	i: number
+}
 
 /**
  * A function that determines the rendered Vue component for each Slice in the
@@ -415,7 +413,7 @@ export type SliceZoneResolver<
 > = (
 	args: SliceZoneResolverArgs<TSlice>,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-) => SliceComponentType<any, TContext> | string | undefined | null;
+) => SliceComponentType<any, TContext> | string | undefined | null
 
 /**
  * Props for `<SliceZone />`.
@@ -426,12 +424,12 @@ export type SliceZoneProps<TContext = unknown> = {
 	/**
 	 * List of Slice data from the Slice Zone.
 	 */
-	slices: SliceZoneLike;
+	slices: SliceZoneLike
 
 	/**
 	 * A record mapping Slice types to Vue components.
 	 */
-	components?: SliceZoneComponents;
+	components?: SliceZoneComponents
 
 	/**
 	 * A function that determines the rendered Vue component for each Slice in the
@@ -445,12 +443,12 @@ export type SliceZoneProps<TContext = unknown> = {
 	 */
 	// TODO: Remove in v5 when the `resolver` prop is removed.
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	resolver?: SliceZoneResolver<any, TContext>;
+	resolver?: SliceZoneResolver<any, TContext>
 
 	/**
 	 * Arbitrary data made available to all Slice components.
 	 */
-	context?: TContext;
+	context?: TContext
 
 	/**
 	 * A component or a functional component rendered if a component mapping from
@@ -462,14 +460,14 @@ export type SliceZoneProps<TContext = unknown> = {
 	 * @defaultValue The Slice Zone default component provided to `@prismicio/vue` plugin if configured, otherwise `null` when `process.env.NODE_ENV === "production"` else {@link TODOSliceComponent}.
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	defaultComponent?: SliceComponentType<any, TContext>;
+	defaultComponent?: SliceComponentType<any, TContext>
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to wrap the
 	 * output. The Slice Zone is not wrapped by default.
 	 */
-	wrapper?: string | ConcreteComponent | Raw<DefineComponent>;
-};
+	wrapper?: string | ConcreteComponent | Raw<DefineComponent>
+}
 
 /**
  * `<SliceZone />` implementation.
@@ -516,7 +514,7 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 	setup(props) {
 		// Prevent fatal if user didn't check for field, throws `Invalid prop` warn
 		if (!props.slices) {
-			return () => null;
+			return () => null
 		}
 
 		// TODO: Remove in v3 when the `resolver` prop is removed.
@@ -524,22 +522,22 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 			if (props.resolver) {
 				console.warn(
 					"The `resolver` prop is deprecated. Please replace it with a components map using the `components` prop.",
-				);
+				)
 			}
 		}
 
-		const { options } = usePrismic();
+		const { options } = usePrismic()
 
 		const renderedSlices = computed(() => {
 			return props.slices.map((slice, index) => {
 				const type =
-					"slice_type" in slice ? (slice.slice_type as string) : slice.type;
+					"slice_type" in slice ? (slice.slice_type as string) : slice.type
 
 				let component =
 					props.components && type in props.components
 						? props.components[type]
 						: props.defaultComponent ||
-						  options.components?.sliceZoneDefaultComponent;
+							options.components?.sliceZoneDefaultComponent
 
 				// TODO: Remove `resolver` in v5 in favor of `components`.
 				if (props.resolver) {
@@ -547,26 +545,26 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 						slice,
 						sliceName: type,
 						i: index,
-					});
+					})
 
 					if (resolvedComponent) {
-						component = resolvedComponent;
+						component = resolvedComponent
 					}
 				}
 
 				const key =
 					"id" in slice && typeof slice.id === "string"
 						? slice.id
-						: `${index}-${JSON.stringify(slice)}`;
+						: `${index}-${JSON.stringify(slice)}`
 
 				if (component) {
 					if (slice.__mapped) {
-						const { __mapped, ...mappedProps } = slice;
+						const { __mapped, ...mappedProps } = slice
 
 						return h(simplyResolveComponent(component as ConcreteComponent), {
 							key,
 							...mappedProps,
-						});
+						})
 					}
 
 					return h(simplyResolveComponent(component as ConcreteComponent), {
@@ -575,31 +573,31 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 						index,
 						context: props.context,
 						slices: props.slices,
-					});
+					})
 				} else {
 					return h(
 						simplyResolveComponent(TODOSliceComponent as ConcreteComponent),
 						{ key, slice },
-					);
+					)
 				}
-			});
-		});
+			})
+		})
 
 		return () => {
 			if (props.wrapper) {
-				const parent = simplyResolveComponent(props.wrapper);
+				const parent = simplyResolveComponent(props.wrapper)
 
 				if (typeof parent === "string") {
-					return h(parent, null, renderedSlices.value);
+					return h(parent, null, renderedSlices.value)
 				} else {
-					return h(parent, null, { default: () => renderedSlices.value });
+					return h(parent, null, { default: () => renderedSlices.value })
 				}
 			} else {
-				return renderedSlices.value;
+				return renderedSlices.value
 			}
-		};
+		}
 	},
-});
+})
 
 // export the public type for h/tsx inference
 // also to avoid inline import() in generated d.ts files
@@ -614,6 +612,6 @@ export const SliceZone = SliceZoneImpl as unknown as {
 		$props: AllowedComponentProps &
 			ComponentCustomProps &
 			VNodeProps &
-			SliceZoneProps;
-	};
-};
+			SliceZoneProps
+	}
+}

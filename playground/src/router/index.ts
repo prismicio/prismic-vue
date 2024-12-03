@@ -1,4 +1,5 @@
-import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
+import type { RouteRecordRaw } from "vue-router"
+import { createRouter, createWebHistory } from "vue-router"
 
 const routes: Array<RouteRecordRaw> = [
 	{
@@ -73,11 +74,11 @@ const routes: Array<RouteRecordRaw> = [
 				/* webpackChunkName: "components--slicezone" */ "../views/components/slicezone.vue"
 			),
 	},
-];
+]
 
 const router = createRouter({
 	history: createWebHistory(),
 	routes,
-});
+})
 
-export default router;
+export default router

@@ -1,5 +1,5 @@
-export { createPrismic } from "./createPrismic";
-export { usePrismic } from "./usePrismic";
+export { createPrismic } from "./createPrismic"
+export { usePrismic } from "./usePrismic"
 
 export {
 	// Composables
@@ -18,7 +18,7 @@ export {
 	TODOSliceComponent,
 	defineSliceZoneComponents,
 	SliceZone,
-} from "./components";
+} from "./components"
 export type {
 	// Composables
 	UsePrismicImageOptions,
@@ -42,7 +42,7 @@ export type {
 	SliceZoneResolver,
 	SliceZoneLike,
 	SliceZoneProps,
-} from "./components";
+} from "./components"
 
 export {
 	useAllPrismicDocumentsByIDs,
@@ -63,13 +63,13 @@ export {
 	usePrismicDocumentsByType,
 	useSinglePrismicDocument,
 	dangerouslyUseAllPrismicDocuments,
-} from "./composables";
+} from "./composables"
 
-export type { ClientComposableReturnType } from "./useStatefulPrismicClientMethod";
+export type { ClientComposableReturnType } from "./useStatefulPrismicClientMethod"
 
-export { PrismicClientComposableState } from "./types";
-export type { PrismicPluginOptions, PrismicPlugin } from "./types";
+export { PrismicClientComposableState } from "./types"
+export type { PrismicPluginOptions, PrismicPlugin } from "./types"
 
-export { prismicKey } from "./injectionSymbols";
+export { prismicKey } from "./injectionSymbols"
 
-export * from "./globalExtensions";
+export * from "./globalExtensions"

@@ -15,9 +15,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from "vue"
 
-import { blank, internal, simple } from "../../mocks/link.json";
+import { blank, internal, simple } from "../../mocks/link.json"
 
 export default defineComponent({
 	data() {
@@ -25,12 +25,12 @@ export default defineComponent({
 			resolvedSimple: "" as string | null,
 			resolvedBlank: "" as string | null,
 			resolvedInternal: "" as string | null,
-		};
+		}
 	},
 	created(): void {
-		this.resolvedSimple = this.$prismic.asLink(simple);
-		this.resolvedBlank = this.$prismic.asLink(blank);
-		this.resolvedInternal = this.$prismic.asLink(internal);
+		this.resolvedSimple = this.$prismic.asLink(simple)
+		this.resolvedBlank = this.$prismic.asLink(blank)
+		this.resolvedInternal = this.$prismic.asLink(internal)
 	},
-});
+})
 </script>
