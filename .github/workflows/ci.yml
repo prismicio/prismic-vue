@@ -22,7 +22,7 @@ jobs:
 
       - name: Cache node_modules
         id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Retrieve node_modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
@@ -66,7 +66,7 @@ jobs:
         run: npm run build
 
       - name: Coverage
-        if: matrix.os == 'ubuntu-latest' && matrix.node == 16
+        if: matrix.os == 'ubuntu-latest' && matrix.node == 22
         uses: codecov/codecov-action@v3
 
   types:
@@ -77,8 +77,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        node: [18]
+        node: [22]
+        # Add relevant versions from: https://majors.nullvoxpopuli.com/q?minors=on&packages=typescript
         typescript: ["4.9", "5.0", "5.1", "5.2", "5.3", "5.4"]
+
 
     steps:
       - name: Set up Node
@@ -90,7 +92,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Retrieve node_modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
@@ -110,7 +112,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        node: [18]
+        node: [22]
 
     steps:
       - name: Set up Node
@@ -122,7 +124,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Retrieve node_modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
