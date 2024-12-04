@@ -11,9 +11,9 @@ export default tseslint.config(
 	},
 	eslint.configs.recommended,
 	tseslint.configs.recommended,
-	prettier,
 	...pluginVue.configs["flat/essential"],
 	...vueTsEslintConfig(),
+	prettier,
 	{
 		plugins: {
 			tsdoc,
