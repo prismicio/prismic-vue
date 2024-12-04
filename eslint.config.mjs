@@ -44,6 +44,7 @@ export default tseslint.config(
 			"@typescript-eslint/consistent-type-imports": "error",
 			"tsdoc/syntax": "warn",
 			"vue/multi-word-component-names": "off",
+			"vue/no-v-text-v-html-on-component": "off",
 		},
 	},
 )

@@ -60,7 +60,7 @@ it("uses provided client", () => {
 	expect(wrapper.vm.$prismic.client.endpoint).toBe(client.endpoint)
 })
 
-it("uses `globalThis` fetch function by default", () => {
+it("uses `globalThis.fetch` by default", () => {
 	const initialFetch = globalThis.fetch
 	globalThis.fetch = vi.fn()
 
@@ -101,7 +101,7 @@ it("uses provided fetch function", () => {
 	expect(spiedFetch).toHaveBeenCalledOnce()
 })
 
-it.only("throws when `globalThis` fetch function is not available and no fetch function is provided", async () => {
+it("throws when `globalThis.fetch` is not available and no fetch function is provided", async () => {
 	const initialFetch = globalThis.fetch
 	// @ts-expect-error - We're deleting the global fetch function for testing purposes
 	delete globalThis.fetch

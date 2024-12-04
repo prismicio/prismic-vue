@@ -58,7 +58,7 @@ type PrismicPluginComponentsOptions = {
 	 *
 	 * @defaultValue {@link RouterLink}
 	 */
-	linkInternalComponent?: string | ConcreteComponent | Raw<DefineComponent>
+	linkInternalComponent?: ComponentOrTagName
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -73,20 +73,7 @@ type PrismicPluginComponentsOptions = {
 	 *
 	 * @defaultValue `"a"`
 	 */
-	linkExternalComponent?: string | ConcreteComponent | Raw<DefineComponent>
-
-	/**
-	 * An HTML tag name, a component, or a functional component used to render
-	 * images.
-	 *
-	 * @remarks
-	 * HTML tag names and components will be rendered using the `img` tag
-	 * interface (`src` and `alt` attribute). Components will also receive an
-	 * additional `copyright` props.
-	 *
-	 * @defaultValue `"img"`
-	 */
-	imageComponent?: string | ConcreteComponent | Raw<DefineComponent>
+	linkExternalComponent?: ComponentOrTagName
 
 	/**
 	 * Default widths to use when rendering an image with `widths="defaults"`
@@ -469,3 +456,13 @@ export type VueUseOptions<T> = {
 export type VueUseParameters<T> = {
 	[K in keyof T]: T extends number ? Ref<T[K]> | T[K] : T[K]
 }
+
+/**
+ * A component or a tag name to be used as props.
+ *
+ * @internal
+ */
+export type ComponentOrTagName =
+	| string
+	| ConcreteComponent
+	| Raw<DefineComponent>

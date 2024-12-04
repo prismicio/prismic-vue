@@ -131,9 +131,9 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 
 			if (options.injectComponents !== false) {
 				app.component(PrismicLink.name, PrismicLink)
-				app.component(PrismicEmbed.name, PrismicEmbed)
-				app.component(PrismicImage.name, PrismicImage)
-				app.component(PrismicText.name, PrismicText)
+				app.component(PrismicEmbed.name!, PrismicEmbed)
+				app.component(PrismicImage.name!, PrismicImage)
+				app.component(PrismicText.name!, PrismicText)
 				app.component(PrismicRichText.name, PrismicRichText)
 				app.component(SliceZone.name, SliceZone)
 			}

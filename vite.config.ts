@@ -11,6 +11,9 @@ export default defineConfig({
 		environment: "jsdom",
 		coverage: {
 			reporter: ["lcovonly", "text"],
+			include: ["src"],
 		},
+		setupFiles: ["./test/__setup__"],
+		typecheck: { checker: "vue-tsc" },
 	},
 })
