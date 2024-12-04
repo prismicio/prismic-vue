@@ -58,7 +58,6 @@
 	},
 	"dependencies": {
 		"@prismicio/client": "^7.12.0",
-		"isomorphic-unfetch": "^3.1.0",
 		"vue-router": "^4.5.0"
 	},
 	"devDependencies": {

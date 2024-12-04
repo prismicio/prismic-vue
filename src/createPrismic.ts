@@ -1,6 +1,5 @@
 import type {
 	Client,
-	FetchLike,
 	HTMLRichTextFunctionSerializer,
 	HTMLRichTextMapSerializer,
 	LinkResolverFunction,
@@ -55,19 +54,7 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 	if (options.client) {
 		client = options.client
 	} else {
-		client = createClient(options.endpoint, {
-			fetch: async (endpoint, options) => {
-				let fetchFunction: FetchLike
-				if (typeof globalThis.fetch === "function") {
-					fetchFunction = globalThis.fetch
-				} else {
-					fetchFunction = (await import("isomorphic-unfetch")).default
-				}
-
-				return await fetchFunction(endpoint, options)
-			},
-			...options.clientConfig,
-		})
+		client = createClient(options.endpoint, options.clientConfig)
 	}
 
 	const prismicClient: PrismicPluginClient = {

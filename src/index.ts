@@ -1,3 +1,7 @@
+import PrismicTest from "./PrismicTest.vue"
+
+export { PrismicTest }
+
 export { createPrismic } from "./createPrismic"
 export { usePrismic } from "./usePrismic"
 
