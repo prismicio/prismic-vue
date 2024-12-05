@@ -1,33 +1,33 @@
-export { createPrismic } from "./createPrismic"
-export { usePrismic } from "./usePrismic"
+import PrismicEmbed from "./PrismicEmbed.vue"
+import PrismicImage from "./PrismicImage.vue"
+import PrismicLink from "./PrismicLink.vue"
+import PrismicText from "./PrismicText.vue"
+
+export type { PrismicEmbedProps } from "./PrismicEmbed.vue"
+export type { PrismicImageProps } from "./PrismicImage.vue"
+export type { PrismicLinkProps } from "./PrismicLink.vue"
+export type { PrismicTextProps } from "./PrismicText.vue"
+
+export { PrismicEmbed, PrismicImage, PrismicLink, PrismicText }
 
 export {
-	// Composables
-	usePrismicLink,
 	usePrismicRichText,
-	// Components
-	PrismicEmbed,
-	PrismicImage,
-	PrismicLink,
-	PrismicText,
+	PrismicRichTextImpl,
 	PrismicRichText,
-	// Slice Zone
+} from "./PrismicRichText"
+export type {
+	UsePrismicRichTextOptions,
+	PrismicRichTextProps,
+} from "./PrismicRichText"
+
+export {
 	getSliceComponentProps,
 	TODOSliceComponent,
 	defineSliceZoneComponents,
+	SliceZoneImpl,
 	SliceZone,
-} from "./components"
+} from "./SliceZone"
 export type {
-	// Composables
-	UsePrismicLinkOptions,
-	UsePrismicRichTextOptions,
-	// Components
-	PrismicEmbedProps,
-	PrismicImageProps,
-	PrismicLinkProps,
-	PrismicTextProps,
-	PrismicRichTextProps,
-	// Slice Zone
 	DefineComponentSliceComponentProps,
 	SliceComponentProps,
 	SliceComponentType,
@@ -35,37 +35,16 @@ export type {
 	SliceLikeGraphQL,
 	SliceLike,
 	SliceZoneComponents,
+	SliceZoneResolverArgs,
 	SliceZoneResolver,
 	SliceZoneLike,
 	SliceZoneProps,
-} from "./components"
+} from "./SliceZone"
 
-export {
-	useAllPrismicDocumentsByIDs,
-	useAllPrismicDocumentsByUIDs,
-	useAllPrismicDocumentsByTag,
-	useAllPrismicDocumentsByEveryTag,
-	useAllPrismicDocumentsBySomeTags,
-	useAllPrismicDocumentsByType,
-	useFirstPrismicDocument,
-	usePrismicDocumentByID,
-	usePrismicDocumentByUID,
-	usePrismicDocuments,
-	usePrismicDocumentsByIDs,
-	usePrismicDocumentsByUIDs,
-	usePrismicDocumentsByTag,
-	usePrismicDocumentsByEveryTag,
-	usePrismicDocumentsBySomeTags,
-	usePrismicDocumentsByType,
-	useSinglePrismicDocument,
-	dangerouslyUseAllPrismicDocuments,
-} from "./composables"
-
-export type { ClientComposableReturnType } from "./useStatefulPrismicClientMethod"
-
-export { PrismicClientComposableState } from "./types"
 export type { PrismicPluginOptions, PrismicPlugin } from "./types"
 
+export { createPrismic } from "./createPrismic"
+export { usePrismic } from "./usePrismic"
 export { prismicKey } from "./injectionSymbols"
 
 export * from "./globalExtensions"

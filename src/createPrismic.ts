@@ -28,14 +28,12 @@ import type {
 	PrismicPluginOptions,
 } from "./types"
 
-import {
-	PrismicEmbed,
-	PrismicImage,
-	PrismicLink,
-	PrismicRichText,
-	PrismicText,
-	SliceZone,
-} from "./components"
+import PrismicEmbed from "./PrismicEmbed.vue"
+import PrismicImage from "./PrismicImage.vue"
+import PrismicLink from "./PrismicLink.vue"
+import { PrismicRichText } from "./PrismicRichText"
+import PrismicText from "./PrismicText.vue"
+import { SliceZone } from "./SliceZone"
 import { prismicKey } from "./injectionSymbols"
 
 /**
@@ -130,7 +128,7 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 			app.config.globalProperties.$prismic = this
 
 			if (options.injectComponents !== false) {
-				app.component(PrismicLink.name, PrismicLink)
+				app.component(PrismicLink.name!, PrismicLink)
 				app.component(PrismicEmbed.name!, PrismicEmbed)
 				app.component(PrismicImage.name!, PrismicImage)
 				app.component(PrismicText.name!, PrismicText)

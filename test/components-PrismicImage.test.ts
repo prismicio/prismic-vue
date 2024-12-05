@@ -2,8 +2,7 @@ import { describe, expect, it, vi } from "vitest"
 
 import { mount } from "@vue/test-utils"
 
-import { createPrismic } from "../src"
-import { PrismicImage } from "../src/components"
+import { PrismicImage, createPrismic } from "../src"
 
 describe("renders an image field", () => {
 	it("empty", () => {

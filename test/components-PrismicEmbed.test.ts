@@ -6,7 +6,7 @@ import { markRaw } from "vue"
 
 import { WrapperComponent } from "./__fixtures__/WrapperComponent"
 
-import { PrismicEmbed } from "../src/components"
+import { PrismicEmbed } from "../src"
 
 describe("renders an embed field", () => {
 	it("empty", () => {

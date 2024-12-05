@@ -6,7 +6,7 @@ import { markRaw } from "vue"
 
 import { WrapperComponent } from "./__fixtures__/WrapperComponent"
 
-import { PrismicText } from "../src/components"
+import { PrismicText } from "../src"
 
 describe("renders a rich text field", () => {
 	it("as plain text", () => {

@@ -29,12 +29,12 @@ import {
 } from "vue"
 import { routerKey } from "vue-router"
 
-import { isInternalURL } from "../lib/isInternalURL"
-import { simplyResolveComponent } from "../lib/simplyResolveComponent"
+import { isInternalURL } from "./lib/isInternalURL"
+import { simplyResolveComponent } from "./lib/simplyResolveComponent"
 
-import type { VueUseOptions } from "../types"
+import type { VueUseOptions } from "./types"
 
-import { usePrismic } from "../usePrismic"
+import { usePrismic } from "./usePrismic"
 
 /**
  * The default component rendered to wrap the HTML output.

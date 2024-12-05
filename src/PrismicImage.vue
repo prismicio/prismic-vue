@@ -7,9 +7,9 @@ import {
 } from "@prismicio/client"
 import { computed, watchEffect } from "vue"
 
-import { devMsg } from "../lib/devMsg"
+import { devMsg } from "./lib/devMsg"
 
-import { usePrismic } from "../usePrismic"
+import { usePrismic } from "./usePrismic"
 
 /**
  * Props for `<PrismicImage />`.

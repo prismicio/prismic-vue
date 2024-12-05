@@ -2,7 +2,7 @@
 import type { EmbedField } from "@prismicio/client"
 import { isFilled } from "@prismicio/client"
 
-import type { ComponentOrTagName } from "../types"
+import type { ComponentOrTagName } from "./types"
 
 /**
  * The default component rendered to wrap the embed.

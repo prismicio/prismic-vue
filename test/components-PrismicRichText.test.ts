@@ -9,8 +9,7 @@ import { routerKey } from "vue-router"
 import { WrapperComponent } from "./__fixtures__/WrapperComponent"
 import { richTextFixture } from "./__fixtures__/richText"
 
-import { createPrismic } from "../src"
-import { PrismicRichTextImpl } from "../src/components"
+import { PrismicRichTextImpl, createPrismic } from "../src"
 
 it("renders rich text field as HTML", () => {
 	const wrapper = mount(PrismicRichTextImpl, {

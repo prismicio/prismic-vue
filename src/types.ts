@@ -1,4 +1,5 @@
 import type {
+	AsLinkAttrsConfig,
 	ClientConfig,
 	CreateClient,
 	HTMLRichTextFunctionSerializer,
@@ -27,9 +28,7 @@ import type {
 	SliceComponentProps,
 	SliceComponentType,
 	TODOSliceComponent,
-} from "./components/SliceZone"
-
-import type { usePrismicDocuments } from "./composables"
+} from "./SliceZone"
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -38,12 +37,13 @@ import type { usePrismicDocuments } from "./composables"
  */
 type PrismicPluginComponentsOptions = {
 	/**
-	 * Value of the `rel` attribute to use on links rendered with
-	 * `target="_blank"`
+	 * The `rel` attribute for the link. By default, `"noreferrer"` is provided if
+	 * the link's URL is external. This prop can be provided a function to use the
+	 * link's metadata to determine the `rel` value.
 	 *
-	 * @defaultValue `"noopener noreferrer"`
+	 * @defaultValue `"noreferrer"`
 	 */
-	linkBlankTargetRelAttribute?: string
+	linkRel?: AsLinkAttrsConfig["rel"]
 
 	/**
 	 * An HTML tag name, a component, or a functional component used to render
@@ -410,31 +410,6 @@ export type PrismicPlugin = {
 	install: (app: App) => void
 } & PrismicPluginClient &
 	PrismicPluginHelpers
-
-/**
- * States of a `@prismicio/client` composable.
- */
-export const enum PrismicClientComposableState {
-	/**
-	 * The composable has not started fetching.
-	 */
-	Idle = "idle",
-
-	/**
-	 * The composable is fetching data.
-	 */
-	Pending = "pending",
-
-	/**
-	 * The composable sucessfully fetched data.
-	 */
-	Success = "success",
-
-	/**
-	 * The composable failed to fetch data.
-	 */
-	Error = "error",
-}
 
 // Helpers
 

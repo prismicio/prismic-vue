@@ -3,9 +3,9 @@ import type { RichTextField } from "@prismicio/client"
 import { asText, isFilled } from "@prismicio/client"
 import { watchEffect } from "vue"
 
-import { devMsg } from "../lib/devMsg"
+import { devMsg } from "./lib/devMsg"
 
-import type { ComponentOrTagName } from "../types"
+import type { ComponentOrTagName } from "./types"
 
 /**
  * Props for `<PrismicText />`.

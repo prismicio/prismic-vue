@@ -12,10 +12,9 @@ import type {
 } from "vue"
 import { computed, defineComponent, h, markRaw, watchEffect } from "vue"
 
-import { __PRODUCTION__ } from "../lib/__PRODUCTION__"
-import { simplyResolveComponent } from "../lib/simplyResolveComponent"
+import { simplyResolveComponent } from "./lib/simplyResolveComponent"
 
-import { usePrismic } from "../usePrismic"
+import { usePrismic } from "./usePrismic"
 
 /**
  * Returns the type of a `SliceLike` type.
@@ -249,44 +248,45 @@ export type SliceComponentType<
  * This is also the default Vue component rendered when a component mapping
  * cannot be found in `<SliceZone />`.
  */
-export const TODOSliceComponent = __PRODUCTION__
-	? ((() => null) as FunctionalComponent<{
-			slice: SliceLike
-		}>)
-	: /*#__PURE__*/ (defineComponent({
-			name: "TODOSliceComponent",
-			props: {
-				slice: {
-					type: Object as PropType<SliceLike>,
-					required: true,
+export const TODOSliceComponent =
+	typeof process !== "undefined" && process.env.NODE_ENV === "development"
+		? /*#__PURE__*/ (defineComponent({
+				name: "TODOSliceComponent",
+				props: {
+					slice: {
+						type: Object as PropType<SliceLike>,
+						required: true,
+					},
 				},
-			},
-			setup(props) {
-				const type = computed(() => {
-					return "slice_type" in props.slice
-						? props.slice.slice_type
-						: props.slice.type
-				})
+				setup(props) {
+					const type = computed(() => {
+						return "slice_type" in props.slice
+							? props.slice.slice_type
+							: props.slice.type
+					})
 
-				watchEffect(() => {
-					console.warn(
-						`[SliceZone] Could not find a component for Slice type "${type.value}"`,
-						props.slice,
-					)
-				})
+					watchEffect(() => {
+						console.warn(
+							`[SliceZone] Could not find a component for Slice type "${type.value}"`,
+							props.slice,
+						)
+					})
 
-				return () => {
-					return h(
-						"section",
-						{
-							"data-slice-zone-todo-component": "",
-							"data-slice-type": type.value,
-						},
-						[`Could not find a component for Slice type "${type.value}"`],
-					)
-				}
-			},
-		}) as SliceComponentType)
+					return () => {
+						return h(
+							"section",
+							{
+								"data-slice-zone-todo-component": "",
+								"data-slice-type": type.value,
+							},
+							[`Could not find a component for Slice type "${type.value}"`],
+						)
+					}
+				},
+			}) as SliceComponentType)
+		: ((() => null) as FunctionalComponent<{
+				slice: SliceLike
+			}>)
 
 /**
  * A record of Slice types mapped to Vue components. Each components will be
@@ -518,7 +518,10 @@ export const SliceZoneImpl = /*#__PURE__*/ defineComponent({
 		}
 
 		// TODO: Remove in v3 when the `resolver` prop is removed.
-		if (!__PRODUCTION__) {
+		if (
+			typeof process !== "undefined" &&
+			process.env.NODE_ENV === "development"
+		) {
 			if (props.resolver) {
 				console.warn(
 					"The `resolver` prop is deprecated. Please replace it with a components map using the `components` prop.",
