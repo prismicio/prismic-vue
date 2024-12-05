@@ -5,7 +5,7 @@ import {
 	asImageWidthSrcSet,
 	isFilled,
 } from "@prismicio/client"
-import { computed } from "vue"
+import { computed, watchEffect } from "vue"
 
 import { devMsg } from "../lib/devMsg"
 
@@ -89,11 +89,8 @@ defineOptions({ name: "PrismicImage" })
 
 const { options } = usePrismic()
 
-const image = computed(() => {
-	if (
-		typeof process !== "undefined" &&
-		process.env.NODE_ENV === "development"
-	) {
+if (typeof process !== "undefined" && process.env.NODE_ENV === "development") {
+	watchEffect(() => {
 		if (typeof props.alt === "string" && props.alt !== "") {
 			console.warn(
 				`[PrismicImage] The "alt" prop can only be used to declare an image as decorative by passing an empty string (alt="") but was provided a non-empty string. You can resolve this warning by removing the "alt" prop or changing it to alt="". For more details, see ${devMsg(
@@ -115,8 +112,10 @@ const image = computed(() => {
 				`[PrismicImage] Only one of "widths" or "pixelDensities" props can be provided. You can resolve this warning by removing either the "widths" or "pixelDensities" prop. "widths" will be used in this case.`,
 			)
 		}
-	}
+	})
+}
 
+const image = computed(() => {
 	if (!isFilled.imageThumbnail(props.field)) {
 		return
 	}

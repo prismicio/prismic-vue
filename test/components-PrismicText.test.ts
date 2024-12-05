@@ -1,4 +1,4 @@
-import { expect, it } from "vitest"
+import { describe, expect, it } from "vitest"
 
 import { type RichTextField, RichTextNodeType } from "@prismicio/client"
 import { mount } from "@vue/test-utils"
@@ -8,118 +8,124 @@ import { WrapperComponent } from "./__fixtures__/WrapperComponent"
 
 import { PrismicText } from "../src/components"
 
-it("renders plain text representation", () => {
-	const wrapper = mount(PrismicText, {
-		props: {
-			field: [
-				{
-					type: RichTextNodeType.heading1,
-					text: "Heading 1",
-					spans: [],
-				},
-			],
-		},
+describe("renders a rich text field", () => {
+	it("as plain text", () => {
+		const wrapper = mount(PrismicText, {
+			props: {
+				field: [
+					{
+						type: RichTextNodeType.heading1,
+						text: "Heading 1",
+						spans: [],
+					},
+				],
+			},
+		})
+
+		expect(wrapper.html()).toBe("Heading 1")
 	})
 
-	expect(wrapper.html()).toBe("Heading 1")
+	it("as nothing when passed an empty field", () => {
+		const wrapper = mount(PrismicText, {
+			props: { field: null },
+		})
+
+		expect(wrapper.html()).toBe("<!--v-if-->")
+	})
 })
 
-it("renders nothing when passed an empty field", () => {
-	const wrapper = mount(PrismicText, {
-		props: { field: null },
+describe("renders fallback value", () => {
+	it("when passed an empty field", () => {
+		const nullField = mount(PrismicText, {
+			props: { field: null, fallback: "fallback" },
+		})
+
+		const undefinedField = mount(PrismicText, {
+			props: { field: undefined, fallback: "fallback" },
+		})
+
+		const emptyField = mount(PrismicText, {
+			props: { field: [], fallback: "fallback" },
+		})
+
+		expect(nullField.html()).toBe("fallback")
+		expect(undefinedField.html()).toBe("fallback")
+		expect(emptyField.html()).toBe("fallback")
 	})
 
-	expect(wrapper.html()).toBe("<!--v-if-->")
+	it("when passed an empty field with wrapper", () => {
+		const nullField = mount(PrismicText, {
+			props: { field: null, fallback: "fallback", wrapper: "p" },
+		})
+
+		const undefinedField = mount(PrismicText, {
+			props: { field: undefined, fallback: "fallback", wrapper: "p" },
+		})
+
+		const emptyField = mount(PrismicText, {
+			props: { field: [], fallback: "fallback", wrapper: "p" },
+		})
+
+		expect(nullField.html()).toBe("<p>fallback</p>")
+		expect(undefinedField.html()).toBe("<p>fallback</p>")
+		expect(emptyField.html()).toBe("<p>fallback</p>")
+	})
 })
 
-it("returns fallback when passed an empty field", () => {
-	const nullField = mount(PrismicText, {
-		props: { field: null, fallback: "fallback" },
+describe("renders with wrapper", () => {
+	it("tag", () => {
+		const wrapper = mount(PrismicText, {
+			props: {
+				field: [
+					{
+						type: RichTextNodeType.heading1,
+						text: "Heading 1",
+						spans: [],
+					},
+				],
+				wrapper: "p",
+			},
+		})
+
+		expect(wrapper.html()).toBe("<p>Heading 1</p>")
 	})
 
-	const undefinedField = mount(PrismicText, {
-		props: { field: undefined, fallback: "fallback" },
+	it("component", () => {
+		const wrapper = mount(PrismicText, {
+			props: {
+				field: [
+					{
+						type: RichTextNodeType.heading1,
+						text: "Heading 1",
+						spans: [],
+					},
+				],
+				wrapper: markRaw(WrapperComponent),
+			},
+		})
+
+		expect(wrapper.html()).toBe(`<div class="wrapperComponent">Heading 1</div>`)
 	})
 
-	const emptyField = mount(PrismicText, {
-		props: { field: [], fallback: "fallback" },
+	it("forwards attributes to wrapper", () => {
+		const wrapper = mount(PrismicText, {
+			props: {
+				field: [
+					{
+						type: RichTextNodeType.heading1,
+						text: "Heading 1",
+						spans: [],
+					},
+				],
+				wrapper: "p",
+			},
+			attrs: {
+				class: "foo",
+			},
+		})
+
+		expect(wrapper.html()).toBe(`<p class="foo">Heading 1</p>`)
 	})
-
-	expect(nullField.html()).toBe("fallback")
-	expect(undefinedField.html()).toBe("fallback")
-	expect(emptyField.html()).toBe("fallback")
-})
-
-it("returns fallback when passed an empty field with wrapper", () => {
-	const nullField = mount(PrismicText, {
-		props: { field: null, fallback: "fallback", wrapper: "p" },
-	})
-
-	const undefinedField = mount(PrismicText, {
-		props: { field: undefined, fallback: "fallback", wrapper: "p" },
-	})
-
-	const emptyField = mount(PrismicText, {
-		props: { field: [], fallback: "fallback", wrapper: "p" },
-	})
-
-	expect(nullField.html()).toBe("<p>fallback</p>")
-	expect(undefinedField.html()).toBe("<p>fallback</p>")
-	expect(emptyField.html()).toBe("<p>fallback</p>")
-})
-
-it("uses provided wrapper tag", () => {
-	const wrapper = mount(PrismicText, {
-		props: {
-			field: [
-				{
-					type: RichTextNodeType.heading1,
-					text: "Heading 1",
-					spans: [],
-				},
-			],
-			wrapper: "p",
-		},
-	})
-
-	expect(wrapper.html()).toBe("<p>Heading 1</p>")
-})
-
-it("uses provided wrapper component", () => {
-	const wrapper = mount(PrismicText, {
-		props: {
-			field: [
-				{
-					type: RichTextNodeType.heading1,
-					text: "Heading 1",
-					spans: [],
-				},
-			],
-			wrapper: markRaw(WrapperComponent),
-		},
-	})
-
-	expect(wrapper.html()).toBe(`<div class="wrapperComponent">Heading 1</div>`)
-})
-
-it("forwards attributes to wrapper", () => {
-	const wrapper = mount(PrismicText, {
-		props: {
-			field: [
-				{
-					type: RichTextNodeType.heading1,
-					text: "Heading 1",
-					spans: [],
-				},
-			],
-			wrapper: "p",
-		},
-		attrs: {
-			class: "foo",
-		},
-	})
-
-	expect(wrapper.html()).toBe(`<p class="foo">Heading 1</p>`)
 })
 
 it("throws error if passed a string-based field (e.g. Key Text or Select)", () => {
