@@ -24,7 +24,7 @@ it("renders plain text representation", () => {
 	expect(wrapper.html()).toBe("Heading 1")
 })
 
-it("returns null when passed empty field", () => {
+it("renders nothing when passed an empty field", () => {
 	const wrapper = mount(PrismicText, {
 		props: { field: null },
 	})
@@ -32,7 +32,7 @@ it("returns null when passed empty field", () => {
 	expect(wrapper.html()).toBe("<!--v-if-->")
 })
 
-it("returns fallback when passed empty field", () => {
+it("returns fallback when passed an empty field", () => {
 	const nullField = mount(PrismicText, {
 		props: { field: null, fallback: "fallback" },
 	})
@@ -50,7 +50,7 @@ it("returns fallback when passed empty field", () => {
 	expect(emptyField.html()).toBe("fallback")
 })
 
-it("returns fallback when passed empty field with wrapper", () => {
+it("returns fallback when passed an empty field with wrapper", () => {
 	const nullField = mount(PrismicText, {
 		props: { field: null, fallback: "fallback", wrapper: "p" },
 	})
@@ -100,6 +100,26 @@ it("uses provided wrapper component", () => {
 	})
 
 	expect(wrapper.html()).toBe(`<div class="wrapperComponent">Heading 1</div>`)
+})
+
+it("forwards attributes to wrapper", () => {
+	const wrapper = mount(PrismicText, {
+		props: {
+			field: [
+				{
+					type: RichTextNodeType.heading1,
+					text: "Heading 1",
+					spans: [],
+				},
+			],
+			wrapper: "p",
+		},
+		attrs: {
+			class: "foo",
+		},
+	})
+
+	expect(wrapper.html()).toBe(`<p class="foo">Heading 1</p>`)
 })
 
 it("throws error if passed a string-based field (e.g. Key Text or Select)", () => {

@@ -56,7 +56,7 @@ if (typeof process !== "undefined" && process.env.NODE_ENV === "development") {
 
 <template>
 	<template v-if="isFilled.richText(field) || fallback">
-		<Component v-if="wrapper" :is="wrapper">
+		<Component v-if="wrapper" :is="wrapper" v-bind="$attrs">
 			{{ asText(field) || fallback }}
 		</Component>
 		<template v-else>
