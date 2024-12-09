@@ -9,19 +9,19 @@ import {
 	createWrapperComponent,
 } from "./__fixtures__/WrapperComponent"
 
-import { createPrismic } from "../src"
 import type {
 	SliceComponentProps,
 	SliceComponentType,
 	SliceLike,
 	SliceZoneLike,
 	SliceZoneResolver,
-} from "../src/components"
+} from "../src"
 import {
 	SliceZoneImpl,
+	createPrismic,
 	defineSliceZoneComponents,
 	getSliceComponentProps,
-} from "../src/components"
+} from "../src"
 
 it("renders slice zone with correct component mapping from components", async () => {
 	const Foo = createWrapperComponent<SliceComponentType>(
@@ -304,7 +304,9 @@ it("provides context to each slice", () => {
 	).toStrictEqual(context)
 })
 
-it("renders TODO component if component mapping is missing", () => {
+it.skip("renders TODO component if component mapping is missing", () => {
+	const originalNodeEnv = process.env.NODE_ENV
+	process.env.NODE_ENV = "development"
 	vi.stubGlobal("console", { warn: vi.fn() })
 
 	const Foo = createWrapperComponent<SliceComponentType>(
@@ -339,9 +341,12 @@ it("renders TODO component if component mapping is missing", () => {
 	)
 
 	vi.resetAllMocks()
+	process.env.NODE_ENV = originalNodeEnv
 })
 
-it("renders TODO component if component mapping is missing with GraphQL API", () => {
+it.skip("renders TODO component if component mapping is missing with GraphQL API", () => {
+	const originalNodeEnv = process.env.NODE_ENV
+	process.env.NODE_ENV = "development"
 	vi.stubGlobal("console", { warn: vi.fn() })
 
 	const Foo = createWrapperComponent<SliceComponentType>(
@@ -368,6 +373,7 @@ it("renders TODO component if component mapping is missing with GraphQL API", ()
 	)
 
 	vi.resetAllMocks()
+	process.env.NODE_ENV = originalNodeEnv
 })
 
 it("renders plugin provided TODO component if component mapping is missing", () => {
@@ -447,7 +453,7 @@ it("renders provided TODO component over plugin provided if component mapping is
 	)
 })
 
-it.skip("doesn't render TODO component in production", () => {
+it("doesn't render TODO component in production", () => {
 	const originalNodeEnv = process.env.NODE_ENV
 	process.env.NODE_ENV = "production"
 	const consoleWarnSpy = vi

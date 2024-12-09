@@ -1,6 +1,5 @@
 import type {
 	Client,
-	FetchLike,
 	HTMLRichTextFunctionSerializer,
 	HTMLRichTextMapSerializer,
 	LinkResolverFunction,
@@ -29,14 +28,12 @@ import type {
 	PrismicPluginOptions,
 } from "./types"
 
-import {
-	PrismicEmbed,
-	PrismicImage,
-	PrismicLink,
-	PrismicRichText,
-	PrismicText,
-	SliceZone,
-} from "./components"
+import PrismicEmbed from "./PrismicEmbed.vue"
+import PrismicImage from "./PrismicImage.vue"
+import PrismicLink from "./PrismicLink.vue"
+import { PrismicRichText } from "./PrismicRichText"
+import PrismicText from "./PrismicText.vue"
+import { SliceZone } from "./SliceZone"
 import { prismicKey } from "./injectionSymbols"
 
 /**
@@ -55,19 +52,7 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 	if (options.client) {
 		client = options.client
 	} else {
-		client = createClient(options.endpoint, {
-			fetch: async (endpoint, options) => {
-				let fetchFunction: FetchLike
-				if (typeof globalThis.fetch === "function") {
-					fetchFunction = globalThis.fetch
-				} else {
-					fetchFunction = (await import("isomorphic-unfetch")).default
-				}
-
-				return await fetchFunction(endpoint, options)
-			},
-			...options.clientConfig,
-		})
+		client = createClient(options.endpoint, options.clientConfig)
 	}
 
 	const prismicClient: PrismicPluginClient = {
@@ -143,10 +128,10 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 			app.config.globalProperties.$prismic = this
 
 			if (options.injectComponents !== false) {
-				app.component(PrismicLink.name, PrismicLink)
-				app.component(PrismicEmbed.name, PrismicEmbed)
-				app.component(PrismicImage.name, PrismicImage)
-				app.component(PrismicText.name, PrismicText)
+				app.component(PrismicLink.name!, PrismicLink)
+				app.component(PrismicEmbed.name!, PrismicEmbed)
+				app.component(PrismicImage.name!, PrismicImage)
+				app.component(PrismicText.name!, PrismicText)
 				app.component(PrismicRichText.name, PrismicRichText)
 				app.component(SliceZone.name, SliceZone)
 			}
