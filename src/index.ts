@@ -1,3 +1,4 @@
+import PrismicRichText from "./PrismicRichText/PrismicRichText.vue"
 import SliceZone from "./SliceZone/SliceZone.vue"
 
 import PrismicEmbed from "./PrismicEmbed.vue"
@@ -6,23 +7,21 @@ import PrismicLink from "./PrismicLink.vue"
 import PrismicText from "./PrismicText.vue"
 
 export type { SliceZoneProps } from "./SliceZone/SliceZone.vue"
+export type { PrismicRichTextProps } from "./PrismicRichText/PrismicRichText.vue"
 
 export type { PrismicEmbedProps } from "./PrismicEmbed.vue"
 export type { PrismicImageProps } from "./PrismicImage.vue"
 export type { PrismicLinkProps } from "./PrismicLink.vue"
 export type { PrismicTextProps } from "./PrismicText.vue"
 
-export { SliceZone, PrismicEmbed, PrismicImage, PrismicLink, PrismicText }
-
 export {
-	usePrismicRichText,
-	PrismicRichTextImpl,
+	SliceZone,
 	PrismicRichText,
-} from "./PrismicRichText"
-export type {
-	UsePrismicRichTextOptions,
-	PrismicRichTextProps,
-} from "./PrismicRichText"
+	PrismicEmbed,
+	PrismicImage,
+	PrismicLink,
+	PrismicText,
+}
 
 export {
 	TODOSliceComponent,

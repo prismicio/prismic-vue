@@ -28,12 +28,12 @@ import type {
 	PrismicPluginOptions,
 } from "./types"
 
+import PrismicRichText from "./PrismicRichText/PrismicRichText.vue"
 import SliceZone from "./SliceZone/SliceZone.vue"
 
 import PrismicEmbed from "./PrismicEmbed.vue"
 import PrismicImage from "./PrismicImage.vue"
 import PrismicLink from "./PrismicLink.vue"
-import { PrismicRichText } from "./PrismicRichText"
 import PrismicText from "./PrismicText.vue"
 import { prismicKey } from "./usePrismic"
 
@@ -77,13 +77,11 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 							serializer:
 								(maybeHTMLSerializer as
 									| HTMLRichTextFunctionSerializer
-									| HTMLRichTextMapSerializer) ||
-								options.richTextSerializer ||
-								options.htmlSerializer,
+									| HTMLRichTextMapSerializer) || options.richTextSerializer,
 						}
 					: {
 							linkResolver: options.linkResolver,
-							serializer: options.richTextSerializer || options.htmlSerializer,
+							serializer: options.richTextSerializer,
 							...configOrLinkResolver,
 						},
 			)
@@ -133,7 +131,7 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 				app.component(PrismicEmbed.name!, PrismicEmbed)
 				app.component(PrismicImage.name!, PrismicImage)
 				app.component(PrismicText.name!, PrismicText)
-				app.component(PrismicRichText.name, PrismicRichText)
+				app.component(PrismicRichText.name!, PrismicRichText)
 				app.component(SliceZone.name!, SliceZone)
 			}
 		},

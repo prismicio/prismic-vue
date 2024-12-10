@@ -68,49 +68,6 @@ it("`asHTML` uses provided default serializer", () => {
 	expect(spiedRichTextSerializer).toHaveBeenCalled()
 })
 
-// TODO: Remove in v5, we prefer `richTextSerializer` now
-it("`asHTML` uses provided default deprecated serializer", () => {
-	const spiedRichTextSerializer = vi.fn()
-
-	const prismic = createPrismic({
-		endpoint: "test",
-		htmlSerializer: spiedRichTextSerializer,
-	})
-
-	const wrapper = mount(WrapperComponent, {
-		global: {
-			plugins: [prismic],
-		},
-	})
-
-	wrapper.vm.$prismic.asHTML(richTextFixture.en)
-
-	expect(spiedRichTextSerializer).toHaveBeenCalled()
-})
-
-// TODO: Remove in v5, we prefer `richTextSerializer` now
-it("`asHTML` uses provided serializer over default deprecated serializer", () => {
-	const spiedRichTextSerializer1 = vi.fn()
-	const spiedRichTextSerializer2 = vi.fn()
-
-	const prismic = createPrismic({
-		endpoint: "test",
-		htmlSerializer: spiedRichTextSerializer1,
-	})
-
-	const wrapper = mount(WrapperComponent, {
-		global: {
-			plugins: [prismic],
-		},
-	})
-
-	wrapper.vm.$prismic.asHTML(richTextFixture.en, {
-		serializer: spiedRichTextSerializer2,
-	})
-
-	expect(spiedRichTextSerializer2).toHaveBeenCalled()
-})
-
 it("`asHTML` uses provided serializer over default provided", () => {
 	const spiedRichTextSerializer1 = vi.fn()
 	const spiedRichTextSerializer2 = vi.fn()

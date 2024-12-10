@@ -27,7 +27,7 @@ describe("renders a rich text field", () => {
 
 	it("as nothing when passed an empty field", () => {
 		const wrapper = mount(PrismicText, {
-			props: { field: null },
+			props: { field: [] },
 		})
 
 		expect(wrapper.html()).toBe("<!--v-if-->")

@@ -150,6 +150,10 @@ describe("renders a pixel-density srcset", () => {
 })
 
 it("prioritizes widths prop over pixelDensities", (ctx) => {
+	const consoleWarnSpy = vi
+		.spyOn(console, "warn")
+		.mockImplementation(() => void 0)
+
 	const wrapper = mount(PrismicImage, {
 		props: {
 			field: ctx.mock.value.image(),
@@ -163,6 +167,8 @@ it("prioritizes widths prop over pixelDensities", (ctx) => {
 	expect(wrapper.html()).toMatchInlineSnapshot(
 		`"<img src="https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?w=4240&amp;h=2832&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=640 640w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=828 828w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=1200 1200w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=2048 2048w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=3840 3840w" alt="Aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra">"`,
 	)
+
+	consoleWarnSpy.mockRestore()
 })
 
 it("warns if both widths and pixelDensites are given", (ctx) => {
