@@ -5,6 +5,7 @@ import {
 	asImageWidthSrcSet,
 	isFilled,
 } from "@prismicio/client"
+import { DEV } from "esm-env"
 import { computed, watchEffect } from "vue"
 
 import { devMsg } from "./lib/devMsg"
@@ -89,7 +90,7 @@ defineOptions({ name: "PrismicImage" })
 
 const { options } = usePrismic()
 
-if (typeof process !== "undefined" && process.env.NODE_ENV === "development") {
+if (DEV) {
 	watchEffect(() => {
 		if (typeof props.alt === "string" && props.alt !== "") {
 			console.warn(

@@ -468,9 +468,6 @@ describe("renders internal links using component", () => {
 })
 
 it("throws when trying to render a non-link field", () => {
-	// The warning only logs in "development".
-	const originalNodeEnv = process.env.NODE_ENV
-	process.env.NODE_ENV = "development"
 	const consoleErrorSpy = vi
 		.spyOn(console, "error")
 		.mockImplementation(() => void 0)
@@ -485,13 +482,9 @@ it("throws when trying to render a non-link field", () => {
 	).toThrowError(/missing-link-properties/i)
 
 	consoleErrorSpy.mockRestore()
-	process.env.NODE_ENV = originalNodeEnv
 })
 
 it("warns when trying to render an invalid link field", () => {
-	// The warning only logs in "development".
-	const originalNodeEnv = process.env.NODE_ENV
-	process.env.NODE_ENV = "development"
 	const consoleWarnSpy = vi
 		.spyOn(console, "warn")
 		.mockImplementation(() => void 0)
@@ -529,13 +522,9 @@ it("warns when trying to render an invalid link field", () => {
 	)
 
 	consoleWarnSpy.mockRestore()
-	process.env.NODE_ENV = originalNodeEnv
 })
 
 it("warns when trying to render an invalid document", () => {
-	// The warning only logs in "development".
-	const originalNodeEnv = process.env.NODE_ENV
-	process.env.NODE_ENV = "development"
 	const consoleWarnSpy = vi
 		.spyOn(console, "warn")
 		.mockImplementation(() => void 0)
@@ -559,7 +548,6 @@ it("warns when trying to render an invalid document", () => {
 	)
 
 	consoleWarnSpy.mockRestore()
-	process.env.NODE_ENV = originalNodeEnv
 })
 
 it("reacts to changes properly", async (ctx) => {

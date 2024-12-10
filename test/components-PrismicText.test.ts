@@ -129,10 +129,6 @@ describe("renders with wrapper", () => {
 })
 
 it("throws error if passed a string-based field (e.g. Key Text or Select)", () => {
-	// The error is only thrown  in "development".
-	const originalNodeEnv = process.env.NODE_ENV
-	process.env.NODE_ENV = "development"
-
 	expect(() =>
 		mount(PrismicText, {
 			props: {
@@ -142,8 +138,6 @@ it("throws error if passed a string-based field (e.g. Key Text or Select)", () =
 			},
 		}),
 	).toThrowError(/prismictext-works-only-with-rich-text-and-title-fields/i)
-
-	process.env.NODE_ENV = originalNodeEnv
 })
 
 it("reacts to changes properly", async () => {

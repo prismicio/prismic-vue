@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { RichTextField } from "@prismicio/client"
 import { asText, isFilled } from "@prismicio/client"
+import { DEV } from "esm-env"
 import { watchEffect } from "vue"
 
 import Wrapper from "./lib/Wrapper.vue"
@@ -42,7 +43,7 @@ export type PrismicTextProps = {
 const props = defineProps<PrismicTextProps>()
 defineOptions({ name: "PrismicText" })
 
-if (typeof process !== "undefined" && process.env.NODE_ENV === "development") {
+if (DEV) {
 	watchEffect(() => {
 		if (typeof props.field === "string") {
 			throw new Error(

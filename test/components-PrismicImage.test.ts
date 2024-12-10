@@ -166,9 +166,6 @@ it("prioritizes widths prop over pixelDensities", (ctx) => {
 })
 
 it("warns if both widths and pixelDensites are given", (ctx) => {
-	// The warning only logs in "development".
-	const originalNodeEnv = process.env.NODE_ENV
-	process.env.NODE_ENV = "development"
 	const consoleWarnSpy = vi
 		.spyOn(console, "warn")
 		.mockImplementation(() => void 0)
@@ -191,7 +188,6 @@ it("warns if both widths and pixelDensites are given", (ctx) => {
 	)
 
 	consoleWarnSpy.mockRestore()
-	process.env.NODE_ENV = originalNodeEnv
 })
 
 describe("renders alt attribute", () => {
@@ -223,9 +219,6 @@ describe("renders alt attribute", () => {
 	})
 
 	it("warns if a non-decorative fallback alt value is given", (ctx) => {
-		// The warning only logs in "development".
-		const originalNodeEnv = process.env.NODE_ENV
-		process.env.NODE_ENV = "development"
 		const consoleWarnSpy = vi
 			.spyOn(console, "warn")
 			.mockImplementation(() => void 0)
@@ -243,7 +236,6 @@ describe("renders alt attribute", () => {
 		)
 
 		consoleWarnSpy.mockRestore()
-		process.env.NODE_ENV = originalNodeEnv
 	})
 
 	it("with an explicit decorative alt when field has an alt value", (ctx) => {
@@ -269,9 +261,6 @@ describe("renders alt attribute", () => {
 	})
 
 	it("warns if a non-decorative alt value is given", (ctx) => {
-		// The warning only logs in "development".
-		const originalNodeEnv = process.env.NODE_ENV
-		process.env.NODE_ENV = "development"
 		const consoleWarnSpy = vi
 			.spyOn(console, "warn")
 			.mockImplementation(() => void 0)
@@ -289,7 +278,6 @@ describe("renders alt attribute", () => {
 		)
 
 		consoleWarnSpy.mockRestore()
-		process.env.NODE_ENV = originalNodeEnv
 	})
 })
 

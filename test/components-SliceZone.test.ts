@@ -190,9 +190,7 @@ it("provides context to each slice", () => {
 })
 
 describe("renders TODO component if component mapping is missing", () => {
-	it.skip("with the REST API", () => {
-		const originalNodeEnv = process.env.NODE_ENV
-		process.env.NODE_ENV = "development"
+	it("with the REST API", () => {
 		vi.stubGlobal("console", { warn: vi.fn() })
 
 		const Foo = createWrapperComponent<SliceComponentType>(
@@ -215,8 +213,8 @@ describe("renders TODO component if component mapping is missing", () => {
 
 		expect(wrapper.html()).toBe(
 			`<div class="wrapperComponentFoo"></div>
-	<section data-slice-zone-todo-component="" data-slice-type="bar">Could not find a component for Slice type "bar"</section>
-	<section data-slice-zone-todo-component="" data-slice-type="baz">Could not find a component for Slice type "baz"</section>`,
+<section data-slice-zone-todo-component="" data-slice-type="bar">Could not find a component for Slice type "bar"</section>
+<section data-slice-zone-todo-component="" data-slice-type="baz">Could not find a component for Slice type "baz"</section>`,
 		)
 		expect(console.warn).toHaveBeenCalledTimes(2)
 		expect(vi.mocked(console.warn).mock.calls[0][0]).toMatch(
@@ -227,12 +225,9 @@ describe("renders TODO component if component mapping is missing", () => {
 		)
 
 		vi.resetAllMocks()
-		process.env.NODE_ENV = originalNodeEnv
 	})
 
-	it.skip("with the GraphQL API", () => {
-		const originalNodeEnv = process.env.NODE_ENV
-		process.env.NODE_ENV = "development"
+	it("with the GraphQL API", () => {
 		vi.stubGlobal("console", { warn: vi.fn() })
 
 		const Foo = createWrapperComponent<SliceComponentType>(
@@ -251,7 +246,7 @@ describe("renders TODO component if component mapping is missing", () => {
 
 		expect(wrapper.html()).toBe(
 			`<div class="wrapperComponentFoo"></div>
-	<section data-slice-zone-todo-component="" data-slice-type="bar">Could not find a component for Slice type "bar"</section>`,
+<section data-slice-zone-todo-component="" data-slice-type="bar">Could not find a component for Slice type "bar"</section>`,
 		)
 		expect(console.warn).toHaveBeenCalledOnce()
 		expect(vi.mocked(console.warn).mock.calls[0][0]).toMatch(
@@ -259,7 +254,6 @@ describe("renders TODO component if component mapping is missing", () => {
 		)
 
 		vi.resetAllMocks()
-		process.env.NODE_ENV = originalNodeEnv
 	})
 
 	it("from plugin", () => {
@@ -324,40 +318,6 @@ describe("renders TODO component if component mapping is missing", () => {
 			`<div class="wrapperComponentFoo"></div>
 <div class="wrapperComponentBaz"></div>`,
 		)
-	})
-
-	it("doesn't render TODO component in production", () => {
-		const originalNodeEnv = process.env.NODE_ENV
-		process.env.NODE_ENV = "production"
-		const consoleWarnSpy = vi
-			.spyOn(console, "warn")
-			.mockImplementation(() => void 0)
-
-		const Foo = createWrapperComponent<SliceComponentType>(
-			"Foo",
-			getSliceComponentProps(),
-		)
-
-		const wrapper = mount(SliceZone, {
-			props: {
-				slices: [
-					{ id: "1", slice_type: "foo" },
-					{ id: "2", slice_type: "bar" },
-				],
-				components: defineSliceZoneComponents({
-					foo: Foo,
-				}),
-			},
-		})
-
-		expect(wrapper.html()).toBe(`<div class="wrapperComponentFoo"></div>`)
-		expect(consoleWarnSpy).not.toHaveBeenCalledWith(
-			expect.stringMatching(/could not find a component/i),
-			{ id: "2", slice_type: "bar" },
-		)
-
-		consoleWarnSpy.mockRestore()
-		process.env.NODE_ENV = originalNodeEnv
 	})
 })
 

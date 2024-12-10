@@ -6,6 +6,7 @@ import {
 	type PrismicDocument,
 	asLinkAttrs,
 } from "@prismicio/client"
+import { DEV } from "esm-env"
 import { computed, watchEffect } from "vue"
 
 import { devMsg } from "./lib/devMsg"
@@ -102,7 +103,7 @@ defineOptions({ name: "PrismicLink" })
 
 const { options } = usePrismic()
 
-if (typeof process !== "undefined" && process.env.NODE_ENV === "development") {
+if (DEV) {
 	watchEffect(() => {
 		if (props.field) {
 			if (!props.field.link_type) {
