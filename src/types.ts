@@ -1,4 +1,5 @@
 import type {
+	AsLinkAttrsConfig,
 	ClientConfig,
 	CreateClient,
 	HTMLRichTextFunctionSerializer,
@@ -27,9 +28,7 @@ import type {
 	SliceComponentProps,
 	SliceComponentType,
 	TODOSliceComponent,
-} from "./components/SliceZone"
-
-import type { usePrismicDocuments } from "./composables"
+} from "./SliceZone"
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -38,16 +37,16 @@ import type { usePrismicDocuments } from "./composables"
  */
 type PrismicPluginComponentsOptions = {
 	/**
-	 * Value of the `rel` attribute to use on links rendered with
-	 * `target="_blank"`
+	 * The `rel` attribute for the link. By default, `"noreferrer"` is provided if
+	 * the link's URL is external. This prop can be provided a function to use the
+	 * link's metadata to determine the `rel` value.
 	 *
-	 * @defaultValue `"noopener noreferrer"`
+	 * @defaultValue `"noreferrer"`
 	 */
-	linkBlankTargetRelAttribute?: string
+	linkRel?: AsLinkAttrsConfig["rel"]
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to render
-	 * internal links.
+	 * An HTML tag name or a component used to render internal links.
 	 *
 	 * @remarks
 	 * HTML tag names will be rendered using the anchor tag interface (`href`,
@@ -58,11 +57,10 @@ type PrismicPluginComponentsOptions = {
 	 *
 	 * @defaultValue {@link RouterLink}
 	 */
-	linkInternalComponent?: string | ConcreteComponent | Raw<DefineComponent>
+	linkInternalComponent?: ComponentOrTagName
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to render
-	 * external links.
+	 * An HTML tag name or a component used to render external links.
 	 *
 	 * @remarks
 	 * HTML tag names will be rendered using the anchor tag interface (`href`,
@@ -73,20 +71,7 @@ type PrismicPluginComponentsOptions = {
 	 *
 	 * @defaultValue `"a"`
 	 */
-	linkExternalComponent?: string | ConcreteComponent | Raw<DefineComponent>
-
-	/**
-	 * An HTML tag name, a component, or a functional component used to render
-	 * images.
-	 *
-	 * @remarks
-	 * HTML tag names and components will be rendered using the `img` tag
-	 * interface (`src` and `alt` attribute). Components will also receive an
-	 * additional `copyright` props.
-	 *
-	 * @defaultValue `"img"`
-	 */
-	imageComponent?: string | ConcreteComponent | Raw<DefineComponent>
+	linkExternalComponent?: ComponentOrTagName
 
 	/**
 	 * Default widths to use when rendering an image with `widths="defaults"`
@@ -142,17 +127,6 @@ type PrismicPluginOptionsBase = {
 	richTextSerializer?:
 		| HTMLRichTextFunctionSerializer
 		| HTMLRichTextMapSerializer
-
-	/**
-	 * An optional HTML serializer to customize the way rich text fields are
-	 * rendered.
-	 *
-	 * @deprecated Use `richTextSerializer` instead.
-	 *
-	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
-	 */
-	// TODO: Remove in v5
-	htmlSerializer?: HTMLRichTextFunctionSerializer | HTMLRichTextMapSerializer
 
 	/**
 	 * Whether or not to inject components globally.
@@ -424,31 +398,6 @@ export type PrismicPlugin = {
 } & PrismicPluginClient &
 	PrismicPluginHelpers
 
-/**
- * States of a `@prismicio/client` composable.
- */
-export const enum PrismicClientComposableState {
-	/**
-	 * The composable has not started fetching.
-	 */
-	Idle = "idle",
-
-	/**
-	 * The composable is fetching data.
-	 */
-	Pending = "pending",
-
-	/**
-	 * The composable sucessfully fetched data.
-	 */
-	Success = "success",
-
-	/**
-	 * The composable failed to fetch data.
-	 */
-	Error = "error",
-}
-
 // Helpers
 
 /**
@@ -469,3 +418,13 @@ export type VueUseOptions<T> = {
 export type VueUseParameters<T> = {
 	[K in keyof T]: T extends number ? Ref<T[K]> | T[K] : T[K]
 }
+
+/**
+ * A component or a tag name to be used as props.
+ *
+ * @internal
+ */
+export type ComponentOrTagName =
+	| string
+	| ConcreteComponent
+	| Raw<DefineComponent>
