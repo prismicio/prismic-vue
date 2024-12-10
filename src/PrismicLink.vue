@@ -54,8 +54,7 @@ export type PrismicLinkProps = {
 	rel?: string | AsLinkAttrsConfig["rel"]
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to render
-	 * internal links.
+	 * An HTML tag name or a component used to render internal links.
 	 *
 	 * @remarks
 	 * HTML tag names will be rendered using the anchor tag interface (`href`,
@@ -69,8 +68,7 @@ export type PrismicLinkProps = {
 	internalComponent?: ComponentOrTagName
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to render
-	 * external links.
+	 * An HTML tag name or a component used to render external links.
 	 *
 	 * @remarks
 	 * HTML tag names will be rendered using the anchor tag interface (`href`,

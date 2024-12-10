@@ -19,8 +19,7 @@ export type PrismicEmbedProps = {
 	field: EmbedField
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to wrap the
-	 * output.
+	 * An HTML tag name or a component used to wrap the output.
 	 *
 	 * @defaultValue `"div"`
 	 */

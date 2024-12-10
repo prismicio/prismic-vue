@@ -3,6 +3,7 @@ import type { RichTextField } from "@prismicio/client"
 import { asText, isFilled } from "@prismicio/client"
 import { watchEffect } from "vue"
 
+import Wrapper from "./lib/Wrapper.vue"
 import { devMsg } from "./lib/devMsg"
 
 import type { ComponentOrTagName } from "./types"
@@ -30,8 +31,8 @@ export type PrismicTextProps = {
 	separator?: string
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to wrap the
-	 * output.
+	 * An HTML tag name or a component used to wrap the output. `<PrismicText />`
+	 * is not wrapped by default.
 	 *
 	 * @defaultValue `"template"` (no wrapper)
 	 */
@@ -55,12 +56,7 @@ if (typeof process !== "undefined" && process.env.NODE_ENV === "development") {
 </script>
 
 <template>
-	<template v-if="isFilled.richText(field) || fallback">
-		<Component v-if="wrapper" :is="wrapper" v-bind="$attrs">
-			{{ asText(field) || fallback }}
-		</Component>
-		<template v-else>
-			{{ asText(field) || fallback }}
-		</template>
-	</template>
+	<Wrapper v-if="isFilled.richText(field) || fallback" :wrapper="wrapper">
+		{{ asText(field) || fallback }}
+	</Wrapper>
 </template>
