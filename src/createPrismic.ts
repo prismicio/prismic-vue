@@ -28,13 +28,14 @@ import type {
 	PrismicPluginOptions,
 } from "./types"
 
+import SliceZone from "./SliceZone/SliceZone.vue"
+
 import PrismicEmbed from "./PrismicEmbed.vue"
 import PrismicImage from "./PrismicImage.vue"
 import PrismicLink from "./PrismicLink.vue"
 import { PrismicRichText } from "./PrismicRichText"
 import PrismicText from "./PrismicText.vue"
-import { SliceZone } from "./SliceZone"
-import { prismicKey } from "./injectionSymbols"
+import { prismicKey } from "./usePrismic"
 
 /**
  * Creates a `@prismicio/vue` plugin instance that can be used by a Vue app.
@@ -133,10 +134,21 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 				app.component(PrismicImage.name!, PrismicImage)
 				app.component(PrismicText.name!, PrismicText)
 				app.component(PrismicRichText.name, PrismicRichText)
-				app.component(SliceZone.name, SliceZone)
+				app.component(SliceZone.name!, SliceZone)
 			}
 		},
 	}
 
 	return prismic
+}
+
+declare module "vue" {
+	export interface ComponentCustomProperties {
+		/**
+		 * `@prismicio/vue` plugin interface exposed on `this`.
+		 *
+		 * @see `@prismicio/vue` plugin interface {@link PrismicPlugin}
+		 */
+		$prismic: PrismicPlugin
+	}
 }

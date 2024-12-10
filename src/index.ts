@@ -1,14 +1,18 @@
+import SliceZone from "./SliceZone/SliceZone.vue"
+
 import PrismicEmbed from "./PrismicEmbed.vue"
 import PrismicImage from "./PrismicImage.vue"
 import PrismicLink from "./PrismicLink.vue"
 import PrismicText from "./PrismicText.vue"
+
+export type { SliceZoneProps } from "./SliceZone/SliceZone.vue"
 
 export type { PrismicEmbedProps } from "./PrismicEmbed.vue"
 export type { PrismicImageProps } from "./PrismicImage.vue"
 export type { PrismicLinkProps } from "./PrismicLink.vue"
 export type { PrismicTextProps } from "./PrismicText.vue"
 
-export { PrismicEmbed, PrismicImage, PrismicLink, PrismicText }
+export { SliceZone, PrismicEmbed, PrismicImage, PrismicLink, PrismicText }
 
 export {
 	usePrismicRichText,
@@ -21,30 +25,22 @@ export type {
 } from "./PrismicRichText"
 
 export {
-	getSliceComponentProps,
 	TODOSliceComponent,
 	defineSliceZoneComponents,
-	SliceZoneImpl,
-	SliceZone,
+	getSliceComponentProps,
 } from "./SliceZone"
 export type {
 	DefineComponentSliceComponentProps,
 	SliceComponentProps,
 	SliceComponentType,
-	SliceLikeRestV2,
-	SliceLikeGraphQL,
 	SliceLike,
+	SliceLikeGraphQL,
+	SliceLikeRestV2,
 	SliceZoneComponents,
-	SliceZoneResolverArgs,
-	SliceZoneResolver,
 	SliceZoneLike,
-	SliceZoneProps,
 } from "./SliceZone"
 
 export type { PrismicPluginOptions, PrismicPlugin } from "./types"
 
 export { createPrismic } from "./createPrismic"
-export { usePrismic } from "./usePrismic"
-export { prismicKey } from "./injectionSymbols"
-
-export * from "./globalExtensions"
+export { usePrismic, prismicKey } from "./usePrismic"
