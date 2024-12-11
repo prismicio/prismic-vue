@@ -16,11 +16,11 @@ export type { PrismicTextProps } from "./PrismicText.vue"
 
 export {
 	SliceZone,
-	PrismicRichText,
 	PrismicEmbed,
 	PrismicImage,
 	PrismicLink,
 	PrismicText,
+	PrismicRichText,
 }
 
 export { getRichTextComponentProps } from "./PrismicRichText"
