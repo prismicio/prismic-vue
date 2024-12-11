@@ -1,8 +1,5 @@
 export { TODOSliceComponent } from "./TODOSliceComponent"
-
-export type { DefineComponentSliceComponentProps } from "./getSliceComponentProps"
 export { getSliceComponentProps } from "./getSliceComponentProps"
-
 export { defineSliceZoneComponents } from "./defineSliceZoneComponents"
 
 export type {

@@ -24,6 +24,8 @@ import type { App, ConcreteComponent, DefineComponent, Raw, Ref } from "vue"
 // Imports for @link references:
 import type { RouterLink } from "vue-router"
 
+import type { VueRichTextSerializer } from "./PrismicRichText/types"
+
 import type {
 	SliceComponentProps,
 	SliceComponentType,
@@ -94,6 +96,14 @@ type PrismicPluginComponentsOptions = {
 	imagePixelDensitySrcSetDefaults?: number[]
 
 	/**
+	 * An optional map of Rich Text block types to Vue Components. It is used to
+	 * render Rich Text or Title fields.
+	 *
+	 * @see Templating Rich Text and Title fields from Prismic {@link https://prismic.io/docs/rich-text}
+	 */
+	richTextComponents?: VueRichTextSerializer
+
+	/**
 	 * A component or a functional component rendered if a component mapping from
 	 * the `components` prop cannot be found.
 	 *
@@ -121,6 +131,10 @@ type PrismicPluginOptionsBase = {
 	/**
 	 * An optional HTML serializer to customize the way rich text fields are
 	 * rendered.
+	 *
+	 * @remarks
+	 * To provide global components for the `<PrismicRichText />` component, use
+	 * the `components.richTextComponents` option instead.
 	 *
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */

@@ -103,7 +103,7 @@ const renderedSlices = computed(() => {
 
 <template>
 	<Wrapper v-if="slices" :wrapper="wrapper">
-		<Component
+		<component
 			v-for="renderedSlice in renderedSlices"
 			:is="renderedSlice.is"
 			:key="renderedSlice.key"

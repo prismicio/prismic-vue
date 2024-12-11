@@ -13,9 +13,9 @@ defineProps<{
 </script>
 
 <template>
-	<Component v-if="wrapper" :is="wrapper" v-bind="$attrs">
+	<component v-if="wrapper" :is="wrapper" v-bind="$attrs">
 		<slot />
-	</Component>
+	</component>
 	<template v-else>
 		<slot />
 	</template>

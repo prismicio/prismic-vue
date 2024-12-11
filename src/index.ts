@@ -23,13 +23,18 @@ export {
 	PrismicText,
 }
 
+export { getRichTextComponentProps } from "./PrismicRichText"
+export type {
+	VueRichTextSerializer,
+	RichTextComponentProps,
+} from "./PrismicRichText"
+
 export {
 	TODOSliceComponent,
 	defineSliceZoneComponents,
 	getSliceComponentProps,
 } from "./SliceZone"
 export type {
-	DefineComponentSliceComponentProps,
 	SliceComponentProps,
 	SliceComponentType,
 	SliceLike,

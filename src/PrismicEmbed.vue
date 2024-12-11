@@ -31,7 +31,7 @@ defineOptions({ name: "PrismicEmbed" })
 </script>
 
 <template>
-	<Component
+	<component
 		v-if="isFilled.embed(field)"
 		:is="wrapper || defaultWrapper"
 		:data-oembed="field.embed_url"

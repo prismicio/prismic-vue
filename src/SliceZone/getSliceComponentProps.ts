@@ -10,7 +10,7 @@ import type { SliceComponentProps, SliceLike } from "./types"
  * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made
  *   available to all Slice components
  */
-export type DefineComponentSliceComponentProps<
+type DefineComponentSliceComponentProps<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	TSlice extends SliceLike = any,
 	TContext = unknown,
@@ -41,24 +41,22 @@ export type DefineComponentSliceComponentProps<
  *
  * @example
  *
- * ```javascript
+ * ```typescript
  * // Defining a new slice component
  * import { getSliceComponentProps } from "@prismicio/vue"
  *
- * export default {
- * 	props: getSliceComponentProps(),
- * }
+ * defineProps(getSliceComponentProps())
  * ```
  *
  * @example
  *
- * ```javascript
+ * ```typescript
  * // Defining a new slice component with visual hint
  * import { getSliceComponentProps } from "@prismicio/vue"
  *
- * export default {
- * 	props: getSliceComponentProps(["slice", "index", "slices", "context"]),
- * }
+ * defineProps(
+ * 	getSliceComponentProps(["slice", "index", "slices", "context"]),
+ * )
  * ```
  *
  * @typeParam TSlice - The Slice type
@@ -69,7 +67,7 @@ export type DefineComponentSliceComponentProps<
  *   of having a visual hint of which props are made available to the slice,
  *   this parameters doesn't have any effect
  *
- * @returns Props object to use with {@link defineComponent}
+ * @returns Props object to use with `defineProps()`
  */
 export const getSliceComponentProps = <
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

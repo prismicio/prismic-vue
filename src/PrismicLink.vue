@@ -183,9 +183,9 @@ const attrs = computed(() => {
 </script>
 
 <template>
-	<Component :is="component" v-bind="attrs">
+	<component :is="component" v-bind="attrs">
 		<slot>
 			{{ props.field && "text" in props.field ? props.field.text : undefined }}
 		</slot>
-	</Component>
+	</component>
 </template>
