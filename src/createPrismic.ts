@@ -1,6 +1,5 @@
 import type {
 	Client,
-	FetchLike,
 	HTMLRichTextFunctionSerializer,
 	HTMLRichTextMapSerializer,
 	LinkResolverFunction,
@@ -29,15 +28,14 @@ import type {
 	PrismicPluginOptions,
 } from "./types"
 
-import {
-	PrismicEmbed,
-	PrismicImage,
-	PrismicLink,
-	PrismicRichText,
-	PrismicText,
-	SliceZone,
-} from "./components"
-import { prismicKey } from "./injectionSymbols"
+import PrismicRichText from "./PrismicRichText/PrismicRichText.vue"
+import SliceZone from "./SliceZone/SliceZone.vue"
+
+import PrismicEmbed from "./PrismicEmbed.vue"
+import PrismicImage from "./PrismicImage.vue"
+import PrismicLink from "./PrismicLink.vue"
+import PrismicText from "./PrismicText.vue"
+import { prismicKey } from "./usePrismic"
 
 /**
  * Creates a `@prismicio/vue` plugin instance that can be used by a Vue app.
@@ -55,19 +53,7 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 	if (options.client) {
 		client = options.client
 	} else {
-		client = createClient(options.endpoint, {
-			fetch: async (endpoint, options) => {
-				let fetchFunction: FetchLike
-				if (typeof globalThis.fetch === "function") {
-					fetchFunction = globalThis.fetch
-				} else {
-					fetchFunction = (await import("isomorphic-unfetch")).default
-				}
-
-				return await fetchFunction(endpoint, options)
-			},
-			...options.clientConfig,
-		})
+		client = createClient(options.endpoint, options.clientConfig)
 	}
 
 	const prismicClient: PrismicPluginClient = {
@@ -91,13 +77,11 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 							serializer:
 								(maybeHTMLSerializer as
 									| HTMLRichTextFunctionSerializer
-									| HTMLRichTextMapSerializer) ||
-								options.richTextSerializer ||
-								options.htmlSerializer,
+									| HTMLRichTextMapSerializer) || options.richTextSerializer,
 						}
 					: {
 							linkResolver: options.linkResolver,
-							serializer: options.richTextSerializer || options.htmlSerializer,
+							serializer: options.richTextSerializer,
 							...configOrLinkResolver,
 						},
 			)
@@ -143,15 +127,26 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 			app.config.globalProperties.$prismic = this
 
 			if (options.injectComponents !== false) {
-				app.component(PrismicLink.name, PrismicLink)
-				app.component(PrismicEmbed.name, PrismicEmbed)
-				app.component(PrismicImage.name, PrismicImage)
-				app.component(PrismicText.name, PrismicText)
-				app.component(PrismicRichText.name, PrismicRichText)
-				app.component(SliceZone.name, SliceZone)
+				app.component(PrismicLink.name!, PrismicLink)
+				app.component(PrismicEmbed.name!, PrismicEmbed)
+				app.component(PrismicImage.name!, PrismicImage)
+				app.component(PrismicText.name!, PrismicText)
+				app.component(PrismicRichText.name!, PrismicRichText)
+				app.component(SliceZone.name!, SliceZone)
 			}
 		},
 	}
 
 	return prismic
+}
+
+declare module "vue" {
+	export interface ComponentCustomProperties {
+		/**
+		 * `@prismicio/vue` plugin interface exposed on `this`.
+		 *
+		 * @see `@prismicio/vue` plugin interface {@link PrismicPlugin}
+		 */
+		$prismic: PrismicPlugin
+	}
 }

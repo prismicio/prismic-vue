@@ -1,8 +1,15 @@
+import type { InjectionKey } from "vue"
 import { inject } from "vue"
 
 import type { PrismicPlugin } from "./types"
 
-import { prismicKey } from "./injectionSymbols"
+/**
+ * `@prismicio/vue` plugin interface interface location used for
+ * {@link usePrismic}.
+ *
+ * @internal
+ */
+export const prismicKey = Symbol("prismic") as InjectionKey<PrismicPlugin>
 
 /**
  * Accesses `@prismicio/vue` plugin interface.
