@@ -37,7 +37,7 @@ type DefineComponentRichTextComponentProps<
  *
  * ```typescript
  * // Defining a new rich text component for a specific node type
- * import { getSliceComponentProps } from "@prismicio/vue"
+ * import { getRichTextComponentProps } from "@prismicio/vue"
  *
  * defineProps(getRichTextComponentProps("heading1"))
  * ```

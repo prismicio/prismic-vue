@@ -133,7 +133,7 @@ it("throws error if passed a string-based field (e.g. Key Text or Select)", () =
 		mount(PrismicText, {
 			props: {
 				// @ts-expect-error - We are purposely not providing a correct field.
-				field: "not a Rich Text field",
+				field: "not a rich text field",
 				wrapper: markRaw(WrapperComponent),
 			},
 		}),

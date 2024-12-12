@@ -7,9 +7,9 @@ import type {
 
 /**
  * A map of Rich Text block types to Vue Components. It is used to render Rich
- * Text or Title fields.
+ * Text or title fields.
  *
- * @see Templating Rich Text and Title fields from Prismic {@link https://prismic.io/docs/rich-text}
+ * @see Templating Rich Text and title fields from Prismic {@link https://prismic.io/docs/rich-text}
  */
 export type VueRichTextSerializer = Partial<
 	Record<keyof typeof RichTextNodeType, VueRichTextComponent>

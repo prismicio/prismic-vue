@@ -17,7 +17,7 @@ import { usePrismic } from "./usePrismic"
  */
 export type PrismicImageProps = {
 	/**
-	 * The Prismic Image field or thumbnail to render.
+	 * The Prismic image field or thumbnail to render.
 	 */
 	field: ImageField | ImageField<string>
 
@@ -37,7 +37,7 @@ export type PrismicImageProps = {
 	alt?: ""
 
 	/**
-	 * Declare an image as decorative only if the Image field does not have
+	 * Declare an image as decorative only if the image field does not have
 	 * alternative text by providing `fallbackAlt=""`.
 	 *
 	 * See:
@@ -47,13 +47,13 @@ export type PrismicImageProps = {
 } & (
 	| {
 			/**
-			 * Widths used to build a `srcset` value for the Image field.
+			 * Widths used to build a `srcset` value for the image field.
 			 *
 			 * If a `widths` prop is not given or `"defaults"` is passed, the
 			 * following widths will be used: 640, 750, 828, 1080, 1200, 1920, 2048,
 			 * 3840.
 			 *
-			 * If the Image field contains responsive views, each responsive view can
+			 * If the image field contains responsive views, each responsive view can
 			 * be used as a width in the resulting `srcset` by passing `"thumbnails"`
 			 * as the `widths` prop.
 			 */
@@ -72,7 +72,7 @@ export type PrismicImageProps = {
 			 */
 			widths?: never
 			/**
-			 * Pixel densities used to build a `srcset` value for the Image field.
+			 * Pixel densities used to build a `srcset` value for the image field.
 			 *
 			 * If a `pixelDensities` prop is passed `"defaults"`, the following pixel
 			 * densities will be used: 1, 2, 3.

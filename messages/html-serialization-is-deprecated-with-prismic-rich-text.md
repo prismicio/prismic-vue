@@ -35,7 +35,7 @@ The above snippet relies on an `Heading2.vue` component. Here's an example of th
 
 ```html
 <script setup>
-import { getSliceComponentProps } from "@prismicio/vue"
+import { getRichTextComponentProps } from "@prismicio/vue"
 
 defineProps(getRichTextComponentProps())
 </script>
@@ -45,7 +45,7 @@ defineProps(getRichTextComponentProps())
 </template>
 ```
 
-Learn more about the new component serializer on [`@prismicio/vue` technical references][prismic-vue-rich-text].
+Learn more about the new component serializer on the [`@prismicio/vue` technical reference][prismic-vue-rich-text].
 
 [prismic-vue]: https://prismic.io/docs/technical-reference/prismicio-vue
 [prismic-vue-rich-text]: https://prismic.io/docs/technical-reference/prismicio-vue#prismicrichtext

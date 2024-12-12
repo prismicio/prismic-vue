@@ -97,9 +97,9 @@ type PrismicPluginComponentsOptions = {
 
 	/**
 	 * An optional map of Rich Text block types to Vue Components. It is used to
-	 * render Rich Text or Title fields.
+	 * render Rich Text or title fields.
 	 *
-	 * @see Templating Rich Text and Title fields from Prismic {@link https://prismic.io/docs/rich-text}
+	 * @see Templating Rich Text and title fields from Prismic {@link https://prismic.io/docs/rich-text}
 	 */
 	richTextComponents?: VueRichTextSerializer
 
@@ -356,21 +356,21 @@ export type PrismicPluginHelpers = {
 	asDate: typeof asDate
 
 	/**
-	 * Returns the URL of an Image field with optional image transformations (via
+	 * Returns the URL of an image field with optional image transformations (via
 	 * Imgix URL parameters). This is `@prismicio/client` {@link asImageSrc}
 	 * function.
 	 */
 	asImageSrc: typeof asImageSrc
 
 	/**
-	 * Creates a width-based `srcset` from an Image field with optional image
+	 * Creates a width-based `srcset` from an image field with optional image
 	 * transformations (via Imgix URL parameters). This is `@prismicio/client`
 	 * {@link asImageWidthSrcSet} function.
 	 */
 	asImageWidthSrcSet: typeof asImageWidthSrcSet
 
 	/**
-	 * Creates a pixel-density-based `srcset` from an Image field with optional
+	 * Creates a pixel-density-based `srcset` from an image field with optional
 	 * image transformations (via Imgix URL parameters). This is
 	 * `@prismicio/client` {@link asImagePixelDensitySrcSet} function.
 	 */

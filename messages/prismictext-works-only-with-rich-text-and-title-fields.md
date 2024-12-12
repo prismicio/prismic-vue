@@ -1,9 +1,9 @@
-# `<PrismicText>` works only with Rich Text and Title fields
+# `<PrismicText>` works only with Rich Text and title fields
 
-`<PrismicText>` works only with [Rich Text and Title fields][rich-text-title-field]. It renders the field's value as plain text (i.e. with no formatting, paragraphs, or headings).
+`<PrismicText>` works only with [Rich Text and title fields][rich-text-title-field]. It renders the field's value as plain text (i.e. with no formatting, paragraphs, or headings).
 
 ```html
-<!-- Will render a plain text version of the Rich Text field's value. -->
+<!-- Will render a plain text version of the rich text field's value. -->
 <PrismicText :field="doc.data.richTextField" />
 ```
 
