@@ -131,7 +131,7 @@ describe("renders a document as link", () => {
 
 describe("renders link content", () => {
 	it("with link text", (ctx) => {
-		const wrapper = mount(PrismicLink, {
+		const linkToWeb = mount(PrismicLink, {
 			props: {
 				field: {
 					...ctx.mock.value.link({
@@ -146,13 +146,42 @@ describe("renders link content", () => {
 			},
 		})
 
-		expect(wrapper.html()).toBe(
+		expect(linkToWeb.html()).toBe(
 			'<a href="https://example.com" rel="noreferrer">bar</a>',
 		)
+
+		const linkToMedia = mount(PrismicLink, {
+			props: {
+				field: {
+					...ctx.mock.value.link({ type: LinkType.Media }),
+					url: "https://example.com/image.png",
+					text: "bar",
+				},
+			},
+		})
+
+		expect(linkToMedia.html()).toBe(
+			'<a href="https://example.com/image.png" rel="noreferrer">bar</a>',
+		)
+
+		const contentRelationship = mount(PrismicLink, {
+			props: {
+				field: {
+					...ctx.mock.value.link({ type: LinkType.Document }),
+					url: "/bar",
+					text: "bar",
+				},
+			},
+			global: {
+				plugins: [router],
+			},
+		})
+
+		expect(contentRelationship.html()).toBe('<a href="/bar" class="">bar</a>')
 	})
 
 	it("with slot (priority over link text)", (ctx) => {
-		const wrapper = mount(PrismicLink, {
+		const linkToWeb = mount(PrismicLink, {
 			props: {
 				field: {
 					...ctx.mock.value.link({
@@ -168,9 +197,40 @@ describe("renders link content", () => {
 			slots: { default: "foo" },
 		})
 
-		expect(wrapper.html()).toBe(
+		expect(linkToWeb.html()).toBe(
 			'<a href="https://example.com" rel="noreferrer">foo</a>',
 		)
+
+		const linkToMedia = mount(PrismicLink, {
+			props: {
+				field: {
+					...ctx.mock.value.link({ type: LinkType.Media }),
+					url: "https://example.com/image.png",
+					text: "bar",
+				},
+			},
+			slots: { default: "foo" },
+		})
+
+		expect(linkToMedia.html()).toBe(
+			'<a href="https://example.com/image.png" rel="noreferrer">foo</a>',
+		)
+
+		const contentRelationship = mount(PrismicLink, {
+			props: {
+				field: {
+					...ctx.mock.value.link({ type: LinkType.Document }),
+					url: "/bar",
+					text: "bar",
+				},
+			},
+			slots: { default: "foo" },
+			global: {
+				plugins: [router],
+			},
+		})
+
+		expect(contentRelationship.html()).toBe('<a href="/bar" class="">foo</a>')
 	})
 })
 
