@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.1](https://github.com/prismicio/prismic-vue/compare/v4.3.0...v4.3.1) (2025-01-02)
+
+
+### Bug Fixes
+
+* resolve slots as `VNode[] | Slots | Slot` ([258bea1](https://github.com/prismicio/prismic-vue/commit/258bea14ba0dc524d82ce29ac23412379be282ed))
+
+
+### Chore
+
+* **deps:** update to Vite 6 and ESLint 9 ([560cffa](https://github.com/prismicio/prismic-vue/commit/560cffa788c3869b518e4135f822c1f757193bb6))
+
 ## [4.3.0](https://github.com/prismicio/prismic-vue/compare/v4.2.3...v4.3.0) (2024-09-27)
 
 
