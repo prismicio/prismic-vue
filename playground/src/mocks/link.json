@@ -11,6 +11,18 @@
 		"url": "https://en.wikipedia.org/wiki/Atlantic_puffin#Behaviour",
 		"target": "_blank"
 	},
+	"text": {
+		"link_type": "Web",
+		"url": "https://en.wikipedia.org/wiki/Atlantic_puffin#Behaviour",
+		"text": "link text"
+	},
+	"textBlank": {
+		"link_type": "Web",
+		"key": "ad8a212f-4faa-42d0-80dc-6a8495205000",
+		"url": "https://en.wikipedia.org/wiki/Atlantic_puffin#Behaviour",
+		"target": "_blank",
+		"text": "link text blank"
+	},
 	"internal": {
 		"id": "XvoFFREAAM0WGBng",
 		"type": "page",
@@ -19,6 +31,17 @@
 		"lang": "en-us",
 		"uid": "test",
 		"link_type": "Document",
+		"isBroken": false
+	},
+	"internalText": {
+		"id": "XvoFFREAAM0WGBng",
+		"type": "page",
+		"tags": [],
+		"slug": "slug",
+		"lang": "en-us",
+		"uid": "test",
+		"link_type": "Document",
+		"text": "internal link text",
 		"isBroken": false
 	}
 }

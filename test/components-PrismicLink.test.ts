@@ -92,7 +92,7 @@ it("renders document as link", (ctx) => {
 	expect(wrapper.html()).toBe('<a href="/bar" class="">foo</a>')
 })
 
-it("renders link text when slot is not provided", () => {
+it("renders link to web text when slot is not provided", () => {
 	const wrapper = mount(PrismicLinkImpl, {
 		props: {
 			field: {
@@ -110,6 +110,23 @@ it("renders link text when slot is not provided", () => {
 	})
 
 	expect(wrapper.html()).toBe('<a href="https://example.com">bar</a>')
+})
+
+it("renders link to document text when slot is not provided", () => {
+	const wrapper = mount(PrismicLinkImpl, {
+		props: {
+			field: {
+				...mock.value.link({ seed: 4, type: LinkType.Document }),
+				url: "/bar",
+				text: "bar",
+			},
+		},
+		global: {
+			plugins: [router],
+		},
+	})
+
+	expect(wrapper.html()).toBe('<a href="/bar" class="">bar</a>')
 })
 
 it("renders slot over link text when slot is provided", () => {
