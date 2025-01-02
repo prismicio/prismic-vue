@@ -17,7 +17,7 @@ Replace all on all files (README.md, CONTRIBUTING.md, bug_report.md, package.jso
 [![Conventional Commits][conventional-commits-src]][conventional-commits-href]
 [![License][license-src]][license-href]
 
-<!-- TODO: Replacing link to Prismic with [Prismic][prismic] is useful here -->
+<!-- Replacing link to Prismic with [Prismic][prismic] is useful here -->
 
 [Vue][vue] plugin, components, and composables to fetch and present [Prismic][prismic] content.
 
@@ -71,7 +71,7 @@ For more clarity on this project and its structure you can also check out the de
 
 [prismic]: https://prismic.io
 
-<!-- TODO: Replace link with a more useful one if available -->
+<!-- Replace link with a more useful one if available -->
 
 [prismic-docs]: https://prismic.io/docs/technologies/vuejs
 [changelog]: ./CHANGELOG.md
@@ -83,7 +83,7 @@ For more clarity on this project and its structure you can also check out the de
 [vue-composition]: https://v3.vuejs.org/guide/composition-api-introduction.html
 [vue-options]: https://v3.vuejs.org/guide/introduction.html
 
-<!-- TODO: Replace link with a more useful one if available -->
+<!-- Replace link with a more useful one if available -->
 
 [forum-question]: https://community.prismic.io/c/kits-and-dev-languages/vue-js/16
 [repo-bug-report]: https://github.com/prismicio/prismic-vue/issues/new?assignees=&labels=bug&template=bug_report.md&title=
