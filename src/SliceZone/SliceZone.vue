@@ -24,7 +24,7 @@ export type SliceZoneProps<TContext = unknown> = {
 	/**
 	 * List of Slice data from the Slice Zone.
 	 */
-	slices: SliceZoneLike<SliceLike & Record<string, unknown>>
+	slices: SliceZoneLike<SliceLike | (SliceLike & Record<string, unknown>)>
 
 	/**
 	 * A record mapping Slice types to Vue components.
