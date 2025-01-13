@@ -135,6 +135,8 @@ type PrismicPluginOptionsBase = {
 	 * To provide global components for the `<PrismicRichText />` component, use
 	 * the `components.richTextComponents` option instead.
 	 *
+	 * @deprecated Use `components.richTextComponents` instead.
+	 *
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */
 	richTextSerializer?:
