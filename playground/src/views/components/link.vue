@@ -48,7 +48,7 @@
 import { defineComponent, markRaw } from "vue"
 
 import { WrapperComponent } from "../../components/WrapperComponent"
-import { blank, empty, internal, simple } from "../../mocks/link.json"
+import { blank, empty, internal, simple } from "../../mocks/link"
 
 export default defineComponent({
 	name: "ComponentsLink",

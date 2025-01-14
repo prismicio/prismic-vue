@@ -19,7 +19,6 @@ import type {
 	isFilled,
 } from "@prismicio/client"
 import type { App, ConcreteComponent, DefineComponent, Raw, Ref } from "vue"
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Imports for @link references:
 import type { RouterLink } from "vue-router"

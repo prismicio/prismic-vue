@@ -15,7 +15,7 @@
 import { defineComponent, markRaw } from "vue"
 
 import { WrapperComponent } from "../../components/WrapperComponent"
-import { empty, multi, single } from "../../mocks/richtext.json"
+import { empty, multi, single } from "../../mocks/richtext"
 
 export default defineComponent({
 	name: "ComponentsRichText",

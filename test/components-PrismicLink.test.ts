@@ -426,7 +426,7 @@ describe("renders external links using component", () => {
 		})
 
 		expect(wrapper.html()).toBe(
-			'<div class="wrapperComponent" to="https://example.com" rel="noreferrer">Cursus sit</div>',
+			'<div class="wrapperComponent" to="https://example.com" rel="noreferrer">Nisi est</div>',
 		)
 	})
 
@@ -551,6 +551,7 @@ it("warns when trying to render an invalid link field", () => {
 
 	mount(PrismicLink, {
 		props: {
+			// @ts-expect-error - Purposely giving incompatible props.
 			field: { link_type: "Any", foo: "bar" },
 		},
 	})
@@ -568,6 +569,7 @@ it("warns when trying to render an invalid link field", () => {
 
 	mount(PrismicLink, {
 		props: {
+			// @ts-expect-error - Purposely giving incompatible props.
 			field: { link_type: "Any", text: "foo", foo: "bar" },
 		},
 	})

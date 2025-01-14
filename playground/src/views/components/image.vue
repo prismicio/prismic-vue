@@ -32,7 +32,7 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 
-import { empty, simple } from "../../mocks/image.json"
+import { empty, simple } from "../../mocks/image"
 
 export default defineComponent({
 	name: "ComponentsImage",
