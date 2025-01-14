@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.1](https://github.com/prismicio/prismic-vue/compare/v5.0.0-alpha.0...v5.0.0-alpha.1) (2025-01-14)
+
+
+### Bug Fixes
+
+* `<SliceZone />`'s `slices` prop type ([65bf265](https://github.com/prismicio/prismic-vue/commit/65bf2659dfe7d67a4a18efde467392cbcb153fae))
+
+
+### Documentation
+
+* tsdocs ([c354e8b](https://github.com/prismicio/prismic-vue/commit/c354e8bff53ad667cd3f207c26f93fe3a82fd28b))
+* wording ([bb5aa2d](https://github.com/prismicio/prismic-vue/commit/bb5aa2d8a560871d7c28c6ff75382afefbfac2b6))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([3abf7ac](https://github.com/prismicio/prismic-vue/commit/3abf7aca03ff7d41154fd0511b51bd9bfdd14792))
+
 ## [5.0.0-alpha.0](https://github.com/prismicio/prismic-vue/compare/v4.3.0...v5.0.0-alpha.0) (2025-01-02)
 
 
