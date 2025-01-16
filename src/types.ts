@@ -95,7 +95,7 @@ type PrismicPluginComponentsOptions = {
 
 	/**
 	 * An optional map of Rich Text block types to Vue Components. It is used to
-	 * render Rich Text or title fields.
+	 * render rich text or title fields.
 	 *
 	 * @see Templating Rich Text and title fields from Prismic {@link https://prismic.io/docs/rich-text}
 	 */
