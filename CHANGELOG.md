@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/prismicio/prismic-vue/compare/v5.0.0-alpha.1...v5.0.0) (2025-01-20)
+
+
+### Chore
+
+* **deps:** maintain dependencies ([d7c8950](https://github.com/prismicio/prismic-vue/commit/d7c8950dd93e1351c8f0b41b1147950d444592b8))
+* **deps:** maintain lock file ([43f896b](https://github.com/prismicio/prismic-vue/commit/43f896b1997477e7efc3aaaf299843dbb7410cc1))
+
+
+### Documentation
+
+* fix changelog ([27693ce](https://github.com/prismicio/prismic-vue/commit/27693cecaecc6b152a5deafc94c1fe5b25de18e3))
+* wording ([53d3a03](https://github.com/prismicio/prismic-vue/commit/53d3a031807a4628535ac83ae84e34e31618de3f))
+
+### [4.3.1](https://github.com/prismicio/prismic-vue/compare/v5.0.0-alpha.0...v4.3.1) (2025-01-02)
+
+
+### Bug Fixes
+
+* resolve slots as `VNode[] | Slots | Slot` ([258bea1](https://github.com/prismicio/prismic-vue/commit/258bea14ba0dc524d82ce29ac23412379be282ed))
+
+
+### Chore
+
+* **release:** 4.3.1 ([c1ba125](https://github.com/prismicio/prismic-vue/commit/c1ba1251b04ac89b92110e60230d8187134f1d70))
+
 ## [5.0.0-alpha.1](https://github.com/prismicio/prismic-vue/compare/v5.0.0-alpha.0...v5.0.0-alpha.1) (2025-01-14)
 
 
