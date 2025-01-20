@@ -68,7 +68,7 @@ import {
 	simple,
 	text,
 	textBlank,
-} from "../../mocks/link.json"
+} from "../../mocks/link"
 
 export default defineComponent({
 	name: "ComponentsLink",

@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 
-import { empty, twitter, youtube } from "../../mocks/embed.json"
+import { empty, twitter, youtube } from "../../mocks/embed"
 
 export default defineComponent({
 	name: "ComponentsEmbed",

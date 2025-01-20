@@ -2,6 +2,79 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.1](https://github.com/prismicio/prismic-vue/compare/v5.0.0-alpha.0...v5.0.0-alpha.1) (2025-01-14)
+
+
+### Bug Fixes
+
+* `<SliceZone />`'s `slices` prop type ([65bf265](https://github.com/prismicio/prismic-vue/commit/65bf2659dfe7d67a4a18efde467392cbcb153fae))
+
+
+### Documentation
+
+* tsdocs ([c354e8b](https://github.com/prismicio/prismic-vue/commit/c354e8bff53ad667cd3f207c26f93fe3a82fd28b))
+* wording ([bb5aa2d](https://github.com/prismicio/prismic-vue/commit/bb5aa2d8a560871d7c28c6ff75382afefbfac2b6))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([3abf7ac](https://github.com/prismicio/prismic-vue/commit/3abf7aca03ff7d41154fd0511b51bd9bfdd14792))
+
+## [5.0.0-alpha.0](https://github.com/prismicio/prismic-vue/compare/v4.3.0...v5.0.0-alpha.0) (2025-01-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* <PrismicRichText />
+* <SliceZone />
+* remove vetur definitions in favor of TypeScript docs
+* <PrismicLink />
+* remove query-related composables
+* <PrismicText />
+* <PrismicImage />
+* <PrismicEmbed />
+* remove `isomorphic-unfetch` fallback
+
+### Features
+
+* <PrismicRichText /> component-based serializer ([8e15571](https://github.com/prismicio/prismic-vue/commit/8e15571f121653fbfa840f821526d08e047aa3bf))
+* remove `isomorphic-unfetch` fallback ([e889af1](https://github.com/prismicio/prismic-vue/commit/e889af1e19a9f9995c1095c6163dec713f8f3736))
+* remove query-related composables ([6c14d14](https://github.com/prismicio/prismic-vue/commit/6c14d14d4145e3ab6c4dc33790c8f0386095312e))
+* remove vetur definitions in favor of TypeScript docs ([b5881f2](https://github.com/prismicio/prismic-vue/commit/b5881f2706d94243934efc06cf09c0498cd6bf07))
+
+
+### Bug Fixes
+
+* forwards attributes to `<PrismicText />` ([b179f9d](https://github.com/prismicio/prismic-vue/commit/b179f9d9f39269e77834be44de3337b96b0e5253))
+
+
+### Chore
+
+* **deps:** update to Vite 6 and ESLint 9 ([560cffa](https://github.com/prismicio/prismic-vue/commit/560cffa788c3869b518e4135f822c1f757193bb6))
+
+
+### Refactor
+
+* <PrismicEmbed /> ([a9a43a3](https://github.com/prismicio/prismic-vue/commit/a9a43a3029aee945af922468a2880647a41363d9))
+* <PrismicImage /> ([34f121a](https://github.com/prismicio/prismic-vue/commit/34f121a96e6db9a16fa637a0f96ac1d3b431e4ab))
+* <PrismicLink /> ([de2cb68](https://github.com/prismicio/prismic-vue/commit/de2cb68b571c1085fe6660563992b758f449664c))
+* <PrismicRichText /> ([61721ff](https://github.com/prismicio/prismic-vue/commit/61721ff5741a17d4fbd78ee7b03814a9250839f4))
+* <PrismicText /> ([a4cc1a5](https://github.com/prismicio/prismic-vue/commit/a4cc1a5b88e993cb770bb5180514fcbd3bbe7381))
+* <SliceZone /> ([3325e86](https://github.com/prismicio/prismic-vue/commit/3325e86394ec43be6d518d3ca980371f3c76f858))
+* migrate to `esm-env` ([1a9b3a7](https://github.com/prismicio/prismic-vue/commit/1a9b3a7cd71d20269fcad1969baf59aebcc2de61))
+* Prismic Vue plugin ([dc33283](https://github.com/prismicio/prismic-vue/commit/dc33283be9d9355cdff64f66f176935677405e5c))
+* simplify project structure ([8c59d56](https://github.com/prismicio/prismic-vue/commit/8c59d5685fbfd32926f6204cb73fa5233649546f))
+* simplify project structure ([0cb1ca7](https://github.com/prismicio/prismic-vue/commit/0cb1ca73880b7907cf20bd0c11cb79af937ac3cd))
+* test layout ([36bb64b](https://github.com/prismicio/prismic-vue/commit/36bb64b51136f817f9e5bbc24391e568a714fd42))
+* use `<Wrapper />` component ([b038101](https://github.com/prismicio/prismic-vue/commit/b038101368a8751d7c04c7af4e3c03cee856b929))
+
+
+### Documentation
+
+* pull dev messages ([48bc62e](https://github.com/prismicio/prismic-vue/commit/48bc62e53111ac79b47785ab67f6e7c6bc42e36f))
+* update contributing guide ([5445d46](https://github.com/prismicio/prismic-vue/commit/5445d464e1888bd85786adf56a9fd7c62987403e))
+* wording ([55ee4c7](https://github.com/prismicio/prismic-vue/commit/55ee4c71d2d789d4ed938d6a92244db35dc88cda))
+
 ### [4.3.1](https://github.com/prismicio/prismic-vue/compare/v4.3.0...v4.3.1) (2025-01-02)
 
 
@@ -13,6 +86,8 @@ All notable changes to this project will be documented in this file. See [standa
 ### Chore
 
 * **deps:** update to Vite 6 and ESLint 9 ([560cffa](https://github.com/prismicio/prismic-vue/commit/560cffa788c3869b518e4135f822c1f757193bb6))
+
+
 
 ## [4.3.0](https://github.com/prismicio/prismic-vue/compare/v4.2.3...v4.3.0) (2024-09-27)
 

@@ -1,4 +1,5 @@
 import type {
+	AsLinkAttrsConfig,
 	ClientConfig,
 	CreateClient,
 	HTMLRichTextFunctionSerializer,
@@ -18,18 +19,17 @@ import type {
 	isFilled,
 } from "@prismicio/client"
 import type { App, ConcreteComponent, DefineComponent, Raw, Ref } from "vue"
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Imports for @link references:
 import type { RouterLink } from "vue-router"
+
+import type { VueRichTextSerializer } from "./PrismicRichText/types"
 
 import type {
 	SliceComponentProps,
 	SliceComponentType,
 	TODOSliceComponent,
-} from "./components/SliceZone"
-
-import type { usePrismicDocuments } from "./composables"
+} from "./SliceZone"
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -38,16 +38,15 @@ import type { usePrismicDocuments } from "./composables"
  */
 type PrismicPluginComponentsOptions = {
 	/**
-	 * Value of the `rel` attribute to use on links rendered with
-	 * `target="_blank"`
+	 * The `rel` attribute to apply on links. This prop can be provided a function
+	 * to use the link's metadata to determine the `rel` value.
 	 *
-	 * @defaultValue `"noopener noreferrer"`
+	 * @defaultValue `"noreferrer"` for external links.
 	 */
-	linkBlankTargetRelAttribute?: string
+	linkRel?: AsLinkAttrsConfig["rel"]
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to render
-	 * internal links.
+	 * An HTML tag name or a component used to render internal links.
 	 *
 	 * @remarks
 	 * HTML tag names will be rendered using the anchor tag interface (`href`,
@@ -58,11 +57,10 @@ type PrismicPluginComponentsOptions = {
 	 *
 	 * @defaultValue {@link RouterLink}
 	 */
-	linkInternalComponent?: string | ConcreteComponent | Raw<DefineComponent>
+	linkInternalComponent?: ComponentOrTagName
 
 	/**
-	 * An HTML tag name, a component, or a functional component used to render
-	 * external links.
+	 * An HTML tag name or a component used to render external links.
 	 *
 	 * @remarks
 	 * HTML tag names will be rendered using the anchor tag interface (`href`,
@@ -73,20 +71,7 @@ type PrismicPluginComponentsOptions = {
 	 *
 	 * @defaultValue `"a"`
 	 */
-	linkExternalComponent?: string | ConcreteComponent | Raw<DefineComponent>
-
-	/**
-	 * An HTML tag name, a component, or a functional component used to render
-	 * images.
-	 *
-	 * @remarks
-	 * HTML tag names and components will be rendered using the `img` tag
-	 * interface (`src` and `alt` attribute). Components will also receive an
-	 * additional `copyright` props.
-	 *
-	 * @defaultValue `"img"`
-	 */
-	imageComponent?: string | ConcreteComponent | Raw<DefineComponent>
+	linkExternalComponent?: ComponentOrTagName
 
 	/**
 	 * Default widths to use when rendering an image with `widths="defaults"`
@@ -107,6 +92,14 @@ type PrismicPluginComponentsOptions = {
 	 * @defaultValue `@prismicio/client` defaults
 	 */
 	imagePixelDensitySrcSetDefaults?: number[]
+
+	/**
+	 * An optional map of Rich Text block types to Vue Components. It is used to
+	 * render rich text or title fields.
+	 *
+	 * @see Templating Rich Text and title fields from Prismic {@link https://prismic.io/docs/rich-text}
+	 */
+	richTextComponents?: VueRichTextSerializer
 
 	/**
 	 * A component or a functional component rendered if a component mapping from
@@ -137,22 +130,17 @@ type PrismicPluginOptionsBase = {
 	 * An optional HTML serializer to customize the way rich text fields are
 	 * rendered.
 	 *
+	 * @remarks
+	 * To provide global components for the `<PrismicRichText />` component, use
+	 * the `components.richTextComponents` option instead.
+	 *
+	 * @deprecated Use `components.richTextComponents` instead.
+	 *
 	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
 	 */
 	richTextSerializer?:
 		| HTMLRichTextFunctionSerializer
 		| HTMLRichTextMapSerializer
-
-	/**
-	 * An optional HTML serializer to customize the way rich text fields are
-	 * rendered.
-	 *
-	 * @deprecated Use `richTextSerializer` instead.
-	 *
-	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
-	 */
-	// TODO: Remove in v5
-	htmlSerializer?: HTMLRichTextFunctionSerializer | HTMLRichTextMapSerializer
 
 	/**
 	 * Whether or not to inject components globally.
@@ -368,21 +356,21 @@ export type PrismicPluginHelpers = {
 	asDate: typeof asDate
 
 	/**
-	 * Returns the URL of an Image field with optional image transformations (via
+	 * Returns the URL of an image field with optional image transformations (via
 	 * Imgix URL parameters). This is `@prismicio/client` {@link asImageSrc}
 	 * function.
 	 */
 	asImageSrc: typeof asImageSrc
 
 	/**
-	 * Creates a width-based `srcset` from an Image field with optional image
+	 * Creates a width-based `srcset` from an image field with optional image
 	 * transformations (via Imgix URL parameters). This is `@prismicio/client`
 	 * {@link asImageWidthSrcSet} function.
 	 */
 	asImageWidthSrcSet: typeof asImageWidthSrcSet
 
 	/**
-	 * Creates a pixel-density-based `srcset` from an Image field with optional
+	 * Creates a pixel-density-based `srcset` from an image field with optional
 	 * image transformations (via Imgix URL parameters). This is
 	 * `@prismicio/client` {@link asImagePixelDensitySrcSet} function.
 	 */
@@ -424,31 +412,6 @@ export type PrismicPlugin = {
 } & PrismicPluginClient &
 	PrismicPluginHelpers
 
-/**
- * States of a `@prismicio/client` composable.
- */
-export const enum PrismicClientComposableState {
-	/**
-	 * The composable has not started fetching.
-	 */
-	Idle = "idle",
-
-	/**
-	 * The composable is fetching data.
-	 */
-	Pending = "pending",
-
-	/**
-	 * The composable sucessfully fetched data.
-	 */
-	Success = "success",
-
-	/**
-	 * The composable failed to fetch data.
-	 */
-	Error = "error",
-}
-
 // Helpers
 
 /**
@@ -469,3 +432,13 @@ export type VueUseOptions<T> = {
 export type VueUseParameters<T> = {
 	[K in keyof T]: T extends number ? Ref<T[K]> | T[K] : T[K]
 }
+
+/**
+ * A component or a tag name to be used as props.
+ *
+ * @internal
+ */
+export type ComponentOrTagName =
+	| string
+	| ConcreteComponent
+	| Raw<DefineComponent>

@@ -2,17 +2,10 @@ import { expect, it, vi } from "vitest"
 
 import { createClient, getRepositoryEndpoint } from "@prismicio/client"
 import { mount } from "@vue/test-utils"
-import unfetch from "isomorphic-unfetch"
 
 import { WrapperComponent } from "./__fixtures__/WrapperComponent"
 
 import { createPrismic } from "../src"
-
-vi.mock("isomorphic-unfetch", () => {
-	return {
-		default: vi.fn(),
-	}
-})
 
 it("creates client from repository name", () => {
 	const prismic = createPrismic({ endpoint: "test" })
@@ -67,6 +60,25 @@ it("uses provided client", () => {
 	expect(wrapper.vm.$prismic.client.endpoint).toBe(client.endpoint)
 })
 
+it("uses `globalThis.fetch` by default", () => {
+	const initialFetch = globalThis.fetch
+	globalThis.fetch = vi.fn()
+
+	const prismic = createPrismic({ endpoint: "test" })
+
+	const wrapper = mount(WrapperComponent, {
+		global: {
+			plugins: [prismic],
+		},
+	})
+
+	expect(globalThis.fetch).not.toHaveBeenCalled()
+	wrapper.vm.$prismic.client.fetchFn("foo", {})
+	expect(globalThis.fetch).toHaveBeenCalledOnce()
+
+	globalThis.fetch = initialFetch
+})
+
 it("uses provided fetch function", () => {
 	const spiedFetch = vi.fn()
 
@@ -89,36 +101,14 @@ it("uses provided fetch function", () => {
 	expect(spiedFetch).toHaveBeenCalledOnce()
 })
 
-it("uses `globalThis` fetch function when available", () => {
-	// `globalThis.fetch` does not exists in our Node.js context
-	const fetchStub = (globalThis.fetch = vi.fn())
-
-	const prismic = createPrismic({ endpoint: "test" })
-
-	const wrapper = mount(WrapperComponent, {
-		global: {
-			plugins: [prismic],
-		},
-	})
-
-	expect(fetchStub).not.toHaveBeenCalled()
-	wrapper.vm.$prismic.client.fetchFn("foo", {})
-	expect(fetchStub).toHaveBeenCalledOnce()
-
-	// @ts-expect-error `globalThis.fetch` does not exists in our Node.js context
+it("throws when `globalThis.fetch` is not available and no fetch function is provided", async () => {
+	const initialFetch = globalThis.fetch
+	// @ts-expect-error - We're deleting the global fetch function for testing purposes
 	delete globalThis.fetch
-})
 
-it("uses `isomorphic-unfetch` when `globalThis` fetch function is not available", async () => {
-	const prismic = createPrismic({ endpoint: "test" })
+	expect(() => createPrismic({ endpoint: "test" })).toThrowError(
+		/a valid fetch implementation was not provided/i,
+	)
 
-	const wrapper = mount(WrapperComponent, {
-		global: {
-			plugins: [prismic],
-		},
-	})
-
-	expect(unfetch).not.toHaveBeenCalled()
-	await wrapper.vm.$prismic.client.fetchFn("foo", {})
-	expect(unfetch).toHaveBeenCalledOnce()
+	globalThis.fetch = initialFetch
 })

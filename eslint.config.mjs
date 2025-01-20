@@ -11,9 +11,9 @@ export default tseslint.config(
 	},
 	eslint.configs.recommended,
 	tseslint.configs.recommended,
-	prettier,
 	...pluginVue.configs["flat/essential"],
 	...vueTsEslintConfig(),
+	prettier,
 	{
 		plugins: {
 			tsdoc,
@@ -44,6 +44,7 @@ export default tseslint.config(
 			"@typescript-eslint/consistent-type-imports": "error",
 			"tsdoc/syntax": "warn",
 			"vue/multi-word-component-names": "off",
+			"vue/no-v-text-v-html-on-component": "off",
 		},
 	},
 )
