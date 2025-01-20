@@ -20,6 +20,12 @@
 				<prismic-link :field="blank"> blank </prismic-link>
 			</li>
 			<li>
+				<prismic-link :field="text" />
+			</li>
+			<li>
+				<prismic-link :field="textBlank" />
+			</li>
+			<li>
 				<prismic-link :field="internal"> internal </prismic-link>
 			</li>
 			<li>
@@ -38,6 +44,12 @@
 				</prismic-link>
 			</li>
 			<li>
+				<prismic-link
+					:field="internalText"
+					:internal-component="WrapperComponent"
+				/>
+			</li>
+			<li>
 				<prismic-link :field="computed"> computed </prismic-link>
 			</li>
 		</ul>
@@ -48,7 +60,15 @@
 import { defineComponent, markRaw } from "vue"
 
 import { WrapperComponent } from "../../components/WrapperComponent"
-import { blank, empty, internal, simple } from "../../mocks/link"
+import {
+	blank,
+	empty,
+	internal,
+	internalText,
+	simple,
+	text,
+	textBlank,
+} from "../../mocks/link"
 
 export default defineComponent({
 	name: "ComponentsLink",
@@ -58,6 +78,9 @@ export default defineComponent({
 			simple,
 			blank,
 			internal,
+			internalText,
+			text,
+			textBlank,
 			inputText: "",
 			WrapperComponent: markRaw(WrapperComponent),
 		}

@@ -17,7 +17,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
-	vi.mocked(console.warn).mockRestore()
+	vi.restoreAllMocks()
 })
 
 describe("renders a rich text field", () => {

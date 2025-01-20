@@ -23,3 +23,18 @@ export const internal = {
 	link_type: "Document",
 	isBroken: false,
 } as const
+
+export const internalText = {
+	...internal,
+	text: "internal text",
+} as const
+
+export const text = {
+	...simple,
+	text: "text",
+} as const
+
+export const textBlank = {
+	...blank,
+	text: "text",
+} as const

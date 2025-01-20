@@ -6,7 +6,6 @@ import sdk from "vite-plugin-sdk"
 
 export default defineConfig({
 	plugins: [sdk(), vue(), dts({ include: "src/**/*.vue" })],
-	// @ts-expect-error Vite 6 issue(?)
 	test: {
 		environment: "jsdom",
 		coverage: {

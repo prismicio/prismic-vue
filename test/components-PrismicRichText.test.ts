@@ -299,6 +299,10 @@ it("reacts to changes properly", async () => {
 })
 
 it("is consistent with deprecated version", () => {
+	const consoleWarnSpy = vi
+		.spyOn(console, "warn")
+		.mockImplementation(() => void 0)
+
 	const current = mount(PrismicRichText, {
 		props: {
 			field: richTextFixture.en,
@@ -336,4 +340,6 @@ it("is consistent with deprecated version", () => {
 			.replaceAll("\n", "")
 			.replaceAll("  ", ""),
 	)
+
+	consoleWarnSpy.mockRestore()
 })
