@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.1](https://github.com/prismicio/prismic-vue/compare/v5.0.0...v5.0.1) (2025-01-23)
+
+
+### Bug Fixes
+
+* remove link warnings for graphql ([6d54ca8](https://github.com/prismicio/prismic-vue/commit/6d54ca8b39d95220da6d3a9d1c1232cc7e6e0cf2))
+
 ## [5.0.0](https://github.com/prismicio/prismic-vue/compare/v5.0.0-alpha.1...v5.0.0) (2025-01-20)
 
 
