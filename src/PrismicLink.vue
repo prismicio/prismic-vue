@@ -6,10 +6,8 @@ import {
 	type PrismicDocument,
 	asLinkAttrs,
 } from "@prismicio/client"
-import { DEV } from "esm-env"
-import { computed, watchEffect } from "vue"
+import { computed } from "vue"
 
-import { devMsg } from "./lib/devMsg"
 import { isInternalURL } from "./lib/isInternalURL"
 
 import type { ComponentOrTagName } from "./types"
@@ -102,45 +100,6 @@ const props = defineProps<PrismicLinkProps>()
 defineOptions({ name: "PrismicLink" })
 
 const { options } = usePrismic()
-
-if (DEV) {
-	watchEffect(() => {
-		if (props.field) {
-			if (!props.field.link_type) {
-				console.error(
-					`[PrismicLink] This "field" prop value caused an error to be thrown.\n`,
-					props.field,
-				)
-				throw new Error(
-					`[PrismicLink] The provided field is missing required properties to properly render a link. The link will not render. For more details, see ${devMsg(
-						"missing-link-properties",
-					)}`,
-				)
-			} else if (
-				("text" in props.field
-					? Object.keys(props.field).length > 2
-					: Object.keys(props.field).length > 1) &&
-				!("url" in props.field || "uid" in props.field || "id" in props.field)
-			) {
-				console.warn(
-					`[PrismicLink] The provided field is missing required properties to properly render a link. The link may not render correctly. For more details, see ${devMsg(
-						"missing-link-properties",
-					)}`,
-					props.field,
-				)
-			}
-		} else if (props.document) {
-			if (!("url" in props.document || "id" in props.document)) {
-				console.warn(
-					`[PrismicLink] The provided document is missing required properties to properly render a link. The link may not render correctly. For more details, see ${devMsg(
-						"missing-link-properties",
-					)}`,
-					props.document,
-				)
-			}
-		}
-	})
-}
 
 const rawAttrs = computed(() => {
 	return asLinkAttrs(props.field || props.document, {
