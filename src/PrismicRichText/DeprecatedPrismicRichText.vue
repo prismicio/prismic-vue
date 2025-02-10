@@ -40,7 +40,7 @@ if (DEV) {
 	onMounted(() => {
 		console.warn(
 			`[PrismicRichText] You're using the deprecated version of \`<PrismicRichText>\` because either the \`serializer\` prop or the plugin \`richTextSerializer\` option were provided. This API will be removed in a future major. For more details, see ${devMsg(
-				"html-serialization-is-deprecated-with-prismic-rich-text.md",
+				"html-serialization-is-deprecated-with-prismic-rich-text",
 			)}`,
 		)
 	})
