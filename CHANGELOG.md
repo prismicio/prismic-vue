@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.2](https://github.com/prismicio/prismic-vue/compare/v5.0.1...v5.0.2) (2025-02-10)
+
+
+### Bug Fixes
+
+* message typo ([ce65610](https://github.com/prismicio/prismic-vue/commit/ce65610ab0d505a942ee76635fe3b982aa289eb1))
+* message typo ([16fe16a](https://github.com/prismicio/prismic-vue/commit/16fe16aa4ac200418ff6d29cb21a668830aebade))
+
 ### [5.0.1](https://github.com/prismicio/prismic-vue/compare/v5.0.0...v5.0.1) (2025-01-23)
 
 
