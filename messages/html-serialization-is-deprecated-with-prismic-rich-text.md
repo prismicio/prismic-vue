@@ -24,7 +24,7 @@ Here’s how to transition from the old HTML-based serializer to the new compone
 ```html
 <PrismicRichText
 	:field="doc.data.imageField"
-	:serializer="{
+	:components="{
 		// Use a `Heading2` component to render `heading1` rich text nodes
 		heading1: Heading2
 	}"
