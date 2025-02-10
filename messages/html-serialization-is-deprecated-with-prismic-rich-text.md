@@ -41,7 +41,7 @@ defineProps(getRichTextComponentProps())
 </script>
 
 <template>
-	<h2>{{ node.children }}</h2>
+	<h2><slot /></h2>
 </template>
 ```
 
