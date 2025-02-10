@@ -562,7 +562,7 @@ it("warns about this component being deprecated", () => {
 	expect(consoleWarnSpy).toHaveBeenCalledOnce()
 	expect(consoleWarnSpy).toHaveBeenCalledWith(
 		expect.stringMatching(
-			/html-serialization-is-deprecated-with-prismic-rich-text.md/i,
+			/html-serialization-is-deprecated-with-prismic-rich-text/i,
 		),
 	)
 
