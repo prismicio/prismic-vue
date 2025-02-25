@@ -1,4 +1,5 @@
 import PrismicRichText from "./PrismicRichText/PrismicRichText.vue"
+import PrismicTable from "./PrismicTable/PrismicTable.vue"
 import SliceZone from "./SliceZone/SliceZone.vue"
 
 import PrismicEmbed from "./PrismicEmbed.vue"
@@ -19,6 +20,7 @@ export {
 	PrismicEmbed,
 	PrismicImage,
 	PrismicLink,
+	PrismicTable,
 	PrismicText,
 	PrismicRichText,
 }
