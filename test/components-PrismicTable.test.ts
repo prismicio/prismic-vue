@@ -193,13 +193,13 @@ it("renders custom table elements", () => {
 
 	expect(output.html()).toBe(`<div class="table" table="[object Object]">
   <div class="thead" head="[object Object]">
-    <div class="tr">
-      <div class="th">
+    <div class="tr" row="[object Object]">
+      <div class="th" cell="[object Object]">
         <p>
           <!--v-if-->Method
         </p>
       </div>
-      <div class="th">
+      <div class="th" cell="[object Object]">
         <p>
           <!--v-if-->Usage
         </p>
@@ -207,26 +207,26 @@ it("renders custom table elements", () => {
     </div>
   </div>
   <div class="tbody" body="[object Object]">
-    <div class="tr">
-      <div class="th">
+    <div class="tr" row="[object Object]">
+      <div class="th" cell="[object Object]">
         <p>
           <!--v-if-->GET
         </p>
       </div>
-      <div class="td">
+      <div class="td" cell="[object Object]">
         <p>
           <!--v-if-->For <strong><!--v-if-->basic retrieval</strong>
           <!--v-if--> of information…
         </p>
       </div>
     </div>
-    <div class="tr">
-      <div class="th">
+    <div class="tr" row="[object Object]">
+      <div class="th" cell="[object Object]">
         <p>
           <!--v-if-->DELETE
         </p>
       </div>
-      <div class="td">
+      <div class="td" cell="[object Object]">
         <p>
           <!--v-if-->To <em><!--v-if-->dest</em>
           <!--v-if-->roy a resource and remove…
