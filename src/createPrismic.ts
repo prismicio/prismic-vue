@@ -29,6 +29,7 @@ import type {
 } from "./types"
 
 import PrismicRichText from "./PrismicRichText/PrismicRichText.vue"
+import PrismicTable from "./PrismicTable/PrismicTable.vue"
 import SliceZone from "./SliceZone/SliceZone.vue"
 
 import PrismicEmbed from "./PrismicEmbed.vue"
@@ -130,6 +131,7 @@ export const createPrismic = (options: PrismicPluginOptions): PrismicPlugin => {
 				app.component(PrismicLink.name!, PrismicLink)
 				app.component(PrismicEmbed.name!, PrismicEmbed)
 				app.component(PrismicImage.name!, PrismicImage)
+				app.component(PrismicTable.name!, PrismicTable)
 				app.component(PrismicText.name!, PrismicText)
 				app.component(PrismicRichText.name!, PrismicRichText)
 				app.component(SliceZone.name!, SliceZone)
