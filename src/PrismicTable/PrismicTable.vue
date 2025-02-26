@@ -1,41 +1,14 @@
 <script lang="ts" setup>
-import {
-	type TableField,
-	type TableFieldBody,
-	type TableFieldHead,
-	isFilled,
-} from "@prismicio/client"
-import { computed, defineComponent, h } from "vue"
-import type { PropType } from "vue"
+import { type TableField, isFilled } from "@prismicio/client"
+import { computed } from "vue"
 
-import type { VueRichTextSerializer } from "../PrismicRichText/types"
 import type { ComponentOrTagName } from "../types"
 import type { VueTableComponents } from "./types"
 
-import PrismicTableRow from "./PrismicTableRow.vue"
+import type { VueRichTextSerializer } from "../PrismicRichText"
 
-const defaultComponents: Required<
-	Pick<VueTableComponents, "table" | "thead" | "tbody">
-> = {
-	table: defineComponent({
-		props: { table: Object as PropType<TableField> },
-		setup(props, { slots }) {
-			return () => h("table", slots.default ? slots.default() : [])
-		},
-	}),
-	thead: defineComponent({
-		props: { head: Object as PropType<TableFieldHead> },
-		setup(props, { slots }) {
-			return () => h("thead", slots.default ? slots.default() : [])
-		},
-	}),
-	tbody: defineComponent({
-		props: { body: Object as PropType<TableFieldBody> },
-		setup(props, { slots }) {
-			return () => h("tbody", slots.default ? slots.default() : [])
-		},
-	}),
-}
+import { defaultTableComponents } from "./PrismicTableDefaultComponents"
+import PrismicTableRow from "./PrismicTableRow.vue"
 
 /**
  * Props for `<PrismicTable />`.
@@ -70,7 +43,7 @@ const props = defineProps<PrismicTableProps>()
 defineOptions({ name: "PrismicTable" })
 
 const mergedComponents = computed(() => ({
-	...defaultComponents,
+	...defaultTableComponents,
 	...props.components,
 }))
 </script>
