@@ -17,19 +17,19 @@ const defaultRowComponents: Required<
 	Pick<VueTableComponents, "tr" | "th" | "td">
 > = {
 	tr: defineComponent({
-		props: { table: Object as PropType<TableFieldHeadRow | TableFieldBodyRow> },
+		props: { row: Object as PropType<TableFieldHeadRow | TableFieldBodyRow> },
 		setup(props, { slots }) {
 			return () => h("tr", slots.default ? slots.default() : [])
 		},
 	}),
 	th: defineComponent({
-		props: { head: Object as PropType<TableFieldHeaderCell> },
+		props: { cell: Object as PropType<TableFieldHeaderCell> },
 		setup(props, { slots }) {
 			return () => h("th", slots.default ? slots.default() : [])
 		},
 	}),
 	td: defineComponent({
-		props: { body: Object as PropType<TableFieldDataCell> },
+		props: { cell: Object as PropType<TableFieldDataCell> },
 		setup(props, { slots }) {
 			return () => h("td", slots.default ? slots.default() : [])
 		},

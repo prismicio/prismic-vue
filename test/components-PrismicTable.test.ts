@@ -89,13 +89,13 @@ describe("renders a table field", () => {
 
 		expect(output.html()).toBe(`<table>
   <thead>
-    <tr row="[object Object]">
-      <th cell="[object Object]">
+    <tr>
+      <th>
         <p>
           <!--v-if-->Method
         </p>
       </th>
-      <th cell="[object Object]">
+      <th>
         <p>
           <!--v-if-->Usage
         </p>
@@ -103,26 +103,26 @@ describe("renders a table field", () => {
     </tr>
   </thead>
   <tbody>
-    <tr row="[object Object]">
-      <th cell="[object Object]">
+    <tr>
+      <th>
         <p>
           <!--v-if-->GET
         </p>
       </th>
-      <td cell="[object Object]">
+      <td>
         <p>
           <!--v-if-->For <strong><!--v-if-->basic retrieval</strong>
           <!--v-if--> of information…
         </p>
       </td>
     </tr>
-    <tr row="[object Object]">
-      <th cell="[object Object]">
+    <tr>
+      <th>
         <p>
           <!--v-if-->DELETE
         </p>
       </th>
-      <td cell="[object Object]">
+      <td>
         <p>
           <!--v-if-->To <em><!--v-if-->dest</em>
           <!--v-if-->roy a resource and remove…
@@ -263,13 +263,13 @@ it("renders custom table cell content", () => {
 
 	expect(output.html()).toBe(`<table class="table" table="[object Object]">
   <thead>
-    <tr row="[object Object]">
-      <th cell="[object Object]">
+    <tr>
+      <th>
         <p class="paragraph" node="[object Object]">
           <!--v-if-->Method
         </p>
       </th>
-      <th cell="[object Object]">
+      <th>
         <p class="paragraph" node="[object Object]">
           <!--v-if-->Usage
         </p>
@@ -277,26 +277,26 @@ it("renders custom table cell content", () => {
     </tr>
   </thead>
   <tbody>
-    <tr row="[object Object]">
-      <th cell="[object Object]">
+    <tr>
+      <th>
         <p class="paragraph" node="[object Object]">
           <!--v-if-->GET
         </p>
       </th>
-      <td cell="[object Object]">
+      <td>
         <p class="paragraph" node="[object Object]">
           <!--v-if-->For <strong><!--v-if-->basic retrieval</strong>
           <!--v-if--> of information…
         </p>
       </td>
     </tr>
-    <tr row="[object Object]">
-      <th cell="[object Object]">
+    <tr>
+      <th>
         <p class="paragraph" node="[object Object]">
           <!--v-if-->DELETE
         </p>
       </th>
-      <td cell="[object Object]">
+      <td>
         <p class="paragraph" node="[object Object]">
           <!--v-if-->To <em><!--v-if-->dest</em>
           <!--v-if-->roy a resource and remove…
