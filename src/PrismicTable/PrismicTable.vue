@@ -44,7 +44,7 @@ export type PrismicTableProps = {
 	/**
 	 * The Prismic table field to render.
 	 */
-	field: TableField | null | undefined
+	field: TableField | undefined
 
 	/**
 	 * The value to be rendered when the field is empty. If a fallback is not
@@ -69,19 +69,18 @@ export type PrismicTableProps = {
 const props = defineProps<PrismicTableProps>()
 defineOptions({ name: "PrismicTable" })
 
-const isFilledTable = computed(() => isFilled.table(props.field))
 const mergedComponents = computed(() => ({
 	...defaultComponents,
 	...props.components,
 }))
-const stringify = (obj: unknown): string => JSON.stringify(obj)
 </script>
 
 <template>
 	<component
-		v-if="isFilledTable && field"
+		v-if="isFilled.table(field)"
 		:is="mergedComponents.table"
 		:table="field"
+		v-bind="$attrs"
 	>
 		<component
 			v-if="field.head"
@@ -90,7 +89,7 @@ const stringify = (obj: unknown): string => JSON.stringify(obj)
 		>
 			<PrismicTableRow
 				v-for="row in field.head.rows"
-				:key="stringify(row)"
+				:key="JSON.stringify(row)"
 				:row="row"
 				:components="mergedComponents"
 			/>
@@ -98,7 +97,7 @@ const stringify = (obj: unknown): string => JSON.stringify(obj)
 		<component :is="mergedComponents.tbody" :body="field.body">
 			<PrismicTableRow
 				v-for="row in field.body.rows"
-				:key="stringify(row)"
+				:key="JSON.stringify(row)"
 				:row="row"
 				:components="mergedComponents"
 			/>

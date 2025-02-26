@@ -136,7 +136,7 @@ describe("renders a table field", () => {
 	it("as nothing when passed an empty field", () => {
 		const output = mount(PrismicTable, {
 			props: {
-				field: null,
+				field: undefined,
 			},
 		})
 
@@ -145,15 +145,10 @@ describe("renders a table field", () => {
 })
 
 it("renders fallback when passed an empty field", () => {
-	const nullField = mount(PrismicTable, {
-		props: { field: null, fallback: markRaw(WrapperComponent) },
-	})
-
 	const undefinedField = mount(PrismicTable, {
 		props: { field: undefined, fallback: markRaw(WrapperComponent) },
 	})
 
-	expect(nullField.html()).toBe(`<div class="wrapperComponent"></div>`)
 	expect(undefinedField.html()).toBe(`<div class="wrapperComponent"></div>`)
 })
 
@@ -198,13 +193,13 @@ it("renders custom table elements", () => {
 
 	expect(output.html()).toBe(`<div class="table" table="[object Object]">
   <div class="thead" head="[object Object]">
-    <div class="tr" row="[object Object]">
-      <div class="th" cell="[object Object]">
+    <div class="tr">
+      <div class="th">
         <p>
           <!--v-if-->Method
         </p>
       </div>
-      <div class="th" cell="[object Object]">
+      <div class="th">
         <p>
           <!--v-if-->Usage
         </p>
@@ -212,26 +207,26 @@ it("renders custom table elements", () => {
     </div>
   </div>
   <div class="tbody" body="[object Object]">
-    <div class="tr" row="[object Object]">
-      <div class="th" cell="[object Object]">
+    <div class="tr">
+      <div class="th">
         <p>
           <!--v-if-->GET
         </p>
       </div>
-      <div class="td" cell="[object Object]">
+      <div class="td">
         <p>
           <!--v-if-->For <strong><!--v-if-->basic retrieval</strong>
           <!--v-if--> of information…
         </p>
       </div>
     </div>
-    <div class="tr" row="[object Object]">
-      <div class="th" cell="[object Object]">
+    <div class="tr">
+      <div class="th">
         <p>
           <!--v-if-->DELETE
         </p>
       </div>
-      <div class="td" cell="[object Object]">
+      <div class="td">
         <p>
           <!--v-if-->To <em><!--v-if-->dest</em>
           <!--v-if-->roy a resource and remove…

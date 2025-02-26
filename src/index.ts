@@ -9,6 +9,7 @@ import PrismicText from "./PrismicText.vue"
 
 export type { SliceZoneProps } from "./SliceZone/SliceZone.vue"
 export type { PrismicRichTextProps } from "./PrismicRichText/PrismicRichText.vue"
+export type { PrismicTableProps } from "./PrismicTable/PrismicTable.vue"
 
 export type { PrismicEmbedProps } from "./PrismicEmbed.vue"
 export type { PrismicImageProps } from "./PrismicImage.vue"

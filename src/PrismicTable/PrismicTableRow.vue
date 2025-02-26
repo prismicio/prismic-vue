@@ -71,7 +71,7 @@ const stringify = (obj: unknown): string => JSON.stringify(obj)
 
 <template>
 	<component :is="mergedComponents.tr" :row="row">
-		<template v-for="cell in row.cells" :key="stringify(cell)">
+		<template v-for="cell in row.cells" :key="JSON.stringify(cell)">
 			<component
 				v-if="cell.type === 'header'"
 				:is="mergedComponents.th"
