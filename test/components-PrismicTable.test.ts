@@ -6,7 +6,11 @@ import { defineComponent, markRaw } from "vue"
 
 import { WrapperComponent } from "./__fixtures__/WrapperComponent"
 
-import { PrismicTable } from "../src"
+import {
+	PrismicTable,
+	getRichTextComponentProps,
+	getTableComponentProps,
+} from "../src"
 
 const filledTableField: TableField = {
 	head: {
@@ -159,74 +163,80 @@ it("renders custom table elements", () => {
 			components: {
 				table: markRaw(
 					defineComponent({
-						template: `<div class="table"><slot></slot></div>`,
+						template: /* html */ `<div class="table"><slot></slot></div>`,
+						props: getTableComponentProps.table(),
 					}),
 				),
 				thead: markRaw(
 					defineComponent({
-						template: `<div class="thead"><slot></slot></div>`,
+						template: /* html */ `<div class="thead"><slot></slot></div>`,
+						props: getTableComponentProps.thead(),
 					}),
 				),
 				tbody: markRaw(
 					defineComponent({
-						template: `<div class="tbody"><slot></slot></div>`,
+						template: /* html */ `<div class="tbody"><slot></slot></div>`,
+						props: getTableComponentProps.tbody(),
 					}),
 				),
 				tr: markRaw(
 					defineComponent({
-						template: `<div class="tr"><slot></slot></div>`,
+						template: /* html */ `<div class="tr"><slot></slot></div>`,
+						props: getTableComponentProps.tr(),
 					}),
 				),
 				th: markRaw(
 					defineComponent({
-						template: `<div class="th"><slot></slot></div>`,
+						template: /* html */ `<div class="th"><slot></slot></div>`,
+						props: getTableComponentProps.th(),
 					}),
 				),
 				td: markRaw(
 					defineComponent({
-						template: `<div class="td"><slot></slot></div>`,
+						template: /* html */ `<div class="td"><slot></slot></div>`,
+						props: getTableComponentProps.td(),
 					}),
 				),
 			},
 		},
 	})
 
-	expect(output.html()).toBe(`<div class="table" table="[object Object]">
-  <div class="thead" head="[object Object]">
-    <div class="tr" row="[object Object]">
-      <div class="th" cell="[object Object]">
+	expect(output.html()).toBe(`<div class="table">
+  <div class="thead">
+    <div class="tr">
+      <div class="th">
         <p>
           <!--v-if-->Method
         </p>
       </div>
-      <div class="th" cell="[object Object]">
+      <div class="th">
         <p>
           <!--v-if-->Usage
         </p>
       </div>
     </div>
   </div>
-  <div class="tbody" body="[object Object]">
-    <div class="tr" row="[object Object]">
-      <div class="th" cell="[object Object]">
+  <div class="tbody">
+    <div class="tr">
+      <div class="th">
         <p>
           <!--v-if-->GET
         </p>
       </div>
-      <div class="td" cell="[object Object]">
+      <div class="td">
         <p>
           <!--v-if-->For <strong><!--v-if-->basic retrieval</strong>
           <!--v-if--> of information…
         </p>
       </div>
     </div>
-    <div class="tr" row="[object Object]">
-      <div class="th" cell="[object Object]">
+    <div class="tr">
+      <div class="th">
         <p>
           <!--v-if-->DELETE
         </p>
       </div>
-      <div class="td" cell="[object Object]">
+      <div class="td">
         <p>
           <!--v-if-->To <em><!--v-if-->dest</em>
           <!--v-if-->roy a resource and remove…
@@ -244,28 +254,30 @@ it("renders custom table cell content", () => {
 			components: {
 				table: markRaw(
 					defineComponent({
-						template: `<table class="table"><slot></slot></table>`,
+						template: /* html */ `<table class="table"><slot></slot></table>`,
+						props: getTableComponentProps.table(),
 					}),
 				),
 				paragraph: markRaw(
 					defineComponent({
-						template: `<p class="paragraph"><slot></slot></p>`,
+						template: /* html */ `<p class="paragraph"><slot></slot></p>`,
+						props: getRichTextComponentProps("paragraph"),
 					}),
 				),
 			},
 		},
 	})
 
-	expect(output.html()).toBe(`<table class="table" table="[object Object]">
+	expect(output.html()).toBe(`<table class="table">
   <thead>
     <tr>
       <th>
-        <p class="paragraph" node="[object Object]">
+        <p class="paragraph">
           <!--v-if-->Method
         </p>
       </th>
       <th>
-        <p class="paragraph" node="[object Object]">
+        <p class="paragraph">
           <!--v-if-->Usage
         </p>
       </th>
@@ -274,12 +286,12 @@ it("renders custom table cell content", () => {
   <tbody>
     <tr>
       <th>
-        <p class="paragraph" node="[object Object]">
+        <p class="paragraph">
           <!--v-if-->GET
         </p>
       </th>
       <td>
-        <p class="paragraph" node="[object Object]">
+        <p class="paragraph">
           <!--v-if-->For <strong><!--v-if-->basic retrieval</strong>
           <!--v-if--> of information…
         </p>
@@ -287,12 +299,12 @@ it("renders custom table cell content", () => {
     </tr>
     <tr>
       <th>
-        <p class="paragraph" node="[object Object]">
+        <p class="paragraph">
           <!--v-if-->DELETE
         </p>
       </th>
       <td>
-        <p class="paragraph" node="[object Object]">
+        <p class="paragraph">
           <!--v-if-->To <em><!--v-if-->dest</em>
           <!--v-if-->roy a resource and remove…
         </p>
