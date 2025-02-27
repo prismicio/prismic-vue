@@ -32,6 +32,8 @@ export type {
 	RichTextComponentProps,
 } from "./PrismicRichText"
 
+export { getTableComponentProps } from "./PrismicTable"
+
 export {
 	TODOSliceComponent,
 	defineSliceZoneComponents,
