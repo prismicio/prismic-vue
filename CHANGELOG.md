@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/prismicio/prismic-vue/compare/v5.0.3...v5.1.0) (2025-02-28)
+
+
+### Features
+
+* add PrismicTable component ([da69384](https://github.com/prismicio/prismic-vue/commit/da69384a347ad711bce19194b373c4a64dc8b013))
+* add PrismicTable component ([59c2621](https://github.com/prismicio/prismic-vue/commit/59c26212de96c4c696ecaec0f439df8dae9f95b1))
+* inject PrismicTable globally ([7d1ab1e](https://github.com/prismicio/prismic-vue/commit/7d1ab1e96a19954db24b482911b868cb768aa5c4))
+
+
+### Bug Fixes
+
+* default table row components ([08395e4](https://github.com/prismicio/prismic-vue/commit/08395e49f261cc5e8bec6064423dc46e58d55d4c))
+
+
+### Documentation
+
+* typo on rich text example ([d527b58](https://github.com/prismicio/prismic-vue/commit/d527b5861d9edae089a493184ce0a4050e68fc73))
+
+
+### Chore
+
+* update deps ([f9eb69f](https://github.com/prismicio/prismic-vue/commit/f9eb69f2f3631facd7206fcd180cf61a144e674a))
+
+
+### Refactor
+
+* extract default components ([d3087a9](https://github.com/prismicio/prismic-vue/commit/d3087a96138b9c203de8fc4cd06e4b8b21a03323))
+* introduce `getTableComponentProps` for consistency ([eb58734](https://github.com/prismicio/prismic-vue/commit/eb587349b30c746d3ebb0071215ab5e0ee52c7d5))
+* introduce `getTableComponentProps` for consistency ([be52602](https://github.com/prismicio/prismic-vue/commit/be5260234a315102ff8be7cb59e2b552b1d20b9b))
+* misc PR changes ([bb205d3](https://github.com/prismicio/prismic-vue/commit/bb205d34206b662f6dd846b07ef77517b0f4fb8f))
+* simplify types ([2904bee](https://github.com/prismicio/prismic-vue/commit/2904beef84add8ca1411f65f489164a0b3e902f5))
+
 ### [5.0.3](https://github.com/prismicio/prismic-vue/compare/v5.0.2...v5.0.3) (2025-02-10)
 
 
