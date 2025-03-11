@@ -23,6 +23,7 @@ import {
 	inject,
 	nextTick,
 	onBeforeUnmount,
+	onMounted,
 	ref,
 	unref,
 	watch,
@@ -242,14 +243,15 @@ export const PrismicRichTextImpl = /*#__PURE__*/ defineComponent({
 				links = []
 			}
 
-			watch(
-				html,
-				() => {
-					removeListeners()
-					nextTick(addListeners)
-				},
-				{ immediate: true },
-			)
+			onMounted(() => {
+				removeListeners()
+				nextTick(addListeners)
+			})
+
+			watch(html, () => {
+				removeListeners()
+				nextTick(addListeners)
+			})
 
 			onBeforeUnmount(() => {
 				removeListeners()
