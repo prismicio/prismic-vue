@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.1.1](https://github.com/prismicio/prismic-vue/compare/v5.1.0...v5.1.1) (2025-03-11)
+
+
+### Bug Fixes
+
+* **rich-text:** apply listeners on mounted ([e1a83a1](https://github.com/prismicio/prismic-vue/commit/e1a83a11675dbb806576719545b0bc0e30707e7e))
+
 ## [5.1.0](https://github.com/prismicio/prismic-vue/compare/v5.0.3...v5.1.0) (2025-02-28)
 
 
