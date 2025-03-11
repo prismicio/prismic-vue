@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.2](https://github.com/prismicio/prismic-vue/compare/v4.3.1...v4.3.2) (2025-03-11)
+
+
+### Bug Fixes
+
+* **rich-text:** apply listeners on mounted ([04ce103](https://github.com/prismicio/prismic-vue/commit/04ce10355c3d005f0b52358ac6ac43e9ea22878f))
+
 ### [4.3.1](https://github.com/prismicio/prismic-vue/compare/v4.3.0...v4.3.1) (2025-01-02)
 
 
