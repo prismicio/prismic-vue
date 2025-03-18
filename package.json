@@ -99,5 +99,8 @@
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"overrides": {
+		"@prismicio/client": "^7.17.0-alpha.0"
 	}
 }
