@@ -16,12 +16,15 @@ const filledTableField: TableField = {
 	head: {
 		rows: [
 			{
+				key: "string",
 				cells: [
 					{
+						key: "string",
 						type: "header",
 						content: [{ type: "paragraph", text: "Method", spans: [] }],
 					},
 					{
+						key: "string",
 						type: "header",
 						content: [{ type: "paragraph", text: "Usage", spans: [] }],
 					},
@@ -32,12 +35,15 @@ const filledTableField: TableField = {
 	body: {
 		rows: [
 			{
+				key: "string",
 				cells: [
 					{
+						key: "string",
 						type: "header",
 						content: [{ type: "paragraph", text: "GET", spans: [] }],
 					},
 					{
+						key: "string",
 						type: "data",
 						content: [
 							{
@@ -56,12 +62,15 @@ const filledTableField: TableField = {
 				],
 			},
 			{
+				key: "string",
 				cells: [
 					{
+						key: "string",
 						type: "header",
 						content: [{ type: "paragraph", text: "DELETE", spans: [] }],
 					},
 					{
+						key: "string",
 						type: "data",
 						content: [
 							{

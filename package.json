@@ -57,7 +57,7 @@
 		"test": "npm run lint && npm run types && npm run unit && npm run build && npm run size"
 	},
 	"dependencies": {
-		"@prismicio/client": "^7.16.1",
+		"@prismicio/client": "^7.17.0",
 		"esm-env": "^1.2.2",
 		"vue-router": "^4.5.0"
 	},

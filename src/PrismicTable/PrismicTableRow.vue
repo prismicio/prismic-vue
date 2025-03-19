@@ -35,7 +35,7 @@ defineOptions({ name: "PrismicTableRow" })
 
 <template>
 	<component :is="props.components.tr" :row="row">
-		<template v-for="cell in row.cells" :key="JSON.stringify(cell)">
+		<template v-for="cell in row.cells" :key="cell.key">
 			<component
 				v-if="cell.type === 'header'"
 				:is="props.components.th"

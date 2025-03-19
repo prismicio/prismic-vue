@@ -62,7 +62,7 @@ const mergedComponents = computed(() => ({
 		>
 			<PrismicTableRow
 				v-for="row in field.head.rows"
-				:key="JSON.stringify(row)"
+				:key="row.key"
 				:row="row"
 				:components="mergedComponents"
 			/>
@@ -70,7 +70,7 @@ const mergedComponents = computed(() => ({
 		<component :is="mergedComponents.tbody" :body="field.body">
 			<PrismicTableRow
 				v-for="row in field.body.rows"
-				:key="JSON.stringify(row)"
+				:key="row.key"
 				:row="row"
 				:components="mergedComponents"
 			/>
