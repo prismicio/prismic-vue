@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0](https://github.com/prismicio/prismic-vue/compare/v5.1.1...v5.2.0) (2025-03-19)
+
+
+### Features
+
+* support key for table field content ([#78](https://github.com/prismicio/prismic-vue/issues/78)) ([c9c29a0](https://github.com/prismicio/prismic-vue/commit/c9c29a0fbb640c19fa915bd55e3ca5d829f12d19))
+
 ### [5.1.1](https://github.com/prismicio/prismic-vue/compare/v5.1.0...v5.1.1) (2025-03-11)
 
 
