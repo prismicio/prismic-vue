@@ -2,7 +2,7 @@
 // TODO: Remove in v6
 import { asHTML, isFilled } from "@prismicio/client"
 import { DEV } from "esm-env"
-import type { Component } from "vue"
+import type { Component, PropType } from "vue"
 import {
 	computed,
 	inject,
@@ -26,12 +26,27 @@ import type { PrismicRichTextProps } from "./PrismicRichText.vue"
  */
 const defaultWrapper = "div"
 
-const props = defineProps<
-	Pick<
-		PrismicRichTextProps,
-		"field" | "linkResolver" | "serializer" | "wrapper"
-	> & { fallback?: string }
->()
+// We're forced to declare props using the JavaScript syntax because `@vue/compiler-sfc`
+// has limitations for inferring types from complex objects.
+const props = defineProps({
+	field: {
+		type: Array as unknown as PropType<PrismicRichTextProps["field"]>,
+	},
+	fallback: {
+		type: String as PropType<string>,
+	},
+	linkResolver: {
+		type: Function as PropType<PrismicRichTextProps["linkResolver"]>,
+	},
+	serializer: {
+		type: [Object, Function] as PropType<PrismicRichTextProps["serializer"]>,
+	},
+	wrapper: {
+		type: [String, Object, Function] as PropType<
+			PrismicRichTextProps["wrapper"]
+		>,
+	},
+})
 defineOptions({ name: "DeprecatedPrismicRichText" })
 
 const { options } = usePrismic()
