@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.2.1](https://github.com/prismicio/prismic-vue/compare/v5.2.0...v5.2.1) (2025-03-31)
+
+
+### Bug Fixes
+
+* complex props declaration on `<PrismicRichText>` ([72015ce](https://github.com/prismicio/prismic-vue/commit/72015ce7ee161257b49489ae0181e9922d421685))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([f637d09](https://github.com/prismicio/prismic-vue/commit/f637d0970343569e3b807f949e70a1d62db92586))
+* **deps:** maintain lockfile ([a095f5a](https://github.com/prismicio/prismic-vue/commit/a095f5a3d65b9f2c1408654f96e5dd97d859ed14))
+
 ## [5.2.0](https://github.com/prismicio/prismic-vue/compare/v5.1.1...v5.2.0) (2025-03-19)
 
 
