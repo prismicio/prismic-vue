@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.3.0](https://github.com/prismicio/prismic-vue/compare/v5.2.1...v5.3.0) (2025-07-16)
+
+
+### Features
+
+* cast width and height on images ([#84](https://github.com/prismicio/prismic-vue/issues/84)) ([ca4de6f](https://github.com/prismicio/prismic-vue/commit/ca4de6f074be593cdbcaaee92b18173c8dfb7c51))
+
+
+### Documentation
+
+* update contributing guide ([#81](https://github.com/prismicio/prismic-vue/issues/81)) ([c724265](https://github.com/prismicio/prismic-vue/commit/c724265a8ccad68d7e472631704e2ce131626402))
+* update README.md ([36c5f70](https://github.com/prismicio/prismic-vue/commit/36c5f701b8f576f9f0b9de0c1ffb4d5997db4b93))
+
 ### [5.2.1](https://github.com/prismicio/prismic-vue/compare/v5.2.0...v5.2.1) (2025-03-31)
 
 
