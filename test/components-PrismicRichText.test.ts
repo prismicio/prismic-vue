@@ -326,6 +326,9 @@ it("is consistent with deprecated version", () => {
 			.replaceAll(' rel="noreferrer"', "")
 			// We added `srcset` attributes by default
 			.replaceAll(/\ssrcset=".*?"/g, "")
+			// We added `width` and `height` attributes by default
+			.replaceAll(/\swidth=".*?"/g, "")
+			.replaceAll(/\sheight=".*?"/g, "")
 			// Minify
 			.replaceAll("\n", "")
 			.replaceAll("  ", ""),
@@ -336,6 +339,9 @@ it("is consistent with deprecated version", () => {
 			.replaceAll(' rel="noopener noreferrer"', "")
 			// We don't append copyright anymore
 			.replaceAll(' copyright="Unsplash"', "")
+			// Remove all other `width` and `height` attributes
+			.replaceAll(/\swidth=".*?"/g, "")
+			.replaceAll(/\sheight=".*?"/g, "")
 			// Minify
 			.replaceAll("\n", "")
 			.replaceAll("  ", ""),

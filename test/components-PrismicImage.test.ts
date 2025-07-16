@@ -21,7 +21,7 @@ describe("renders an image field", () => {
 		})
 
 		expect(wrapper.html()).toMatchInlineSnapshot(
-			`"<img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=5616&amp;h=3744&amp;fit=crop" srcset="https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;width=640 640w, https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;width=828 828w, https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;width=1200 1200w, https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;width=2048 2048w, https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;width=3840 3840w" alt="Bibendum enim facilisis gravida neque convallis a cras semper auctor">"`,
+			`"<img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=5616&amp;h=3744&amp;fit=crop" srcset="https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;width=640 640w, https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;width=828 828w, https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;width=1200 1200w, https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;width=2048 2048w, https://images.unsplash.com/photo-1426604966848-d7adac402bff?h=3744&amp;fit=crop&amp;width=3840 3840w" alt="Bibendum enim facilisis gravida neque convallis a cras semper auctor" width="5616" height="3744">"`,
 		)
 	})
 })
@@ -37,7 +37,7 @@ describe("renders a width-based srcset", () => {
 		})
 
 		expect(wrapper.html()).toMatchInlineSnapshot(
-			`"<img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=7372&amp;h=4392&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?h=4392&amp;fit=crop&amp;sat=100&amp;width=100 100w, https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?h=4392&amp;fit=crop&amp;sat=100&amp;width=200 200w, https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?h=4392&amp;fit=crop&amp;sat=100&amp;width=300 300w" alt="Aliquet nibh praesent tristique magna sit amet purus gravida quis">"`,
+			`"<img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=7372&amp;h=4392&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?h=4392&amp;fit=crop&amp;sat=100&amp;width=100 100w, https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?h=4392&amp;fit=crop&amp;sat=100&amp;width=200 200w, https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?h=4392&amp;fit=crop&amp;sat=100&amp;width=300 300w" alt="Aliquet nibh praesent tristique magna sit amet purus gravida quis" width="7372" height="4392">"`,
 		)
 	})
 
@@ -51,7 +51,7 @@ describe("renders a width-based srcset", () => {
 		})
 
 		expect(wrapper.html()).toMatchInlineSnapshot(
-			`"<img src="https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?w=4240&amp;h=2832&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=640 640w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=828 828w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=1200 1200w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=2048 2048w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=3840 3840w" alt="Viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc">"`,
+			`"<img src="https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?w=4240&amp;h=2832&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=640 640w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=828 828w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=1200 1200w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=2048 2048w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=3840 3840w" alt="Viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc" width="4240" height="2832">"`,
 		)
 	})
 
@@ -73,7 +73,7 @@ describe("renders a width-based srcset", () => {
 		})
 
 		expect(wrapper.html()).toMatchInlineSnapshot(
-			`"<img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2560&amp;h=1705&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?h=1705&amp;fit=crop&amp;sat=100&amp;width=400 400w, https://images.unsplash.com/photo-1441974231531-c6227db76b6e?h=1705&amp;fit=crop&amp;sat=100&amp;width=500 500w, https://images.unsplash.com/photo-1441974231531-c6227db76b6e?h=1705&amp;fit=crop&amp;sat=100&amp;width=600 600w" alt="Non odio euismod lacinia at quis risus">"`,
+			`"<img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2560&amp;h=1705&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?h=1705&amp;fit=crop&amp;sat=100&amp;width=400 400w, https://images.unsplash.com/photo-1441974231531-c6227db76b6e?h=1705&amp;fit=crop&amp;sat=100&amp;width=500 500w, https://images.unsplash.com/photo-1441974231531-c6227db76b6e?h=1705&amp;fit=crop&amp;sat=100&amp;width=600 600w" alt="Non odio euismod lacinia at quis risus" width="2560" height="1705">"`,
 		)
 	})
 
@@ -92,7 +92,7 @@ describe("renders a width-based srcset", () => {
 		})
 
 		expect(wrapper.html()).toMatchInlineSnapshot(
-			`"<img src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=2560&amp;h=1440&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?h=1440&amp;fit=crop&amp;sat=100&amp;width=2560 2560w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=6000 6000w, https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?h=4253&amp;fit=crop&amp;sat=100&amp;width=6373 6373w, https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?h=4253&amp;fit=crop&amp;sat=100&amp;width=6373 6373w" alt="Amet facilisis magna etiam tempor orci">"`,
+			`"<img src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=2560&amp;h=1440&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?h=1440&amp;fit=crop&amp;sat=100&amp;width=2560 2560w, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?h=4000&amp;fit=crop&amp;sat=100&amp;width=6000 6000w, https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?h=4253&amp;fit=crop&amp;sat=100&amp;width=6373 6373w, https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?h=4253&amp;fit=crop&amp;sat=100&amp;width=6373 6373w" alt="Amet facilisis magna etiam tempor orci" width="2560" height="1440">"`,
 		)
 	})
 })
@@ -108,7 +108,7 @@ describe("renders a pixel-density srcset", () => {
 		})
 
 		expect(wrapper.html()).toMatchInlineSnapshot(
-			`"<img src="https://images.unsplash.com/photo-1587502537745-84b86da1204f?w=6550&amp;h=4367&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1587502537745-84b86da1204f?w=6550&amp;h=4367&amp;fit=crop&amp;sat=100&amp;dpr=1 1x, https://images.unsplash.com/photo-1587502537745-84b86da1204f?w=6550&amp;h=4367&amp;fit=crop&amp;sat=100&amp;dpr=2 2x" alt="At auctor urna nunc id">"`,
+			`"<img src="https://images.unsplash.com/photo-1587502537745-84b86da1204f?w=6550&amp;h=4367&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1587502537745-84b86da1204f?w=6550&amp;h=4367&amp;fit=crop&amp;sat=100&amp;dpr=1 1x, https://images.unsplash.com/photo-1587502537745-84b86da1204f?w=6550&amp;h=4367&amp;fit=crop&amp;sat=100&amp;dpr=2 2x" alt="At auctor urna nunc id" width="6550" height="4367">"`,
 		)
 	})
 
@@ -122,7 +122,7 @@ describe("renders a pixel-density srcset", () => {
 		})
 
 		expect(wrapper.html()).toMatchInlineSnapshot(
-			`"<img src="https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100&amp;dpr=1 1x, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100&amp;dpr=2 2x, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100&amp;dpr=3 3x" alt="Ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis">"`,
+			`"<img src="https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100&amp;dpr=1 1x, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100&amp;dpr=2 2x, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100&amp;dpr=3 3x" alt="Ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis" width="6000" height="4000">"`,
 		)
 	})
 
@@ -144,7 +144,7 @@ describe("renders a pixel-density srcset", () => {
 		})
 
 		expect(wrapper.html()).toMatchInlineSnapshot(
-			`"<img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;sat=100&amp;dpr=3 3x, https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;sat=100&amp;dpr=4 4x" alt="Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra">"`,
+			`"<img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;sat=100&amp;dpr=3 3x, https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;sat=100&amp;dpr=4 4x" alt="Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra" width="4608" height="3456">"`,
 		)
 	})
 })
@@ -165,7 +165,7 @@ it("prioritizes widths prop over pixelDensities", (ctx) => {
 	})
 
 	expect(wrapper.html()).toMatchInlineSnapshot(
-		`"<img src="https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?w=4240&amp;h=2832&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=640 640w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=828 828w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=1200 1200w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=2048 2048w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=3840 3840w" alt="Aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra">"`,
+		`"<img src="https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?w=4240&amp;h=2832&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=640 640w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=828 828w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=1200 1200w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=2048 2048w, https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?h=2832&amp;fit=crop&amp;sat=100&amp;width=3840 3840w" alt="Aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra" width="4240" height="2832">"`,
 	)
 
 	consoleWarnSpy.mockRestore()
@@ -287,6 +287,72 @@ describe("renders alt attribute", () => {
 	})
 })
 
+describe("renders width and height attributes", () => {
+	it("with the field's dimensions by default", (ctx) => {
+		const field = ctx.mock.value.image()
+		const wrapper = mount(PrismicImage, {
+			props: { field },
+		})
+
+		expect(wrapper.html()).toContain(`width="${field.dimensions.width}"`)
+		expect(wrapper.html()).toContain(`height="${field.dimensions.height}"`)
+	})
+
+	it("with number width and height props", (ctx) => {
+		const field = ctx.mock.value.image()
+		const wrapper = mount(PrismicImage, {
+			props: { field, width: 100, height: 100 },
+		})
+
+		expect(wrapper.html()).toContain(`width="100"`)
+		expect(wrapper.html()).toContain(`height="100"`)
+	})
+
+	it("with string width and height props", (ctx) => {
+		const field = ctx.mock.value.image()
+		const wrapper = mount(PrismicImage, {
+			props: { field, width: "100", height: "100" },
+		})
+
+		expect(wrapper.html()).toContain(`width="100"`)
+		expect(wrapper.html()).toContain(`height="100"`)
+	})
+
+	it("with NaN width and height props", (ctx) => {
+		const field = ctx.mock.value.image()
+		const wrapper = mount(PrismicImage, {
+			props: { field, width: "foo", height: "bar" },
+		})
+
+		expect(wrapper.html()).toContain(`width="${field.dimensions.width}"`)
+		expect(wrapper.html()).toContain(`height="${field.dimensions.height}"`)
+	})
+
+	it("with the width prop and inferred height", (ctx) => {
+		const field = ctx.mock.value.image()
+		const wrapper = mount(PrismicImage, {
+			props: { field, width: 100 },
+		})
+
+		const ar = field.dimensions.width / field.dimensions.height
+
+		expect(wrapper.html()).toContain(`width="100"`)
+		expect(wrapper.html()).toContain(`height="${Math.round(100 / ar)}"`)
+	})
+
+	it("with the height prop and inferred width", (ctx) => {
+		const field = ctx.mock.value.image()
+		const wrapper = mount(PrismicImage, {
+			props: { field, height: 100 },
+		})
+
+		const ar = field.dimensions.width / field.dimensions.height
+
+		expect(wrapper.html()).toContain(`width="${Math.round(100 * ar)}"`)
+		expect(wrapper.html()).toContain(`height="100"`)
+	})
+})
+
 describe("renders with imgix parameters", () => {
 	it("basic", (ctx) => {
 		const wrapper = mount(PrismicImage, {
@@ -297,7 +363,7 @@ describe("renders with imgix parameters", () => {
 		})
 
 		expect(wrapper.html()).toMatchInlineSnapshot(
-			`"<img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;sat=100&amp;width=640 640w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;sat=100&amp;width=828 828w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;sat=100&amp;width=1200 1200w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;sat=100&amp;width=2048 2048w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;sat=100&amp;width=3840 3840w" alt="Tellus id interdum velit laoreet id donec ultrices tincidunt arcu">"`,
+			`"<img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;sat=100&amp;width=640 640w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;sat=100&amp;width=828 828w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;sat=100&amp;width=1200 1200w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;sat=100&amp;width=2048 2048w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;sat=100&amp;width=3840 3840w" alt="Tellus id interdum velit laoreet id donec ultrices tincidunt arcu" width="4608" height="3456">"`,
 		)
 	})
 
@@ -319,7 +385,7 @@ describe("renders with imgix parameters", () => {
 		})
 
 		expect(wrapper.html()).toMatchInlineSnapshot(
-			`"<img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;ar=1%3A2" srcset="https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;ar=1%3A2&amp;width=640 640w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;ar=1%3A2&amp;width=828 828w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;ar=1%3A2&amp;width=1200 1200w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;ar=1%3A2&amp;width=2048 2048w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;ar=1%3A2&amp;width=3840 3840w" alt="Ac odio tempor orci dapibus ultrices in iaculis nunc sed augue">"`,
+			`"<img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;ar=1%3A2" srcset="https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;ar=1%3A2&amp;width=640 640w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;ar=1%3A2&amp;width=828 828w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;ar=1%3A2&amp;width=1200 1200w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;ar=1%3A2&amp;width=2048 2048w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;ar=1%3A2&amp;width=3840 3840w" alt="Ac odio tempor orci dapibus ultrices in iaculis nunc sed augue" width="4608" height="3456">"`,
 		)
 	})
 })
@@ -339,6 +405,6 @@ it("reacts to changes properly", async (ctx) => {
 
 	expect(secondRender).not.toBe(firstRender)
 	expect(secondRender).toMatchInlineSnapshot(
-		`"<img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop" srcset="https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;width=640 640w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;width=828 828w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;width=1200 1200w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;width=2048 2048w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;width=3840 3840w" alt="Cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla">"`,
+		`"<img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop" srcset="https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;width=640 640w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;width=828 828w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;width=1200 1200w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;width=2048 2048w, https://images.unsplash.com/photo-1504567961542-e24d9439a724?h=3456&amp;fit=crop&amp;width=3840 3840w" alt="Cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla" width="4608" height="3456">"`,
 	)
 })
