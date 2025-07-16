@@ -44,6 +44,22 @@ export type PrismicImageProps = {
 	 * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/alt#decorative_images
 	 */
 	fallbackAlt?: ""
+
+	/**
+	 * The width attribute of the image element.
+	 *
+	 * See:
+	 * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/width
+	 */
+	width?: number | string
+
+	/**
+	 * The height attribute of the image element.
+	 *
+	 * See:
+	 * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/height
+	 */
+	height?: number | string
 } & (
 	| {
 			/**
@@ -116,6 +132,20 @@ if (DEV) {
 	})
 }
 
+const castInt = (input: string | number | undefined): number | undefined => {
+	if (typeof input === "number" || typeof input === "undefined") {
+		return input
+	} else {
+		const parsed = Number.parseInt(input)
+
+		if (Number.isNaN(parsed)) {
+			return undefined
+		} else {
+			return parsed
+		}
+	}
+}
+
 const image = computed(() => {
 	if (!isFilled.imageThumbnail(props.field)) {
 		return
@@ -147,14 +177,37 @@ const image = computed(() => {
 		srcSet = res.srcset
 	}
 
+	const ar = props.field.dimensions.width / props.field.dimensions.height
+
+	const castedWidth = castInt(props.width)
+	const castedHeight = castInt(props.height)
+
+	let resolvedWidth = castedWidth ?? props.field.dimensions.width
+	let resolvedHeight = castedHeight ?? props.field.dimensions.height
+
+	if (castedWidth != null && castedHeight == null) {
+		resolvedHeight = castedWidth / ar
+	} else if (castedWidth == null && castedHeight != null) {
+		resolvedWidth = castedHeight * ar
+	}
+
 	return {
 		src,
 		srcSet,
 		alt: props.alt ?? (props.field.alt || props.fallbackAlt),
+		width: Math.round(resolvedWidth),
+		height: Math.round(resolvedHeight),
 	}
 })
 </script>
 
 <template>
-	<img v-if="image" :src="image.src" :srcset="image.srcSet" :alt="image.alt" />
+	<img
+		v-if="image"
+		:src="image.src"
+		:srcset="image.srcSet"
+		:alt="image.alt"
+		:width="image.width"
+		:height="image.height"
+	/>
 </template>
