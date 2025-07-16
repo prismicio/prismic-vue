@@ -46,7 +46,7 @@ export type PrismicImageProps = {
 	fallbackAlt?: ""
 
 	/**
-	 * The width property of the image element.
+	 * The width attribute of the image element.
 	 *
 	 * See:
 	 * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/width
@@ -54,7 +54,7 @@ export type PrismicImageProps = {
 	width?: number | string
 
 	/**
-	 * The height property of the image element.
+	 * The height attribute of the image element.
 	 *
 	 * See:
 	 * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/height
