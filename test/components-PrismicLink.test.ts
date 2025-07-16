@@ -426,7 +426,7 @@ describe("renders external links using component", () => {
 		})
 
 		expect(wrapper.html()).toBe(
-			'<div class="wrapperComponent" to="https://example.com" rel="noreferrer">Nisi est</div>',
+			'<div class="wrapperComponent" to="https://example.com" rel="noreferrer">Nullam non</div>',
 		)
 	})
 

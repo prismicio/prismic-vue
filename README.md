@@ -73,7 +73,7 @@ For more clarity on this project and its structure you can also check out the de
 
 <!-- Replace link with a more useful one if available -->
 
-[prismic-docs]: https://prismic.io/docs/technologies/vuejs
+[prismic-docs]: https://prismic.io/docs/technical-reference/prismicio-vue/v5
 [changelog]: ./CHANGELOG.md
 [contributing]: ./CONTRIBUTING.md
 [vue]: https://v3.vuejs.org

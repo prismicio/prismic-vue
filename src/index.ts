@@ -1,4 +1,5 @@
 import PrismicRichText from "./PrismicRichText/PrismicRichText.vue"
+import PrismicTable from "./PrismicTable/PrismicTable.vue"
 import SliceZone from "./SliceZone/SliceZone.vue"
 
 import PrismicEmbed from "./PrismicEmbed.vue"
@@ -8,6 +9,7 @@ import PrismicText from "./PrismicText.vue"
 
 export type { SliceZoneProps } from "./SliceZone/SliceZone.vue"
 export type { PrismicRichTextProps } from "./PrismicRichText/PrismicRichText.vue"
+export type { PrismicTableProps } from "./PrismicTable/PrismicTable.vue"
 
 export type { PrismicEmbedProps } from "./PrismicEmbed.vue"
 export type { PrismicImageProps } from "./PrismicImage.vue"
@@ -19,6 +21,7 @@ export {
 	PrismicEmbed,
 	PrismicImage,
 	PrismicLink,
+	PrismicTable,
 	PrismicText,
 	PrismicRichText,
 }
@@ -28,6 +31,8 @@ export type {
 	VueRichTextSerializer,
 	RichTextComponentProps,
 } from "./PrismicRichText"
+
+export { getTableComponentProps } from "./PrismicTable"
 
 export {
 	TODOSliceComponent,

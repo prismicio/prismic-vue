@@ -8,6 +8,7 @@ import {
 } from "@prismicio/client"
 import { asTree } from "@prismicio/client/richtext"
 import { DEV } from "esm-env"
+import type { PropType } from "vue"
 import { computed, watchEffect } from "vue"
 
 import Wrapper from "../lib/Wrapper.vue"
@@ -79,7 +80,32 @@ export type PrismicRichTextProps = {
 	wrapper?: ComponentOrTagName
 }
 
-const props = defineProps<PrismicRichTextProps>()
+// We're forced to declare props using the JavaScript syntax because `@vue/compiler-sfc`
+// has limitations for inferring types from complex objects.
+const props = defineProps({
+	field: {
+		type: Array as unknown as PropType<PrismicRichTextProps["field"]>,
+	},
+	fallback: {
+		type: [String, Object, Function] as PropType<
+			PrismicRichTextProps["fallback"]
+		>,
+	},
+	components: {
+		type: Object as PropType<PrismicRichTextProps["components"]>,
+	},
+	linkResolver: {
+		type: Function as PropType<PrismicRichTextProps["linkResolver"]>,
+	},
+	serializer: {
+		type: [Object, Function] as PropType<PrismicRichTextProps["serializer"]>,
+	},
+	wrapper: {
+		type: [String, Object, Function] as PropType<
+			PrismicRichTextProps["wrapper"]
+		>,
+	},
+})
 defineOptions({ name: "PrismicRichText" })
 
 const { options } = usePrismic()
