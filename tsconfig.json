@@ -4,9 +4,10 @@
 		"skipLibCheck": true,
 
 		"target": "esnext",
-		"module": "esnext",
-		"declaration": false,
-		"moduleResolution": "node",
+		"module": "preserve",
+		"moduleResolution": "bundler",
+		"declaration": true,
+		"declarationMap": true,
 		"resolveJsonModule": true,
 		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true,

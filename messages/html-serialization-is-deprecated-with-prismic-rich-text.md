@@ -35,9 +35,9 @@ The above snippet relies on an `Heading2.vue` component. Here's an example of th
 
 ```html
 <script setup>
-import { getRichTextComponentProps } from "@prismicio/vue"
+	import { getRichTextComponentProps } from "@prismicio/vue"
 
-defineProps(getRichTextComponentProps())
+	defineProps(getRichTextComponentProps())
 </script>
 
 <template>

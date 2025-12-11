@@ -8,7 +8,7 @@ This package is primarily maintained by [Prismic](https://prismic.io)[^1]. Exter
 
 The following setup is required to work on this project:
 
-- Node.js
+- Node.js 24 or later
 - npm CLI
 
 ## :memo: Project-specific notes
@@ -37,28 +37,28 @@ git checkout -b <your-initials>/<feature-or-fix-description>
 
 # Start the development watcher.
 # Run this command while you are working on your changes.
-npm run dev
+node --run dev
 
 # Build the project for production.
 # Run this command when you want to see the production version.
-npm run build
+node --run build
 
 # Lint your changes before requesting a review. No errors are allowed.
-npm run lint
+node --run lint
 # Some errors can be fixed automatically:
-npm run lint -- --fix
+node --run lint -- --fix
 
 # Format your changes before requesting a review. No errors are allowed.
-npm run format
+node --run format
 
 # Test your changes before requesting a review.
 # All changes should be tested. No failing tests are allowed.
-npm run test
+node --run test
 # Run only unit tests (optionally in watch mode):
-npm run unit
-npm run unit:watch
+node --run unit
+node --run unit:watch
 # Run only type tests
-npm run types
+node --run types
 ```
 
 ## :building_construction: Submit a pull request
@@ -75,6 +75,10 @@ gh pr create
 # Someone from the Prismic team will review your work. This review will at
 # least consider the PR's general direction, code style, and test coverage.
 
+# Prereleases are published to npm automatically to upon pushing commits.
+# Install the prerelease using the `pr-${number}` tag.
+npm install @prismicio/vue@pr-101
+
 # When ready, PRs should be merged using the "Squash and merge" option.
 ```
 
@@ -83,28 +87,9 @@ gh pr create
 > [!CAUTION]
 > Publishing is restricted to the Prismic team.[^4]
 
-```sh
-# Checkout the master branch and pull the latest changes.
-git checkout master
-git pull
+This repository uses [Release Please](https://github.com/googleapis/release-please). To publish changes in `master`, merge [the pending Release Please PR](https://github.com/prismicio/prismic-vue/pulls?q=is%3Apr+is%3Aopen+label%3A%22autorelease%3A+pending%22).
 
-# Perform a dry-run and verify the output.
-# If it looks good, release a new version.
-npm run release:dry
-npm run release
-
-# Or release an alpha.
-# Perform a dry-run and verify the output.
-# If it looks good, release a new alpha version.
-npm run release:alpha:dry
-npm run release:alpha
-```
-
-After publishing a new release, publish the tags as releases. This will show the latest release on the repository's homepage.
-
-1. Go to the repository's [Tags page](https://github.com/prismicio/prismic-vue/tags).
-2. Open the options for the tag you just published to NPM and select "Create release."
-3. Ensure that the "Set as the latest release" box is checked, then publish the release.
+If you don't see a pending PR, there are no changes to publish from `master`.
 
 [^1]: This package is maintained by the DevX team. Prismic employees can ask for help or a review in the [#team-devx](https://prismic-team.slack.com/archives/C014VAACCQL) Slack channel.
 

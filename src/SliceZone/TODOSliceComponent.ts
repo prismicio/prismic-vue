@@ -1,6 +1,6 @@
 import { DEV } from "esm-env"
-import type { PropType } from "vue"
 import { computed, defineComponent, h, watchEffect } from "vue"
+import type { PropType } from "vue"
 
 import type { SliceComponentType, SliceLike } from "./types"
 
@@ -11,6 +11,7 @@ import type { SliceComponentType, SliceLike } from "./types"
  * This is also the default Vue component rendered when a component mapping
  * cannot be found in `<SliceZone />`.
  */
+// oxlint-disable-next-line explicit-module-boundary-types
 export const TODOSliceComponent = DEV
 	? /*#__PURE__*/ (defineComponent({
 			name: "TODOSliceComponent",

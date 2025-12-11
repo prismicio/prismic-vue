@@ -12,10 +12,6 @@ Replace all on all files (README.md, CONTRIBUTING.md, bug_report.md, package.jso
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![Github Actions CI][github-actions-ci-src]][github-actions-ci-href]
-[![Codecov][codecov-src]][codecov-href]
-[![Conventional Commits][conventional-commits-src]][conventional-commits-href]
-[![License][license-src]][license-href]
 
 <!-- Replacing link to Prismic with [Prismic][prismic] is useful here -->
 
@@ -52,7 +48,7 @@ For more clarity on this project and its structure you can also check out the de
 ## License
 
 ```
-   Copyright 2013-2024 Prismic <contact@prismic.io> (https://prismic.io)
+   Copyright 2013-2025 Prismic <contact@prismic.io> (https://prismic.io)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -85,7 +81,7 @@ For more clarity on this project and its structure you can also check out the de
 
 <!-- Replace link with a more useful one if available -->
 
-[forum-question]: https://community.prismic.io/c/kits-and-dev-languages/vue-js/16
+[forum-question]: https://community.prismic.io
 [repo-bug-report]: https://github.com/prismicio/prismic-vue/issues/new?assignees=&labels=bug&template=bug_report.md&title=
 [repo-feature-request]: https://github.com/prismicio/prismic-vue/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
 [repo-pull-requests]: https://github.com/prismicio/prismic-vue/pulls
@@ -96,11 +92,3 @@ For more clarity on this project and its structure you can also check out the de
 [npm-version-href]: https://npmjs.com/package/@prismicio/vue
 [npm-downloads-src]: https://img.shields.io/npm/dm/@prismicio/vue.svg
 [npm-downloads-href]: https://npmjs.com/package/@prismicio/vue
-[github-actions-ci-src]: https://github.com/prismicio/prismic-vue/workflows/ci/badge.svg
-[github-actions-ci-href]: https://github.com/prismicio/prismic-vue/actions?query=workflow%3Aci
-[codecov-src]: https://img.shields.io/codecov/c/github/prismicio/prismic-vue.svg
-[codecov-href]: https://codecov.io/gh/prismicio/prismic-vue
-[conventional-commits-src]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg
-[conventional-commits-href]: https://conventionalcommits.org
-[license-src]: https://img.shields.io/npm/l/@prismicio/vue.svg
-[license-href]: https://npmjs.com/package/@prismicio/vue
