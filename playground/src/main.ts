@@ -1,7 +1,61 @@
 import { createApp } from "vue"
+import type { RouteRecordRaw } from "vue-router"
+import { createRouter, createWebHistory } from "vue-router"
 
 import App from "./App.vue"
-import prismic from "./prismic"
-import router from "./router"
 
-createApp(App).use(router).use(prismic).mount("#app")
+const routes: Array<RouteRecordRaw> = [
+	{
+		path: "/",
+		name: "Index",
+		component: () =>
+			import(/* webpackChunkName: "index" */ "../views/index.vue"),
+	},
+	{
+		path: "/components/image",
+		name: "ComponentsImage",
+		component: () =>
+			import(
+				/* webpackChunkName: "components--image" */ "../views/components/image.vue"
+			),
+	},
+	{
+		path: "/components/link",
+		name: "ComponentsLink",
+		component: () =>
+			import(
+				/* webpackChunkName: "components--link" */ "../views/components/link.vue"
+			),
+	},
+	{
+		path: "/components/text",
+		name: "ComponentsText",
+		component: () =>
+			import(
+				/* webpackChunkName: "components--text" */ "../views/components/text.vue"
+			),
+	},
+	{
+		path: "/components/richtext",
+		name: "ComponentsRichText",
+		component: () =>
+			import(
+				/* webpackChunkName: "components--richtext" */ "../views/components/richtext.vue"
+			),
+	},
+	{
+		path: "/components/slicezone",
+		name: "ComponentsSliceZone",
+		component: () =>
+			import(
+				/* webpackChunkName: "components--slicezone" */ "../views/components/slicezone.vue"
+			),
+	},
+]
+
+const router = createRouter({
+	history: createWebHistory(),
+	routes,
+})
+
+createApp(App).use(router).mount("#app")

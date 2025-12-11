@@ -10,8 +10,6 @@ import { computed, watchEffect } from "vue"
 
 import { devMsg } from "./lib/devMsg"
 
-import { usePrismic } from "./usePrismic"
-
 /**
  * Props for `<PrismicImage />`.
  */
@@ -104,8 +102,6 @@ export type PrismicImageProps = {
 const props = defineProps<PrismicImageProps>()
 defineOptions({ name: "PrismicImage" })
 
-const { options } = usePrismic()
-
 if (DEV) {
 	watchEffect(() => {
 		if (typeof props.alt === "string" && props.alt !== "") {
@@ -156,10 +152,7 @@ const image = computed(() => {
 	if (props.widths || !props.pixelDensities) {
 		const res = asImageWidthSrcSet(props.field, {
 			...props.imgixParams,
-			widths:
-				props.widths === "defaults"
-					? options.components?.imageWidthSrcSetDefaults
-					: props.widths,
+			widths: props.widths === "defaults" ? undefined : props.widths,
 		})
 
 		src = res.src
@@ -168,9 +161,7 @@ const image = computed(() => {
 		const res = asImagePixelDensitySrcSet(props.field, {
 			...props.imgixParams,
 			pixelDensities:
-				props.pixelDensities === "defaults"
-					? options.components?.imagePixelDensitySrcSetDefaults
-					: props.pixelDensities,
+				props.pixelDensities === "defaults" ? undefined : props.pixelDensities,
 		})
 
 		src = res.src

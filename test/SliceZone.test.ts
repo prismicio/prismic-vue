@@ -4,10 +4,7 @@ import { flushPromises, mount } from "@vue/test-utils"
 import type { DefineComponent } from "vue"
 import { defineAsyncComponent, markRaw } from "vue"
 
-import {
-	WrapperComponent,
-	createWrapperComponent,
-} from "./__fixtures__/WrapperComponent"
+import { createWrapperComponent } from "./__fixtures__/WrapperComponent"
 
 import type {
 	SliceComponentProps,
@@ -17,7 +14,6 @@ import type {
 } from "../src"
 import {
 	SliceZone,
-	createPrismic,
 	defineSliceZoneComponents,
 	getSliceComponentProps,
 } from "../src"
@@ -149,7 +145,7 @@ describe("renders a slice zone", () => {
 			},
 		})
 
-		expect(wrapper.html()).toBe("<!--v-if-->")
+		expect(wrapper.html()).toBe("")
 	})
 })
 
@@ -256,48 +252,7 @@ describe("renders TODO component if component mapping is missing", () => {
 		vi.resetAllMocks()
 	})
 
-	it("from plugin", () => {
-		const Foo = createWrapperComponent<SliceComponentType>(
-			"Foo",
-			getSliceComponentProps(),
-		)
-		const Bar = createWrapperComponent<SliceComponentType>(
-			"Bar",
-			getSliceComponentProps(),
-		)
-
-		const prismic = createPrismic({
-			endpoint: "test",
-			components: { sliceZoneDefaultComponent: Bar },
-		})
-
-		const wrapper = mount(SliceZone, {
-			props: {
-				slices: [
-					{ id: "1", slice_type: "foo" },
-					{ id: "2", slice_type: "bar" },
-				],
-				components: defineSliceZoneComponents({
-					foo: Foo,
-				}),
-			},
-			global: {
-				plugins: [prismic],
-			},
-		})
-
-		expect(wrapper.html()).toBe(
-			`<div class="wrapperComponentFoo"></div>
-<div class="wrapperComponentBar"></div>`,
-		)
-	})
-
-	it("from props (priority over plugin)", () => {
-		const prismic = createPrismic({
-			endpoint: "test",
-			components: { sliceZoneDefaultComponent: Bar },
-		})
-
+	it("from props", () => {
 		const wrapper = mount(SliceZone, {
 			props: {
 				slices: [
@@ -309,115 +264,11 @@ describe("renders TODO component if component mapping is missing", () => {
 				}),
 				defaultComponent: markRaw(Baz),
 			},
-			global: {
-				plugins: [prismic],
-			},
 		})
 
 		expect(wrapper.html()).toBe(
 			`<div class="wrapperComponentFoo"></div>
 <div class="wrapperComponentBaz"></div>`,
-		)
-	})
-})
-
-describe("renders with wrapper", () => {
-	it("tag", () => {
-		const Foo = createWrapperComponent<SliceComponentType>(
-			"Foo",
-			getSliceComponentProps(),
-		)
-		const Bar = createWrapperComponent<SliceComponentType>(
-			"Bar",
-			getSliceComponentProps(),
-		)
-
-		const wrapper = mount(SliceZone, {
-			props: {
-				slices: [
-					{ id: "1", slice_type: "foo" },
-					{ id: "2", slice_type: "bar" },
-				],
-				components: defineSliceZoneComponents({
-					foo: Foo,
-					bar: Bar,
-				}),
-				wrapper: "main",
-			},
-		})
-
-		expect(wrapper.html()).toBe(
-			`<main>
-  <div class="wrapperComponentFoo"></div>
-  <div class="wrapperComponentBar"></div>
-</main>`,
-		)
-	})
-
-	it("component", () => {
-		const Foo = createWrapperComponent<SliceComponentType>(
-			"Foo",
-			getSliceComponentProps(),
-		)
-		const Bar = createWrapperComponent<SliceComponentType>(
-			"Bar",
-			getSliceComponentProps(),
-		)
-
-		const wrapper = mount(SliceZone, {
-			props: {
-				slices: [
-					{ id: "1", slice_type: "foo" },
-					{ id: "2", slice_type: "bar" },
-				],
-				components: defineSliceZoneComponents({
-					foo: Foo,
-					bar: Bar,
-				}),
-				wrapper: markRaw(WrapperComponent),
-			},
-		})
-
-		expect(wrapper.html()).toBe(
-			`<div class="wrapperComponent">
-  <div class="wrapperComponentFoo"></div>
-  <div class="wrapperComponentBar"></div>
-</div>`,
-		)
-	})
-
-	it("forwards attributes to wrapper", () => {
-		const Foo = createWrapperComponent<SliceComponentType>(
-			"Foo",
-			getSliceComponentProps(),
-		)
-		const Bar = createWrapperComponent<SliceComponentType>(
-			"Bar",
-			getSliceComponentProps(),
-		)
-
-		const wrapper = mount(SliceZone, {
-			props: {
-				slices: [
-					{ id: "1", slice_type: "foo" },
-					{ id: "2", slice_type: "bar" },
-				],
-				components: defineSliceZoneComponents({
-					foo: Foo,
-					bar: Bar,
-				}),
-				wrapper: "main",
-			},
-			attrs: {
-				class: "foo",
-			},
-		})
-
-		expect(wrapper.html()).toBe(
-			`<main class="foo">
-  <div class="wrapperComponentFoo"></div>
-  <div class="wrapperComponentBar"></div>
-</main>`,
 		)
 	})
 })

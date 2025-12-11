@@ -153,7 +153,7 @@ describe("renders a table field", () => {
 			},
 		})
 
-		expect(output.html()).toBe("")
+		expect(output.html()).toBe("<!--v-if-->")
 	})
 })
 

@@ -12,8 +12,6 @@ import { isInternalURL } from "./lib/isInternalURL"
 
 import type { ComponentOrTagName } from "./types"
 
-import { usePrismic } from "./usePrismic"
-
 /**
  * The default component rendered for internal URLs.
  */
@@ -47,36 +45,20 @@ export type PrismicLinkProps = {
 	 * The `rel` attribute for the link. By default, `"noreferrer"` is provided if
 	 * the link's URL is external. This prop can be provided a function to use the
 	 * link's metadata to determine the `rel` value.
-	 *
-	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured.
 	 */
 	rel?: string | AsLinkAttrsConfig["rel"]
 
 	/**
-	 * An HTML tag name or a component used to render internal links.
+	 * The Vue component rendered for links when the URL is internal.
 	 *
-	 * @remarks
-	 * HTML tag names will be rendered using the anchor tag interface (`href`,
-	 * `target`, and `rel` attributes).
-	 * @remarks
-	 * Components will be rendered using Vue Router {@link RouterLink} interface
-	 * (`to` props).
-	 *
-	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, {@link RouterLink} otherwise.
+	 * @defaultValue `<RouterLink>`
 	 */
 	internalComponent?: ComponentOrTagName
 
 	/**
-	 * An HTML tag name or a component used to render external links.
+	 * The Vue component rendered for links when the URL is external.
 	 *
-	 * @remarks
-	 * HTML tag names will be rendered using the anchor tag interface (`href`,
-	 * `target`, and `rel` attributes).
-	 * @remarks
-	 * Components will be rendered using Vue Router {@link RouterLink} interface
-	 * (`to` props).
-	 *
-	 * @defaultValue The one provided to `@prismicio/vue` plugin if configured, `"a"` otherwise.
+	 * @defaultValue `<a>`
 	 */
 	externalComponent?: ComponentOrTagName
 } & (
@@ -99,15 +81,12 @@ export type PrismicLinkProps = {
 const props = defineProps<PrismicLinkProps>()
 defineOptions({ name: "PrismicLink" })
 
-const { options } = usePrismic()
-
 const rawAttrs = computed(() => {
 	return asLinkAttrs(props.field || props.document, {
-		linkResolver: props.linkResolver || options.linkResolver,
+		linkResolver: props.linkResolver,
 		rel(args) {
-			const maybeRel = props.rel || options.components?.linkRel
-			if (maybeRel) {
-				return typeof maybeRel === "function" ? maybeRel(args) : maybeRel
+			if (props.rel) {
+				return typeof props.rel === "function" ? props.rel(args) : props.rel
 			}
 
 			return args.isExternal ? defaultExternalRelAttribute : undefined
@@ -117,12 +96,8 @@ const rawAttrs = computed(() => {
 
 const component = computed(() => {
 	return isInternalURL(rawAttrs.value.href || "")
-		? props.internalComponent ||
-				options.components?.linkInternalComponent ||
-				defaultInternalComponent
-		: props.externalComponent ||
-				options.components?.linkExternalComponent ||
-				defaultExternalComponent
+		? props.internalComponent || defaultInternalComponent
+		: props.externalComponent || defaultExternalComponent
 })
 
 // Match Vue Router's `<RouterLink />` interface unless the component is an anchor tag.

@@ -1,17 +1,12 @@
 <script lang="ts" setup>
 import { computed } from "vue"
 
-import Wrapper from "../lib/Wrapper.vue"
-
-import type { ComponentOrTagName } from "../types"
 import type {
 	SliceComponentType,
 	SliceLike,
 	SliceZoneComponents,
 	SliceZoneLike,
 } from "./types"
-
-import { usePrismic } from "../usePrismic"
 
 import { TODOSliceComponent } from "./TODOSliceComponent"
 
@@ -47,22 +42,14 @@ export type SliceZoneProps<TContext = unknown> = {
 	 * Arbitrary data made available to all Slice components.
 	 */
 	context?: TContext
-
-	/**
-	 * An HTML tag name or a component used to wrap the output. `<SliceZone />` is
-	 * not wrapped by default.
-	 *
-	 * @defaultValue `"template"` (no wrapper)
-	 */
-	wrapper?: ComponentOrTagName
 }
 
 const props = defineProps<SliceZoneProps>()
 defineOptions({ name: "SliceZone" })
 
-const { options } = usePrismic()
-
 const renderedSlices = computed(() => {
+	if (!props.slices) return []
+
 	return props.slices.map((slice, index) => {
 		const type =
 			"slice_type" in slice ? (slice.slice_type as string) : slice.type
@@ -72,10 +59,7 @@ const renderedSlices = computed(() => {
 				? slice.id
 				: `${index}-${JSON.stringify(slice)}`
 
-		const is =
-			props.components?.[type] ||
-			props.defaultComponent ||
-			options.components?.sliceZoneDefaultComponent
+		const is = props.components?.[type] || props.defaultComponent
 
 		if (!is) {
 			return { is: TODOSliceComponent, key, props: { slice } }
@@ -102,12 +86,10 @@ const renderedSlices = computed(() => {
 </script>
 
 <template>
-	<Wrapper v-if="slices" :wrapper="wrapper">
-		<component
-			v-for="renderedSlice in renderedSlices"
-			:is="renderedSlice.is"
-			:key="renderedSlice.key"
-			v-bind="renderedSlice.props"
-		/>
-	</Wrapper>
+	<component
+		v-for="renderedSlice in renderedSlices"
+		:is="renderedSlice.is"
+		:key="renderedSlice.key"
+		v-bind="renderedSlice.props"
+	/>
 </template>

@@ -1,24 +1,15 @@
 <script lang="ts" setup>
 import {
-	type HTMLRichTextFunctionSerializer,
-	type HTMLRichTextMapSerializer,
 	type LinkResolverFunction,
 	type RichTextField,
-	isFilled,
 } from "@prismicio/client"
 import { asTree } from "@prismicio/client/richtext"
-import { DEV } from "esm-env"
 import type { PropType } from "vue"
-import { computed, watchEffect } from "vue"
-
-import Wrapper from "../lib/Wrapper.vue"
+import { computed } from "vue"
 
 import type { ComponentOrTagName } from "../types"
 import type { VueRichTextSerializer } from "./types"
 
-import { usePrismic } from "../usePrismic"
-
-import DeprecatedPrismicRichText from "./DeprecatedPrismicRichText.vue"
 import PrismicRichTextSerialize from "./PrismicRichTextSerialize.vue"
 
 /**
@@ -29,12 +20,6 @@ export type PrismicRichTextProps = {
 	 * The Prismic rich text or title field to render.
 	 */
 	field: RichTextField | null | undefined
-
-	/**
-	 * The value to be rendered when the field is empty. If a fallback is not
-	 * given, `null` (nothing) will be rendered.
-	 */
-	fallback?: ComponentOrTagName
 
 	/**
 	 * An object that maps a rich text block type to a Vue component.
@@ -60,24 +45,24 @@ export type PrismicRichTextProps = {
 	linkResolver?: LinkResolverFunction
 
 	/**
-	 * An HTML serializer to customize the way rich text fields are rendered.
+	 * The Vue component rendered for links when the URL is internal.
 	 *
-	 * @deprecated Use `components` instead.
-	 *
-	 * @defaultValue The HTML serializer provided to `@prismicio/vue` plugin if configured.
-	 *
-	 * @see HTML serializer documentation {@link https://prismic.io/docs/core-concepts/html-serializer}
+	 * @defaultValue `<RouterLink>`
 	 */
-	// TODO: Remove in v6
-	serializer?: HTMLRichTextFunctionSerializer | HTMLRichTextMapSerializer
+	internalLinkComponent?: ComponentOrTagName
 
 	/**
-	 * An HTML tag name or a component used to wrap the output. `<PrismicText />`
-	 * is not wrapped by default.
+	 * The Vue component rendered for links when the URL is external.
 	 *
-	 * @defaultValue `"template"` (no wrapper)
+	 * @defaultValue `<a>`
 	 */
-	wrapper?: ComponentOrTagName
+	externalLinkComponent?: ComponentOrTagName
+
+	/**
+	 * The value to be rendered when the field is empty. If a fallback is not
+	 * given, `null` (nothing) will be rendered.
+	 */
+	fallback?: ComponentOrTagName
 }
 
 // We're forced to declare props using the JavaScript syntax because `@vue/compiler-sfc`
@@ -86,98 +71,43 @@ const props = defineProps({
 	field: {
 		type: Array as unknown as PropType<PrismicRichTextProps["field"]>,
 	},
-	fallback: {
-		type: [String, Object, Function] as PropType<
-			PrismicRichTextProps["fallback"]
-		>,
-	},
 	components: {
 		type: Object as PropType<PrismicRichTextProps["components"]>,
 	},
 	linkResolver: {
 		type: Function as PropType<PrismicRichTextProps["linkResolver"]>,
 	},
-	serializer: {
-		type: [Object, Function] as PropType<PrismicRichTextProps["serializer"]>,
-	},
-	wrapper: {
+	internalLinkComponent: {
 		type: [String, Object, Function] as PropType<
-			PrismicRichTextProps["wrapper"]
+			PrismicRichTextProps["internalLinkComponent"]
+		>,
+	},
+	externalLinkComponent: {
+		type: [String, Object, Function] as PropType<
+			PrismicRichTextProps["externalLinkComponent"]
+		>,
+	},
+	fallback: {
+		type: [String, Object, Function] as PropType<
+			PrismicRichTextProps["fallback"]
 		>,
 	},
 })
 defineOptions({ name: "PrismicRichText" })
 
-const { options } = usePrismic()
-
-const resolvedComponents = computed(() => {
-	return props.components || options.components?.richTextComponents
-})
-
-const resolvedLinkResolver = computed(() => {
-	return props.linkResolver || options.linkResolver
-})
-
 const children = computed(() => {
 	return asTree(props.field || []).children
 })
-
-const isModern = computed(() => {
-	// Explicit components prop
-	if (props.components) {
-		return true
-	}
-
-	// Explicit serializer prop
-	if (props.serializer) {
-		return false
-	}
-
-	// Global components option
-	if (options.components?.richTextComponents) {
-		return true
-	}
-
-	// Global serializer option
-	if (options.richTextSerializer) {
-		return false
-	}
-
-	// Default to modern
-	return true
-})
-
-if (DEV) {
-	watchEffect(() => {
-		// TODO: Remove in v6
-		if (props.components && props.serializer) {
-			console.warn(
-				`[PrismicRichText] Only one of "components" or "serializer" (deprecated) props can be provided. You can resolve this warning by removing either the "components" or "serializer" prop. "components" will be used in this case.`,
-			)
-		}
-	})
-}
 </script>
 
 <template>
-	<Wrapper
-		v-if="isModern && (isFilled.richText(field) || fallback)"
-		:wrapper="wrapper"
-	>
-		<PrismicRichTextSerialize
-			v-if="children.length"
-			:children="children"
-			:components="resolvedComponents"
-			:link-resolver="resolvedLinkResolver"
-		/>
-		<component v-else :is="fallback" />
-	</Wrapper>
-	<DeprecatedPrismicRichText
-		v-else-if="!isModern"
-		:field="field"
-		:fallback="typeof fallback === 'string' ? fallback : undefined"
+	<PrismicRichTextSerialize
+		v-if="children.length"
+		:children="children"
+		:components="components"
 		:link-resolver="linkResolver"
-		:serializer="serializer"
-		:wrapper="wrapper"
+		:internal-link-component="internalLinkComponent"
+		:external-link-component="externalLinkComponent"
 	/>
+	<component v-else-if="fallback" :is="fallback" />
 </template>

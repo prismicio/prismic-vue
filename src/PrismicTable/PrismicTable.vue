@@ -20,12 +20,6 @@ export type PrismicTableProps = {
 	field: TableField | undefined
 
 	/**
-	 * The value to be rendered when the field is empty. If a fallback is not
-	 * given, `null` (nothing) will be rendered.
-	 */
-	fallback?: ComponentOrTagName
-
-	/**
 	 * An object that maps a table block type to a Vue component.
 	 *
 	 * @example
@@ -37,6 +31,12 @@ export type PrismicTableProps = {
 	 * ```
 	 */
 	components?: VueTableComponents & VueRichTextSerializer
+
+	/**
+	 * The value to be rendered when the field is empty. If a fallback is not
+	 * given, `null` (nothing) will be rendered.
+	 */
+	fallback?: ComponentOrTagName
 }
 
 const props = defineProps<PrismicTableProps>()
@@ -76,5 +76,5 @@ const mergedComponents = computed(() => ({
 			/>
 		</component>
 	</component>
-	<component v-else :is="fallback" />
+	<component v-else-if="fallback" :is="fallback" />
 </template>
