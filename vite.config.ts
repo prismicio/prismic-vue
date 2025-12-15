@@ -1,18 +1,20 @@
 /// <reference types="vitest/config" />
 import vue from "@vitejs/plugin-vue"
 import { defineConfig } from "vite"
-import dts from "vite-plugin-dts"
-import sdk from "vite-plugin-sdk"
 
 export default defineConfig({
-	plugins: [sdk(), vue(), dts({ include: "src/**/*.vue" })],
+	plugins: [vue()],
 	test: {
-		environment: "jsdom",
+		setupFiles: ["./test/__setup__"],
+		typecheck: {
+			enabled: true,
+			checker: "vue-tsc",
+		},
 		coverage: {
+			provider: "v8",
 			reporter: ["lcovonly", "text"],
 			include: ["src"],
 		},
-		setupFiles: ["./test/__setup__"],
-		typecheck: { checker: "vue-tsc" },
+		environment: "jsdom",
 	},
 })

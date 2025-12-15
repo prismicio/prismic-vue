@@ -1,7 +1,6 @@
 // TODO: Remove in v6
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
-import type { RichTextNodeTypes } from "@prismicio/client"
 import { RichTextNodeType } from "@prismicio/client"
 import { flushPromises, mount } from "@vue/test-utils"
 import { markRaw } from "vue"
@@ -210,7 +209,7 @@ describe("uses link resolver", () => {
 
 describe("uses HTML serializer", () => {
 	it("function from plugin", (ctx) => {
-		const spiedSerializer = vi.fn((type: RichTextNodeTypes) =>
+		const spiedSerializer = vi.fn((type) =>
 			type === RichTextNodeType.paragraph ? `<p>${ctx.task.name}</p>` : null,
 		)
 
@@ -252,10 +251,10 @@ describe("uses HTML serializer", () => {
 	})
 
 	it("function from props (priority over plugin)", (ctx) => {
-		const spiedSerializer1 = vi.fn((type: RichTextNodeTypes) =>
+		const spiedSerializer1 = vi.fn((type) =>
 			type === RichTextNodeType.paragraph ? `<p>${ctx.task.name}1</p>` : null,
 		)
-		const spiedSerializer2 = vi.fn((type: RichTextNodeTypes) =>
+		const spiedSerializer2 = vi.fn((type) =>
 			type === RichTextNodeType.paragraph ? `<p>${ctx.task.name}2</p>` : null,
 		)
 
