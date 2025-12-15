@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest"
 
 import { mount } from "@vue/test-utils"
 
-import { PrismicImage, createPrismic } from "../src"
+import { PrismicImage } from "../src"
 
 describe("renders an image field", () => {
 	it("empty", () => {
@@ -55,28 +55,6 @@ describe("renders a width-based srcset", () => {
 		)
 	})
 
-	it("with plugin's default widths if widths is `defaults`", (ctx) => {
-		const prismic = createPrismic({
-			endpoint: "test",
-			components: {
-				imageWidthSrcSetDefaults: [400, 500, 600],
-			},
-		})
-
-		const wrapper = mount(PrismicImage, {
-			props: {
-				field: ctx.mock.value.image(),
-				imgixParams: { sat: 100 },
-				widths: "defaults",
-			},
-			global: { plugins: [prismic] },
-		})
-
-		expect(wrapper.html()).toMatchInlineSnapshot(
-			`"<img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2560&amp;h=1705&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?fit=crop&amp;sat=100&amp;width=400 400w, https://images.unsplash.com/photo-1441974231531-c6227db76b6e?fit=crop&amp;sat=100&amp;width=500 500w, https://images.unsplash.com/photo-1441974231531-c6227db76b6e?fit=crop&amp;sat=100&amp;width=600 600w" alt="Sed arcu non odio euismod lacinia at" width="2560" height="1705">"`,
-		)
-	})
-
 	it("with the field's responsive views if widths is `thumbnails`", (ctx) => {
 		const wrapper = mount(PrismicImage, {
 			props: {
@@ -123,28 +101,6 @@ describe("renders a pixel-density srcset", () => {
 
 		expect(wrapper.html()).toMatchInlineSnapshot(
 			`"<img src="https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100&amp;dpr=1 1x, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100&amp;dpr=2 2x, https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=6000&amp;h=4000&amp;fit=crop&amp;sat=100&amp;dpr=3 3x" alt="Nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum" width="6000" height="4000">"`,
-		)
-	})
-
-	it("with plugin's default densities if pixelDensities is `defaults`", (ctx) => {
-		const prismic = createPrismic({
-			endpoint: "test",
-			components: {
-				imagePixelDensitySrcSetDefaults: [3, 4],
-			},
-		})
-
-		const wrapper = mount(PrismicImage, {
-			props: {
-				field: ctx.mock.value.image(),
-				imgixParams: { sat: 100 },
-				pixelDensities: "defaults",
-			},
-			global: { plugins: [prismic] },
-		})
-
-		expect(wrapper.html()).toMatchInlineSnapshot(
-			`"<img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;sat=100" srcset="https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;sat=100&amp;dpr=3 3x, https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=4608&amp;h=3456&amp;fit=crop&amp;sat=100&amp;dpr=4 4x" alt="Gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing" width="4608" height="3456">"`,
 		)
 	})
 })

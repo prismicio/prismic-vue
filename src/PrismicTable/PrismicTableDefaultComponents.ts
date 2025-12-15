@@ -1,44 +1,63 @@
 import { defineComponent, h } from "vue"
+import type { PropType } from "vue"
 
-import type { VueTableComponents } from "./types"
+import type { InternalVueTableComponents } from "./types"
 
 import * as getTableComponentProps from "./getTableComponentProps"
 
-export const defaultTableComponents: Required<VueTableComponents> = {
+export const defaultTableComponents: InternalVueTableComponents = {
 	table: defineComponent({
-		props: getTableComponentProps.table(),
-		setup(props, { slots }) {
-			return () => h("table", slots.default ? slots.default() : [])
+		props: {
+			...getTableComponentProps.table(),
+			as: { type: String as PropType<string | undefined> },
+		},
+		setup(props, { attrs, slots }) {
+			return () => h(props.as ?? "table", attrs, slots.default ? slots.default() : [])
 		},
 	}),
 	thead: defineComponent({
-		props: getTableComponentProps.thead(),
-		setup(props, { slots }) {
-			return () => h("thead", slots.default ? slots.default() : [])
+		props: {
+			...getTableComponentProps.thead(),
+			as: { type: String as PropType<string | undefined> },
+		},
+		setup(props, { attrs, slots }) {
+			return () => h(props.as ?? "thead", attrs, slots.default ? slots.default() : [])
 		},
 	}),
 	tbody: defineComponent({
-		props: getTableComponentProps.tbody(),
-		setup(props, { slots }) {
-			return () => h("tbody", slots.default ? slots.default() : [])
+		props: {
+			...getTableComponentProps.tbody(),
+			as: { type: String as PropType<string | undefined> },
+		},
+		setup(props, { attrs, slots }) {
+			return () => h(props.as ?? "tbody", attrs, slots.default ? slots.default() : [])
 		},
 	}),
 	tr: defineComponent({
-		props: getTableComponentProps.tr(),
-		setup(props, { slots }) {
-			return () => h("tr", slots.default ? slots.default() : [])
+		props: {
+			...getTableComponentProps.tr(),
+			as: { type: String as PropType<string | undefined> },
+		},
+		setup(props, { attrs, slots }) {
+			return () => h(props.as ?? "tr", attrs, slots.default ? slots.default() : [])
 		},
 	}),
 	th: defineComponent({
-		props: getTableComponentProps.th(),
-		setup(props, { slots }) {
-			return () => h("th", slots.default ? slots.default() : [])
+		props: {
+			...getTableComponentProps.th(),
+			as: { type: String as PropType<string | undefined> },
+		},
+		setup(props, { attrs, slots }) {
+			return () => h(props.as ?? "th", attrs, slots.default ? slots.default() : [])
 		},
 	}),
 	td: defineComponent({
-		props: getTableComponentProps.td(),
-		setup(props, { slots }) {
-			return () => h("td", slots.default ? slots.default() : [])
+		props: {
+			...getTableComponentProps.td(),
+			as: { type: String as PropType<string | undefined> },
+		},
+		setup(props, { attrs, slots }) {
+			return () => h(props.as ?? "td", attrs, slots.default ? slots.default() : [])
 		},
 	}),
 }

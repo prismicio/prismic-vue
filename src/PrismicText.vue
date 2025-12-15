@@ -1,13 +1,10 @@
 <script lang="ts" setup>
 import type { RichTextField } from "@prismicio/client"
-import { asText, isFilled } from "@prismicio/client"
+import { asText } from "@prismicio/client"
 import { DEV } from "esm-env"
 import { watchEffect } from "vue"
 
-import Wrapper from "./lib/Wrapper.vue"
 import { devMsg } from "./lib/devMsg"
-
-import type { ComponentOrTagName } from "./types"
 
 /**
  * Props for `<PrismicText />`.
@@ -30,14 +27,6 @@ export type PrismicTextProps = {
 	 * @defaultValue `" "` (a whitespace)
 	 */
 	separator?: string
-
-	/**
-	 * An HTML tag name or a component used to wrap the output. `<PrismicText />`
-	 * is not wrapped by default.
-	 *
-	 * @defaultValue `"template"` (no wrapper)
-	 */
-	wrapper?: ComponentOrTagName
 }
 
 const props = defineProps<PrismicTextProps>()
@@ -57,7 +46,5 @@ if (DEV) {
 </script>
 
 <template>
-	<Wrapper v-if="isFilled.richText(field) || fallback" :wrapper="wrapper">
-		{{ asText(field) || fallback }}
-	</Wrapper>
+	{{ asText(field) || fallback || "" }}
 </template>

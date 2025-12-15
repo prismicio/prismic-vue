@@ -12,7 +12,7 @@ import type {
  * @see Templating Rich Text and title fields from Prismic {@link https://prismic.io/docs/rich-text}
  */
 export type VueRichTextSerializer = Partial<
-	Record<keyof typeof RichTextNodeType, VueRichTextComponent>
+	Record<keyof typeof RichTextNodeType, VueRichTextComponent | VueShorthand>
 >
 
 /**
@@ -35,3 +35,18 @@ type VueRichTextComponent<TRTNode extends RTAnyNode = RTAnyNode> =
 	| ReturnType<typeof defineAsyncComponent>
 	| DefineComponent<RichTextComponentProps<TRTNode>>
 	| FunctionalComponent<RichTextComponentProps<TRTNode>>
+
+/**
+ * A shorthand definition for {@link VueRichTextSerializer} component types.
+ */
+export type VueShorthand = {
+	/**
+	 * The HTML element type rendered for this node type.
+	 */
+	as?: string
+
+	/**
+	 * Other attributes to apply to the element type.
+	 */
+	[Attribute: string]: string | boolean | null | undefined
+}
