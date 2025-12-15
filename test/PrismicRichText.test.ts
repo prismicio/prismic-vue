@@ -110,20 +110,32 @@ describe("uses shorthand serializer", () => {
 						text: "Heading 1",
 						spans: [],
 					},
+					{
+						type: RichTextNodeType.heading2,
+						text: "Heading 2",
+						spans: [],
+					},
 				],
 				components: {
 					heading1: {
-						as: "h2",
 						class: "heading-1",
 						"data-testid": "heading-1",
+					},
+					heading2: {
+						as: "h3",
+						class: "heading-2",
+						"data-testid": "heading-2",
 					},
 				},
 			},
 		})
 
-		expect(wrapper.html()).toBe(`<h2 class="heading-1" data-testid="heading-1">
+		expect(wrapper.html()).toBe(`<h1 class="heading-1" data-testid="heading-1">
   <!--v-if-->Heading 1
-</h2>`)
+</h1>
+<h3 class="heading-2" data-testid="heading-2">
+  <!--v-if-->Heading 2
+</h3>`)
 	})
 })
 

@@ -267,55 +267,55 @@ describe("uses table shorthands", () => {
 					table: { as: "div", class: "table" },
 					thead: { as: "div", class: "thead" },
 					tbody: { as: "div", class: "tbody" },
-					tr: { as: "div", class: "tr" },
-					th: { as: "div", class: "th" },
-					td: { as: "div", class: "td" },
+					tr: { class: "tr" },
+					th: { class: "th" },
+					td: { class: "td" },
 				},
 			},
 		})
 
 		expect(output.html()).toBe(`<div class="table">
   <div class="thead">
-    <div class="tr">
-      <div class="th">
+    <tr class="tr">
+      <th class="th">
         <p>
           <!--v-if-->Method
         </p>
-      </div>
-      <div class="th">
+      </th>
+      <th class="th">
         <p>
           <!--v-if-->Usage
         </p>
-      </div>
-    </div>
+      </th>
+    </tr>
   </div>
   <div class="tbody">
-    <div class="tr">
-      <div class="th">
+    <tr class="tr">
+      <th class="th">
         <p>
           <!--v-if-->GET
         </p>
-      </div>
-      <div class="td">
+      </th>
+      <td class="td">
         <p>
           <!--v-if-->For <strong><!--v-if-->basic retrieval</strong>
           <!--v-if--> of information…
         </p>
-      </div>
-    </div>
-    <div class="tr">
-      <div class="th">
+      </td>
+    </tr>
+    <tr class="tr">
+      <th class="th">
         <p>
           <!--v-if-->DELETE
         </p>
-      </div>
-      <div class="td">
+      </th>
+      <td class="td">
         <p>
           <!--v-if-->To <em><!--v-if-->dest</em>
           <!--v-if-->roy a resource and remove…
         </p>
-      </div>
-    </div>
+      </td>
+    </tr>
   </div>
 </div>`)
 	})
