@@ -1,9 +1,10 @@
-import type { RTAnyNode, RichTextNodeType } from "@prismicio/client"
 import type {
-	DefineComponent,
-	FunctionalComponent,
-	defineAsyncComponent,
-} from "vue"
+	LinkResolverFunction,
+	RTAnyNode,
+	RichTextNodeType,
+} from "@prismicio/client"
+
+import type { VueComponent } from "../types"
 
 /**
  * A map of Rich Text block types to Vue Components. It is used to render Rich
@@ -27,14 +28,9 @@ export type RichTextComponentProps<TRTNode extends RTAnyNode = RTAnyNode> = {
  *
  * @typeParam TRTNode - The type of rich text node(s) this component handles
  */
-type VueRichTextComponent<TRTNode extends RTAnyNode = RTAnyNode> =
-	// For reference within TypeScript files when `*.vue` type cannot be inferred
-	// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-	| DefineComponent<{}, {}, any>
-	// Likewise, for reference with TypeScript files.
-	| ReturnType<typeof defineAsyncComponent>
-	| DefineComponent<RichTextComponentProps<TRTNode>>
-	| FunctionalComponent<RichTextComponentProps<TRTNode>>
+type VueRichTextComponent<TRTNode extends RTAnyNode = RTAnyNode> = VueComponent<
+	RichTextComponentProps<TRTNode>
+>
 
 /**
  * A shorthand definition for {@link VueRichTextSerializer} component types.
@@ -50,3 +46,11 @@ export type VueShorthand = {
 	 */
 	[Attribute: string]: string | boolean | null | undefined
 }
+
+export type InternalVueRichTextComponent = Record<
+	(typeof RichTextNodeType)[keyof typeof RichTextNodeType],
+	{
+		is: VueRichTextComponent
+		props?: { linkResolver?: LinkResolverFunction; shorthand?: VueShorthand }
+	}
+>

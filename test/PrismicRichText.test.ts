@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest"
 
 import type { RichTextField } from "@prismicio/client"
-import { LinkType, RichTextNodeType } from "@prismicio/client"
+import { RichTextNodeType } from "@prismicio/client"
 import { mount } from "@vue/test-utils"
 import { markRaw } from "vue"
 
@@ -100,115 +100,30 @@ describe("uses components serializer", () => {
 	})
 })
 
-describe("renders external links using component", () => {
-	it("from props", (ctx) => {
+describe("uses shorthand serializer", () => {
+	it("from props", () => {
 		const wrapper = mount(PrismicRichText, {
 			props: {
 				field: [
 					{
 						type: RichTextNodeType.heading1,
 						text: "Heading 1",
-						spans: [
-							{
-								start: 0,
-								end: 7,
-								type: RichTextNodeType.hyperlink,
-								data: {
-									...ctx.mock.value.link({
-										type: LinkType.Web,
-										withTargetBlank: false,
-									}),
-									url: "https://example.com",
-								},
-							},
-						],
+						spans: [],
 					},
 				],
-				externalLinkComponent: markRaw(createWrapperComponent()),
+				components: {
+					heading1: {
+						as: "h2",
+						class: "heading-1",
+						"data-testid": "heading-1",
+					},
+				},
 			},
 		})
 
-		expect(wrapper.html()).toBe(
-			`<h1>
-  <div class="wrapperComponent" to="https://example.com" rel="noreferrer">
-    <!--v-if-->Heading
-  </div>
-  <!--v-if--> 1
-</h1>`,
-		)
-	})
-
-	it("forwards attributes", (ctx) => {
-		const wrapper = mount(PrismicRichText, {
-			props: {
-				field: [
-					{
-						type: RichTextNodeType.heading1,
-						text: "Heading 1",
-						spans: [
-							{
-								start: 0,
-								end: 7,
-								type: RichTextNodeType.hyperlink,
-								data: {
-									...ctx.mock.value.link({
-										type: LinkType.Web,
-										withTargetBlank: true,
-									}),
-									url: "https://example.com",
-								},
-							},
-						],
-					},
-				],
-				externalLinkComponent: markRaw(createWrapperComponent()),
-			},
-		})
-
-		expect(wrapper.html()).toBe(
-			`<h1>
-  <div class="wrapperComponent" to="https://example.com" target="_blank" rel="noreferrer">
-    <!--v-if-->Heading
-  </div>
-  <!--v-if--> 1
-</h1>`,
-		)
-	})
-})
-
-describe("renders internal links using component", () => {
-	it("from props", (ctx) => {
-		const wrapper = mount(PrismicRichText, {
-			props: {
-				field: [
-					{
-						type: RichTextNodeType.heading1,
-						text: "Heading 1",
-						spans: [
-							{
-								start: 0,
-								end: 7,
-								type: RichTextNodeType.hyperlink,
-								data: {
-									...ctx.mock.value.link({ type: LinkType.Document }),
-									url: "/bar",
-								},
-							},
-						],
-					},
-				],
-				internalLinkComponent: markRaw(createWrapperComponent()),
-			},
-		})
-
-		expect(wrapper.html()).toBe(
-			`<h1>
-  <div class="wrapperComponent" to="/bar">
-    <!--v-if-->Heading
-  </div>
-  <!--v-if--> 1
-</h1>`,
-		)
+		expect(wrapper.html()).toBe(`<h2 class="heading-1" data-testid="heading-1">
+  <!--v-if-->Heading 1
+</h2>`)
 	})
 })
 

@@ -1,18 +1,19 @@
 import { defineComponent, h } from "vue"
 import type { PropType } from "vue"
 
-import type { InternalVueTableComponents } from "./types"
+import type { DefaultVueTableComponents } from "./types"
 
 import * as getTableComponentProps from "./getTableComponentProps"
 
-export const defaultTableComponents: InternalVueTableComponents = {
+export const defaultTableComponents: DefaultVueTableComponents = {
 	table: defineComponent({
 		props: {
 			...getTableComponentProps.table(),
 			as: { type: String as PropType<string | undefined> },
 		},
 		setup(props, { attrs, slots }) {
-			return () => h(props.as ?? "table", attrs, slots.default ? slots.default() : [])
+			return () =>
+				h(props.as ?? "table", attrs, slots.default ? slots.default() : [])
 		},
 	}),
 	thead: defineComponent({
@@ -21,7 +22,8 @@ export const defaultTableComponents: InternalVueTableComponents = {
 			as: { type: String as PropType<string | undefined> },
 		},
 		setup(props, { attrs, slots }) {
-			return () => h(props.as ?? "thead", attrs, slots.default ? slots.default() : [])
+			return () =>
+				h(props.as ?? "thead", attrs, slots.default ? slots.default() : [])
 		},
 	}),
 	tbody: defineComponent({
@@ -30,7 +32,8 @@ export const defaultTableComponents: InternalVueTableComponents = {
 			as: { type: String as PropType<string | undefined> },
 		},
 		setup(props, { attrs, slots }) {
-			return () => h(props.as ?? "tbody", attrs, slots.default ? slots.default() : [])
+			return () =>
+				h(props.as ?? "tbody", attrs, slots.default ? slots.default() : [])
 		},
 	}),
 	tr: defineComponent({
@@ -39,7 +42,8 @@ export const defaultTableComponents: InternalVueTableComponents = {
 			as: { type: String as PropType<string | undefined> },
 		},
 		setup(props, { attrs, slots }) {
-			return () => h(props.as ?? "tr", attrs, slots.default ? slots.default() : [])
+			return () =>
+				h(props.as ?? "tr", attrs, slots.default ? slots.default() : [])
 		},
 	}),
 	th: defineComponent({
@@ -48,7 +52,8 @@ export const defaultTableComponents: InternalVueTableComponents = {
 			as: { type: String as PropType<string | undefined> },
 		},
 		setup(props, { attrs, slots }) {
-			return () => h(props.as ?? "th", attrs, slots.default ? slots.default() : [])
+			return () =>
+				h(props.as ?? "th", attrs, slots.default ? slots.default() : [])
 		},
 	}),
 	td: defineComponent({
@@ -57,7 +62,8 @@ export const defaultTableComponents: InternalVueTableComponents = {
 			as: { type: String as PropType<string | undefined> },
 		},
 		setup(props, { attrs, slots }) {
-			return () => h(props.as ?? "td", attrs, slots.default ? slots.default() : [])
+			return () =>
+				h(props.as ?? "td", attrs, slots.default ? slots.default() : [])
 		},
 	}),
 }
