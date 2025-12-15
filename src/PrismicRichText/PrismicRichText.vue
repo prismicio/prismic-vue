@@ -22,29 +22,30 @@ import PrismicRichTextSerialize from "./PrismicRichTextSerialize.vue"
  * Props for `<PrismicRichText />`.
  */
 export type PrismicRichTextProps = {
-	/**
-	 * The Prismic rich text or title field to render.
-	 */
+	/** The Prismic rich text field to render. */
 	field: RichTextField | null | undefined
 
 	/**
-	 * A link resolver function used to resolve link when not using the route
-	 * resolver parameter with `@prismicio/client`.
+	 * The link resolver used to resolve links.
 	 *
-	 * @defaultValue The link resolver provided to `@prismicio/vue` plugin if configured.
+	 * @remarks
+	 * If your app uses route resolvers when querying for your Prismic
+	 * repository's content, a link resolver does not need to be provided.
 	 *
-	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
+	 * @see Learn about link resolvers and route resolvers {@link https://prismic.io/docs/routes}
 	 */
 	linkResolver?: LinkResolverFunction
 
 	/**
-	 * An object that maps a rich text block type to a Vue component.
+	 * An object that maps a rich text block type to a Vue component or a shorthand definition.
 	 *
 	 * @example
 	 *
 	 * ```javascript
 	 * {
 	 *   heading1: Heading1,
+	 *   paragraph: { class: 'prose'},
+	 *   strong: { as: 'em', class: 'font-bold' },
 	 * }
 	 * ```
 	 */
@@ -52,7 +53,7 @@ export type PrismicRichTextProps = {
 
 	/**
 	 * The value to be rendered when the field is empty. If a fallback is not
-	 * given, `null` (nothing) will be rendered.
+	 * given, `null` will be rendered.
 	 */
 	fallback?: ComponentOrTagName
 }

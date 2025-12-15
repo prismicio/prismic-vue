@@ -16,31 +16,20 @@ import { TODOSliceComponent } from "./TODOSliceComponent"
  * @typeParam TContext - Arbitrary data made available to all Slice components
  */
 export type SliceZoneProps<TContext = unknown> = {
-	/**
-	 * List of Slice data from the Slice Zone.
-	 */
+	/** List of slice data from the slice zone. */
 	slices: SliceZoneLike<SliceLike | (SliceLike & Record<string, unknown>)>
 
-	/**
-	 * A record mapping Slice types to Vue components.
-	 */
+	/** A record mapping slice types to React components. */
 	components?: SliceZoneComponents
 
 	/**
 	 * The Vue component rendered if a component mapping from the `components`
 	 * prop cannot be found.
-	 *
-	 * @remarks
-	 * Components will be rendered using the {@link SliceComponentProps} interface.
-	 *
-	 * @defaultValue The Slice Zone default component provided to `@prismicio/vue` plugin if configured, otherwise `null` when `process.env.NODE_ENV === "production"` else {@link TODOSliceComponent}.
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	defaultComponent?: SliceComponentType<any, TContext>
 
-	/**
-	 * Arbitrary data made available to all Slice components.
-	 */
+	/** Arbitrary data made available to all slice components. */
 	context?: TContext
 }
 

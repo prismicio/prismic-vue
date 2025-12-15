@@ -15,19 +15,19 @@ import PrismicTableRow from "./PrismicTableRow.vue"
  * Props for `<PrismicTable />`.
  */
 export type PrismicTableProps = {
-	/**
-	 * The Prismic table field to render.
-	 */
+	/** The Prismic table field to render. */
 	field: TableField | undefined
 
 	/**
-	 * An object that maps a table block type to a Vue component.
+	 * An object that maps a table block type to a Vue component or a shorthand definition.
 	 *
 	 * @example
 	 *
 	 * ```javascript
 	 * {
 	 *   table: Table,
+	 *   thead: { class: 'bg-black text-white' },
+	 *   th: { as: 'td', class: 'font-bold' },
 	 * }
 	 * ```
 	 */
@@ -103,5 +103,5 @@ const tableComponents = computed<InternalVueTableComponents>(() => {
 			/>
 		</component>
 	</component>
-	<component v-else-if="fallback" :is="fallback" />
+	<component v-else-if="fallback" :is="fallback" v-bind="$attrs" />
 </template>

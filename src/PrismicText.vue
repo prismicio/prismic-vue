@@ -10,9 +10,7 @@ import { devMsg } from "./lib/devMsg"
  * Props for `<PrismicText />`.
  */
 export type PrismicTextProps = {
-	/**
-	 * The Prismic rich text field to render.
-	 */
+	/** The Prismic rich text field to render. */
 	field: RichTextField | null | undefined
 
 	/**
