@@ -38,7 +38,7 @@ function getComponent(child: ReturnType<typeof asTree>["children"][number]) {
 			(typeof maybeComponentOrShorthand.render === "function" ||
 				typeof maybeComponentOrShorthand.setup === "function" ||
 				!!maybeComponentOrShorthand.__file ||
-				!!maybeComponentOrShorthand.__name))
+				!!maybeComponentOrShorthand.__name) || typeof maybeComponentOrShorthand?.props === "object")
 	) {
 		return { is: maybeComponentOrShorthand }
 	}
