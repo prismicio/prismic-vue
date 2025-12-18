@@ -67,12 +67,16 @@ export type PrismicLinkProps = {
 	externalComponent?: ComponentOrTagName
 } & (
 	| {
-			/** The Prismic link field to render. */
+			/**
+			 * The Prismic link field to render.
+			 */
 			field: LinkField
 			document?: never
 	  }
 	| {
-			/** The Prismic document to render as a link. */
+			/**
+			 * The Prismic document to render as a link.
+			 */
 			document: PrismicDocument
 			field?: never
 	  }

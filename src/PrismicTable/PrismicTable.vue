@@ -15,11 +15,14 @@ import PrismicTableRow from "./PrismicTableRow.vue"
  * Props for `<PrismicTable />`.
  */
 export type PrismicTableProps = {
-	/** The Prismic table field to render. */
+	/**
+	 * The Prismic table field to render.
+	 */
 	field: TableField | undefined
 
 	/**
-	 * An object that maps a table block type to a Vue component or a shorthand definition.
+	 * An object that maps a table block type to a Vue component or a shorthand
+	 * definition.
 	 *
 	 * @example
 	 *

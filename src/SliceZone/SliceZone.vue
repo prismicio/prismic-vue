@@ -16,10 +16,14 @@ import { TODOSliceComponent } from "./TODOSliceComponent"
  * @typeParam TContext - Arbitrary data made available to all Slice components
  */
 export type SliceZoneProps<TContext = unknown> = {
-	/** List of slice data from the slice zone. */
+	/**
+	 * List of slice data from the slice zone.
+	 */
 	slices: SliceZoneLike<SliceLike | (SliceLike & Record<string, unknown>)>
 
-	/** A record mapping slice types to React components. */
+	/**
+	 * A record mapping slice types to React components.
+	 */
 	components?: SliceZoneComponents
 
 	/**
@@ -29,7 +33,9 @@ export type SliceZoneProps<TContext = unknown> = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	defaultComponent?: SliceComponentType<any, TContext>
 
-	/** Arbitrary data made available to all slice components. */
+	/**
+	 * Arbitrary data made available to all slice components.
+	 */
 	context?: TContext
 }
 

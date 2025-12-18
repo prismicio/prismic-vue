@@ -22,7 +22,9 @@ import PrismicRichTextSerialize from "./PrismicRichTextSerialize.vue"
  * Props for `<PrismicRichText />`.
  */
 export type PrismicRichTextProps = {
-	/** The Prismic rich text field to render. */
+	/**
+	 * The Prismic rich text field to render.
+	 */
 	field: RichTextField | null | undefined
 
 	/**
@@ -37,7 +39,8 @@ export type PrismicRichTextProps = {
 	linkResolver?: LinkResolverFunction
 
 	/**
-	 * An object that maps a rich text block type to a Vue component or a shorthand definition.
+	 * An object that maps a rich text block type to a Vue component or a
+	 * shorthand definition.
 	 *
 	 * @example
 	 *

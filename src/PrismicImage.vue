@@ -14,7 +14,9 @@ import { devMsg } from "./lib/devMsg"
  * Props for `<PrismicImage />`.
  */
 export type PrismicImageProps = {
-	/** The Prismic image field or thumbnail to render. */
+	/**
+	 * The Prismic image field or thumbnail to render.
+	 */
 	field: ImageField | ImageField<string>
 
 	/**
@@ -59,15 +61,14 @@ export type PrismicImageProps = {
 } & (
 	| {
 			/**
-			 * Widths (in pixels) used to build a `srcset` value for the image
-			 * field.
+			 * Widths (in pixels) used to build a `srcset` value for the image field.
 			 *
 			 * If omitted or set to `"defaults"`, the following widths will be used:
 			 * 640, 750, 828, 1080, 1200, 1920, 2048, 3840.
 			 *
-			 * If the image field contains responsive views, each responsive view
-			 * can be used as a width in the resulting `srcset` by passing
-			 * `"thumbnails"` as the `widths` prop.
+			 * If the image field contains responsive views, each responsive view can
+			 * be used as a width in the resulting `srcset` by passing `"thumbnails"`
+			 * as the `widths` prop.
 			 */
 			widths?:
 				| NonNullable<Parameters<typeof asImageWidthSrcSet>[1]>["widths"]
