@@ -2,8 +2,9 @@
 import { type TableField, isFilled } from "@prismicio/client"
 import { computed } from "vue"
 
-import type { ComponentOrTagName } from "../types"
-import type { VueTableComponents } from "./types"
+import type { VueShorthand } from "../PrismicRichText/types"
+import { type ComponentOrTagName, isVueComponent } from "../types"
+import type { InternalVueTableComponents, VueTableComponents } from "./types"
 
 import type { VueRichTextSerializer } from "../PrismicRichText"
 
@@ -14,19 +15,19 @@ import PrismicTableRow from "./PrismicTableRow.vue"
  * Props for `<PrismicTable />`.
  */
 export type PrismicTableProps = {
-	/**
-	 * The Prismic table field to render.
-	 */
+	/** The Prismic table field to render. */
 	field: TableField | undefined
 
 	/**
-	 * An object that maps a table block type to a Vue component.
+	 * An object that maps a table block type to a Vue component or a shorthand definition.
 	 *
 	 * @example
 	 *
 	 * ```javascript
 	 * {
 	 *   table: Table,
+	 *   thead: { class: 'bg-black text-white' },
+	 *   th: { as: 'td', class: 'font-bold' },
 	 * }
 	 * ```
 	 */
@@ -42,39 +43,65 @@ export type PrismicTableProps = {
 const props = defineProps<PrismicTableProps>()
 defineOptions({ name: "PrismicTable" })
 
-const mergedComponents = computed(() => ({
-	...defaultTableComponents,
-	...props.components,
-}))
+function getInternalComponent(type: keyof VueTableComponents) {
+	const maybeComponentOrShorthand = props.components?.[type]
+
+	if (isVueComponent(maybeComponentOrShorthand)) {
+		return { is: maybeComponentOrShorthand }
+	}
+
+	return {
+		is: defaultTableComponents[type],
+		shorthand: maybeComponentOrShorthand as VueShorthand,
+	}
+}
+
+const tableComponents = computed<InternalVueTableComponents>(() => {
+	return {
+		table: getInternalComponent("table"),
+		thead: getInternalComponent("thead"),
+		tbody: getInternalComponent("tbody"),
+		tr: getInternalComponent("tr"),
+		th: getInternalComponent("th"),
+		td: getInternalComponent("td"),
+	}
+})
 </script>
 
 <template>
 	<component
 		v-if="isFilled.table(field)"
-		:is="mergedComponents.table"
+		:is="tableComponents.table.is"
 		:table="field"
-		v-bind="$attrs"
+		v-bind="{ ...$attrs, ...tableComponents.table.shorthand }"
 	>
 		<component
 			v-if="field.head"
-			:is="mergedComponents.thead"
+			:is="tableComponents.thead.is"
 			:head="field.head"
+			v-bind="tableComponents.thead.shorthand"
 		>
 			<PrismicTableRow
 				v-for="row in field.head.rows"
 				:key="row.key"
 				:row="row"
-				:components="mergedComponents"
+				:internalTableComponents="tableComponents"
+				:components="components"
 			/>
 		</component>
-		<component :is="mergedComponents.tbody" :body="field.body">
+		<component
+			:is="tableComponents.tbody.is"
+			:body="field.body"
+			v-bind="tableComponents.tbody.shorthand"
+		>
 			<PrismicTableRow
 				v-for="row in field.body.rows"
 				:key="row.key"
 				:row="row"
-				:components="mergedComponents"
+				:internalTableComponents="tableComponents"
+				:components="components"
 			/>
 		</component>
 	</component>
-	<component v-else-if="fallback" :is="fallback" />
+	<component v-else-if="fallback" :is="fallback" v-bind="$attrs" />
 </template>

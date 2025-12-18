@@ -7,12 +7,9 @@ import type {
 	TableFieldHeadRow,
 	TableFieldHeaderCell,
 } from "@prismicio/client"
-import type {
-	DefineComponent,
-	FunctionalComponent,
-	defineAsyncComponent,
-} from "vue"
+
 import type { VueShorthand } from "../PrismicRichText/types"
+import type { VueComponent } from "../types"
 
 /**
  * A map of Table block types to Vue Components. It is used to render table
@@ -24,12 +21,14 @@ export type VueTableComponents = {
 	table?: VueComponent<{ table: TableField<"filled"> }> | VueShorthand
 	thead?: VueComponent<{ head: TableFieldHead }> | VueShorthand
 	tbody?: VueComponent<{ body: TableFieldBody }> | VueShorthand
-	tr?: VueComponent<{ row: TableFieldBodyRow | TableFieldHeadRow }> | VueShorthand
+	tr?:
+		| VueComponent<{ row: TableFieldBodyRow | TableFieldHeadRow }>
+		| VueShorthand
 	th?: VueComponent<{ cell: TableFieldHeaderCell }> | VueShorthand
 	td?: VueComponent<{ cell: TableFieldDataCell }> | VueShorthand
 }
 
-export type InternalVueTableComponents = {
+export type DefaultVueTableComponents = {
 	table: VueComponent<{ table: TableField<"filled">; as?: string }>
 	thead: VueComponent<{ head: TableFieldHead; as?: string }>
 	tbody: VueComponent<{ body: TableFieldBody; as?: string }>
@@ -38,7 +37,11 @@ export type InternalVueTableComponents = {
 	td: VueComponent<{ cell: TableFieldDataCell; as?: string }>
 }
 
-type VueComponent<TProps> =
-	| ReturnType<typeof defineAsyncComponent>
-	| DefineComponent<TProps>
-	| FunctionalComponent<TProps>
+export type InternalVueTableComponents = {
+	table: { is: VueTableComponents["table"]; shorthand?: VueShorthand }
+	thead: { is: VueTableComponents["thead"]; shorthand?: VueShorthand }
+	tbody: { is: VueTableComponents["tbody"]; shorthand?: VueShorthand }
+	tr: { is: VueTableComponents["tr"]; shorthand?: VueShorthand }
+	th: { is: VueTableComponents["th"]; shorthand?: VueShorthand }
+	td: { is: VueTableComponents["td"]; shorthand?: VueShorthand }
+}

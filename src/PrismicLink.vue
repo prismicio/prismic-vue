@@ -32,12 +32,13 @@ const defaultExternalRelAttribute = "noreferrer"
  */
 export type PrismicLinkProps = {
 	/**
-	 * A link resolver function used to resolve links when not using the route
-	 * resolver parameter with `@prismicio/client`.
+	 * The link resolver used to resolve links.
 	 *
-	 * @defaultValue The link resolver provided to `@prismicio/vue` plugin if configured.
+	 * @remarks
+	 * If your app uses route resolvers when querying for your Prismic
+	 * repository's content, a link resolver does not need to be provided.
 	 *
-	 * @see Link resolver documentation {@link https://prismic.io/docs/core-concepts/link-resolver-route-resolver#link-resolver}
+	 * @see Learn about link resolvers and route resolvers {@link https://prismic.io/docs/routes}
 	 */
 	linkResolver?: LinkResolverFunction
 
@@ -49,30 +50,29 @@ export type PrismicLinkProps = {
 	rel?: string | AsLinkAttrsConfig["rel"]
 
 	/**
-	 * The Vue component rendered for links when the URL is internal.
+	 * The component rendered for internal URLs.
+	 *
+	 * If your app uses a client-side router that requires a special Link
+	 * component, provide the Link component to this prop.
 	 *
 	 * @defaultValue `<RouterLink>`
 	 */
 	internalComponent?: ComponentOrTagName
 
 	/**
-	 * The Vue component rendered for links when the URL is external.
+	 * The component rendered for external URLs.
 	 *
 	 * @defaultValue `<a>`
 	 */
 	externalComponent?: ComponentOrTagName
 } & (
 	| {
-			/**
-			 * The Prismic link field to render.
-			 */
+			/** The Prismic link field to render. */
 			field: LinkField
 			document?: never
 	  }
 	| {
-			/**
-			 * The Prismic document to render as a link.
-			 */
+			/** The Prismic document to render as a link. */
 			document: PrismicDocument
 			field?: never
 	  }
