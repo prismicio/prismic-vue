@@ -10,13 +10,9 @@ import { computed, watchEffect } from "vue"
 
 import { devMsg } from "./lib/devMsg"
 
-/**
- * Props for `<PrismicImage />`.
- */
+/** Props for `<PrismicImage />`. */
 export type PrismicImageProps = {
-	/**
-	 * The Prismic image field or thumbnail to render.
-	 */
+	/** The Prismic image field or thumbnail to render. */
 	field: ImageField | ImageField<string>
 
 	/**

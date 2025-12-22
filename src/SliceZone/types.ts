@@ -83,19 +83,13 @@ export type SliceComponentProps<
 	TSlice extends SliceLike = SliceLike,
 	TContext = unknown,
 > = {
-	/**
-	 * Slice data for this component.
-	 */
+	/** Slice data for this component. */
 	slice: TSlice
 
-	/**
-	 * The index of the Slice in the Slice Zone.
-	 */
+	/** The index of the Slice in the Slice Zone. */
 	index: number
 
-	/**
-	 * All Slices from the Slice Zone to which the Slice belongs.
-	 */
+	/** All Slices from the Slice Zone to which the Slice belongs. */
 	// TODO: We have to keep this list of Slices general due to circular
 	// reference limtiations. If we had another generic to determine the full
 	// union of Slice types, it would include TSlice. This causes TypeScript to

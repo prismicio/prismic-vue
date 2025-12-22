@@ -12,24 +12,16 @@ import { isInternalURL } from "./lib/isInternalURL"
 
 import type { ComponentOrTagName } from "./types"
 
-/**
- * The default component rendered for internal URLs.
- */
+/** The default component rendered for internal URLs. */
 const defaultInternalComponent = "router-link"
 
-/**
- * The default component rendered for external URLs.
- */
+/** The default component rendered for external URLs. */
 const defaultExternalComponent = "a"
 
-/**
- * The default rel attribute rendered for external URLs.
- */
+/** The default rel attribute rendered for external URLs. */
 const defaultExternalRelAttribute = "noreferrer"
 
-/**
- * Props for `<PrismicLink />`.
- */
+/** Props for `<PrismicLink />`. */
 export type PrismicLinkProps = {
 	/**
 	 * The link resolver used to resolve links.
@@ -67,16 +59,12 @@ export type PrismicLinkProps = {
 	externalComponent?: ComponentOrTagName
 } & (
 	| {
-			/**
-			 * The Prismic link field to render.
-			 */
+			/** The Prismic link field to render. */
 			field: LinkField
 			document?: never
 	  }
 	| {
-			/**
-			 * The Prismic document to render as a link.
-			 */
+			/** The Prismic document to render as a link. */
 			document: PrismicDocument
 			field?: never
 	  }

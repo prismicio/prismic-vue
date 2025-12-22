@@ -1,9 +1,7 @@
 import type { ComponentPropsOptions, DefineComponent } from "vue"
 import { defineComponent, h } from "vue"
 
-/**
- * Creates a new component.
- */
+/** Creates a new component. */
 export const createWrapperComponent = <T = DefineComponent>(
 	suffix: string | number = "",
 	props: ComponentPropsOptions = {},
