@@ -34,8 +34,6 @@
 		"build": "tsdown",
 		"dev": "tsdown --watch",
 		"format": "prettier --write .",
-		"playground:build": "vite build playground",
-		"playground:dev": "vite playground",
 		"prepare": "npm run build",
 		"lint": "oxlint --deny-warnings",
 		"types": "vue-tsc --noEmit",
