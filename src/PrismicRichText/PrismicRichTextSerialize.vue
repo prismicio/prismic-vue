@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import type { asTree } from "@prismicio/client/richtext"
 
-import type { InternalVueRichTextComponent } from "./types"
+import type { InternalVueRichTextComponents } from "./types"
 
 type PrismicRichTextSerializeProps = {
 	children: ReturnType<typeof asTree>["children"]
-	internalComponents: InternalVueRichTextComponent
+	internalComponents: InternalVueRichTextComponents
 }
 
 const props = defineProps<PrismicRichTextSerializeProps>()
@@ -18,7 +18,8 @@ defineOptions({ name: "PrismicRichTextSerialize" })
 		:key="JSON.stringify(child)"
 		:is="internalComponents[child.type].is"
 		:node="child.node"
-		v-bind="internalComponents[child.type].props"
+		:link-resolver="internalComponents[child.type].linkResolver"
+		:shorthand="internalComponents[child.type].shorthand"
 		><PrismicRichTextSerialize
 			v-if="child.children.length"
 			:children="child.children"

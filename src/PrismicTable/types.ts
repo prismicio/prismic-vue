@@ -8,8 +8,7 @@ import type {
 	TableFieldHeaderCell,
 } from "@prismicio/client"
 
-import type { VueShorthand } from "../PrismicRichText/types"
-import type { VueComponent } from "../types"
+import type { VueComponent, VueComponentShorthand } from "../types"
 
 /**
  * A map of Table block types to Vue Components. It is used to render table
@@ -18,30 +17,49 @@ import type { VueComponent } from "../types"
  * @see Templating Table fields from Prismic {@link https://prismic.io/docs/table}
  */
 export type VueTableComponents = {
-	table?: VueComponent<{ table: TableField<"filled"> }> | VueShorthand
-	thead?: VueComponent<{ head: TableFieldHead }> | VueShorthand
-	tbody?: VueComponent<{ body: TableFieldBody }> | VueShorthand
+	table?:
+		| VueComponent<{ table: TableField<"filled"> }>
+		| Omit<VueComponentShorthand, "as">
+	thead?:
+		| VueComponent<{ head: TableFieldHead }>
+		| Omit<VueComponentShorthand, "as">
+	tbody?:
+		| VueComponent<{ body: TableFieldBody }>
+		| Omit<VueComponentShorthand, "as">
 	tr?:
 		| VueComponent<{ row: TableFieldBodyRow | TableFieldHeadRow }>
-		| VueShorthand
-	th?: VueComponent<{ cell: TableFieldHeaderCell }> | VueShorthand
-	td?: VueComponent<{ cell: TableFieldDataCell }> | VueShorthand
-}
-
-export type DefaultVueTableComponents = {
-	table: VueComponent<{ table: TableField<"filled">; as?: string }>
-	thead: VueComponent<{ head: TableFieldHead; as?: string }>
-	tbody: VueComponent<{ body: TableFieldBody; as?: string }>
-	tr: VueComponent<{ row: TableFieldBodyRow | TableFieldHeadRow; as?: string }>
-	th: VueComponent<{ cell: TableFieldHeaderCell; as?: string }>
-	td: VueComponent<{ cell: TableFieldDataCell; as?: string }>
+		| Omit<VueComponentShorthand, "as">
+	th?:
+		| VueComponent<{ cell: TableFieldHeaderCell }>
+		| Omit<VueComponentShorthand, "as">
+	td?:
+		| VueComponent<{ cell: TableFieldDataCell }>
+		| Omit<VueComponentShorthand, "as">
 }
 
 export type InternalVueTableComponents = {
-	table: { is: VueTableComponents["table"]; shorthand?: VueShorthand }
-	thead: { is: VueTableComponents["thead"]; shorthand?: VueShorthand }
-	tbody: { is: VueTableComponents["tbody"]; shorthand?: VueShorthand }
-	tr: { is: VueTableComponents["tr"]; shorthand?: VueShorthand }
-	th: { is: VueTableComponents["th"]; shorthand?: VueShorthand }
-	td: { is: VueTableComponents["td"]; shorthand?: VueShorthand }
+	table: {
+		is: VueTableComponents["table"]
+		shorthand?: Omit<VueComponentShorthand, "as">
+	}
+	thead: {
+		is: VueTableComponents["thead"]
+		shorthand?: Omit<VueComponentShorthand, "as">
+	}
+	tbody: {
+		is: VueTableComponents["tbody"]
+		shorthand?: Omit<VueComponentShorthand, "as">
+	}
+	tr: {
+		is: VueTableComponents["tr"]
+		shorthand?: Omit<VueComponentShorthand, "as">
+	}
+	th: {
+		is: VueTableComponents["th"]
+		shorthand?: Omit<VueComponentShorthand, "as">
+	}
+	td: {
+		is: VueTableComponents["td"]
+		shorthand?: Omit<VueComponentShorthand, "as">
+	}
 }

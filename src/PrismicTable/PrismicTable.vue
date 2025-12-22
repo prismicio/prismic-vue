@@ -2,8 +2,8 @@
 import { type TableField, isFilled } from "@prismicio/client"
 import { computed } from "vue"
 
-import type { VueShorthand } from "../PrismicRichText/types"
-import { type ComponentOrTagName, isVueComponent } from "../types"
+import type { ComponentOrTagName, VueComponentShorthand } from "../types"
+import { isVueComponent } from "../types"
 import type { InternalVueTableComponents, VueTableComponents } from "./types"
 
 import type { VueRichTextSerializer } from "../PrismicRichText"
@@ -11,13 +11,9 @@ import type { VueRichTextSerializer } from "../PrismicRichText"
 import { defaultTableComponents } from "./PrismicTableDefaultComponents"
 import PrismicTableRow from "./PrismicTableRow.vue"
 
-/**
- * Props for `<PrismicTable />`.
- */
+/** Props for `<PrismicTable />`. */
 export type PrismicTableProps = {
-	/**
-	 * The Prismic table field to render.
-	 */
+	/** The Prismic table field to render. */
 	field: TableField | undefined
 
 	/**
@@ -55,11 +51,11 @@ function getInternalComponent(type: keyof VueTableComponents) {
 
 	return {
 		is: defaultTableComponents[type],
-		shorthand: maybeComponentOrShorthand as VueShorthand,
+		shorthand: maybeComponentOrShorthand as VueComponentShorthand,
 	}
 }
 
-const tableComponents = computed<InternalVueTableComponents>(() => {
+const internalTableComponents = computed<InternalVueTableComponents>(() => {
 	return {
 		table: getInternalComponent("table"),
 		thead: getInternalComponent("thead"),
@@ -74,34 +70,34 @@ const tableComponents = computed<InternalVueTableComponents>(() => {
 <template>
 	<component
 		v-if="isFilled.table(field)"
-		:is="tableComponents.table.is"
+		:is="internalTableComponents.table.is"
 		:table="field"
-		v-bind="{ ...$attrs, ...tableComponents.table.shorthand }"
+		v-bind="{ ...$attrs, ...internalTableComponents.table.shorthand }"
 	>
 		<component
 			v-if="field.head"
-			:is="tableComponents.thead.is"
+			:is="internalTableComponents.thead.is"
 			:head="field.head"
-			v-bind="tableComponents.thead.shorthand"
+			v-bind="internalTableComponents.thead.shorthand"
 		>
 			<PrismicTableRow
 				v-for="row in field.head.rows"
 				:key="row.key"
 				:row="row"
-				:internalTableComponents="tableComponents"
+				:internalTableComponents="internalTableComponents"
 				:components="components"
 			/>
 		</component>
 		<component
-			:is="tableComponents.tbody.is"
+			:is="internalTableComponents.tbody.is"
 			:body="field.body"
-			v-bind="tableComponents.tbody.shorthand"
+			v-bind="internalTableComponents.tbody.shorthand"
 		>
 			<PrismicTableRow
 				v-for="row in field.body.rows"
 				:key="row.key"
 				:row="row"
-				:internalTableComponents="tableComponents"
+				:internalTableComponents="internalTableComponents"
 				:components="components"
 			/>
 		</component>

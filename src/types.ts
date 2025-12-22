@@ -20,8 +20,20 @@ export type VueComponent<TProps> =
 	| DefineComponent<TProps>
 	| FunctionalComponent<TProps>
 
+/**
+ * A shorthand definition for `<PrismicRichText />` and `<PrismicTable />`
+ * component types.
+ */
+export type VueComponentShorthand = {
+	/** The HTML element type rendered for this node type. */
+	as?: string
+
+	/** Other attributes to apply to the element type. */
+	[Attribute: string]: string | boolean | null | undefined
+}
+
 export const isVueComponent = <T>(
-	component: VueComponent<T> | unknown,
+	component: VueComponent<T> | VueComponentShorthand | undefined,
 ): component is VueComponent<T> => {
 	return (
 		!!component &&

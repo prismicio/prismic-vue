@@ -8,23 +8,20 @@ import { asTree } from "@prismicio/client/richtext"
 import type { PropType } from "vue"
 import { computed } from "vue"
 
-import { type ComponentOrTagName, isVueComponent } from "../types"
+import type { ComponentOrTagName, VueComponentShorthand } from "../types"
+import { isVueComponent } from "../types"
 import type {
-	InternalVueRichTextComponent,
+	InternalVueRichTextComponents,
+	VueRichTextComponent,
 	VueRichTextSerializer,
-	VueShorthand,
 } from "./types"
 
 import PrismicRichTextDefaultComponent from "./PrismicRichTextDefaultComponent.vue"
 import PrismicRichTextSerialize from "./PrismicRichTextSerialize.vue"
 
-/**
- * Props for `<PrismicRichText />`.
- */
+/** Props for `<PrismicRichText />`. */
 export type PrismicRichTextProps = {
-	/**
-	 * The Prismic rich text field to render.
-	 */
+	/** The Prismic rich text field to render. */
 	field: RichTextField | null | undefined
 
 	/**
@@ -86,7 +83,10 @@ const children = computed(() => {
 })
 
 function getInternalComponent(type: keyof typeof RichTextNodeType) {
-	const maybeComponentOrShorthand = props.components?.[type]
+	const maybeComponentOrShorthand = props.components?.[type] as
+		| VueRichTextComponent
+		| VueComponentShorthand
+		| undefined
 
 	if (isVueComponent(maybeComponentOrShorthand)) {
 		return { is: maybeComponentOrShorthand }
@@ -94,14 +94,12 @@ function getInternalComponent(type: keyof typeof RichTextNodeType) {
 
 	return {
 		is: PrismicRichTextDefaultComponent,
-		props: {
-			linkResolver: props.linkResolver,
-			shorthand: maybeComponentOrShorthand as VueShorthand,
-		},
+		linkResolver: props.linkResolver,
+		shorthand: maybeComponentOrShorthand,
 	}
 }
 
-const internalComponents = computed<InternalVueRichTextComponent>(() => {
+const internalComponents = computed<InternalVueRichTextComponents>(() => {
 	return {
 		heading1: getInternalComponent("heading1"),
 		heading2: getInternalComponent("heading2"),

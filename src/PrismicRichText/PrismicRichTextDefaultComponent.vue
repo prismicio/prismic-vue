@@ -2,7 +2,8 @@
 import type { LinkResolverFunction } from "@prismicio/client"
 import { computed } from "vue"
 
-import type { RichTextComponentProps, VueShorthand } from "./types"
+import type { VueComponentShorthand } from "../types"
+import type { RichTextComponentProps } from "./types"
 
 import PrismicImage from "../PrismicImage.vue"
 import PrismicLink from "../PrismicLink.vue"
@@ -10,13 +11,16 @@ import PrismicLink from "../PrismicLink.vue"
 const props = defineProps<
 	RichTextComponentProps & {
 		linkResolver?: LinkResolverFunction
-		shorthand?: VueShorthand
+		shorthand?: VueComponentShorthand
 	}
 >()
 defineOptions({ name: "PrismicRichTextDefaultComponent" })
 
 const as = computed(() => {
-	return props.node.type !== "image" && props.node.type !== "span"
+	return props.node.type !== "image" &&
+		props.node.type !== "hyperlink" &&
+		props.node.type !== "label" &&
+		props.node.type !== "span"
 		? props.shorthand?.as
 		: undefined
 })
@@ -74,7 +78,7 @@ const dir = computed(() => {
 	</ol>
 	<p class="block-img" v-else-if="node.type === 'image'">
 		<PrismicLink v-if="node.linkTo" :field="node.linkTo"
-			><PrismicImage :field="node"
+			><PrismicImage :field="node" v-bind="attrs"
 		/></PrismicLink>
 		<PrismicImage v-else :field="node" v-bind="attrs" />
 	</p>

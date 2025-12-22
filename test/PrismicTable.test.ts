@@ -264,9 +264,9 @@ describe("uses table shorthands", () => {
 			props: {
 				field: filledTableField,
 				components: {
-					table: { as: "div", class: "table" },
-					thead: { as: "div", class: "thead" },
-					tbody: { as: "div", class: "tbody" },
+					table: { class: "table" },
+					thead: { class: "thead" },
+					tbody: { class: "tbody" },
 					tr: { class: "tr" },
 					th: { class: "th" },
 					td: { class: "td" },
@@ -274,8 +274,8 @@ describe("uses table shorthands", () => {
 			},
 		})
 
-		expect(output.html()).toBe(`<div class="table">
-  <div class="thead">
+		expect(output.html()).toBe(`<table class="table">
+  <thead class="thead">
     <tr class="tr">
       <th class="th">
         <p>
@@ -288,8 +288,8 @@ describe("uses table shorthands", () => {
         </p>
       </th>
     </tr>
-  </div>
-  <div class="tbody">
+  </thead>
+  <tbody class="tbody">
     <tr class="tr">
       <th class="th">
         <p>
@@ -316,8 +316,8 @@ describe("uses table shorthands", () => {
         </p>
       </td>
     </tr>
-  </div>
-</div>`)
+  </tbody>
+</table>`)
 	})
 })
 
@@ -396,7 +396,7 @@ describe("uses rich text shorthand serializer", () => {
 			props: {
 				field: filledTableField,
 				components: {
-					table: { as: "table", class: "table" },
+					table: { class: "table" },
 					paragraph: { as: "p", class: "paragraph" },
 				},
 			},
