@@ -1,9 +1,6 @@
 import type { Slice } from "@prismicio/client"
-import type {
-	DefineComponent,
-	FunctionalComponent,
-	defineAsyncComponent,
-} from "vue"
+
+import type { VueComponent } from "../types"
 
 /**
  * Returns the type of a `SliceLike` type.
@@ -115,14 +112,7 @@ export type SliceComponentType<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	TSlice extends SliceLike = any,
 	TContext = unknown,
-> =
-	// For reference within TypeScript files when `*.vue` type cannot be inferred
-	// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-	| DefineComponent<{}, {}, any>
-	// Likewise, for reference with TypeScript files.
-	| ReturnType<typeof defineAsyncComponent>
-	| DefineComponent<SliceComponentProps<TSlice, TContext>>
-	| FunctionalComponent
+> = VueComponent<SliceComponentProps<TSlice, TContext>>
 
 /**
  * A record of Slice types mapped to Vue components. Each components will be

@@ -1,8 +1,8 @@
-import type { ComponentPropsOptions, DefineComponent } from "vue"
+import type { Component, ComponentPropsOptions } from "vue"
 import { defineComponent, h } from "vue"
 
 /** Creates a new component. */
-export const createWrapperComponent = <T = DefineComponent>(
+export const createWrapperComponent = <T = Component>(
 	suffix: string | number = "",
 	props: ComponentPropsOptions = {},
 ): T =>

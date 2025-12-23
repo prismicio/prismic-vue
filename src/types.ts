@@ -1,24 +1,9 @@
-import type {
-	ConcreteComponent,
-	DefineComponent,
-	FunctionalComponent,
-	Raw,
-	defineAsyncComponent,
-} from "vue"
+import type { Component } from "vue"
 
-export type ComponentOrTagName =
-	| string
-	| ConcreteComponent
-	| Raw<DefineComponent>
+export type ComponentOrTagName = string | Component
 
-export type VueComponent<TProps> =
-	// For reference within TypeScript files when `*.vue` type cannot be inferred
-	// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-	| DefineComponent<{}, {}, any>
-	// Likewise, for reference with TypeScript files.
-	| ReturnType<typeof defineAsyncComponent>
-	| DefineComponent<TProps>
-	| FunctionalComponent<TProps>
+// For reference within TypeScript files when `*.vue` type cannot be inferred
+export type VueComponent<TProps> = Component | Component<TProps>
 
 /**
  * A shorthand definition for `<PrismicRichText />` and `<PrismicTable />`

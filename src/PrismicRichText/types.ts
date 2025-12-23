@@ -32,37 +32,33 @@ import type { VueComponent, VueComponentShorthand } from "../types"
  * @see Templating Rich Text and title fields from Prismic {@link https://prismic.io/docs/rich-text}
  */
 export type VueRichTextComponents = {
-	heading1?: RichTextComponentProps<RTHeading1Node> | VueComponentShorthand
-	heading2?: RichTextComponentProps<RTHeading2Node> | VueComponentShorthand
-	heading3?: RichTextComponentProps<RTHeading3Node> | VueComponentShorthand
-	heading4?: RichTextComponentProps<RTHeading4Node> | VueComponentShorthand
-	heading5?: RichTextComponentProps<RTHeading5Node> | VueComponentShorthand
-	heading6?: RichTextComponentProps<RTHeading6Node> | VueComponentShorthand
-	paragraph?: RichTextComponentProps<RTParagraphNode> | VueComponentShorthand
+	heading1?: VueRichTextComponent<RTHeading1Node> | VueComponentShorthand
+	heading2?: VueRichTextComponent<RTHeading2Node> | VueComponentShorthand
+	heading3?: VueRichTextComponent<RTHeading3Node> | VueComponentShorthand
+	heading4?: VueRichTextComponent<RTHeading4Node> | VueComponentShorthand
+	heading5?: VueRichTextComponent<RTHeading5Node> | VueComponentShorthand
+	heading6?: VueRichTextComponent<RTHeading6Node> | VueComponentShorthand
+	paragraph?: VueRichTextComponent<RTParagraphNode> | VueComponentShorthand
 	preformatted?:
-		| RichTextComponentProps<RTPreformattedNode>
+		| VueRichTextComponent<RTPreformattedNode>
 		| VueComponentShorthand
-	strong?: RichTextComponentProps<RTStrongNode> | VueComponentShorthand
-	em?: RichTextComponentProps<RTEmNode> | VueComponentShorthand
-	listItem?: RichTextComponentProps<RTListItemNode> | VueComponentShorthand
-	oListItem?: RichTextComponentProps<RTOListItemNode> | VueComponentShorthand
-	list?: RichTextComponentProps<RTListNode> | VueComponentShorthand
-	oList?: RichTextComponentProps<RTOListNode> | VueComponentShorthand
-	image?:
-		| RichTextComponentProps<RTImageNode>
-		| Omit<VueComponentShorthand, "as">
-	embed?: RichTextComponentProps<RTEmbedNode> | VueComponentShorthand
+	strong?: VueRichTextComponent<RTStrongNode> | VueComponentShorthand
+	em?: VueRichTextComponent<RTEmNode> | VueComponentShorthand
+	listItem?: VueRichTextComponent<RTListItemNode> | VueComponentShorthand
+	oListItem?: VueRichTextComponent<RTOListItemNode> | VueComponentShorthand
+	list?: VueRichTextComponent<RTListNode> | VueComponentShorthand
+	oList?: VueRichTextComponent<RTOListNode> | VueComponentShorthand
+	image?: VueRichTextComponent<RTImageNode> | Omit<VueComponentShorthand, "as">
+	embed?: VueRichTextComponent<RTEmbedNode> | VueComponentShorthand
 	hyperlink?:
-		| RichTextComponentProps<RTLinkNode>
+		| VueRichTextComponent<RTLinkNode>
 		| Omit<VueComponentShorthand, "as">
-	label?:
-		| RichTextComponentProps<RTLabelNode>
-		| Omit<VueComponentShorthand, "as">
-	span?: RichTextComponentProps<RTSpanNode>
+	label?: VueRichTextComponent<RTLabelNode> | Omit<VueComponentShorthand, "as">
+	span?: VueRichTextComponent<RTSpanNode>
 }
 
 /** Props for a component rendering nodes from a Prismic rich text field. */
-export type RichTextComponentProps<TRTNode extends RTAnyNode = RTAnyNode> = {
+export type VueRichTextComponentProps<TRTNode extends RTAnyNode = RTAnyNode> = {
 	node: TRTNode
 }
 
@@ -72,7 +68,7 @@ export type RichTextComponentProps<TRTNode extends RTAnyNode = RTAnyNode> = {
  * @typeParam TRTNode - The type of rich text node(s) this component handles
  */
 export type VueRichTextComponent<TRTNode extends RTAnyNode = RTAnyNode> =
-	VueComponent<RichTextComponentProps<TRTNode>>
+	VueComponent<VueRichTextComponentProps<TRTNode>>
 
 export type InternalVueRichTextComponents = Record<
 	RichTextNodeTypes,

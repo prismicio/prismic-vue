@@ -1,6 +1,7 @@
 import type { CreateClient } from "@prismicio/client"
 import { isFilled } from "@prismicio/client"
-import { type App, type InjectionKey, inject } from "vue"
+import type { App, InjectionKey } from "vue"
+import { inject } from "vue"
 
 import type { ComponentOrTagName } from "./types"
 

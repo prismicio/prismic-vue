@@ -1,7 +1,7 @@
 import type { RTAnyNode } from "@prismicio/client"
 import type { PropType } from "vue"
 
-import type { RichTextComponentProps } from "./types"
+import type { VueRichTextComponentProps } from "./types"
 
 /**
  * Native Vue props for a component rendering nodes from a Prismic rich text
@@ -13,7 +13,7 @@ type DefineComponentRichTextComponentProps<
 	TRTNode extends RTAnyNode = RTAnyNode,
 > = {
 	node: {
-		type: PropType<RichTextComponentProps<TRTNode>["node"]>
+		type: PropType<VueRichTextComponentProps<TRTNode>["node"]>
 		required: true
 	}
 }
@@ -56,7 +56,7 @@ export const getRichTextComponentProps = <TRTType extends RTAnyNode["type"]>(
 > => ({
 	node: {
 		type: Object as PropType<
-			RichTextComponentProps<Extract<RTAnyNode, { type: TRTType }>>["node"]
+			VueRichTextComponentProps<Extract<RTAnyNode, { type: TRTType }>>["node"]
 		>,
 		required: true,
 	},

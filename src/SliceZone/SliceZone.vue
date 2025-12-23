@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from "vue"
 
+import type { ComponentOrTagName } from "../types"
 import type {
 	SliceComponentType,
 	SliceLike,
@@ -36,7 +37,13 @@ export type SliceZoneProps<TContext = unknown> = {
 const props = defineProps<SliceZoneProps>()
 defineOptions({ name: "SliceZone" })
 
-const renderedSlices = computed(() => {
+const renderedSlices = computed<
+	{
+		is: ComponentOrTagName
+		key: string
+		props: Record<string, unknown>
+	}[]
+>(() => {
 	if (!props.slices) return []
 
 	return props.slices.map((slice, index) => {

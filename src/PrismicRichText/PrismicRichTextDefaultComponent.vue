@@ -3,13 +3,13 @@ import type { LinkResolverFunction } from "@prismicio/client"
 import { computed } from "vue"
 
 import type { VueComponentShorthand } from "../types"
-import type { RichTextComponentProps } from "./types"
+import type { VueRichTextComponentProps } from "./types"
 
 import PrismicImage from "../PrismicImage.vue"
 import PrismicLink from "../PrismicLink.vue"
 
 const props = defineProps<
-	RichTextComponentProps & {
+	VueRichTextComponentProps & {
 		linkResolver?: LinkResolverFunction
 		shorthand?: VueComponentShorthand
 	}

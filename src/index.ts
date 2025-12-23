@@ -3,7 +3,7 @@ export type { PrismicRichTextProps } from "./PrismicRichText/PrismicRichText.vue
 export { getRichTextComponentProps } from "./PrismicRichText"
 export type {
 	VueRichTextComponents,
-	RichTextComponentProps,
+	VueRichTextComponentProps,
 } from "./PrismicRichText"
 
 export { default as PrismicTable } from "./PrismicTable/PrismicTable.vue"
