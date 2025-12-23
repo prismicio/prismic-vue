@@ -6,7 +6,8 @@ import type { ComponentOrTagName, VueComponentShorthand } from "../types"
 import { isVueComponent } from "../types"
 import type { InternalVueTableComponents, VueTableComponents } from "./types"
 
-import type { VueRichTextSerializer } from "../PrismicRichText"
+import type { VueRichTextComponents } from "../PrismicRichText"
+import { usePrismic } from "../createPrismic"
 
 import { defaultTableComponents } from "./PrismicTableDefaultComponents"
 import PrismicTableRow from "./PrismicTableRow.vue"
@@ -30,7 +31,7 @@ export type PrismicTableProps = {
 	 * }
 	 * ```
 	 */
-	components?: VueTableComponents & VueRichTextSerializer
+	components?: VueTableComponents & VueRichTextComponents
 
 	/**
 	 * The value to be rendered when the field is empty. If a fallback is not
@@ -42,8 +43,16 @@ export type PrismicTableProps = {
 const props = defineProps<PrismicTableProps>()
 defineOptions({ name: "PrismicTable" })
 
+const { componentsConfig } = usePrismic()
+
+const resolvedComponents = computed<VueTableComponents & VueRichTextComponents>(
+	() => {
+		return { ...componentsConfig?.defaultComponents, ...props.components }
+	},
+)
+
 function getInternalComponent(type: keyof VueTableComponents) {
-	const maybeComponentOrShorthand = props.components?.[type]
+	const maybeComponentOrShorthand = resolvedComponents.value?.[type]
 
 	if (isVueComponent(maybeComponentOrShorthand)) {
 		return { is: maybeComponentOrShorthand }

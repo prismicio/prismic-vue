@@ -31,7 +31,7 @@ import type { VueComponent, VueComponentShorthand } from "../types"
  *
  * @see Templating Rich Text and title fields from Prismic {@link https://prismic.io/docs/rich-text}
  */
-export type VueRichTextSerializer = {
+export type VueRichTextComponents = {
 	heading1?: RichTextComponentProps<RTHeading1Node> | VueComponentShorthand
 	heading2?: RichTextComponentProps<RTHeading2Node> | VueComponentShorthand
 	heading3?: RichTextComponentProps<RTHeading3Node> | VueComponentShorthand

@@ -2,13 +2,14 @@ export { default as PrismicRichText } from "./PrismicRichText/PrismicRichText.vu
 export type { PrismicRichTextProps } from "./PrismicRichText/PrismicRichText.vue"
 export { getRichTextComponentProps } from "./PrismicRichText"
 export type {
-	VueRichTextSerializer,
+	VueRichTextComponents,
 	RichTextComponentProps,
 } from "./PrismicRichText"
 
 export { default as PrismicTable } from "./PrismicTable/PrismicTable.vue"
 export type { PrismicTableProps } from "./PrismicTable/PrismicTable.vue"
 export { getTableComponentProps } from "./PrismicTable"
+export type { VueTableComponents } from "./PrismicTable"
 
 export { default as PrismicImage } from "./PrismicImage.vue"
 export type { PrismicImageProps } from "./PrismicImage.vue"
@@ -35,3 +36,6 @@ export type {
 	SliceZoneComponents,
 	SliceZoneLike,
 } from "./SliceZone"
+
+export { createPrismic, usePrismic } from "./createPrismic"
+export type { PrismicPlugin, PrismicPluginConfig } from "./createPrismic"

@@ -12,6 +12,8 @@ import { isInternalURL } from "./lib/isInternalURL"
 
 import type { ComponentOrTagName } from "./types"
 
+import { usePrismic } from "./createPrismic"
+
 /** The default component rendered for internal URLs. */
 const defaultInternalComponent = "router-link"
 
@@ -73,6 +75,8 @@ export type PrismicLinkProps = {
 const props = defineProps<PrismicLinkProps>()
 defineOptions({ name: "PrismicLink" })
 
+const { componentsConfig } = usePrismic()
+
 const rawAttrs = computed(() => {
 	return asLinkAttrs(props.field || props.document, {
 		linkResolver: props.linkResolver,
@@ -88,8 +92,12 @@ const rawAttrs = computed(() => {
 
 const component = computed(() => {
 	return isInternalURL(rawAttrs.value.href || "")
-		? props.internalComponent || defaultInternalComponent
-		: props.externalComponent || defaultExternalComponent
+		? props.internalComponent ||
+				componentsConfig?.linkInternalComponent ||
+				defaultInternalComponent
+		: props.externalComponent ||
+				componentsConfig?.linkExternalComponent ||
+				defaultExternalComponent
 })
 
 // Match Vue Router's `<RouterLink />` interface unless the component is an anchor tag.

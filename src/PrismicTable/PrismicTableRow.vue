@@ -3,13 +3,13 @@ import type { TableFieldBodyRow, TableFieldHeadRow } from "@prismicio/client"
 
 import type { InternalVueTableComponents } from "./types"
 
-import type { VueRichTextSerializer } from "../PrismicRichText"
+import type { VueRichTextComponents } from "../PrismicRichText"
 import PrismicRichText from "../PrismicRichText/PrismicRichText.vue"
 
 export type PrismicTableRowProps = {
 	row: TableFieldHeadRow | TableFieldBodyRow
 	internalTableComponents: InternalVueTableComponents
-	components?: VueRichTextSerializer
+	components?: VueRichTextComponents
 }
 
 const props = defineProps<PrismicTableRowProps>()

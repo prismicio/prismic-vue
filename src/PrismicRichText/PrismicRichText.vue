@@ -13,8 +13,10 @@ import { isVueComponent } from "../types"
 import type {
 	InternalVueRichTextComponents,
 	VueRichTextComponent,
-	VueRichTextSerializer,
+	VueRichTextComponents,
 } from "./types"
+
+import { usePrismic } from "../createPrismic"
 
 import PrismicRichTextDefaultComponent from "./PrismicRichTextDefaultComponent.vue"
 import PrismicRichTextSerialize from "./PrismicRichTextSerialize.vue"
@@ -49,7 +51,7 @@ export type PrismicRichTextProps = {
 	 * }
 	 * ```
 	 */
-	components?: VueRichTextSerializer
+	components?: VueRichTextComponents
 
 	/**
 	 * The value to be rendered when the field is empty. If a fallback is not
@@ -78,12 +80,18 @@ const props = defineProps({
 })
 defineOptions({ name: "PrismicRichText" })
 
+const { componentsConfig } = usePrismic()
+
+const resolvedComponents = computed<VueRichTextComponents>(() => {
+	return { ...componentsConfig?.defaultComponents, ...props.components }
+})
+
 const children = computed(() => {
 	return asTree(props.field || []).children
 })
 
 function getInternalComponent(type: keyof typeof RichTextNodeType) {
-	const maybeComponentOrShorthand = props.components?.[type] as
+	const maybeComponentOrShorthand = resolvedComponents.value?.[type] as
 		| VueRichTextComponent
 		| VueComponentShorthand
 		| undefined
