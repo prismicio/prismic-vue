@@ -235,6 +235,33 @@ describe("renders link content", () => {
 })
 
 describe("uses link resolver", () => {
+	it("from plugin", (ctx) => {
+		const spiedLinkResolver = vi.fn(() => "/bar")
+
+		const prismic = createPrismic({
+			client: createClient("example"),
+			componentsConfig: {
+				linkResolver: spiedLinkResolver,
+			},
+		})
+
+		const wrapper = mount(PrismicLink, {
+			props: {
+				field: {
+					...ctx.mock.value.link({ type: LinkType.Document }),
+					url: undefined,
+				},
+			},
+			slots: { default: "foo" },
+			global: {
+				plugins: [router, prismic],
+			},
+		})
+
+		expect(spiedLinkResolver).toHaveBeenCalledOnce()
+		expect(wrapper.html()).toBe('<a href="/bar" class="">foo</a>')
+	})
+
 	it("from props", (ctx) => {
 		const spiedLinkResolver = vi.fn(() => "/bar")
 
@@ -254,6 +281,36 @@ describe("uses link resolver", () => {
 
 		expect(spiedLinkResolver).toHaveBeenCalledOnce()
 		expect(wrapper.html()).toBe('<a href="/bar" class="">foo</a>')
+	})
+
+	it("from props (priority over plugin)", (ctx) => {
+		const spiedLinkResolver1 = vi.fn(() => "/bar")
+		const spiedLinkResolver2 = vi.fn(() => "/baz")
+
+		const prismic = createPrismic({
+			client: createClient("example"),
+			componentsConfig: {
+				linkResolver: spiedLinkResolver1,
+			},
+		})
+
+		const wrapper = mount(PrismicLink, {
+			props: {
+				field: {
+					...ctx.mock.value.link({ type: LinkType.Document }),
+					url: undefined,
+				},
+				linkResolver: spiedLinkResolver2,
+			},
+			slots: { default: "foo" },
+			global: {
+				plugins: [router, prismic],
+			},
+		})
+
+		expect(spiedLinkResolver1).not.toHaveBeenCalled()
+		expect(spiedLinkResolver2).toHaveBeenCalledOnce()
+		expect(wrapper.html()).toBe('<a href="/baz" class="">foo</a>')
 	})
 })
 

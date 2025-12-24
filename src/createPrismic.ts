@@ -1,4 +1,4 @@
-import type { CreateClient } from "@prismicio/client"
+import type { CreateClient, LinkResolverFunction } from "@prismicio/client"
 import { isFilled } from "@prismicio/client"
 import type { App, InjectionKey } from "vue"
 import { inject } from "vue"
@@ -14,6 +14,13 @@ const prismicKey = Symbol.for(
 
 /** Components configuration. */
 type ComponentsConfig = {
+	/**
+	 * The default link resolver used to resolve links.
+	 *
+	 * @see {@link https://prismic.io/docs/routes}
+	 */
+	linkResolver?: LinkResolverFunction
+
 	/** The default component rendered for internal URLs. */
 	linkInternalComponent?: ComponentOrTagName
 
@@ -21,8 +28,11 @@ type ComponentsConfig = {
 	linkExternalComponent?: ComponentOrTagName
 
 	/**
-	 * The default components or shorthand definitions for Rich Text and Table
-	 * fields.
+	 * The default components or shorthand definitions for rich text and table
+	 * components.
+	 *
+	 * @see {@link https://prismic.io/docs/fields/rich-text}
+	 * @see {@link https://prismic.io/docs/fields/table}
 	 */
 	defaultComponents?: VueRichTextComponents & VueTableComponents
 }

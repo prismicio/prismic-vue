@@ -79,7 +79,7 @@ const { componentsConfig } = usePrismic()
 
 const rawAttrs = computed(() => {
 	return asLinkAttrs(props.field || props.document, {
-		linkResolver: props.linkResolver,
+		linkResolver: props.linkResolver || componentsConfig?.linkResolver,
 		rel(args) {
 			if (props.rel) {
 				return typeof props.rel === "function" ? props.rel(args) : props.rel
