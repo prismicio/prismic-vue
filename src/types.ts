@@ -1,15 +1,15 @@
-import type { Component } from "vue"
+import type { Component as _Component } from "vue"
 
-export type ComponentOrTagName = string | Component
+export type ComponentOrTagName = string | _Component
 
 // For reference within TypeScript files when `*.vue` type cannot be inferred
-export type VueComponent<TProps> = Component | Component<TProps>
+export type Component<TProps> = _Component | _Component<TProps>
 
 /**
  * A shorthand definition for `<PrismicRichText />` and `<PrismicTable />`
  * component types.
  */
-export type VueComponentShorthand = {
+export type ComponentShorthand = {
 	/** The HTML element type rendered for this node type. */
 	as?: string
 
@@ -17,9 +17,9 @@ export type VueComponentShorthand = {
 	[Attribute: string]: string | boolean | null | undefined
 }
 
-export const isVueComponent = <T>(
-	component: VueComponent<T> | VueComponentShorthand | undefined,
-): component is VueComponent<T> => {
+export const isComponent = <T>(
+	component: Component<T> | ComponentShorthand | undefined,
+): component is Component<T> => {
 	return (
 		!!component &&
 		(typeof component === "function" ||

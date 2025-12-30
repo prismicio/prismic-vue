@@ -2,11 +2,11 @@
 import { type TableField, isFilled } from "@prismicio/client"
 import { computed } from "vue"
 
-import type { ComponentOrTagName, VueComponentShorthand } from "../types"
-import { isVueComponent } from "../types"
-import type { InternalVueTableComponents, VueTableComponents } from "./types"
+import type { ComponentOrTagName, ComponentShorthand } from "../types"
+import { isComponent } from "../types"
+import type { InternalTableComponents, TableComponents } from "./types"
 
-import type { VueRichTextComponents } from "../PrismicRichText"
+import type { RichTextComponents } from "../PrismicRichText"
 import { usePrismic } from "../createPrismic"
 
 import { defaultTableComponents } from "./PrismicTableDefaultComponents"
@@ -31,7 +31,7 @@ export type PrismicTableProps = {
 	 * }
 	 * ```
 	 */
-	components?: VueTableComponents & VueRichTextComponents
+	components?: TableComponents & RichTextComponents
 
 	/**
 	 * The value to be rendered when the field is empty. If a fallback is not
@@ -45,26 +45,26 @@ defineOptions({ name: "PrismicTable" })
 
 const { componentsConfig } = usePrismic()
 
-const resolvedComponents = computed<VueTableComponents & VueRichTextComponents>(
+const resolvedComponents = computed<TableComponents & RichTextComponents>(
 	() => {
 		return { ...componentsConfig?.defaultComponents, ...props.components }
 	},
 )
 
-function getInternalComponent(type: keyof VueTableComponents) {
+function getInternalComponent(type: keyof TableComponents) {
 	const maybeComponentOrShorthand = resolvedComponents.value?.[type]
 
-	if (isVueComponent(maybeComponentOrShorthand)) {
+	if (isComponent(maybeComponentOrShorthand)) {
 		return { is: maybeComponentOrShorthand }
 	}
 
 	return {
 		is: defaultTableComponents[type],
-		shorthand: maybeComponentOrShorthand as VueComponentShorthand,
+		shorthand: maybeComponentOrShorthand as ComponentShorthand,
 	}
 }
 
-const internalTableComponents = computed<InternalVueTableComponents>(() => {
+const internalTableComponents = computed<InternalTableComponents>(() => {
 	return {
 		table: getInternalComponent("table"),
 		thead: getInternalComponent("thead"),

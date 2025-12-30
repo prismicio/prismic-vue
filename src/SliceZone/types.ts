@@ -1,6 +1,6 @@
 import type { Slice } from "@prismicio/client"
 
-import type { VueComponent } from "../types"
+import type { Component } from "../types"
 
 /**
  * Returns the type of a `SliceLike` type.
@@ -112,7 +112,7 @@ export type SliceComponentType<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	TSlice extends SliceLike = any,
 	TContext = unknown,
-> = VueComponent<SliceComponentProps<TSlice, TContext>>
+> = Component<SliceComponentProps<TSlice, TContext>>
 
 /**
  * A record of Slice types mapped to Vue components. Each components will be

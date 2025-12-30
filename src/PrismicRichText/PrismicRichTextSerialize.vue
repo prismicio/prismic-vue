@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import type { asTree } from "@prismicio/client/richtext"
 
-import type { InternalVueRichTextComponents } from "./types"
+import type { InternalRichTextComponents } from "./types"
 
 type PrismicRichTextSerializeProps = {
 	children: ReturnType<typeof asTree>["children"]
-	internalComponents: InternalVueRichTextComponents
+	internalComponents: InternalRichTextComponents
 }
 
 const props = defineProps<PrismicRichTextSerializeProps>()

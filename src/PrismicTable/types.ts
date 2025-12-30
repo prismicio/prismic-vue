@@ -8,7 +8,7 @@ import type {
 	TableFieldHeaderCell,
 } from "@prismicio/client"
 
-import type { VueComponent, VueComponentShorthand } from "../types"
+import type { Component, ComponentShorthand } from "../types"
 
 /**
  * A map of Table block types to Vue Components. It is used to render table
@@ -16,50 +16,50 @@ import type { VueComponent, VueComponentShorthand } from "../types"
  *
  * @see Templating Table fields from Prismic {@link https://prismic.io/docs/table}
  */
-export type VueTableComponents = {
+export type TableComponents = {
 	table?:
-		| VueComponent<{ table: TableField<"filled"> }>
-		| Omit<VueComponentShorthand, "as">
+		| Component<{ table: TableField<"filled"> }>
+		| Omit<ComponentShorthand, "as">
 	thead?:
-		| VueComponent<{ head: TableFieldHead }>
-		| Omit<VueComponentShorthand, "as">
+		| Component<{ head: TableFieldHead }>
+		| Omit<ComponentShorthand, "as">
 	tbody?:
-		| VueComponent<{ body: TableFieldBody }>
-		| Omit<VueComponentShorthand, "as">
+		| Component<{ body: TableFieldBody }>
+		| Omit<ComponentShorthand, "as">
 	tr?:
-		| VueComponent<{ row: TableFieldBodyRow | TableFieldHeadRow }>
-		| Omit<VueComponentShorthand, "as">
+		| Component<{ row: TableFieldBodyRow | TableFieldHeadRow }>
+		| Omit<ComponentShorthand, "as">
 	th?:
-		| VueComponent<{ cell: TableFieldHeaderCell }>
-		| Omit<VueComponentShorthand, "as">
+		| Component<{ cell: TableFieldHeaderCell }>
+		| Omit<ComponentShorthand, "as">
 	td?:
-		| VueComponent<{ cell: TableFieldDataCell }>
-		| Omit<VueComponentShorthand, "as">
+		| Component<{ cell: TableFieldDataCell }>
+		| Omit<ComponentShorthand, "as">
 }
 
-export type InternalVueTableComponents = {
+export type InternalTableComponents = {
 	table: {
-		is: VueTableComponents["table"]
-		shorthand?: Omit<VueComponentShorthand, "as">
+		is: TableComponents["table"]
+		shorthand?: Omit<ComponentShorthand, "as">
 	}
 	thead: {
-		is: VueTableComponents["thead"]
-		shorthand?: Omit<VueComponentShorthand, "as">
+		is: TableComponents["thead"]
+		shorthand?: Omit<ComponentShorthand, "as">
 	}
 	tbody: {
-		is: VueTableComponents["tbody"]
-		shorthand?: Omit<VueComponentShorthand, "as">
+		is: TableComponents["tbody"]
+		shorthand?: Omit<ComponentShorthand, "as">
 	}
 	tr: {
-		is: VueTableComponents["tr"]
-		shorthand?: Omit<VueComponentShorthand, "as">
+		is: TableComponents["tr"]
+		shorthand?: Omit<ComponentShorthand, "as">
 	}
 	th: {
-		is: VueTableComponents["th"]
-		shorthand?: Omit<VueComponentShorthand, "as">
+		is: TableComponents["th"]
+		shorthand?: Omit<ComponentShorthand, "as">
 	}
 	td: {
-		is: VueTableComponents["td"]
-		shorthand?: Omit<VueComponentShorthand, "as">
+		is: TableComponents["td"]
+		shorthand?: Omit<ComponentShorthand, "as">
 	}
 }

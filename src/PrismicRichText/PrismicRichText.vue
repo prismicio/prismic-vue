@@ -8,12 +8,12 @@ import { asTree } from "@prismicio/client/richtext"
 import type { PropType } from "vue"
 import { computed } from "vue"
 
-import type { ComponentOrTagName, VueComponentShorthand } from "../types"
-import { isVueComponent } from "../types"
+import type { ComponentOrTagName, ComponentShorthand } from "../types"
+import { isComponent } from "../types"
 import type {
-	InternalVueRichTextComponents,
-	VueRichTextComponent,
-	VueRichTextComponents,
+	InternalRichTextComponents,
+	RichTextComponent,
+	RichTextComponents,
 } from "./types"
 
 import { usePrismic } from "../createPrismic"
@@ -51,7 +51,7 @@ export type PrismicRichTextProps = {
 	 * }
 	 * ```
 	 */
-	components?: VueRichTextComponents
+	components?: RichTextComponents
 
 	/**
 	 * The value to be rendered when the field is empty. If a fallback is not
@@ -82,7 +82,7 @@ defineOptions({ name: "PrismicRichText" })
 
 const { componentsConfig } = usePrismic()
 
-const resolvedComponents = computed<VueRichTextComponents>(() => {
+const resolvedComponents = computed<RichTextComponents>(() => {
 	return { ...componentsConfig?.defaultComponents, ...props.components }
 })
 
@@ -92,11 +92,11 @@ const children = computed(() => {
 
 function getInternalComponent(type: keyof typeof RichTextNodeType) {
 	const maybeComponentOrShorthand = resolvedComponents.value?.[type] as
-		| VueRichTextComponent
-		| VueComponentShorthand
+		| RichTextComponent
+		| ComponentShorthand
 		| undefined
 
-	if (isVueComponent(maybeComponentOrShorthand)) {
+	if (isComponent(maybeComponentOrShorthand)) {
 		return { is: maybeComponentOrShorthand }
 	}
 
@@ -107,7 +107,7 @@ function getInternalComponent(type: keyof typeof RichTextNodeType) {
 	}
 }
 
-const internalComponents = computed<InternalVueRichTextComponents>(() => {
+const internalComponents = computed<InternalRichTextComponents>(() => {
 	return {
 		heading1: getInternalComponent("heading1"),
 		heading2: getInternalComponent("heading2"),

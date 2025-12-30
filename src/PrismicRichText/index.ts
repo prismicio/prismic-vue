@@ -1,3 +1,3 @@
 export { getRichTextComponentProps } from "./getRichTextComponentProps"
 
-export type { VueRichTextComponents, VueRichTextComponentProps } from "./types"
+export type { RichTextComponents, RichTextComponentProps } from "./types"

@@ -23,7 +23,7 @@ import type {
 	RichTextNodeTypes,
 } from "@prismicio/client"
 
-import type { VueComponent, VueComponentShorthand } from "../types"
+import type { Component, ComponentShorthand } from "../types"
 
 /**
  * A map of Rich Text block types to Vue Components. It is used to render Rich
@@ -31,34 +31,34 @@ import type { VueComponent, VueComponentShorthand } from "../types"
  *
  * @see Templating Rich Text and title fields from Prismic {@link https://prismic.io/docs/rich-text}
  */
-export type VueRichTextComponents = {
-	heading1?: VueRichTextComponent<RTHeading1Node> | VueComponentShorthand
-	heading2?: VueRichTextComponent<RTHeading2Node> | VueComponentShorthand
-	heading3?: VueRichTextComponent<RTHeading3Node> | VueComponentShorthand
-	heading4?: VueRichTextComponent<RTHeading4Node> | VueComponentShorthand
-	heading5?: VueRichTextComponent<RTHeading5Node> | VueComponentShorthand
-	heading6?: VueRichTextComponent<RTHeading6Node> | VueComponentShorthand
-	paragraph?: VueRichTextComponent<RTParagraphNode> | VueComponentShorthand
+export type RichTextComponents = {
+	heading1?: RichTextComponent<RTHeading1Node> | ComponentShorthand
+	heading2?: RichTextComponent<RTHeading2Node> | ComponentShorthand
+	heading3?: RichTextComponent<RTHeading3Node> | ComponentShorthand
+	heading4?: RichTextComponent<RTHeading4Node> | ComponentShorthand
+	heading5?: RichTextComponent<RTHeading5Node> | ComponentShorthand
+	heading6?: RichTextComponent<RTHeading6Node> | ComponentShorthand
+	paragraph?: RichTextComponent<RTParagraphNode> | ComponentShorthand
 	preformatted?:
-		| VueRichTextComponent<RTPreformattedNode>
-		| VueComponentShorthand
-	strong?: VueRichTextComponent<RTStrongNode> | VueComponentShorthand
-	em?: VueRichTextComponent<RTEmNode> | VueComponentShorthand
-	listItem?: VueRichTextComponent<RTListItemNode> | VueComponentShorthand
-	oListItem?: VueRichTextComponent<RTOListItemNode> | VueComponentShorthand
-	list?: VueRichTextComponent<RTListNode> | VueComponentShorthand
-	oList?: VueRichTextComponent<RTOListNode> | VueComponentShorthand
-	image?: VueRichTextComponent<RTImageNode> | Omit<VueComponentShorthand, "as">
-	embed?: VueRichTextComponent<RTEmbedNode> | VueComponentShorthand
+		| RichTextComponent<RTPreformattedNode>
+		| ComponentShorthand
+	strong?: RichTextComponent<RTStrongNode> | ComponentShorthand
+	em?: RichTextComponent<RTEmNode> | ComponentShorthand
+	listItem?: RichTextComponent<RTListItemNode> | ComponentShorthand
+	oListItem?: RichTextComponent<RTOListItemNode> | ComponentShorthand
+	list?: RichTextComponent<RTListNode> | ComponentShorthand
+	oList?: RichTextComponent<RTOListNode> | ComponentShorthand
+	image?: RichTextComponent<RTImageNode> | Omit<ComponentShorthand, "as">
+	embed?: RichTextComponent<RTEmbedNode> | ComponentShorthand
 	hyperlink?:
-		| VueRichTextComponent<RTLinkNode>
-		| Omit<VueComponentShorthand, "as">
-	label?: VueRichTextComponent<RTLabelNode> | Omit<VueComponentShorthand, "as">
-	span?: VueRichTextComponent<RTSpanNode>
+		| RichTextComponent<RTLinkNode>
+		| Omit<ComponentShorthand, "as">
+	label?: RichTextComponent<RTLabelNode> | Omit<ComponentShorthand, "as">
+	span?: RichTextComponent<RTSpanNode>
 }
 
 /** Props for a component rendering nodes from a Prismic rich text field. */
-export type VueRichTextComponentProps<TRTNode extends RTAnyNode = RTAnyNode> = {
+export type RichTextComponentProps<TRTNode extends RTAnyNode = RTAnyNode> = {
 	node: TRTNode
 }
 
@@ -67,14 +67,14 @@ export type VueRichTextComponentProps<TRTNode extends RTAnyNode = RTAnyNode> = {
  *
  * @typeParam TRTNode - The type of rich text node(s) this component handles
  */
-export type VueRichTextComponent<TRTNode extends RTAnyNode = RTAnyNode> =
-	VueComponent<VueRichTextComponentProps<TRTNode>>
+export type RichTextComponent<TRTNode extends RTAnyNode = RTAnyNode> =
+	Component<RichTextComponentProps<TRTNode>>
 
-export type InternalVueRichTextComponents = Record<
+export type InternalRichTextComponents = Record<
 	RichTextNodeTypes,
 	{
-		is: VueRichTextComponent
+		is: RichTextComponent
 		linkResolver?: LinkResolverFunction
-		shorthand?: VueComponentShorthand
+		shorthand?: ComponentShorthand
 	}
 >

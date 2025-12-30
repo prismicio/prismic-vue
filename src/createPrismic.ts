@@ -5,8 +5,8 @@ import { inject } from "vue"
 
 import type { ComponentOrTagName } from "./types"
 
-import type { VueRichTextComponents } from "./PrismicRichText"
-import type { VueTableComponents } from "./PrismicTable"
+import type { RichTextComponents } from "./PrismicRichText"
+import type { TableComponents } from "./PrismicTable"
 
 const prismicKey = Symbol.for(
 	"@prismicio/vue/plugin",
@@ -34,7 +34,7 @@ type ComponentsConfig = {
 	 * @see {@link https://prismic.io/docs/fields/rich-text}
 	 * @see {@link https://prismic.io/docs/fields/table}
 	 */
-	defaultComponents?: VueRichTextComponents & VueTableComponents
+	defaultComponents?: RichTextComponents & TableComponents
 }
 
 /**
