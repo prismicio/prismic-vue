@@ -75,11 +75,11 @@ export type PrismicLinkProps = {
 const props = defineProps<PrismicLinkProps>()
 defineOptions({ name: "PrismicLink" })
 
-const { componentsConfig } = usePrismic()
+const { components } = usePrismic()
 
 const rawAttrs = computed(() => {
 	return asLinkAttrs(props.field || props.document, {
-		linkResolver: props.linkResolver || componentsConfig?.linkResolver,
+		linkResolver: props.linkResolver || components?.linkResolver,
 		rel(args) {
 			if (props.rel) {
 				return typeof props.rel === "function" ? props.rel(args) : props.rel
@@ -93,10 +93,10 @@ const rawAttrs = computed(() => {
 const component = computed(() => {
 	return isInternalURL(rawAttrs.value.href || "")
 		? props.internalComponent ||
-				componentsConfig?.linkInternalComponent ||
+				components?.linkInternalComponent ||
 				defaultInternalComponent
 		: props.externalComponent ||
-				componentsConfig?.linkExternalComponent ||
+				components?.linkExternalComponent ||
 				defaultExternalComponent
 })
 

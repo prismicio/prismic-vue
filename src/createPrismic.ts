@@ -37,6 +37,15 @@ type ComponentsConfig = {
 	defaultComponents?: RichTextComponents & TableComponents
 }
 
+/** Prismic Vue plugin configuration. */
+export type PrismicPluginConfig = {
+	/** A Prismic client instance to inject into the Vue app. */
+	client: ReturnType<CreateClient>
+
+	/** Components configuration. */
+	components?: ComponentsConfig
+}
+
 /**
  * Prismic Vue plugin interface accessible through `usePrismic()` and
  * `$prismic`.
@@ -49,25 +58,17 @@ export type PrismicPlugin = {
 	isFilled: typeof isFilled
 
 	/** @internal */
-	readonly componentsConfig?: ComponentsConfig
+	readonly components: ComponentsConfig
 
 	/** @internal */
 	install: (app: App) => void
-}
-
-/** Prismic Vue plugin configuration. */
-export type PrismicPluginConfig = {
-	/** A Prismic client instance to inject into the Vue app. */
-	client: ReturnType<CreateClient>
-
-	/** Components configuration. */
-	componentsConfig?: ComponentsConfig
 }
 
 /** Creates a Prismic Vue plugin instance that can be used by a Vue app. */
 export const createPrismic = (config: PrismicPluginConfig): PrismicPlugin => {
 	return {
 		...config,
+		components: config.components || {},
 		isFilled,
 		install(app: App): void {
 			app.provide(prismicKey, this)
@@ -86,7 +87,7 @@ export const createPrismic = (config: PrismicPluginConfig): PrismicPlugin => {
  * ```
  */
 export const usePrismic = (): PrismicPlugin => {
-	return inject(prismicKey, { componentsConfig: {} } as PrismicPlugin)
+	return inject(prismicKey, { components: {} } as PrismicPlugin)
 }
 
 declare module "vue" {

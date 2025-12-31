@@ -240,7 +240,7 @@ describe("uses link resolver", () => {
 
 		const prismic = createPrismic({
 			client: createClient("example"),
-			componentsConfig: {
+			components: {
 				linkResolver: spiedLinkResolver,
 			},
 		})
@@ -289,7 +289,7 @@ describe("uses link resolver", () => {
 
 		const prismic = createPrismic({
 			client: createClient("example"),
-			componentsConfig: {
+			components: {
 				linkResolver: spiedLinkResolver1,
 			},
 		})
@@ -392,7 +392,7 @@ describe("renders external links using component", () => {
 	it("from plugin", (ctx) => {
 		const prismic = createPrismic({
 			client: createClient("example"),
-			componentsConfig: {
+			components: {
 				linkExternalComponent: WrapperComponent,
 			},
 		})
@@ -463,7 +463,7 @@ describe("renders internal links using component", () => {
 	it("from plugin", (ctx) => {
 		const prismic = createPrismic({
 			client: createClient("example"),
-			componentsConfig: {
+			components: {
 				linkInternalComponent: WrapperComponent,
 			},
 		})

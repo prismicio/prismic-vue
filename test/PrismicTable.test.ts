@@ -170,7 +170,7 @@ describe("uses table components", () => {
 	it("from plugin", () => {
 		const prismic = createPrismic({
 			client: createClient("example"),
-			componentsConfig: {
+			components: {
 				defaultComponents: {
 					table: markRaw(
 						defineComponent({

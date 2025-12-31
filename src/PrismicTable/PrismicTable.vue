@@ -43,11 +43,11 @@ export type PrismicTableProps = {
 const props = defineProps<PrismicTableProps>()
 defineOptions({ name: "PrismicTable" })
 
-const { componentsConfig } = usePrismic()
+const { components: { defaultComponents } } = usePrismic()
 
 const resolvedComponents = computed<TableComponents & RichTextComponents>(
 	() => {
-		return { ...componentsConfig?.defaultComponents, ...props.components }
+		return { ...defaultComponents, ...props.components }
 	},
 )
 
