@@ -34,7 +34,7 @@ type ComponentsConfig = {
 	 * @see {@link https://prismic.io/docs/fields/rich-text}
 	 * @see {@link https://prismic.io/docs/fields/table}
 	 */
-	defaultComponents?: RichTextComponents & TableComponents
+	richTextComponents?: RichTextComponents & TableComponents
 }
 
 /** Prismic Vue plugin configuration. */

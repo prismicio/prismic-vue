@@ -171,7 +171,7 @@ describe("uses table components", () => {
 		const prismic = createPrismic({
 			client: createClient("example"),
 			components: {
-				defaultComponents: {
+				richTextComponents: {
 					table: markRaw(
 						defineComponent({
 							template: /* html */ `<div class="table"><slot></slot></div>`,

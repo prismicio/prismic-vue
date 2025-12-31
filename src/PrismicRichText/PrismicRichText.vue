@@ -80,10 +80,10 @@ const props = defineProps({
 })
 defineOptions({ name: "PrismicRichText" })
 
-const { components: { defaultComponents } } = usePrismic()
+const { components: { richTextComponents } } = usePrismic()
 
 const resolvedComponents = computed<RichTextComponents>(() => {
-	return { ...defaultComponents, ...props.components }
+	return { ...richTextComponents, ...props.components }
 })
 
 const children = computed(() => {

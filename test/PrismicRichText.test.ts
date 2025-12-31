@@ -80,7 +80,7 @@ describe("uses components", () => {
 		const prismic = createPrismic({
 			client: createClient("example"),
 			components: {
-				defaultComponents: {
+				richTextComponents: {
 					heading1: markRaw(
 						createWrapperComponent(undefined, getRichTextComponentProps()),
 					),
