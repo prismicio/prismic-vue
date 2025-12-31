@@ -14,13 +14,6 @@ const prismicKey = Symbol.for(
 
 /** Components configuration. */
 type ComponentsConfig = {
-	/**
-	 * The default link resolver used to resolve links.
-	 *
-	 * @see {@link https://prismic.io/docs/routes}
-	 */
-	linkResolver?: LinkResolverFunction
-
 	/** The default component rendered for internal URLs. */
 	linkInternalComponent?: ComponentOrTagName
 
@@ -42,6 +35,13 @@ export type PrismicPluginConfig = {
 	/** A Prismic client instance to inject into the Vue app. */
 	client: ReturnType<CreateClient>
 
+	/**
+	 * A default link resolver used to resolve links when route resolvers cannot be used.
+	 *
+	 * @see {@link https://prismic.io/docs/routes}
+	 */
+	linkResolver?: LinkResolverFunction
+
 	/** Components configuration. */
 	components?: ComponentsConfig
 }
@@ -56,6 +56,13 @@ export type PrismicPlugin = {
 
 	/** Helpers to determine if a field is filled. */
 	isFilled: typeof isFilled
+
+	/**
+	 * The default link resolver used to resolve links when route resolvers cannot be used.
+	 *
+	 * @see {@link https://prismic.io/docs/routes}
+	 */
+	linkResolver?: LinkResolverFunction
 
 	/** @internal */
 	readonly components: ComponentsConfig

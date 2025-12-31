@@ -32,7 +32,7 @@ export type PrismicLinkProps = {
 	 * If your app uses route resolvers when querying for your Prismic
 	 * repository's content, a link resolver does not need to be provided.
 	 *
-	 * @see Learn about link resolvers and route resolvers {@link https://prismic.io/docs/routes}
+	 * @see {@link https://prismic.io/docs/routes}
 	 */
 	linkResolver?: LinkResolverFunction
 
@@ -75,11 +75,11 @@ export type PrismicLinkProps = {
 const props = defineProps<PrismicLinkProps>()
 defineOptions({ name: "PrismicLink" })
 
-const { components } = usePrismic()
+const { linkResolver, components } = usePrismic()
 
 const rawAttrs = computed(() => {
 	return asLinkAttrs(props.field || props.document, {
-		linkResolver: props.linkResolver || components?.linkResolver,
+		linkResolver: props.linkResolver || linkResolver,
 		rel(args) {
 			if (props.rel) {
 				return typeof props.rel === "function" ? props.rel(args) : props.rel

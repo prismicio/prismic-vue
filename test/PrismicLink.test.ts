@@ -240,9 +240,7 @@ describe("uses link resolver", () => {
 
 		const prismic = createPrismic({
 			client: createClient("example"),
-			components: {
-				linkResolver: spiedLinkResolver,
-			},
+			linkResolver: spiedLinkResolver,
 		})
 
 		const wrapper = mount(PrismicLink, {
@@ -289,9 +287,7 @@ describe("uses link resolver", () => {
 
 		const prismic = createPrismic({
 			client: createClient("example"),
-			components: {
-				linkResolver: spiedLinkResolver1,
-			},
+			linkResolver: spiedLinkResolver1,
 		})
 
 		const wrapper = mount(PrismicLink, {
