@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest"
 
-import { LinkType } from "@prismicio/client"
+import { LinkType, createClient } from "@prismicio/client"
 import { mount } from "@vue/test-utils"
 import { markRaw } from "vue"
 
@@ -10,7 +10,7 @@ import {
 } from "./__fixtures__/WrapperComponent"
 import router from "./__fixtures__/router"
 
-import { PrismicLink } from "../src"
+import { PrismicLink, createPrismic } from "../src"
 
 describe("renders a link field", () => {
 	it("empty", (ctx) => {
@@ -235,6 +235,31 @@ describe("renders link content", () => {
 })
 
 describe("uses link resolver", () => {
+	it("from plugin", (ctx) => {
+		const spiedLinkResolver = vi.fn(() => "/bar")
+
+		const prismic = createPrismic({
+			client: createClient("example"),
+			linkResolver: spiedLinkResolver,
+		})
+
+		const wrapper = mount(PrismicLink, {
+			props: {
+				field: {
+					...ctx.mock.value.link({ type: LinkType.Document }),
+					url: undefined,
+				},
+			},
+			slots: { default: "foo" },
+			global: {
+				plugins: [router, prismic],
+			},
+		})
+
+		expect(spiedLinkResolver).toHaveBeenCalledOnce()
+		expect(wrapper.html()).toBe('<a href="/bar" class="">foo</a>')
+	})
+
 	it("from props", (ctx) => {
 		const spiedLinkResolver = vi.fn(() => "/bar")
 
@@ -254,6 +279,34 @@ describe("uses link resolver", () => {
 
 		expect(spiedLinkResolver).toHaveBeenCalledOnce()
 		expect(wrapper.html()).toBe('<a href="/bar" class="">foo</a>')
+	})
+
+	it("from props (priority over plugin)", (ctx) => {
+		const spiedLinkResolver1 = vi.fn(() => "/bar")
+		const spiedLinkResolver2 = vi.fn(() => "/baz")
+
+		const prismic = createPrismic({
+			client: createClient("example"),
+			linkResolver: spiedLinkResolver1,
+		})
+
+		const wrapper = mount(PrismicLink, {
+			props: {
+				field: {
+					...ctx.mock.value.link({ type: LinkType.Document }),
+					url: undefined,
+				},
+				linkResolver: spiedLinkResolver2,
+			},
+			slots: { default: "foo" },
+			global: {
+				plugins: [router, prismic],
+			},
+		})
+
+		expect(spiedLinkResolver1).not.toHaveBeenCalled()
+		expect(spiedLinkResolver2).toHaveBeenCalledOnce()
+		expect(wrapper.html()).toBe('<a href="/baz" class="">foo</a>')
 	})
 })
 
@@ -332,6 +385,35 @@ describe("renders rel attribute", () => {
 })
 
 describe("renders external links using component", () => {
+	it("from plugin", (ctx) => {
+		const prismic = createPrismic({
+			client: createClient("example"),
+			components: {
+				linkExternalComponent: WrapperComponent,
+			},
+		})
+
+		const wrapper = mount(PrismicLink, {
+			props: {
+				field: {
+					...ctx.mock.value.link({
+						type: LinkType.Web,
+						withTargetBlank: false,
+					}),
+					url: "https://example.com",
+					text: "foo",
+				},
+			},
+			global: {
+				plugins: [prismic],
+			},
+		})
+
+		expect(wrapper.html()).toBe(
+			'<div class="wrapperComponent" to="https://example.com" rel="noreferrer">foo</div>',
+		)
+	})
+
 	it("from props", (ctx) => {
 		const wrapper = mount(PrismicLink, {
 			props: {
@@ -341,13 +423,14 @@ describe("renders external links using component", () => {
 						withTargetBlank: false,
 					}),
 					url: "https://example.com",
+					text: "foo",
 				},
 				externalComponent: markRaw(createWrapperComponent()),
 			},
 		})
 
 		expect(wrapper.html()).toBe(
-			'<div class="wrapperComponent" to="https://example.com" rel="noreferrer"></div>',
+			'<div class="wrapperComponent" to="https://example.com" rel="noreferrer">foo</div>',
 		)
 	})
 
@@ -373,6 +456,31 @@ describe("renders external links using component", () => {
 })
 
 describe("renders internal links using component", () => {
+	it("from plugin", (ctx) => {
+		const prismic = createPrismic({
+			client: createClient("example"),
+			components: {
+				linkInternalComponent: WrapperComponent,
+			},
+		})
+
+		const wrapper = mount(PrismicLink, {
+			props: {
+				field: {
+					...ctx.mock.value.link({ type: LinkType.Document }),
+					url: "/bar",
+				},
+			},
+			global: {
+				plugins: [prismic],
+			},
+		})
+
+		expect(wrapper.html()).toBe(
+			'<div class="wrapperComponent" to="/bar"></div>',
+		)
+	})
+
 	it("from props", (ctx) => {
 		const wrapper = mount(PrismicLink, {
 			props: {

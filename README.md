@@ -15,11 +15,11 @@ Replace all on all files (README.md, CONTRIBUTING.md, bug_report.md, package.jso
 
 <!-- Replacing link to Prismic with [Prismic][prismic] is useful here -->
 
-[Vue][vue] plugin, components, and composables to fetch and present [Prismic][prismic] content.
+[Vue][vue-docs] plugin, components, and composables to fetch and present [Prismic][prismic] content.
 
-- 📝 &nbsp;Display content from Prismic like [Rich Text][prismic-rich-text] and [Link][prismic-link] fields;
-- 🍡 &nbsp;Render Prismic [Slice Zones][prismic-slices] declaratively with Vue components;
-- 🎣 &nbsp;Fetch Prismic content using Vue [composition API][vue-composition] or [vue-options].
+- 📝 &nbsp;Display content from Prismic like [rich text][prismic-rich-text] and [link][prismic-link] fields.
+- 🍡 &nbsp;Render Prismic [slice zones][prismic-slices] declaratively with Vue components.
+- 🎣 &nbsp;Fetch Prismic content throughout your Vue application.
 
 ## Install
 
@@ -70,14 +70,12 @@ For more clarity on this project and its structure you can also check out the de
 <!-- Replace link with a more useful one if available -->
 
 [prismic-docs]: https://prismic.io/docs/technical-reference/prismicio-vue/v5
+[vue-docs]: https://vuejs.org
 [changelog]: ./CHANGELOG.md
 [contributing]: ./CONTRIBUTING.md
-[vue]: https://v3.vuejs.org
-[prismic-rich-text]: https://prismic.io/docs/core-concepts/rich-text-title
-[prismic-link]: https://prismic.io/docs/core-concepts/link-content-relationship
-[prismic-slices]: https://prismic.io/docs/core-concepts/slices
-[vue-composition]: https://v3.vuejs.org/guide/composition-api-introduction.html
-[vue-options]: https://v3.vuejs.org/guide/introduction.html
+[prismic-rich-text]: https://prismic.io/docs/fields/rich-text
+[prismic-link]: https://prismic.io/docs/fields/link
+[prismic-slices]: https://prismic.io/docs/slices
 
 <!-- Replace link with a more useful one if available -->
 

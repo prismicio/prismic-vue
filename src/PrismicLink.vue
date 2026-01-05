@@ -12,6 +12,8 @@ import { isInternalURL } from "./lib/isInternalURL"
 
 import type { ComponentOrTagName } from "./types"
 
+import { usePrismic } from "./createPrismic"
+
 /** The default component rendered for internal URLs. */
 const defaultInternalComponent = "router-link"
 
@@ -30,7 +32,7 @@ export type PrismicLinkProps = {
 	 * If your app uses route resolvers when querying for your Prismic
 	 * repository's content, a link resolver does not need to be provided.
 	 *
-	 * @see Learn about link resolvers and route resolvers {@link https://prismic.io/docs/routes}
+	 * @see {@link https://prismic.io/docs/routes}
 	 */
 	linkResolver?: LinkResolverFunction
 
@@ -73,9 +75,11 @@ export type PrismicLinkProps = {
 const props = defineProps<PrismicLinkProps>()
 defineOptions({ name: "PrismicLink" })
 
+const { linkResolver, components } = usePrismic()
+
 const rawAttrs = computed(() => {
 	return asLinkAttrs(props.field || props.document, {
-		linkResolver: props.linkResolver,
+		linkResolver: props.linkResolver || linkResolver,
 		rel(args) {
 			if (props.rel) {
 				return typeof props.rel === "function" ? props.rel(args) : props.rel
@@ -88,8 +92,12 @@ const rawAttrs = computed(() => {
 
 const component = computed(() => {
 	return isInternalURL(rawAttrs.value.href || "")
-		? props.internalComponent || defaultInternalComponent
-		: props.externalComponent || defaultExternalComponent
+		? props.internalComponent ||
+				components?.linkInternalComponent ||
+				defaultInternalComponent
+		: props.externalComponent ||
+				components?.linkExternalComponent ||
+				defaultExternalComponent
 })
 
 // Match Vue Router's `<RouterLink />` interface unless the component is an anchor tag.

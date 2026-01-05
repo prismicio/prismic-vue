@@ -8,13 +8,15 @@ import { asTree } from "@prismicio/client/richtext"
 import type { PropType } from "vue"
 import { computed } from "vue"
 
-import type { ComponentOrTagName, VueComponentShorthand } from "../types"
-import { isVueComponent } from "../types"
+import type { ComponentOrTagName, ComponentShorthand } from "../types"
+import { isComponent } from "../types"
 import type {
-	InternalVueRichTextComponents,
-	VueRichTextComponent,
-	VueRichTextSerializer,
+	InternalRichTextComponents,
+	RichTextComponent,
+	RichTextComponents,
 } from "./types"
+
+import { usePrismic } from "../createPrismic"
 
 import PrismicRichTextDefaultComponent from "./PrismicRichTextDefaultComponent.vue"
 import PrismicRichTextSerialize from "./PrismicRichTextSerialize.vue"
@@ -49,7 +51,7 @@ export type PrismicRichTextProps = {
 	 * }
 	 * ```
 	 */
-	components?: VueRichTextSerializer
+	components?: RichTextComponents
 
 	/**
 	 * The value to be rendered when the field is empty. If a fallback is not
@@ -78,17 +80,23 @@ const props = defineProps({
 })
 defineOptions({ name: "PrismicRichText" })
 
+const { components: { richTextComponents } } = usePrismic()
+
+const resolvedComponents = computed<RichTextComponents>(() => {
+	return { ...richTextComponents, ...props.components }
+})
+
 const children = computed(() => {
 	return asTree(props.field || []).children
 })
 
 function getInternalComponent(type: keyof typeof RichTextNodeType) {
-	const maybeComponentOrShorthand = props.components?.[type] as
-		| VueRichTextComponent
-		| VueComponentShorthand
+	const maybeComponentOrShorthand = resolvedComponents.value?.[type] as
+		| RichTextComponent
+		| ComponentShorthand
 		| undefined
 
-	if (isVueComponent(maybeComponentOrShorthand)) {
+	if (isComponent(maybeComponentOrShorthand)) {
 		return { is: maybeComponentOrShorthand }
 	}
 
@@ -99,7 +107,7 @@ function getInternalComponent(type: keyof typeof RichTextNodeType) {
 	}
 }
 
-const internalComponents = computed<InternalVueRichTextComponents>(() => {
+const internalComponents = computed<InternalRichTextComponents>(() => {
 	return {
 		heading1: getInternalComponent("heading1"),
 		heading2: getInternalComponent("heading2"),

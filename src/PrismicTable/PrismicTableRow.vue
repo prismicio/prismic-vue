@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 import type { TableFieldBodyRow, TableFieldHeadRow } from "@prismicio/client"
 
-import type { InternalVueTableComponents } from "./types"
+import type { InternalTableComponents } from "./types"
 
-import type { VueRichTextSerializer } from "../PrismicRichText"
+import type { RichTextComponents } from "../PrismicRichText"
 import PrismicRichText from "../PrismicRichText/PrismicRichText.vue"
 
 export type PrismicTableRowProps = {
 	row: TableFieldHeadRow | TableFieldBodyRow
-	internalTableComponents: InternalVueTableComponents
-	components?: VueRichTextSerializer
+	internalTableComponents: InternalTableComponents
+	components?: RichTextComponents
 }
 
 const props = defineProps<PrismicTableRowProps>()

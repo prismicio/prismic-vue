@@ -1,30 +1,15 @@
-import type {
-	ConcreteComponent,
-	DefineComponent,
-	FunctionalComponent,
-	Raw,
-	defineAsyncComponent,
-} from "vue"
+import type { Component as _Component } from "vue"
 
-export type ComponentOrTagName =
-	| string
-	| ConcreteComponent
-	| Raw<DefineComponent>
+export type ComponentOrTagName = string | _Component
 
-export type VueComponent<TProps> =
-	// For reference within TypeScript files when `*.vue` type cannot be inferred
-	// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-	| DefineComponent<{}, {}, any>
-	// Likewise, for reference with TypeScript files.
-	| ReturnType<typeof defineAsyncComponent>
-	| DefineComponent<TProps>
-	| FunctionalComponent<TProps>
+// For reference within TypeScript files when `*.vue` type cannot be inferred
+export type Component<TProps> = _Component | _Component<TProps>
 
 /**
  * A shorthand definition for `<PrismicRichText />` and `<PrismicTable />`
  * component types.
  */
-export type VueComponentShorthand = {
+export type ComponentShorthand = {
 	/** The HTML element type rendered for this node type. */
 	as?: string
 
@@ -32,9 +17,9 @@ export type VueComponentShorthand = {
 	[Attribute: string]: string | boolean | null | undefined
 }
 
-export const isVueComponent = <T>(
-	component: VueComponent<T> | VueComponentShorthand | undefined,
-): component is VueComponent<T> => {
+export const isComponent = <T>(
+	component: Component<T> | ComponentShorthand | undefined,
+): component is Component<T> => {
 	return (
 		!!component &&
 		(typeof component === "function" ||

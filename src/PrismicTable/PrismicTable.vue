@@ -2,11 +2,12 @@
 import { type TableField, isFilled } from "@prismicio/client"
 import { computed } from "vue"
 
-import type { ComponentOrTagName, VueComponentShorthand } from "../types"
-import { isVueComponent } from "../types"
-import type { InternalVueTableComponents, VueTableComponents } from "./types"
+import type { ComponentOrTagName, ComponentShorthand } from "../types"
+import { isComponent } from "../types"
+import type { InternalTableComponents, TableComponents } from "./types"
 
-import type { VueRichTextSerializer } from "../PrismicRichText"
+import type { RichTextComponents } from "../PrismicRichText"
+import { usePrismic } from "../createPrismic"
 
 import { defaultTableComponents } from "./PrismicTableDefaultComponents"
 import PrismicTableRow from "./PrismicTableRow.vue"
@@ -30,7 +31,7 @@ export type PrismicTableProps = {
 	 * }
 	 * ```
 	 */
-	components?: VueTableComponents & VueRichTextSerializer
+	components?: TableComponents & RichTextComponents
 
 	/**
 	 * The value to be rendered when the field is empty. If a fallback is not
@@ -42,20 +43,28 @@ export type PrismicTableProps = {
 const props = defineProps<PrismicTableProps>()
 defineOptions({ name: "PrismicTable" })
 
-function getInternalComponent(type: keyof VueTableComponents) {
-	const maybeComponentOrShorthand = props.components?.[type]
+const { components: { richTextComponents } } = usePrismic()
 
-	if (isVueComponent(maybeComponentOrShorthand)) {
+const resolvedComponents = computed<TableComponents & RichTextComponents>(
+	() => {
+		return { ...richTextComponents, ...props.components }
+	},
+)
+
+function getInternalComponent(type: keyof TableComponents) {
+	const maybeComponentOrShorthand = resolvedComponents.value?.[type]
+
+	if (isComponent(maybeComponentOrShorthand)) {
 		return { is: maybeComponentOrShorthand }
 	}
 
 	return {
 		is: defaultTableComponents[type],
-		shorthand: maybeComponentOrShorthand as VueComponentShorthand,
+		shorthand: maybeComponentOrShorthand as ComponentShorthand,
 	}
 }
 
-const internalTableComponents = computed<InternalVueTableComponents>(() => {
+const internalTableComponents = computed<InternalTableComponents>(() => {
 	return {
 		table: getInternalComponent("table"),
 		thead: getInternalComponent("thead"),

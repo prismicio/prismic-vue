@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest"
 
 import type { RichTextField } from "@prismicio/client"
-import { RichTextNodeType } from "@prismicio/client"
+import { RichTextNodeType, createClient } from "@prismicio/client"
 import { mount } from "@vue/test-utils"
 import { markRaw } from "vue"
 
@@ -11,7 +11,7 @@ import {
 } from "./__fixtures__/WrapperComponent"
 import { richTextFixture } from "./__fixtures__/richText"
 
-import { PrismicRichText } from "../src"
+import { PrismicRichText, createPrismic } from "../src"
 import { getRichTextComponentProps } from "../src/PrismicRichText/getRichTextComponentProps"
 
 describe("renders a rich text field", () => {
@@ -75,7 +75,39 @@ describe("uses link resolver", () => {
 	})
 })
 
-describe("uses components serializer", () => {
+describe("uses components", () => {
+	it("from plugin", () => {
+		const prismic = createPrismic({
+			client: createClient("example"),
+			components: {
+				richTextComponents: {
+					heading1: markRaw(
+						createWrapperComponent(undefined, getRichTextComponentProps()),
+					),
+				},
+			},
+		})
+
+		const wrapper = mount(PrismicRichText, {
+			props: {
+				field: [
+					{
+						type: RichTextNodeType.heading1,
+						text: "Heading 1",
+						spans: [],
+					},
+				],
+			},
+			global: {
+				plugins: [prismic],
+			},
+		})
+
+		expect(wrapper.html()).toBe(`<div class="wrapperComponent">
+  <!--v-if-->Heading 1
+</div>`)
+	})
+
 	it("from props", () => {
 		const wrapper = mount(PrismicRichText, {
 			props: {
@@ -100,7 +132,7 @@ describe("uses components serializer", () => {
 	})
 })
 
-describe("uses shorthand serializer", () => {
+describe("uses components shorthand", () => {
 	it("from props", () => {
 		const wrapper = mount(PrismicRichText, {
 			props: {
