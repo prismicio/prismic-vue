@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/prismicio/prismic-vue/compare/v5.3.0...v6.0.0) (2026-01-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* rework Vue plugin ([#89](https://github.com/prismicio/prismic-vue/issues/89))
+* remove deprecated code and update tests ([#86](https://github.com/prismicio/prismic-vue/issues/86))
+
+### Features
+
+* remove deprecated code and update tests ([#86](https://github.com/prismicio/prismic-vue/issues/86)) ([aa89de6](https://github.com/prismicio/prismic-vue/commit/aa89de63868fd96ff530e2b6cd12f76122531309))
+* support shorthands for table components and rich text serializers ([#88](https://github.com/prismicio/prismic-vue/issues/88)) ([87748cc](https://github.com/prismicio/prismic-vue/commit/87748cc1fd1da5d5bd5a1ce3719e19d96c83b41d))
+
+
+### Code Refactoring
+
+* rework Vue plugin ([#89](https://github.com/prismicio/prismic-vue/issues/89)) ([c1eace6](https://github.com/prismicio/prismic-vue/commit/c1eace67802959df68ba3e051dbe1754daa6b871))
+
 ## [5.3.0](https://github.com/prismicio/prismic-vue/compare/v5.2.1...v5.3.0) (2025-07-16)
 
 
