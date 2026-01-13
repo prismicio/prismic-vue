@@ -64,9 +64,7 @@ onUnmounted(() => {
 			background: props.background || getDefaultProps().background,
 		}"
 	>
-		<article v-if="message">
-			{{ message }}
-		</article>
+		<article v-if="message" v-html="message" />
 		<div
 			v-else-if="slices.length"
 			id="root"
