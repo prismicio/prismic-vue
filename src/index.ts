@@ -34,5 +34,8 @@ export type {
 	SliceZoneLike,
 } from "./SliceZone"
 
+export { default as SliceSimulator } from "./SliceSimulator.vue"
+export type { SliceSimulatorProps } from "./SliceSimulator.vue"
+
 export { createPrismic, usePrismic } from "./createPrismic"
 export type { PrismicPlugin, PrismicPluginConfig } from "./createPrismic"
