@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.0](https://github.com/prismicio/prismic-vue/compare/v6.0.0...v6.1.0) (2026-01-14)
+
+
+### Features
+
+* add `<SliceSimulator>` component ([#90](https://github.com/prismicio/prismic-vue/issues/90)) ([331d154](https://github.com/prismicio/prismic-vue/commit/331d154a5b7ce747b2628dbda730942a9baf5fea))
+
 ## [6.0.0](https://github.com/prismicio/prismic-vue/compare/v5.3.0...v6.0.0) (2026-01-05)
 
 
