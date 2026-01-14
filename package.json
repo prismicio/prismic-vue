@@ -42,7 +42,7 @@
 		"test": "npm run lint && npm run types && npm run unit && npm run build"
 	},
 	"dependencies": {
-		"@prismicio/simulator": "^0.1.4-pr.19.c7977d5",
+		"@prismicio/simulator": "^0.2.0",
 		"esm-env": "^1.2.2"
 	},
 	"devDependencies": {
