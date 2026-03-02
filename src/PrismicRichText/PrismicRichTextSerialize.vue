@@ -15,7 +15,7 @@ defineOptions({ name: "PrismicRichTextSerialize" })
 <template>
 	<component
 		v-for="child in props.children"
-		:key="JSON.stringify(child)"
+		:key="child.key"
 		:is="internalComponents[child.type].is"
 		:node="child.node"
 		:link-resolver="internalComponents[child.type].linkResolver"
