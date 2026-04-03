@@ -3,26 +3,23 @@
 	"version": "6.1.1",
 	"description": "Vue plugin, components, and composables to fetch and present Prismic content",
 	"keywords": [
-		"typescript",
+		"plugin",
 		"prismic",
-		"vue",
-		"plugin"
+		"typescript",
+		"vue"
 	],
+	"license": "Apache-2.0",
+	"author": "Prismic <contact@prismic.io> (https://prismic.io)",
 	"repository": {
 		"type": "git",
 		"url": "ssh://git@github.com/prismicio/prismic-vue.git"
 	},
-	"license": "Apache-2.0",
-	"author": "Prismic <contact@prismic.io> (https://prismic.io)",
-	"sideEffects": false,
+	"files": [
+		"./dist",
+		"./src"
+	],
 	"type": "module",
-	"exports": {
-		".": {
-			"require": "./dist/index.cjs",
-			"import": "./dist/index.js"
-		},
-		"./package.json": "./package.json"
-	},
+	"sideEffects": false,
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.cts",
@@ -33,14 +30,20 @@
 			]
 		}
 	},
-	"files": [
-		"./dist",
-		"./src"
-	],
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		},
+		"./package.json": "./package.json"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"build": "tsdown",
 		"dev": "tsdown --watch",
-		"format": "prettier --write .",
+		"format": "oxfmt",
 		"prepare": "npm run build",
 		"lint": "oxlint --deny-warnings",
 		"types": "vue-tsc --noEmit",
@@ -55,23 +58,21 @@
 	"devDependencies": {
 		"@prismicio/client": "^7.21.3",
 		"@prismicio/mock": "^0.7.1",
-		"@trivago/prettier-plugin-sort-imports": "^6.0.2",
 		"@types/jsdom-global": "^3.0.7",
-		"@vitejs/plugin-vue": "^6.0.3",
-		"@vitest/coverage-v8": "^4.0.17",
+		"@vitejs/plugin-vue": "^6.0.5",
+		"@vitest/coverage-v8": "^4.1.2",
 		"@vue/test-utils": "^2.4.6",
-		"jsdom": "^27.4.0",
+		"jsdom": "^29.0.1",
 		"jsdom-global": "^3.0.2",
-		"oxlint": "1.39.0",
-		"prettier": "^3.7.4",
-		"prettier-plugin-jsdoc": "^1.8.0",
-		"tsdown": "^0.19.0",
-		"typescript": "^5.9.3",
-		"vite": "^7.3.1",
-		"vitest": "^4.0.17",
+		"oxfmt": "^0.43.0",
+		"oxlint": "1.58.0",
+		"tsdown": "^0.21.7",
+		"typescript": "^6.0.2",
+		"vite": "^8.0.3",
+		"vitest": "^4.1.2",
 		"vue": "^3.5.26",
-		"vue-router": "^4.6.4",
-		"vue-tsc": "^3.2.2"
+		"vue-router": "^5.0.4",
+		"vue-tsc": "^3.2.6"
 	},
 	"peerDependencies": {
 		"@prismicio/client": "^7",
@@ -79,8 +80,5 @@
 	},
 	"engines": {
 		"node": ">=20"
-	},
-	"publishConfig": {
-		"access": "public"
 	}
 }

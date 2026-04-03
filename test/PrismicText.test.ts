@@ -1,12 +1,10 @@
-import { describe, expect, it } from "vitest"
-
 import { type RichTextField, RichTextNodeType } from "@prismicio/client"
 import { mount } from "@vue/test-utils"
+import { describe, expect, it } from "vitest"
 import { markRaw } from "vue"
 
-import { WrapperComponent } from "./__fixtures__/WrapperComponent"
-
 import { PrismicText } from "../src"
+import { WrapperComponent } from "./__fixtures__/WrapperComponent"
 
 describe("renders a rich text field", () => {
 	it("as plain text", () => {
@@ -82,9 +80,7 @@ it("reacts to changes properly", async () => {
 	const firstRender = wrapper.html()
 
 	await wrapper.setProps({
-		field: [
-			{ type: RichTextNodeType.paragraph, text: "foo", spans: [] },
-		] as RichTextField,
+		field: [{ type: RichTextNodeType.paragraph, text: "foo", spans: [] }] as RichTextField,
 	})
 
 	const secondRender = wrapper.html()

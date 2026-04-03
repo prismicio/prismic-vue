@@ -1,16 +1,11 @@
-import { describe, expect, it, vi } from "vitest"
-
 import { LinkType, createClient } from "@prismicio/client"
 import { mount } from "@vue/test-utils"
+import { describe, expect, it, vi } from "vitest"
 import { markRaw } from "vue"
 
-import {
-	WrapperComponent,
-	createWrapperComponent,
-} from "./__fixtures__/WrapperComponent"
-import router from "./__fixtures__/router"
-
 import { PrismicLink, createPrismic } from "../src"
+import router from "./__fixtures__/router"
+import { WrapperComponent, createWrapperComponent } from "./__fixtures__/WrapperComponent"
 
 describe("renders a link field", () => {
 	it("empty", (ctx) => {
@@ -38,9 +33,7 @@ describe("renders a link field", () => {
 			slots: { default: "foo" },
 		})
 
-		expect(wrapper.html()).toBe(
-			'<a href="https://example.com" rel="noreferrer">foo</a>',
-		)
+		expect(wrapper.html()).toBe('<a href="https://example.com" rel="noreferrer">foo</a>')
 	})
 
 	it("link to web (blank target)", (ctx) => {
@@ -73,9 +66,7 @@ describe("renders a link field", () => {
 			slots: { default: "foo" },
 		})
 
-		expect(wrapper.html()).toBe(
-			'<a href="https://example.com/image.png" rel="noreferrer">foo</a>',
-		)
+		expect(wrapper.html()).toBe('<a href="https://example.com/image.png" rel="noreferrer">foo</a>')
 	})
 
 	it("content relationship", (ctx) => {
@@ -146,9 +137,7 @@ describe("renders link content", () => {
 			},
 		})
 
-		expect(linkToWeb.html()).toBe(
-			'<a href="https://example.com" rel="noreferrer">bar</a>',
-		)
+		expect(linkToWeb.html()).toBe('<a href="https://example.com" rel="noreferrer">bar</a>')
 
 		const linkToMedia = mount(PrismicLink, {
 			props: {
@@ -197,9 +186,7 @@ describe("renders link content", () => {
 			slots: { default: "foo" },
 		})
 
-		expect(linkToWeb.html()).toBe(
-			'<a href="https://example.com" rel="noreferrer">foo</a>',
-		)
+		expect(linkToWeb.html()).toBe('<a href="https://example.com" rel="noreferrer">foo</a>')
 
 		const linkToMedia = mount(PrismicLink, {
 			props: {
@@ -476,9 +463,7 @@ describe("renders internal links using component", () => {
 			},
 		})
 
-		expect(wrapper.html()).toBe(
-			'<div class="wrapperComponent" to="/bar"></div>',
-		)
+		expect(wrapper.html()).toBe('<div class="wrapperComponent" to="/bar"></div>')
 	})
 
 	it("from props", (ctx) => {
@@ -492,9 +477,7 @@ describe("renders internal links using component", () => {
 			},
 		})
 
-		expect(wrapper.html()).toBe(
-			'<div class="wrapperComponent" to="/bar"></div>',
-		)
+		expect(wrapper.html()).toBe('<div class="wrapperComponent" to="/bar"></div>')
 	})
 })
 

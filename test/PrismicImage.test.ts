@@ -1,6 +1,5 @@
-import { describe, expect, it, vi } from "vitest"
-
 import { mount } from "@vue/test-utils"
+import { describe, expect, it, vi } from "vitest"
 
 import { PrismicImage } from "../src"
 
@@ -106,9 +105,7 @@ describe("renders a pixel-density srcset", () => {
 })
 
 it("prioritizes widths prop over pixelDensities", (ctx) => {
-	const consoleWarnSpy = vi
-		.spyOn(console, "warn")
-		.mockImplementation(() => void 0)
+	const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => void 0)
 
 	const wrapper = mount(PrismicImage, {
 		props: {
@@ -128,9 +125,7 @@ it("prioritizes widths prop over pixelDensities", (ctx) => {
 })
 
 it("warns if both widths and pixelDensites are given", (ctx) => {
-	const consoleWarnSpy = vi
-		.spyOn(console, "warn")
-		.mockImplementation(() => void 0)
+	const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => void 0)
 
 	mount(PrismicImage, {
 		props: {
@@ -144,9 +139,7 @@ it("warns if both widths and pixelDensites are given", (ctx) => {
 
 	expect(consoleWarnSpy).toHaveBeenCalledOnce()
 	expect(consoleWarnSpy).toHaveBeenCalledWith(
-		expect.stringMatching(
-			/only one of "widths" or "pixelDensities" props can be provided/i,
-		),
+		expect.stringMatching(/only one of "widths" or "pixelDensities" props can be provided/i),
 	)
 
 	consoleWarnSpy.mockRestore()
@@ -181,9 +174,7 @@ describe("renders alt attribute", () => {
 	})
 
 	it("warns if a non-decorative fallback alt value is given", (ctx) => {
-		const consoleWarnSpy = vi
-			.spyOn(console, "warn")
-			.mockImplementation(() => void 0)
+		const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => void 0)
 
 		mount(PrismicImage, {
 			props: {
@@ -223,9 +214,7 @@ describe("renders alt attribute", () => {
 	})
 
 	it("warns if a non-decorative alt value is given", (ctx) => {
-		const consoleWarnSpy = vi
-			.spyOn(console, "warn")
-			.mockImplementation(() => void 0)
+		const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => void 0)
 
 		mount(PrismicImage, {
 			props: {

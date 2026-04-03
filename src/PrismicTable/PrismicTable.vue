@@ -2,15 +2,13 @@
 import { type TableField, isFilled } from "@prismicio/client"
 import { computed } from "vue"
 
+import { usePrismic } from "../createPrismic"
+import type { RichTextComponents } from "../PrismicRichText"
 import type { ComponentOrTagName, ComponentShorthand } from "../types"
 import { isComponent } from "../types"
-import type { InternalTableComponents, TableComponents } from "./types"
-
-import type { RichTextComponents } from "../PrismicRichText"
-import { usePrismic } from "../createPrismic"
-
 import { defaultTableComponents } from "./PrismicTableDefaultComponents"
 import PrismicTableRow from "./PrismicTableRow.vue"
+import type { InternalTableComponents, TableComponents } from "./types"
 
 /** Props for `<PrismicTable />`. */
 export type PrismicTableProps = {
@@ -18,24 +16,22 @@ export type PrismicTableProps = {
 	field: TableField | undefined
 
 	/**
-	 * An object that maps a table block type to a Vue component or a shorthand
-	 * definition.
+	 * An object that maps a table block type to a Vue component or a shorthand definition.
 	 *
 	 * @example
-	 *
-	 * ```javascript
-	 * {
-	 *   table: Table,
-	 *   thead: { class: 'bg-black text-white' },
-	 *   th: { as: 'td', class: 'font-bold' },
-	 * }
-	 * ```
+	 * 	```javascript
+	 * 	;({
+	 * 		table: Table,
+	 * 		thead: { class: "bg-black text-white" },
+	 * 		th: { as: "td", class: "font-bold" }
+	 * 	})
+	 * 	```
 	 */
 	components?: TableComponents & RichTextComponents
 
 	/**
-	 * The value to be rendered when the field is empty. If a fallback is not
-	 * given, `null` (nothing) will be rendered.
+	 * The value to be rendered when the field is empty. If a fallback is not given, `null` (nothing)
+	 * will be rendered.
 	 */
 	fallback?: ComponentOrTagName
 }
@@ -43,13 +39,13 @@ export type PrismicTableProps = {
 const props = defineProps<PrismicTableProps>()
 defineOptions({ name: "PrismicTable" })
 
-const { components: { richTextComponents } } = usePrismic()
+const {
+	components: { richTextComponents },
+} = usePrismic()
 
-const resolvedComponents = computed<TableComponents & RichTextComponents>(
-	() => {
-		return { ...richTextComponents, ...props.components }
-	},
-)
+const resolvedComponents = computed<TableComponents & RichTextComponents>(() => {
+	return { ...richTextComponents, ...props.components }
+})
 
 function getInternalComponent(type: keyof TableComponents) {
 	const maybeComponentOrShorthand = resolvedComponents.value?.[type]

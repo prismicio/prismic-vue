@@ -1,27 +1,16 @@
+import { mount } from "@vue/test-utils"
 import { expect, it, vi } from "vitest"
 
-import { mount } from "@vue/test-utils"
-
-import { createWrapperComponent } from "./__fixtures__/WrapperComponent"
-
 import type { SliceComponentType } from "../src"
-import {
-	SliceZone,
-	defineSliceZoneComponents,
-	getSliceComponentProps,
-} from "../src"
+import { SliceZone, defineSliceZoneComponents, getSliceComponentProps } from "../src"
+import { createWrapperComponent } from "./__fixtures__/WrapperComponent"
 
 vi.mock("esm-env", async () => ({ DEV: false }))
 
 it("doesn't render TODO component in production", () => {
-	const consoleWarnSpy = vi
-		.spyOn(console, "warn")
-		.mockImplementation(() => void 0)
+	const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => void 0)
 
-	const Foo = createWrapperComponent<SliceComponentType>(
-		"Foo",
-		getSliceComponentProps(),
-	)
+	const Foo = createWrapperComponent<SliceComponentType>("Foo", getSliceComponentProps())
 
 	const wrapper = mount(SliceZone, {
 		props: {

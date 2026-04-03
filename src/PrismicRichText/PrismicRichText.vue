@@ -1,25 +1,15 @@
 <script lang="ts" setup>
-import type {
-	LinkResolverFunction,
-	RichTextField,
-	RichTextNodeType,
-} from "@prismicio/client"
+import type { LinkResolverFunction, RichTextField, RichTextNodeType } from "@prismicio/client"
 import { asTree } from "@prismicio/client/richtext"
 import type { PropType } from "vue"
 import { computed } from "vue"
 
+import { usePrismic } from "../createPrismic"
 import type { ComponentOrTagName, ComponentShorthand } from "../types"
 import { isComponent } from "../types"
-import type {
-	InternalRichTextComponents,
-	RichTextComponent,
-	RichTextComponents,
-} from "./types"
-
-import { usePrismic } from "../createPrismic"
-
 import PrismicRichTextDefaultComponent from "./PrismicRichTextDefaultComponent.vue"
 import PrismicRichTextSerialize from "./PrismicRichTextSerialize.vue"
+import type { InternalRichTextComponents, RichTextComponent, RichTextComponents } from "./types"
 
 /** Props for `<PrismicRichText />`. */
 export type PrismicRichTextProps = {
@@ -30,32 +20,29 @@ export type PrismicRichTextProps = {
 	 * The link resolver used to resolve links.
 	 *
 	 * @remarks
-	 * If your app uses route resolvers when querying for your Prismic
-	 * repository's content, a link resolver does not need to be provided.
-	 *
+	 *   If your app uses route resolvers when querying for your Prismic repository's content, a link
+	 *   resolver does not need to be provided.
 	 * @see Learn about link resolvers and route resolvers {@link https://prismic.io/docs/routes}
 	 */
 	linkResolver?: LinkResolverFunction
 
 	/**
-	 * An object that maps a rich text block type to a Vue component or a
-	 * shorthand definition.
+	 * An object that maps a rich text block type to a Vue component or a shorthand definition.
 	 *
 	 * @example
-	 *
-	 * ```javascript
-	 * {
-	 *   heading1: Heading1,
-	 *   paragraph: { class: 'prose'},
-	 *   strong: { as: 'em', class: 'font-bold' },
-	 * }
-	 * ```
+	 * 	```javascript
+	 * 	;({
+	 * 		heading1: Heading1,
+	 * 		paragraph: { class: "prose" },
+	 * 		strong: { as: "em", class: "font-bold" }
+	 * 	})
+	 * 	```
 	 */
 	components?: RichTextComponents
 
 	/**
-	 * The value to be rendered when the field is empty. If a fallback is not
-	 * given, `null` will be rendered.
+	 * The value to be rendered when the field is empty. If a fallback is not given, `null` will be
+	 * rendered.
 	 */
 	fallback?: ComponentOrTagName
 }
@@ -73,14 +60,14 @@ const props = defineProps({
 		type: Object as PropType<PrismicRichTextProps["components"]>,
 	},
 	fallback: {
-		type: [String, Object, Function] as PropType<
-			PrismicRichTextProps["fallback"]
-		>,
+		type: [String, Object, Function] as PropType<PrismicRichTextProps["fallback"]>,
 	},
 })
 defineOptions({ name: "PrismicRichText" })
 
-const { components: { richTextComponents } } = usePrismic()
+const {
+	components: { richTextComponents },
+} = usePrismic()
 
 const resolvedComponents = computed<RichTextComponents>(() => {
 	return { ...richTextComponents, ...props.components }

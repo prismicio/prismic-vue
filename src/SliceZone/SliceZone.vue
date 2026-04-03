@@ -2,14 +2,8 @@
 import { computed } from "vue"
 
 import type { ComponentOrTagName } from "../types"
-import type {
-	SliceComponentType,
-	SliceLike,
-	SliceZoneComponents,
-	SliceZoneLike,
-} from "./types"
-
 import { TODOSliceComponent } from "./TODOSliceComponent"
+import type { SliceComponentType, SliceLike, SliceZoneComponents, SliceZoneLike } from "./types"
 
 /**
  * Props for `<SliceZone />`.
@@ -23,10 +17,7 @@ export type SliceZoneProps<TContext = unknown> = {
 	/** A record mapping slice types to React components. */
 	components?: SliceZoneComponents
 
-	/**
-	 * The Vue component rendered if a component mapping from the `components`
-	 * prop cannot be found.
-	 */
+	/** The Vue component rendered if a component mapping from the `components` prop cannot be found. */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	defaultComponent?: SliceComponentType<any, TContext>
 
@@ -47,13 +38,10 @@ const renderedSlices = computed<
 	if (!props.slices) return []
 
 	return props.slices.map((slice, index) => {
-		const type =
-			"slice_type" in slice ? (slice.slice_type as string) : slice.type
+		const type = "slice_type" in slice ? (slice.slice_type as string) : slice.type
 
 		const key =
-			"id" in slice && typeof slice.id === "string"
-				? slice.id
-				: `${index}-${JSON.stringify(slice)}`
+			"id" in slice && typeof slice.id === "string" ? slice.id : `${index}-${JSON.stringify(slice)}`
 
 		const is = props.components?.[type] || props.defaultComponent
 
