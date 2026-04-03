@@ -26,8 +26,7 @@ import type {
 import type { Component, ComponentShorthand } from "../types"
 
 /**
- * A map of Rich Text block types to Vue Components. It is used to render Rich
- * Text or title fields.
+ * A map of Rich Text block types to Vue Components. It is used to render Rich Text or title fields.
  *
  * @see Templating Rich Text and title fields from Prismic {@link https://prismic.io/docs/rich-text}
  */
@@ -39,9 +38,7 @@ export type RichTextComponents = {
 	heading5?: RichTextComponent<RTHeading5Node> | ComponentShorthand
 	heading6?: RichTextComponent<RTHeading6Node> | ComponentShorthand
 	paragraph?: RichTextComponent<RTParagraphNode> | ComponentShorthand
-	preformatted?:
-		| RichTextComponent<RTPreformattedNode>
-		| ComponentShorthand
+	preformatted?: RichTextComponent<RTPreformattedNode> | ComponentShorthand
 	strong?: RichTextComponent<RTStrongNode> | ComponentShorthand
 	em?: RichTextComponent<RTEmNode> | ComponentShorthand
 	listItem?: RichTextComponent<RTListItemNode> | ComponentShorthand
@@ -50,9 +47,7 @@ export type RichTextComponents = {
 	oList?: RichTextComponent<RTOListNode> | ComponentShorthand
 	image?: RichTextComponent<RTImageNode> | Omit<ComponentShorthand, "as">
 	embed?: RichTextComponent<RTEmbedNode> | ComponentShorthand
-	hyperlink?:
-		| RichTextComponent<RTLinkNode>
-		| Omit<ComponentShorthand, "as">
+	hyperlink?: RichTextComponent<RTLinkNode> | Omit<ComponentShorthand, "as">
 	label?: RichTextComponent<RTLabelNode> | Omit<ComponentShorthand, "as">
 	span?: RichTextComponent<RTSpanNode>
 }
@@ -67,8 +62,9 @@ export type RichTextComponentProps<TRTNode extends RTAnyNode = RTAnyNode> = {
  *
  * @typeParam TRTNode - The type of rich text node(s) this component handles
  */
-export type RichTextComponent<TRTNode extends RTAnyNode = RTAnyNode> =
-	Component<RichTextComponentProps<TRTNode>>
+export type RichTextComponent<TRTNode extends RTAnyNode = RTAnyNode> = Component<
+	RichTextComponentProps<TRTNode>
+>
 
 export type InternalRichTextComponents = Record<
 	RichTextNodeTypes,

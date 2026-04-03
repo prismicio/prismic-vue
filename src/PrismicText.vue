@@ -12,8 +12,8 @@ export type PrismicTextProps = {
 	field: RichTextField | null | undefined
 
 	/**
-	 * The string value to be rendered when the field is empty. If a fallback is
-	 * not given, `""` (nothing) will be rendered.
+	 * The string value to be rendered when the field is empty. If a fallback is not given, `""`
+	 * (nothing) will be rendered.
 	 */
 	fallback?: string
 

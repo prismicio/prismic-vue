@@ -3,14 +3,11 @@ import { isFilled } from "@prismicio/client"
 import type { App, InjectionKey } from "vue"
 import { inject } from "vue"
 
-import type { ComponentOrTagName } from "./types"
-
 import type { RichTextComponents } from "./PrismicRichText"
 import type { TableComponents } from "./PrismicTable"
+import type { ComponentOrTagName } from "./types"
 
-const prismicKey = Symbol.for(
-	"@prismicio/vue/plugin",
-) as InjectionKey<PrismicPlugin>
+const prismicKey = Symbol.for("@prismicio/vue/plugin") as InjectionKey<PrismicPlugin>
 
 /** Components configuration. */
 type ComponentsConfig = {
@@ -21,8 +18,7 @@ type ComponentsConfig = {
 	linkExternalComponent?: ComponentOrTagName
 
 	/**
-	 * The default components or shorthand definitions for rich text and table
-	 * components.
+	 * The default components or shorthand definitions for rich text and table components.
 	 *
 	 * @see {@link https://prismic.io/docs/fields/rich-text}
 	 * @see {@link https://prismic.io/docs/fields/table}
@@ -46,10 +42,7 @@ export type PrismicPluginConfig = {
 	components?: ComponentsConfig
 }
 
-/**
- * Prismic Vue plugin interface accessible through `usePrismic()` and
- * `$prismic`.
- */
+/** Prismic Vue plugin interface accessible through `usePrismic()` and `$prismic`. */
 export type PrismicPlugin = {
 	/** A Prismic client that can be used to query content from a repository. */
 	client: ReturnType<CreateClient>
@@ -88,10 +81,9 @@ export const createPrismic = (config: PrismicPluginConfig): PrismicPlugin => {
  * Access the Prismic Vue plugin interface.
  *
  * @example
- *
- * ```typescript
- * const { client, isFilled } = usePrismic()
- * ```
+ * 	```typescript
+ * 	const { client, isFilled } = usePrismic()
+ * 	```
  */
 export const usePrismic = (): PrismicPlugin => {
 	return inject(prismicKey, { components: {} } as PrismicPlugin)

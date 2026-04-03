@@ -1,18 +1,13 @@
-import { describe, expect, it, vi } from "vitest"
-
 import type { RichTextField } from "@prismicio/client"
 import { RichTextNodeType, createClient } from "@prismicio/client"
 import { mount } from "@vue/test-utils"
+import { describe, expect, it, vi } from "vitest"
 import { markRaw } from "vue"
-
-import {
-	WrapperComponent,
-	createWrapperComponent,
-} from "./__fixtures__/WrapperComponent"
-import { richTextFixture } from "./__fixtures__/richText"
 
 import { PrismicRichText, createPrismic } from "../src"
 import { getRichTextComponentProps } from "../src/PrismicRichText/getRichTextComponentProps"
+import { richTextFixture } from "./__fixtures__/richText"
+import { WrapperComponent, createWrapperComponent } from "./__fixtures__/WrapperComponent"
 
 describe("renders a rich text field", () => {
 	it("as components", () => {
@@ -81,9 +76,7 @@ describe("uses components", () => {
 			client: createClient("example"),
 			components: {
 				richTextComponents: {
-					heading1: markRaw(
-						createWrapperComponent(undefined, getRichTextComponentProps()),
-					),
+					heading1: markRaw(createWrapperComponent(undefined, getRichTextComponentProps())),
 				},
 			},
 		})
@@ -119,9 +112,7 @@ describe("uses components", () => {
 					},
 				],
 				components: {
-					heading1: markRaw(
-						createWrapperComponent(undefined, getRichTextComponentProps()),
-					),
+					heading1: markRaw(createWrapperComponent(undefined, getRichTextComponentProps())),
 				},
 			},
 		})

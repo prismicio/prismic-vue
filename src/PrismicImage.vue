@@ -1,10 +1,6 @@
 <script lang="ts" setup>
 import type { ImageField, asImageSrc } from "@prismicio/client"
-import {
-	asImagePixelDensitySrcSet,
-	asImageWidthSrcSet,
-	isFilled,
-} from "@prismicio/client"
+import { asImagePixelDensitySrcSet, asImageWidthSrcSet, isFilled } from "@prismicio/client"
 import { DEV } from "esm-env"
 import { computed, watchEffect } from "vue"
 
@@ -25,33 +21,29 @@ export type PrismicImageProps = {
 	/**
 	 * Declare an image as decorative by providing `alt=""`.
 	 *
-	 * See:
-	 * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/alt#decorative_images
+	 * See: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/alt#decorative_images
 	 */
 	alt?: ""
 
 	/**
-	 * Declare an image as decorative only if the image field does not have
-	 * alternative text by providing `fallbackAlt=""`.
+	 * Declare an image as decorative only if the image field does not have alternative text by
+	 * providing `fallbackAlt=""`.
 	 *
-	 * See:
-	 * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/alt#decorative_images
+	 * See: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/alt#decorative_images
 	 */
 	fallbackAlt?: ""
 
 	/**
 	 * The width attribute of the image element.
 	 *
-	 * See:
-	 * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/width
+	 * See: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/width
 	 */
 	width?: number | string
 
 	/**
 	 * The height attribute of the image element.
 	 *
-	 * See:
-	 * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/height
+	 * See: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/height
 	 */
 	height?: number | string
 } & (
@@ -59,12 +51,11 @@ export type PrismicImageProps = {
 			/**
 			 * Widths (in pixels) used to build a `srcset` value for the image field.
 			 *
-			 * If omitted or set to `"defaults"`, the following widths will be used:
-			 * 640, 750, 828, 1080, 1200, 1920, 2048, 3840.
+			 * If omitted or set to `"defaults"`, the following widths will be used: 640, 750, 828, 1080,
+			 * 1200, 1920, 2048, 3840.
 			 *
-			 * If the image field contains responsive views, each responsive view can
-			 * be used as a width in the resulting `srcset` by passing `"thumbnails"`
-			 * as the `widths` prop.
+			 * If the image field contains responsive views, each responsive view can be used as a width
+			 * in the resulting `srcset` by passing `"thumbnails"` as the `widths` prop.
 			 */
 			widths?:
 				| NonNullable<Parameters<typeof asImageWidthSrcSet>[1]>["widths"]
@@ -77,13 +68,11 @@ export type PrismicImageProps = {
 			/**
 			 * Pixel densities used to build a `srcset` value for the image field.
 			 *
-			 * If a `pixelDensities` prop is passed `"defaults"`, the following pixel
-			 * densities will be used: 1, 2, 3.
+			 * If a `pixelDensities` prop is passed `"defaults"`, the following pixel densities will be
+			 * used: 1, 2, 3.
 			 */
 			pixelDensities:
-				| NonNullable<
-						Parameters<typeof asImagePixelDensitySrcSet>[1]
-				  >["pixelDensities"]
+				| NonNullable<Parameters<typeof asImagePixelDensitySrcSet>[1]>["pixelDensities"]
 				| "defaults"
 	  }
 )
@@ -149,8 +138,7 @@ const image = computed(() => {
 	} else if (props.pixelDensities) {
 		const res = asImagePixelDensitySrcSet(props.field, {
 			...props.imgixParams,
-			pixelDensities:
-				props.pixelDensities === "defaults" ? undefined : props.pixelDensities,
+			pixelDensities: props.pixelDensities === "defaults" ? undefined : props.pixelDensities,
 		})
 
 		src = res.src

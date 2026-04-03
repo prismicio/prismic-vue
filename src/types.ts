@@ -5,10 +5,7 @@ export type ComponentOrTagName = string | _Component
 // For reference within TypeScript files when `*.vue` type cannot be inferred
 export type Component<TProps> = _Component | _Component<TProps>
 
-/**
- * A shorthand definition for `<PrismicRichText />` and `<PrismicTable />`
- * component types.
- */
+/** A shorthand definition for `<PrismicRichText />` and `<PrismicTable />` component types. */
 export type ComponentShorthand = {
 	/** The HTML element type rendered for this node type. */
 	as?: string

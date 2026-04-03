@@ -14,8 +14,8 @@ type ExtractSliceType<TSlice extends SliceLike> = TSlice extends SliceLikeRestV2
 		: never
 
 /**
- * The minimum required properties to represent a Prismic Slice from the Prismic
- * Rest API V2 for the `unstable_mapSliceZone()` helper.
+ * The minimum required properties to represent a Prismic Slice from the Prismic Rest API V2 for the
+ * `unstable_mapSliceZone()` helper.
  *
  * @typeParam SliceType - Type name of the Slice.
  */
@@ -25,8 +25,8 @@ export type SliceLikeRestV2<TSliceType extends string = string> = Pick<
 >
 
 /**
- * The minimum required properties to represent a Prismic Slice from the Prismic
- * GraphQL API for the `unstable_mapSliceZone()` helper.
+ * The minimum required properties to represent a Prismic Slice from the Prismic GraphQL API for the
+ * `unstable_mapSliceZone()` helper.
  *
  * @typeParam SliceType - Type name of the Slice.
  */
@@ -35,11 +35,10 @@ export type SliceLikeGraphQL<TSliceType extends string = string> = {
 }
 
 /**
- * The minimum required properties to represent a Prismic Slice for the
- * `<SliceZone />` component.
+ * The minimum required properties to represent a Prismic Slice for the `<SliceZone />` component.
  *
- * If using Prismic's Rest API V2, use the `Slice` export from
- * `@prismicio/client` for a full interface.
+ * If using Prismic's Rest API V2, use the `Slice` export from `@prismicio/client` for a full
+ * interface.
  *
  * @typeParam TSliceType - Type name of the Slice
  */
@@ -48,8 +47,8 @@ export type SliceLike<TSliceType extends string = string> = (
 	| SliceLikeGraphQL<TSliceType>
 ) & {
 	/**
-	 * If `true`, this Slice has been modified from its original value using a
-	 * mapper and `@prismicio/client`'s `mapSliceZone()`.
+	 * If `true`, this Slice has been modified from its original value using a mapper and
+	 * `@prismicio/client`'s `mapSliceZone()`.
 	 *
 	 * @internal
 	 */
@@ -57,29 +56,24 @@ export type SliceLike<TSliceType extends string = string> = (
 }
 
 /**
- * A looser version of the `SliceZone` type from `@prismicio/client` using
- * `SliceLike`.
+ * A looser version of the `SliceZone` type from `@prismicio/client` using `SliceLike`.
  *
- * If using Prismic's REST API, use the `SliceZone` export from
- * `@prismicio/client` for the full type.
+ * If using Prismic's REST API, use the `SliceZone` export from `@prismicio/client` for the full
+ * type.
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
  */
-export type SliceZoneLike<TSlice extends SliceLike = SliceLike> =
-	readonly TSlice[]
+export type SliceZoneLike<TSlice extends SliceLike = SliceLike> = readonly TSlice[]
 
 /**
- * Vue props for a component rendering content from a Prismic Slice using the
- * `<SliceZone />` component.
+ * Vue props for a component rendering content from a Prismic Slice using the `<SliceZone />`
+ * component.
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
- * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made
- *   available to all Slice components
+ * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made available to all Slice
+ *   components
  */
-export type SliceComponentProps<
-	TSlice extends SliceLike = SliceLike,
-	TContext = unknown,
-> = {
+export type SliceComponentProps<TSlice extends SliceLike = SliceLike, TContext = unknown> = {
 	/** Slice data for this component. */
 	slice: TSlice
 
@@ -91,14 +85,9 @@ export type SliceComponentProps<
 	// reference limtiations. If we had another generic to determine the full
 	// union of Slice types, it would include TSlice. This causes TypeScript to
 	// throw a compilation error.
-	slices: SliceZoneLike<
-		TSlice extends SliceLikeGraphQL ? SliceLikeGraphQL : SliceLikeRestV2
-	>
+	slices: SliceZoneLike<TSlice extends SliceLikeGraphQL ? SliceLikeGraphQL : SliceLikeRestV2>
 
-	/**
-	 * Arbitrary data passed to `<SliceZone />` and made available to all Slice
-	 * components.
-	 */
+	/** Arbitrary data passed to `<SliceZone />` and made available to all Slice components. */
 	context: TContext
 }
 
@@ -115,16 +104,13 @@ export type SliceComponentType<
 > = Component<SliceComponentProps<TSlice, TContext>>
 
 /**
- * A record of Slice types mapped to Vue components. Each components will be
- * rendered for each instance of their Slice type.
+ * A record of Slice types mapped to Vue components. Each components will be rendered for each
+ * instance of their Slice type.
  *
  * @typeParam TSlice - The type(s) of slices in the Slice Zone
  * @typeParam TContext - Arbitrary data made available to all Slice components
  */
-export type SliceZoneComponents<
-	TSlice extends SliceLike = SliceLike,
-	TContext = unknown,
-> =
+export type SliceZoneComponents<TSlice extends SliceLike = SliceLike, TContext = unknown> =
 	// This is purposely not wrapped in Partial to ensure a component is provided
 	// for all Slice types. <SliceZone /> will render a default component if one is
 	// not provided, but it *should* be a type error if an explicit component is

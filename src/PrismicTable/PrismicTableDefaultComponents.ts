@@ -1,8 +1,7 @@
 import { defineComponent, h } from "vue"
 
-import type { TableComponents } from "./types"
-
 import * as getTableComponentProps from "./getTableComponentProps"
+import type { TableComponents } from "./types"
 
 export const defaultTableComponents: Required<TableComponents> = {
 	table: defineComponent({

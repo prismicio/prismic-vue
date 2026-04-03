@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import type { TableFieldBodyRow, TableFieldHeadRow } from "@prismicio/client"
 
-import type { InternalTableComponents } from "./types"
-
 import type { RichTextComponents } from "../PrismicRichText"
 import PrismicRichText from "../PrismicRichText/PrismicRichText.vue"
+import type { InternalTableComponents } from "./types"
 
 export type PrismicTableRowProps = {
 	row: TableFieldHeadRow | TableFieldBodyRow

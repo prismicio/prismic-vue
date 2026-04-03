@@ -5,11 +5,10 @@ import type { PropType } from "vue"
 import type { SliceComponentType, SliceLike } from "./types"
 
 /**
- * This Slice component can be used as a reminder to provide a proper
- * implementation.
+ * This Slice component can be used as a reminder to provide a proper implementation.
  *
- * This is also the default Vue component rendered when a component mapping
- * cannot be found in `<SliceZone />`.
+ * This is also the default Vue component rendered when a component mapping cannot be found in
+ * `<SliceZone />`.
  */
 // oxlint-disable-next-line explicit-module-boundary-types
 export const TODOSliceComponent = DEV
@@ -23,9 +22,7 @@ export const TODOSliceComponent = DEV
 			},
 			setup(props) {
 				const type = computed(() => {
-					return "slice_type" in props.slice
-						? props.slice.slice_type
-						: props.slice.type
+					return "slice_type" in props.slice ? props.slice.slice_type : props.slice.type
 				})
 
 				watchEffect(() => {

@@ -1,10 +1,7 @@
-import { describe, expect, it } from "vitest"
-
 import { type TableField, createClient } from "@prismicio/client"
 import { mount } from "@vue/test-utils"
+import { describe, expect, it } from "vitest"
 import { defineComponent, markRaw } from "vue"
-
-import { WrapperComponent } from "./__fixtures__/WrapperComponent"
 
 import {
 	PrismicTable,
@@ -12,6 +9,7 @@ import {
 	getRichTextComponentProps,
 	getTableComponentProps,
 } from "../src"
+import { WrapperComponent } from "./__fixtures__/WrapperComponent"
 
 const filledTableField: TableField = {
 	head: {

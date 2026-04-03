@@ -1,7 +1,6 @@
-import { beforeEach } from "vitest"
-
 import type { MockFactory } from "@prismicio/mock"
 import { createMockFactory } from "@prismicio/mock"
+import { beforeEach } from "vitest"
 
 declare module "vitest" {
 	export interface TestContext {

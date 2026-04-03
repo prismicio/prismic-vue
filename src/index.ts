@@ -19,11 +19,7 @@ export type { PrismicTextProps } from "./PrismicText.vue"
 
 export { default as SliceZone } from "./SliceZone/SliceZone.vue"
 export type { SliceZoneProps } from "./SliceZone/SliceZone.vue"
-export {
-	TODOSliceComponent,
-	defineSliceZoneComponents,
-	getSliceComponentProps,
-} from "./SliceZone"
+export { TODOSliceComponent, defineSliceZoneComponents, getSliceComponentProps } from "./SliceZone"
 export type {
 	SliceComponentProps,
 	SliceComponentType,

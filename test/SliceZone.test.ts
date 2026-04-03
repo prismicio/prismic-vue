@@ -1,35 +1,15 @@
-import { describe, expect, it, vi } from "vitest"
-
 import { flushPromises, mount } from "@vue/test-utils"
+import { describe, expect, it, vi } from "vitest"
 import type { DefineComponent } from "vue"
 import { defineAsyncComponent, markRaw } from "vue"
 
+import type { SliceComponentProps, SliceComponentType, SliceLike, SliceZoneLike } from "../src"
+import { SliceZone, defineSliceZoneComponents, getSliceComponentProps } from "../src"
 import { createWrapperComponent } from "./__fixtures__/WrapperComponent"
 
-import type {
-	SliceComponentProps,
-	SliceComponentType,
-	SliceLike,
-	SliceZoneLike,
-} from "../src"
-import {
-	SliceZone,
-	defineSliceZoneComponents,
-	getSliceComponentProps,
-} from "../src"
-
-const Foo = createWrapperComponent<SliceComponentType>(
-	"Foo",
-	getSliceComponentProps(),
-)
-const Bar = createWrapperComponent<SliceComponentType>(
-	"Bar",
-	getSliceComponentProps(),
-)
-const Baz = createWrapperComponent<SliceComponentType>(
-	"Baz",
-	getSliceComponentProps(),
-)
+const Foo = createWrapperComponent<SliceComponentType>("Foo", getSliceComponentProps())
+const Bar = createWrapperComponent<SliceComponentType>("Bar", getSliceComponentProps())
+const Baz = createWrapperComponent<SliceComponentType>("Baz", getSliceComponentProps())
 
 describe("renders a slice zone", () => {
 	it("from the REST API", async () => {
@@ -42,9 +22,7 @@ describe("renders a slice zone", () => {
 				],
 				components: defineSliceZoneComponents({
 					foo: Foo,
-					bar: defineAsyncComponent(
-						() => new Promise<SliceComponentType>((res) => res(Bar)),
-					),
+					bar: defineAsyncComponent(() => new Promise<SliceComponentType>((res) => res(Bar))),
 					baz: "Baz",
 				}),
 			},
@@ -70,9 +48,7 @@ describe("renders a slice zone", () => {
 				slices: [{ type: "foo" }, { type: "bar" }, { type: "baz" }],
 				components: defineSliceZoneComponents({
 					foo: Foo,
-					bar: defineAsyncComponent(
-						() => new Promise<SliceComponentType>((res) => res(Bar)),
-					),
+					bar: defineAsyncComponent(() => new Promise<SliceComponentType>((res) => res(Bar))),
 					baz: "Baz",
 				}),
 			},
@@ -93,18 +69,15 @@ describe("renders a slice zone", () => {
 	})
 
 	it("from @prismicio/client's mapSliceZone()", async () => {
-		const Foo = createWrapperComponent<{ id: string; slice_type: string }>(
-			"Foo",
-			["id", "slice_type"],
-		)
-		const Bar = createWrapperComponent<{ id: string; slice_type: string }>(
-			"Bar",
-			["id", "slice_type"],
-		)
-		const Baz = createWrapperComponent<SliceComponentType>(
-			"Baz",
-			getSliceComponentProps(),
-		)
+		const Foo = createWrapperComponent<{ id: string; slice_type: string }>("Foo", [
+			"id",
+			"slice_type",
+		])
+		const Bar = createWrapperComponent<{ id: string; slice_type: string }>("Bar", [
+			"id",
+			"slice_type",
+		])
+		const Baz = createWrapperComponent<SliceComponentType>("Baz", getSliceComponentProps())
 
 		const wrapper = mount(SliceZone, {
 			props: {
@@ -115,9 +88,7 @@ describe("renders a slice zone", () => {
 				],
 				components: defineSliceZoneComponents({
 					foo: Foo,
-					bar: defineAsyncComponent(
-						() => new Promise<SliceComponentType>((res) => res(Bar)),
-					),
+					bar: defineAsyncComponent(() => new Promise<SliceComponentType>((res) => res(Bar))),
 					baz: "Baz",
 				}),
 			},
@@ -150,14 +121,8 @@ describe("renders a slice zone", () => {
 })
 
 it("provides context to each slice", () => {
-	const Foo = createWrapperComponent<SliceComponentType>(
-		"Foo",
-		getSliceComponentProps(),
-	)
-	const Bar = createWrapperComponent<SliceComponentType>(
-		"Bar",
-		getSliceComponentProps(),
-	)
+	const Foo = createWrapperComponent<SliceComponentType>("Foo", getSliceComponentProps())
+	const Bar = createWrapperComponent<SliceComponentType>("Bar", getSliceComponentProps())
 
 	const context = { foo: "bar" }
 
@@ -176,12 +141,10 @@ it("provides context to each slice", () => {
 	})
 
 	expect(
-		wrapper.getComponent(Foo as DefineComponent<SliceComponentProps>).props()
-			.context,
+		wrapper.getComponent(Foo as DefineComponent<SliceComponentProps>).props().context,
 	).toStrictEqual(context)
 	expect(
-		wrapper.getComponent(Bar as DefineComponent<SliceComponentProps>).props()
-			.context,
+		wrapper.getComponent(Bar as DefineComponent<SliceComponentProps>).props().context,
 	).toStrictEqual(context)
 })
 
@@ -189,10 +152,7 @@ describe("renders TODO component if component mapping is missing", () => {
 	it("with the REST API", () => {
 		vi.stubGlobal("console", { warn: vi.fn() })
 
-		const Foo = createWrapperComponent<SliceComponentType>(
-			"Foo",
-			getSliceComponentProps(),
-		)
+		const Foo = createWrapperComponent<SliceComponentType>("Foo", getSliceComponentProps())
 
 		const wrapper = mount(SliceZone, {
 			props: {
@@ -213,12 +173,8 @@ describe("renders TODO component if component mapping is missing", () => {
 <section data-slice-zone-todo-component="" data-slice-type="baz">Could not find a component for Slice type "baz"</section>`,
 		)
 		expect(console.warn).toHaveBeenCalledTimes(2)
-		expect(vi.mocked(console.warn).mock.calls[0][0]).toMatch(
-			/could not find a component/i,
-		)
-		expect(vi.mocked(console.warn).mock.calls[1][0]).toMatch(
-			/could not find a component/i,
-		)
+		expect(vi.mocked(console.warn).mock.calls[0][0]).toMatch(/could not find a component/i)
+		expect(vi.mocked(console.warn).mock.calls[1][0]).toMatch(/could not find a component/i)
 
 		vi.resetAllMocks()
 	})
@@ -226,10 +182,7 @@ describe("renders TODO component if component mapping is missing", () => {
 	it("with the GraphQL API", () => {
 		vi.stubGlobal("console", { warn: vi.fn() })
 
-		const Foo = createWrapperComponent<SliceComponentType>(
-			"Foo",
-			getSliceComponentProps(),
-		)
+		const Foo = createWrapperComponent<SliceComponentType>("Foo", getSliceComponentProps())
 
 		const wrapper = mount(SliceZone, {
 			props: {
@@ -245,9 +198,7 @@ describe("renders TODO component if component mapping is missing", () => {
 <section data-slice-zone-todo-component="" data-slice-type="bar">Could not find a component for Slice type "bar"</section>`,
 		)
 		expect(console.warn).toHaveBeenCalledOnce()
-		expect(vi.mocked(console.warn).mock.calls[0][0]).toMatch(
-			/could not find a component/i,
-		)
+		expect(vi.mocked(console.warn).mock.calls[0][0]).toMatch(/could not find a component/i)
 
 		vi.resetAllMocks()
 	})
@@ -274,14 +225,8 @@ describe("renders TODO component if component mapping is missing", () => {
 })
 
 it("reacts to changes properly", async () => {
-	const Foo = createWrapperComponent<SliceComponentType>(
-		"Foo",
-		getSliceComponentProps(),
-	)
-	const Bar = createWrapperComponent<SliceComponentType>(
-		"Bar",
-		getSliceComponentProps(),
-	)
+	const Foo = createWrapperComponent<SliceComponentType>("Foo", getSliceComponentProps())
+	const Bar = createWrapperComponent<SliceComponentType>("Bar", getSliceComponentProps())
 
 	const wrapper = mount(SliceZone, {
 		props: {

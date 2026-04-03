@@ -3,12 +3,12 @@ import type { PropType } from "vue"
 import type { SliceComponentProps, SliceLike } from "./types"
 
 /**
- * Native Vue props for a component rendering content from a Prismic Slice using
- * the `<SliceZone />` component.
+ * Native Vue props for a component rendering content from a Prismic Slice using the `<SliceZone />`
+ * component.
  *
  * @typeParam TSlice - The Slice type
- * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made
- *   available to all Slice components
+ * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made available to all Slice
+ *   components
  */
 type DefineComponentSliceComponentProps<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,39 +34,32 @@ type DefineComponentSliceComponentProps<
 }
 
 /**
- * Gets native Vue props for a component rendering content from a Prismic Slice
- * using the `<SliceZone />` component.
+ * Gets native Vue props for a component rendering content from a Prismic Slice using the
+ * `<SliceZone />` component.
  *
  * Props are: `["slice", "index", "slices", "context"]`
  *
  * @example
+ * 	```typescript
+ * 	// Defining a new slice component
+ * 	import { getSliceComponentProps } from "@prismicio/vue"
  *
- * ```typescript
- * // Defining a new slice component
- * import { getSliceComponentProps } from "@prismicio/vue"
- *
- * defineProps(getSliceComponentProps())
- * ```
+ * 	defineProps(getSliceComponentProps())
+ * 	```
  *
  * @example
+ * 	```typescript
+ * 	// Defining a new slice component with visual hint
+ * 	import { getSliceComponentProps } from "@prismicio/vue"
  *
- * ```typescript
- * // Defining a new slice component with visual hint
- * import { getSliceComponentProps } from "@prismicio/vue"
- *
- * defineProps(
- * 	getSliceComponentProps(["slice", "index", "slices", "context"]),
- * )
- * ```
+ * 	defineProps(getSliceComponentProps(["slice", "index", "slices", "context"]))
+ * 	```
  *
  * @typeParam TSlice - The Slice type
- * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made
- *   available to all Slice components
- *
- * @param propsHint - An optional array of prop names used for the sole purpose
- *   of having a visual hint of which props are made available to the slice,
- *   this parameters doesn't have any effect
- *
+ * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made available to all Slice
+ *   components
+ * @param propsHint - An optional array of prop names used for the sole purpose of having a visual
+ *   hint of which props are made available to the slice, this parameters doesn't have any effect
  * @returns Props object to use with `defineProps()`
  */
 export const getSliceComponentProps = <
@@ -90,9 +83,7 @@ export const getSliceComponentProps = <
 		required: true,
 	},
 	context: {
-		type: null as unknown as PropType<
-			SliceComponentProps<TSlice, TContext>["context"]
-		>,
+		type: null as unknown as PropType<SliceComponentProps<TSlice, TContext>["context"]>,
 		required: true,
 	},
 })

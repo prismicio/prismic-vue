@@ -8,11 +8,9 @@ import {
 } from "@prismicio/client"
 import { computed } from "vue"
 
-import { isInternalURL } from "./lib/isInternalURL"
-
-import type { ComponentOrTagName } from "./types"
-
 import { usePrismic } from "./createPrismic"
+import { isInternalURL } from "./lib/isInternalURL"
+import type { ComponentOrTagName } from "./types"
 
 /** The default component rendered for internal URLs. */
 const defaultInternalComponent = "router-link"
@@ -29,25 +27,24 @@ export type PrismicLinkProps = {
 	 * The link resolver used to resolve links.
 	 *
 	 * @remarks
-	 * If your app uses route resolvers when querying for your Prismic
-	 * repository's content, a link resolver does not need to be provided.
-	 *
+	 *   If your app uses route resolvers when querying for your Prismic repository's content, a link
+	 *   resolver does not need to be provided.
 	 * @see {@link https://prismic.io/docs/routes}
 	 */
 	linkResolver?: LinkResolverFunction
 
 	/**
-	 * The `rel` attribute for the link. By default, `"noreferrer"` is provided if
-	 * the link's URL is external. This prop can be provided a function to use the
-	 * link's metadata to determine the `rel` value.
+	 * The `rel` attribute for the link. By default, `"noreferrer"` is provided if the link's URL is
+	 * external. This prop can be provided a function to use the link's metadata to determine the
+	 * `rel` value.
 	 */
 	rel?: string | AsLinkAttrsConfig["rel"]
 
 	/**
 	 * The component rendered for internal URLs.
 	 *
-	 * If your app uses a client-side router that requires a special Link
-	 * component, provide the Link component to this prop.
+	 * If your app uses a client-side router that requires a special Link component, provide the Link
+	 * component to this prop.
 	 *
 	 * @defaultValue `<RouterLink>`
 	 */
@@ -92,12 +89,8 @@ const rawAttrs = computed(() => {
 
 const component = computed(() => {
 	return isInternalURL(rawAttrs.value.href || "")
-		? props.internalComponent ||
-				components?.linkInternalComponent ||
-				defaultInternalComponent
-		: props.externalComponent ||
-				components?.linkExternalComponent ||
-				defaultExternalComponent
+		? props.internalComponent || components?.linkInternalComponent || defaultInternalComponent
+		: props.externalComponent || components?.linkExternalComponent || defaultExternalComponent
 })
 
 // Match Vue Router's `<RouterLink />` interface unless the component is an anchor tag.

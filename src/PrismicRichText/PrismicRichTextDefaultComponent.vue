@@ -2,11 +2,10 @@
 import type { LinkResolverFunction } from "@prismicio/client"
 import { computed } from "vue"
 
-import type { ComponentShorthand } from "../types"
-import type { RichTextComponentProps } from "./types"
-
 import PrismicImage from "../PrismicImage.vue"
 import PrismicLink from "../PrismicLink.vue"
+import type { ComponentShorthand } from "../types"
+import type { RichTextComponentProps } from "./types"
 
 const props = defineProps<
 	RichTextComponentProps & {
@@ -32,9 +31,7 @@ const attrs = computed(() => {
 })
 
 const dir = computed(() => {
-	return "direction" in props.node && props.node.direction === "rtl"
-		? "rtl"
-		: undefined
+	return "direction" in props.node && props.node.direction === "rtl" ? "rtl" : undefined
 })
 </script>
 
@@ -97,12 +94,7 @@ const dir = computed(() => {
 		v-bind="attrs"
 		><slot
 	/></PrismicLink>
-	<span
-		v-else-if="node.type === 'label'"
-		:class="node.data.label"
-		v-bind="attrs"
-		><slot
-	/></span>
+	<span v-else-if="node.type === 'label'" :class="node.data.label" v-bind="attrs"><slot /></span>
 	<template v-else v-for="(line, index) in node.text.split('\n')" :key="line"
 		><br v-if="index > 0" />{{ line }}</template
 	>
