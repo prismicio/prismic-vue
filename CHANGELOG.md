@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.2](https://github.com/prismicio/prismic-vue/compare/v6.1.1...v6.1.2) (2026-04-03)
+
+
+### Bug Fixes
+
+* use `child.key` to key rich text serialized components ([122d5ab](https://github.com/prismicio/prismic-vue/commit/122d5ab3d8d8e812db8214566184e4c922e13a0c))
+
 ## [6.1.1](https://github.com/prismicio/prismic-vue/compare/v6.1.0...v6.1.1) (2026-01-20)
 
 ### Bug Fixes
