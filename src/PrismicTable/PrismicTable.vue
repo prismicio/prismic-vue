@@ -19,7 +19,7 @@ export type PrismicTableProps = {
 	 * An object that maps a table block type to a Vue component or a shorthand definition.
 	 *
 	 * @example
-	 * 	```javascript
+	 * 	;```javascript
 	 * 	;({
 	 * 		table: Table,
 	 * 		thead: { class: "bg-black text-white" },

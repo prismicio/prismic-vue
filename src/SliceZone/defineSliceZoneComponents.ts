@@ -10,7 +10,7 @@ import type { SliceComponentType, SliceLike, SliceZoneComponents } from "./types
  *   This is essentially an helper function to ensure {@link markRaw} is correctly applied on each
  *   components, improving performances.
  * @example
- * 	```javascript
+ * 	;```javascript
  * 	// Defining a slice components
  * 	import { defineSliceZoneComponents } from "@prismicio/vue";
  *

@@ -16,7 +16,7 @@ import type { PropType } from "vue"
  * Props are: `["table"]`
  *
  * @example
- * 	```javascript
+ * 	;```javascript
  * 	// Defining a new rich text component
  * 	import { getTableComponentProps } from "@prismicio/vue"
  *
@@ -36,7 +36,7 @@ export const table = (): {
  * Props are: `["head"]`
  *
  * @example
- * 	```javascript
+ * 	;```javascript
  * 	// Defining a new rich text component
  * 	import { getTableComponentProps } from "@prismicio/vue"
  *
@@ -56,7 +56,7 @@ export const thead = (): {
  * Props are: `["body"]`
  *
  * @example
- * 	```javascript
+ * 	;```javascript
  * 	// Defining a new rich text component
  * 	import { getTableComponentProps } from "@prismicio/vue"
  *
@@ -76,7 +76,7 @@ export const tbody = (): {
  * Props are: `["row"]`
  *
  * @example
- * 	```javascript
+ * 	;```javascript
  * 	// Defining a new rich text component
  * 	import { getTableComponentProps } from "@prismicio/vue"
  *
@@ -102,7 +102,7 @@ export const tr = (): {
  * Props are: `["cell"]`
  *
  * @example
- * 	```javascript
+ * 	;```javascript
  * 	// Defining a new rich text component
  * 	import { getTableComponentProps } from "@prismicio/vue"
  *
@@ -122,7 +122,7 @@ export const th = (): {
  * Props are: `["cell"]`
  *
  * @example
- * 	```javascript
+ * 	;```javascript
  * 	// Defining a new rich text component
  * 	import { getTableComponentProps } from "@prismicio/vue"
  *

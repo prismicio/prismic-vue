@@ -4,7 +4,7 @@ import { version } from "../../package.json"
  * Returns a `prismic.dev/msg` URL for a given message slug.
  *
  * @example
- * 	```ts
+ * 	;```ts
  * 	devMsg("missing-param")
  * 	// => "https://prismic.dev/msg/svelte/v1.2.3/missing-param.md"
  * 	```

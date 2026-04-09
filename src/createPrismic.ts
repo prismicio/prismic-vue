@@ -81,7 +81,7 @@ export const createPrismic = (config: PrismicPluginConfig): PrismicPlugin => {
  * Access the Prismic Vue plugin interface.
  *
  * @example
- * 	```typescript
+ * 	;```typescript
  * 	const { client, isFilled } = usePrismic()
  * 	```
  */

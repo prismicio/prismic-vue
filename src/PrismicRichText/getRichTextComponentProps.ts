@@ -23,7 +23,7 @@ type DefineComponentRichTextComponentProps<TRTNode extends RTAnyNode = RTAnyNode
  * Props are: `["node"]`
  *
  * @example
- * 	```javascript
+ * 	;```javascript
  * 	// Defining a new rich text component
  * 	import { getRichTextComponentProps } from "@prismicio/vue"
  *
@@ -31,7 +31,7 @@ type DefineComponentRichTextComponentProps<TRTNode extends RTAnyNode = RTAnyNode
  * 	```
  *
  * @example
- * 	```typescript
+ * 	;```typescript
  * 	// Defining a new rich text component for a specific node type
  * 	import { getRichTextComponentProps } from "@prismicio/vue"
  *

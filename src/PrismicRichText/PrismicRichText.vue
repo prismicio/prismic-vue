@@ -30,7 +30,7 @@ export type PrismicRichTextProps = {
 	 * An object that maps a rich text block type to a Vue component or a shorthand definition.
 	 *
 	 * @example
-	 * 	```javascript
+	 * 	;```javascript
 	 * 	;({
 	 * 		heading1: Heading1,
 	 * 		paragraph: { class: "prose" },

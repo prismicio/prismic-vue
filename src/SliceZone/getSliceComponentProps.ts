@@ -40,7 +40,7 @@ type DefineComponentSliceComponentProps<
  * Props are: `["slice", "index", "slices", "context"]`
  *
  * @example
- * 	```typescript
+ * 	;```typescript
  * 	// Defining a new slice component
  * 	import { getSliceComponentProps } from "@prismicio/vue"
  *
@@ -48,7 +48,7 @@ type DefineComponentSliceComponentProps<
  * 	```
  *
  * @example
- * 	```typescript
+ * 	;```typescript
  * 	// Defining a new slice component with visual hint
  * 	import { getSliceComponentProps } from "@prismicio/vue"
  *
