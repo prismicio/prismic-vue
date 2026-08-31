@@ -1,4 +1,5 @@
 {
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
 	"plugins": ["unicorn", "vue", "typescript", "oxc", "jsdoc"],
 	"rules": {
 		"no-console": ["warn", { "allow": ["info", "warn", "error"] }],

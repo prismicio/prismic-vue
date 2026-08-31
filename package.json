@@ -52,33 +52,33 @@
 		"test": "npm run lint && npm run types && npm run unit && npm run build"
 	},
 	"dependencies": {
-		"@prismicio/simulator": "^0.2.2",
+		"@prismicio/simulator": "^0.2.4",
 		"esm-env": "^1.2.2"
 	},
 	"devDependencies": {
-		"@prismicio/client": "^7.21.8",
+		"@prismicio/client": "^7.22.0",
 		"@prismicio/mock": "^0.7.2",
 		"@types/jsdom-global": "^3.0.7",
-		"@vitejs/plugin-vue": "^6.0.5",
-		"@vitest/coverage-v8": "^4.1.3",
-		"@vue/test-utils": "^2.4.6",
-		"jsdom": "^29.0.2",
+		"@vitejs/plugin-vue": "^6.0.8",
+		"@vitest/coverage-v8": "^4.1.11",
+		"@vue/test-utils": "^2.5.0",
+		"jsdom": "^30.0.1",
 		"jsdom-global": "^3.0.2",
-		"oxfmt": "^0.44.0",
-		"oxlint": "1.59.0",
-		"tsdown": "^0.21.7",
-		"typescript": "^6.0.2",
-		"vite": "^8.0.7",
-		"vitest": "^4.1.3",
-		"vue": "^3.5.26",
-		"vue-router": "^5.0.4",
-		"vue-tsc": "^3.2.6"
+		"oxfmt": "0.65.0",
+		"oxlint": "1.80.0",
+		"tsdown": "^0.22.14",
+		"typescript": "^6.0.3",
+		"vite": "^8.2.2",
+		"vitest": "^4.1.11",
+		"vue": "^3.5.42",
+		"vue-router": "^5.3.0",
+		"vue-tsc": "^3.3.11"
 	},
 	"peerDependencies": {
 		"@prismicio/client": "^7",
 		"vue": "^3"
 	},
 	"engines": {
-		"node": ">=20"
+		"node": ">=22"
 	}
 }

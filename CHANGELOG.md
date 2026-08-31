@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [6.1.3](https://github.com/prismicio/prismic-vue/compare/v6.1.2...v6.1.3) (2026-04-09)
 
-
 ### Bug Fixes
 
 * **deps:** maintain dependencies ([e12d718](https://github.com/prismicio/prismic-vue/commit/e12d718a8b5ce6e2d02c350587bf54e8f3c2734d))

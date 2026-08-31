@@ -122,7 +122,7 @@ const castInt = (input: string | number | undefined): number | undefined => {
 
 const image = computed(() => {
 	if (!isFilled.imageThumbnail(props.field)) {
-		return
+		return undefined
 	}
 
 	let src: string | undefined
