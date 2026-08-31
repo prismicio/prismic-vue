@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.4](https://github.com/prismicio/prismic-vue/compare/v6.1.3...v6.1.4) (2026-08-31)
+
+
+### Bug Fixes
+
+* maintenance release ([58d692d](https://github.com/prismicio/prismic-vue/commit/58d692dc36da4a15a508cff89373f78e0a83a358))
+
 ## [6.1.3](https://github.com/prismicio/prismic-vue/compare/v6.1.2...v6.1.3) (2026-04-09)
 
 ### Bug Fixes
