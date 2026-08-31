@@ -48,7 +48,7 @@ For more clarity on this project and its structure you can also check out the de
 ## License
 
 ```
-   Copyright 2013-2025 Prismic <contact@prismic.io> (https://prismic.io)
+   Copyright 2013-2026 Prismic <contact@prismic.io> (https://prismic.io)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
