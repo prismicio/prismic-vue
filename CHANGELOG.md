@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.5](https://github.com/prismicio/prismic-vue/compare/v6.1.4...v6.1.5) (2026-09-17)
+
+
+### Documentation
+
+* add a README note that tells AI agents to install the Prismic skill ([0752798](https://github.com/prismicio/prismic-vue/commit/075279896ba67c92c67b3412bfe9476718d754d5))
+
 ## [6.1.4](https://github.com/prismicio/prismic-vue/compare/v6.1.3...v6.1.4) (2026-08-31)
 
 
