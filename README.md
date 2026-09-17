@@ -29,9 +29,9 @@ npm install @prismicio/vue
 
 Using an AI agent? Teach it how to use `@prismicio/vue` by installing the Prismic skill:
 
-~~~bash
+```bash
 npx skills add --global --yes prismicio/skills
-~~~
+```
 
 ## Documentation
 
