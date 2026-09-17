@@ -5,9 +5,9 @@ All notable changes to this project will be documented in this file. See [standa
 ## [6.1.5](https://github.com/prismicio/prismic-vue/compare/v6.1.4...v6.1.5) (2026-09-17)
 
 
-### Miscellaneous Chores
+### Documentation
 
-* release 6.1.5 ([04fa92a](https://github.com/prismicio/prismic-vue/commit/04fa92af9de49162102e2dbc963a138f2a68a66d))
+* add a README note that tells AI agents to install the Prismic skill ([0752798](https://github.com/prismicio/prismic-vue/commit/075279896ba67c92c67b3412bfe9476718d754d5))
 
 ## [6.1.4](https://github.com/prismicio/prismic-vue/compare/v6.1.3...v6.1.4) (2026-08-31)
 
