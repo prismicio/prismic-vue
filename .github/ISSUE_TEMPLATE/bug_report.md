@@ -18,11 +18,11 @@ assignees: ""
 
 - @prismicio/vue: <!-- ex: v0.1.0 -->
 - vue: <!-- ex: v3.0.0 -->
-- node: <!-- ex: v12.14.0 -->
+- node: <!-- ex: v14.15.0 -->
 
 ### Reproduction
 
-<!-- If possible link to a minimal test case, without a reproduction, it is so hard to address problems :( -->
+<!-- If possible link to a minimal test case. Without a reproduction, it is very difficult to address problems. :( -->
 
 <details open>
 <summary>Additional Details</summary>
