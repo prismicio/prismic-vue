@@ -24,7 +24,11 @@ it("doesn't render TODO component in production", () => {
 		},
 	})
 
-	expect(wrapper.html()).toBe(`<div class="wrapperComponentFoo"></div>`)
+	expect(wrapper.html()).toBe(`<!--prismic-slice-start:1-->
+<div class="wrapperComponentFoo"></div>
+<!--prismic-slice-end:1-->
+<!--prismic-slice-start:2-->
+<!--prismic-slice-end:2-->`)
 	expect(consoleWarnSpy).not.toHaveBeenCalledWith(
 		expect.stringMatching(/could not find a component/i),
 		{ id: "2", slice_type: "bar" },
