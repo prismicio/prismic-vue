@@ -8,5 +8,5 @@ export default defineConfig({
 	sourcemap: true,
 	exports: true,
 	fromVite: true,
-	dts: { vue: true },
+	dts: { tsc: { vue: true } },
 })
