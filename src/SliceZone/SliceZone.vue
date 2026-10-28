@@ -2,6 +2,7 @@
 import { computed } from "vue"
 
 import type { ComponentOrTagName } from "../types"
+import { SliceBoundary } from "./SliceBoundary"
 import { TODOSliceComponent } from "./TODOSliceComponent"
 import type { SliceComponentType, SliceLike, SliceZoneComponents, SliceZoneLike } from "./types"
 
@@ -32,6 +33,7 @@ const renderedSlices = computed<
 	{
 		is: ComponentOrTagName
 		key: string
+		id?: string
 		props: Record<string, unknown>
 	}[]
 >(() => {
@@ -40,24 +42,25 @@ const renderedSlices = computed<
 	return props.slices.map((slice, index) => {
 		const type = "slice_type" in slice ? (slice.slice_type as string) : slice.type
 
-		const key =
-			"id" in slice && typeof slice.id === "string" ? slice.id : `${index}-${JSON.stringify(slice)}`
+		const id = "id" in slice && typeof slice.id === "string" ? slice.id : undefined
+		const key = id ?? `${index}-${JSON.stringify(slice)}`
 
 		const is = props.components?.[type] || props.defaultComponent
 
 		if (!is) {
-			return { is: TODOSliceComponent, key, props: { slice } }
+			return { is: TODOSliceComponent, key, id, props: { slice } }
 		}
 
 		if (slice.__mapped) {
 			const { __mapped, ...mappedProps } = slice
 
-			return { is, key, props: mappedProps }
+			return { is, key, id, props: mappedProps }
 		}
 
 		return {
 			is,
 			key,
+			id,
 			props: {
 				slice,
 				index,
@@ -70,10 +73,10 @@ const renderedSlices = computed<
 </script>
 
 <template>
-	<component
-		v-for="renderedSlice in renderedSlices"
-		:is="renderedSlice.is"
-		:key="renderedSlice.key"
-		v-bind="renderedSlice.props"
-	/>
+	<template v-for="renderedSlice in renderedSlices" :key="renderedSlice.key">
+		<SliceBoundary v-if="renderedSlice.id" :slice-id="renderedSlice.id">
+			<component :is="renderedSlice.is" v-bind="renderedSlice.props" />
+		</SliceBoundary>
+		<component v-else :is="renderedSlice.is" v-bind="renderedSlice.props" />
+	</template>
 </template>
