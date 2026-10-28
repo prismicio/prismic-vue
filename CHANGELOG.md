@@ -7,8 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* make rendered Slices discoverable in the DOM ([5c36754](https://github.com/prismicio/prismic-vue/commit/5c36754b70aeee0b97d8de2b93351a3dd42498bc))
-* make rendered Slices discoverable in the DOM ([af49416](https://github.com/prismicio/prismic-vue/commit/af49416cfb8128b08ef619b0ca10e25696c0e83b))
+* make rendered Slices discoverable in the DOM ([#119](https://github.com/prismicio/prismic-vue/pull/119)) ([5c36754](https://github.com/prismicio/prismic-vue/commit/5c36754b70aeee0b97d8de2b93351a3dd42498bc))
 
 ## [6.1.5](https://github.com/prismicio/prismic-vue/compare/v6.1.4...v6.1.5) (2026-09-17)
 
