@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.2.0](https://github.com/prismicio/prismic-vue/compare/v6.1.5...v6.2.0) (2026-10-28)
+
+
+### Features
+
+* make rendered Slices discoverable in the DOM ([#119](https://github.com/prismicio/prismic-vue/pull/119)) ([5c36754](https://github.com/prismicio/prismic-vue/commit/5c36754b70aeee0b97d8de2b93351a3dd42498bc))
+
 ## [6.1.5](https://github.com/prismicio/prismic-vue/compare/v6.1.4...v6.1.5) (2026-09-17)
 
 
