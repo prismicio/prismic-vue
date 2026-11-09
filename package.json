@@ -14,6 +14,10 @@
 		"type": "git",
 		"url": "ssh://git@github.com/prismicio/prismic-vue.git"
 	},
+	"workspaces": [
+		".",
+		"e2e-projects/*"
+	],
 	"files": [
 		"./dist",
 		"./src"
@@ -43,35 +47,29 @@
 	"scripts": {
 		"build": "tsdown",
 		"dev": "tsdown --watch",
+		"e2e": "npm run build && playwright test",
+		"e2e:ui": "npm run e2e -- --ui",
 		"format": "oxfmt",
 		"prepare": "npm run build",
 		"lint": "oxlint --deny-warnings",
 		"types": "vue-tsc --noEmit",
-		"unit": "vitest run --coverage",
-		"unit:watch": "vitest watch",
-		"test": "npm run lint && npm run types && npm run unit && npm run build"
+		"test": "npm run lint && npm run types && npm run e2e"
 	},
 	"dependencies": {
 		"@prismicio/simulator": "^0.2.4",
 		"esm-env": "^1.2.2"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.64.1",
 		"@prismicio/client": "^7.23.0",
-		"@prismicio/mock": "^0.7.2",
-		"@types/jsdom-global": "^3.0.7",
+		"@types/node": "^26.6.6",
 		"@vitejs/plugin-vue": "^6.0.10",
-		"@vitest/coverage-v8": "^5.1.0",
-		"@vue/test-utils": "^2.5.1",
-		"jsdom": "^31.0.0",
-		"jsdom-global": "^3.0.2",
 		"oxfmt": "0.76.0",
 		"oxlint": "1.91.0",
 		"tsdown": "^0.23.5",
 		"typescript": "^6.0.3",
 		"vite": "^8.3.6",
-		"vitest": "^5.1.0",
 		"vue": "^3.5.45",
-		"vue-router": "^5.4.0",
 		"vue-tsc": "^3.3.14"
 	},
 	"peerDependencies": {
