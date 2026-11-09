@@ -3,7 +3,13 @@ import { type RichTextField, isFilled } from "@prismicio/client"
 import { PrismicRichText, usePrismic } from "@prismicio/vue"
 import { h, markRaw, ref } from "vue"
 
-import { richTextComponent } from "../components/richText"
+import Bar from "../components/richText/Bar.vue"
+import Baz from "../components/richText/Baz.vue"
+import Embed from "../components/richText/Embed.vue"
+import Hyperlink from "../components/richText/Hyperlink.vue"
+import Image from "../components/richText/Image.vue"
+import InlineBar from "../components/richText/InlineBar.vue"
+import Label from "../components/richText/Label.vue"
 import TestLink from "../components/TestLink.vue"
 import WithPlugin from "../components/WithPlugin.vue"
 
@@ -14,9 +20,6 @@ if (!isFilled.richText(tests.filled)) throw new Error("Expected a filled rich te
 if (isFilled.richText(tests.empty)) throw new Error("Expected an empty rich text field.")
 
 const Fallback = markRaw({ render: () => h("div", "fallback") })
-const Bar = richTextComponent("div")
-const InlineBar = richTextComponent("span")
-const Baz = richTextComponent("div", () => ({ "data-baz": "true" }))
 
 const blocks = [
 	"heading1",
@@ -77,30 +80,14 @@ const reactive = ref<RichTextField>(tests.heading1)
 	<div data-testid="image">
 		<div data-testid="default"><PrismicRichText :field="tests.image" /></div>
 		<div data-testid="custom">
-			<PrismicRichText
-				:field="tests.image"
-				:components="{
-					image: richTextComponent('div', (node) => ({
-						'data-bar': 'true',
-						'data-src': 'url' in node ? node.url : undefined,
-					})),
-				}"
-			/>
+			<PrismicRichText :field="tests.image" :components="{ image: Image }" />
 		</div>
 	</div>
 
 	<div data-testid="embed">
 		<div data-testid="default"><PrismicRichText :field="tests.embed" /></div>
 		<div data-testid="custom">
-			<PrismicRichText
-				:field="tests.embed"
-				:components="{
-					embed: richTextComponent('div', (node) => ({
-						'data-bar': 'true',
-						'data-html': 'oembed' in node ? node.oembed.html : undefined,
-					})),
-				}"
-			/>
+			<PrismicRichText :field="tests.embed" :components="{ embed: Embed }" />
 		</div>
 	</div>
 
@@ -112,15 +99,7 @@ const reactive = ref<RichTextField>(tests.heading1)
 			<PrismicRichText :field="tests.hyperlink_document" :link-resolver="linkResolver" />
 		</div>
 		<div data-testid="custom">
-			<PrismicRichText
-				:field="tests.hyperlink_external"
-				:components="{
-					hyperlink: richTextComponent('span', (node) => ({
-						'data-bar': 'true',
-						'data-url': node.type === 'hyperlink' ? node.data.url : undefined,
-					})),
-				}"
-			/>
+			<PrismicRichText :field="tests.hyperlink_external" :components="{ hyperlink: Hyperlink }" />
 		</div>
 		<div data-testid="custom-internal">
 			<WithPlugin
@@ -139,15 +118,7 @@ const reactive = ref<RichTextField>(tests.heading1)
 	<div data-testid="label">
 		<div data-testid="default"><PrismicRichText :field="tests.label" /></div>
 		<div data-testid="custom">
-			<PrismicRichText
-				:field="tests.label"
-				:components="{
-					label: richTextComponent('span', (node) => ({
-						'data-bar': 'true',
-						'data-label': node.type === 'label' ? node.data.label : undefined,
-					})),
-				}"
-			/>
+			<PrismicRichText :field="tests.label" :components="{ label: Label }" />
 		</div>
 	</div>
 

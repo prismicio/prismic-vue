@@ -22,5 +22,12 @@
 				"definedTags": ["typeParam", "remarks", "defaultValue", "experimental"]
 			}
 		]
-	}
+	},
+	"overrides": [
+		{
+			// `defineProps(getSliceComponentProps())` is how users declare props.
+			"files": ["e2e-projects/**/*.vue"],
+			"rules": { "vue/valid-define-props": "off" }
+		}
+	]
 }

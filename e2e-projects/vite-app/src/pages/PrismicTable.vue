@@ -3,8 +3,15 @@ import { isFilled } from "@prismicio/client"
 import { PrismicTable, usePrismic } from "@prismicio/vue"
 import { h, markRaw } from "vue"
 
-import { richTextComponent } from "../components/richText"
-import { tableComponent } from "../components/table"
+import Em from "../components/richText/Em.vue"
+import Paragraph from "../components/richText/Paragraph.vue"
+import Strong from "../components/richText/Strong.vue"
+import Body from "../components/table/Body.vue"
+import Data from "../components/table/Data.vue"
+import Head from "../components/table/Head.vue"
+import Header from "../components/table/Header.vue"
+import Row from "../components/table/Row.vue"
+import Table from "../components/table/Table.vue"
 import WithPlugin from "../components/WithPlugin.vue"
 
 const { client } = usePrismic()
@@ -16,17 +23,12 @@ if (isFilled.table(tests.empty)) throw new Error("Expected an empty table field.
 const Fallback = markRaw({ render: () => h("div", "fallback") })
 
 const tableComponents = {
-	table: tableComponent("table", "table"),
-	thead: tableComponent("thead", "head"),
-	tbody: tableComponent("tbody", "body"),
-	tr: tableComponent("tr", "row"),
-	th: tableComponent("th", "header"),
-	td: tableComponent("td", "data"),
-}
-const cellComponents = {
-	paragraph: richTextComponent("p", () => ({ class: "paragraph" })),
-	strong: richTextComponent("span", () => ({ class: "strong" })),
-	em: richTextComponent("span", () => ({ class: "em" })),
+	table: Table,
+	thead: Head,
+	tbody: Body,
+	tr: Row,
+	th: Header,
+	td: Data,
 }
 </script>
 
@@ -45,7 +47,10 @@ const cellComponents = {
 		/>
 	</div>
 	<div data-testid="custom-cell-content">
-		<PrismicTable :field="tests.filled" :components="cellComponents" />
+		<PrismicTable
+			:field="tests.filled"
+			:components="{ paragraph: Paragraph, strong: Strong, em: Em }"
+		/>
 	</div>
 
 	<div data-testid="shorthand-table">

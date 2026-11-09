@@ -3,7 +3,11 @@ import { isFilled, mapSliceZone } from "@prismicio/client"
 import { SliceZone, defineSliceZoneComponents, usePrismic } from "@prismicio/vue"
 import { defineAsyncComponent, h, ref } from "vue"
 
-import { mappedSlice, propsSlice } from "../components/slices"
+import DefaultSlice from "../slices/Default.vue"
+import ImageSlice from "../slices/Image.vue"
+import MappedImageSlice from "../slices/mapped/Image.vue"
+import MappedTextSlice from "../slices/mapped/Text.vue"
+import TextSlice from "../slices/Text.vue"
 
 const { client } = usePrismic()
 const { data: tests } = await client.getSingle("page")
@@ -22,18 +26,18 @@ const mapped = await mapSliceZone(tests.filled, {
 })
 
 const components = defineSliceZoneComponents({
-	text: propsSlice("text"),
-	image: propsSlice("image"),
+	text: TextSlice,
+	image: ImageSlice,
 })
 
 const asyncComponents = defineSliceZoneComponents({
-	text: defineAsyncComponent(async () => propsSlice("text")),
+	text: defineAsyncComponent(() => import("../slices/Text.vue")),
 	image: "GlobalSlice",
 })
 
 const mappedComponents = defineSliceZoneComponents({
-	text: mappedSlice("text"),
-	image: mappedSlice("image"),
+	text: MappedTextSlice,
+	image: MappedImageSlice,
 })
 
 // Local slices whose components render an element, a fragment, or nothing.
@@ -131,7 +135,7 @@ function graphQLQuery() {
 		<SliceZone
 			:slices="tests.filled"
 			:components="{ text: components.text }"
-			:default-component="propsSlice('default')"
+			:default-component="DefaultSlice"
 		/>
 	</div>
 
