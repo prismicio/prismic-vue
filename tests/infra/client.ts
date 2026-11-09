@@ -116,7 +116,10 @@ export class Repo {
 			// sometimes the deletion returns 500 but actually succeeds
 			// we run the query again and check the repo is actually deleted (404)
 			const retry = await this.#unreliableDelete()
-			assert(!retry.ok(), `Could not delete repository ${this.domain}`)
+			assert(
+				retry.ok() || retry.status() === 404,
+				`Could not delete repository ${this.domain} (${retry.status()}).`,
+			)
 		}
 	}
 
