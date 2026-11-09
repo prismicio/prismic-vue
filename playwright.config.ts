@@ -16,13 +16,14 @@ if (!existsSync(STORAGE_STATE)) writeFileSync(STORAGE_STATE, JSON.stringify({}))
 // https://playwright.dev/docs/test-configuration
 export default defineConfig({
 	testDir: "./tests",
-	testMatch: "**/*.spec.*",
 	fullyParallel: true,
 	forbidOnly: !!process.env.CI,
 	retries: process.env.CI ? 2 : 0,
 	workers: process.env.CI ? 1 : undefined,
 	reporter: "html",
 	use: {
+		...devices["Desktop Chrome"],
+		storageState: STORAGE_STATE,
 		trace: "on-first-retry",
 	},
 	projects: [
@@ -30,40 +31,26 @@ export default defineConfig({
 			name: "setup",
 			testMatch: "setup.ts",
 			teardown: "teardown",
-			use: {
-				storageState: STORAGE_STATE,
-				// Traces record request bodies, which include the account's credentials.
-				trace: "off",
-			},
+			// Traces record request bodies, which include the account's credentials.
+			use: { trace: "off" },
 		},
 		{
 			name: "vite",
 			testIgnore: "production.spec.ts",
 			dependencies: ["setup"],
-			use: {
-				...devices["Desktop Chrome"],
-				baseURL: "http://localhost:4321",
-				storageState: STORAGE_STATE,
-			},
+			use: { baseURL: "http://localhost:4321" },
 		},
 		{
 			// Development-only warnings and fallbacks are stripped from production builds.
 			name: "vite-production",
 			testMatch: "production.spec.ts",
 			dependencies: ["setup"],
-			use: {
-				...devices["Desktop Chrome"],
-				baseURL: "http://localhost:4322",
-				storageState: STORAGE_STATE,
-			},
+			use: { baseURL: "http://localhost:4322" },
 		},
 		{
 			name: "teardown",
 			testMatch: "teardown.ts",
-			use: {
-				storageState: STORAGE_STATE,
-				trace: "off",
-			},
+			use: { trace: "off" },
 		},
 	],
 	webServer: [

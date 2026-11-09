@@ -55,7 +55,7 @@ test("renders async and globally registered components", async ({ page }) => {
 	const output = page.getByTestId("async")
 
 	expect((await sliceProps(output.getByTestId("text"))).slice.id).toBe(textSliceID)
-	await expect(output.getByTestId("global")).toHaveText("image")
+	expect((await sliceProps(output.getByTestId("image"))).slice.id).toBe(imageSliceID)
 })
 
 test("renders nothing when passed an empty slice zone", async ({ page }) => {

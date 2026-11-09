@@ -3,7 +3,5 @@ import { defineConfig } from "vite"
 
 export default defineConfig({
 	plugins: [vue()],
-	resolve: {
-		dedupe: ["vue", "vue-router"],
-	},
+	resolve: { dedupe: ["vue"] },
 })

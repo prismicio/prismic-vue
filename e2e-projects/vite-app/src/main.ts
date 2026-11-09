@@ -4,10 +4,10 @@ import { createApp } from "vue"
 import App from "./App.vue"
 import { createClient } from "./prismicio"
 import { router } from "./router"
-import GlobalSlice from "./slices/Global.vue"
+import ImageSlice from "./slices/Image.vue"
 
 createApp(App)
 	.use(router)
 	.use(createPrismic({ client: createClient() }))
-	.component("GlobalSlice", GlobalSlice)
+	.component("GlobalSlice", ImageSlice)
 	.mount("#app")

@@ -6,11 +6,6 @@ import { type APIRequestContext, type APIResponse, request } from "@playwright/t
 type PrismicURLs = { wroom: URL; auth: URL; customtypes: URL }
 type RepoURLs = PrismicURLs & { core: URL }
 type Auth = { email: string; password: string }
-export type CoreAPIDocument = {
-	id: string
-	custom_type_id: string
-	versions: { version_id: string; uid?: string }[]
-}
 
 export class Prismic {
 	urls: PrismicURLs
@@ -26,8 +21,8 @@ export class Prismic {
 		this.#auth = new AuthenticatedAPI({ urls: this.urls, auth, request })
 	}
 
-	async createRepository(args: { defaultLocale: string; prefix?: string }): Promise<Repo> {
-		const { defaultLocale, prefix = "e2e-tests" } = args
+	async createRepository(args: { defaultLocale: string; prefix: string }): Promise<Repo> {
+		const { defaultLocale, prefix } = args
 		const suffix = randomUUID().replace("-", "").slice(0, 16)
 		const data = {
 			domain: `${prefix}-${suffix}`,
@@ -95,7 +90,7 @@ export class Repo {
 		title: string
 		custom_type_id: string
 		data: Record<string, unknown>
-	}): Promise<CoreAPIDocument> {
+	}): Promise<{ id: string }> {
 		const url = new URL("documents", this.urls.core)
 		const data = { tags: [], integration_field_ids: [], ...document }
 		const res = await this.#auth.post(url.toString(), { data })
