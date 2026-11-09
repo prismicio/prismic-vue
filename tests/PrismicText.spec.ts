@@ -13,8 +13,10 @@ test("renders nothing when passed an empty field", async ({ page }) => {
 	await expect(page.getByTestId("empty")).toBeEmpty()
 })
 
-test("renders fallback when passed an empty field", async ({ page }) => {
-	await expect(page.getByTestId("fallback")).toHaveText("foo")
+test("renders fallback when passed an empty, null, or undefined field", async ({ page }) => {
+	for (const testId of ["fallback", "fallback-null", "fallback-undefined"]) {
+		await expect(page.getByTestId(testId)).toHaveText("foo")
+	}
 })
 
 test("supports a custom separator", async ({ page }) => {

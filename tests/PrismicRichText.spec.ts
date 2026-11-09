@@ -13,8 +13,10 @@ test("renders nothing when passed an empty field", async ({ page }) => {
 	await expect(page.getByTestId("empty")).toBeEmpty()
 })
 
-test("renders fallback when passed an empty field", async ({ page }) => {
-	expect(await html(page.getByTestId("fallback"))).toBe("<div>fallback</div>")
+test("renders fallback when passed an empty, null, or undefined field", async ({ page }) => {
+	for (const testId of ["fallback", "fallback-null", "fallback-undefined"]) {
+		expect(await html(page.getByTestId(testId))).toBe("<div>fallback</div>")
+	}
 })
 
 const blocks = {

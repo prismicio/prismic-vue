@@ -21,11 +21,15 @@ export const test = base.extend<Fixtures>({
 		})
 		await use(prismic)
 	},
-	warnings: async ({ page }, use) => {
-		const warnings: string[] = []
-		page.on("console", (message) => {
-			if (message.type() === "warning") warnings.push(message.text())
-		})
-		await use(warnings)
-	},
+	// Automatic, so it listens before `beforeEach` hooks navigate.
+	warnings: [
+		async ({ page }, use) => {
+			const warnings: string[] = []
+			page.on("console", (message) => {
+				if (message.type() === "warning") warnings.push(message.text())
+			})
+			await use(warnings)
+		},
+		{ auto: true },
+	],
 })

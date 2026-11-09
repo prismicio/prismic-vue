@@ -18,6 +18,8 @@ const reactive = ref<RichTextField>(tests.filled)
 	<div data-testid="filled"><PrismicText :field="tests.filled" /></div>
 	<div data-testid="empty"><PrismicText :field="tests.empty" /></div>
 	<div data-testid="fallback"><PrismicText :field="tests.empty" fallback="foo" /></div>
+	<div data-testid="fallback-null"><PrismicText :field="null" fallback="foo" /></div>
+	<div data-testid="fallback-undefined"><PrismicText :field="undefined" fallback="foo" /></div>
 	<div data-testid="separator"><PrismicText :field="tests.filled" separator="x" /></div>
 
 	<div data-testid="keytext">

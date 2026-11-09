@@ -41,6 +41,10 @@ const reactive = ref<RichTextField>(tests.heading1)
 	<div data-testid="filled"><PrismicRichText :field="tests.filled" /></div>
 	<div data-testid="empty"><PrismicRichText :field="tests.empty" /></div>
 	<div data-testid="fallback"><PrismicRichText :field="tests.empty" :fallback="Fallback" /></div>
+	<div data-testid="fallback-null"><PrismicRichText :field="null" :fallback="Fallback" /></div>
+	<div data-testid="fallback-undefined">
+		<PrismicRichText :field="undefined" :fallback="Fallback" />
+	</div>
 
 	<div v-for="block in blocks" :key="block" :data-testid="block">
 		<div data-testid="default"><PrismicRichText :field="tests[block]" /></div>
