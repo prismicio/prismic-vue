@@ -62,9 +62,6 @@ cp .env.test.example .env.test.local
 # Test your changes before requesting a review.
 # All changes should be tested. No failing tests are allowed.
 node --run test
-# Run only unit tests (optionally in watch mode):
-node --run unit
-node --run unit:watch
 # Run only E2E tests (optionally in UI mode):
 node --run e2e
 node --run e2e:ui
