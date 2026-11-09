@@ -1,0 +1,20 @@
+{
+	"name": "vite-app",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite --port=4321 --strictPort",
+		"build": "vite build",
+		"preview": "vite preview --port=4322 --strictPort"
+	},
+	"dependencies": {
+		"@prismicio/client": "^7.23.0",
+		"@prismicio/vue": "*",
+		"vue": "^3.5.45",
+		"vue-router": "^5.4.0"
+	},
+	"devDependencies": {
+		"@vitejs/plugin-vue": "^6.0.10",
+		"vite": "^8.3.6"
+	}
+}

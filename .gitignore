@@ -37,3 +37,10 @@ coverage
 !.vscode/tasks.json
 !.vscode/launch.json
 *.code-workspace
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/tests/infra/.storage-state.json

@@ -16,8 +16,11 @@ The following setup is required to work on this project:
 <!-- Share information about the repository. -->
 <!-- What specific knowledge do contributors need? -->
 
-> [!TIP]
-> Please update this section with helpful notes for contributors.
+#### Tests
+
+- `@prismicio/vue` uses [Playwright](https://playwright.dev/) to test its components against a real Vue app.
+- The app, in `e2e-projects/vite-app`, reads content from a Prismic repository that the tests create and delete.
+- The app runs twice: with Vite's dev server, and as a production build for production-only behavior.
 
 ## :construction_worker: Develop
 
@@ -51,12 +54,20 @@ node --run lint -- --fix
 # Format your changes before requesting a review. No errors are allowed.
 node --run format
 
+# Create a .env.test.local file and provide a Prismic username and password.
+# They will be used to run E2E tests.
+# The file will not be committed.
+cp .env.test.example .env.test.local
+
 # Test your changes before requesting a review.
 # All changes should be tested. No failing tests are allowed.
 node --run test
 # Run only unit tests (optionally in watch mode):
 node --run unit
 node --run unit:watch
+# Run only E2E tests (optionally in UI mode):
+node --run e2e
+node --run e2e:ui
 # Run only type tests
 node --run types
 ```
