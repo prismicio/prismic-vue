@@ -5,7 +5,8 @@ import { defineConfig } from "vite"
 export default defineConfig({
 	plugins: [vue()],
 	test: {
-		setupFiles: ["./test/__setup__"],
+		include: ["test-old/**/*.test.ts"],
+		setupFiles: ["./test-old/__setup__"],
 		typecheck: {
 			enabled: true,
 			checker: "vue-tsc",
