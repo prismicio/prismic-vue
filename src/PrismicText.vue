@@ -42,5 +42,5 @@ if (DEV) {
 </script>
 
 <template>
-	{{ asText(field) || fallback || "" }}
+	{{ asText(field, { separator }) || fallback || "" }}
 </template>
