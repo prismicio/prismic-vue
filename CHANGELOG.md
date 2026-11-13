@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.2.1](https://github.com/prismicio/prismic-vue/compare/v6.2.0...v6.2.1) (2026-11-13)
+
+
+### Bug Fixes
+
+* **PrismicText:** join blocks with the `separator` prop ([c47f166](https://github.com/prismicio/prismic-vue/commit/c47f166787cfb624c92a4ebbc84a5fe1ae2555f4))
+
 ## [6.2.0](https://github.com/prismicio/prismic-vue/compare/v6.1.5...v6.2.0) (2026-10-28)
 
 
