@@ -8,13 +8,13 @@
 		"preview": "vite preview --port=4322 --strictPort"
 	},
 	"dependencies": {
-		"@prismicio/client": "^7.23.0",
+		"@prismicio/client": "^7.23.1",
 		"@prismicio/vue": "*",
 		"vue": "^3.5.45",
-		"vue-router": "^5.4.0"
+		"vue-router": "^5.5.0"
 	},
 	"devDependencies": {
-		"@vitejs/plugin-vue": "^6.0.10",
-		"vite": "^8.3.7"
+		"@vitejs/plugin-vue": "^6.0.11",
+		"vite": "^8.3.8"
 	}
 }
