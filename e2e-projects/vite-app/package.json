@@ -11,7 +11,7 @@
 		"@prismicio/client": "^7.23.1",
 		"@prismicio/vue": "*",
 		"vue": "^3.5.45",
-		"vue-router": "^5.5.0"
+		"vue-router": "^5.5.1"
 	},
 	"devDependencies": {
 		"@vitejs/plugin-vue": "^6.0.11",
