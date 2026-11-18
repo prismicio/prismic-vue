@@ -16,12 +16,10 @@ import type { PropType } from "vue"
  * Props are: `["table"]`
  *
  * @example
- * 	```javascript
  * 	// Defining a new rich text component
  * 	import { getTableComponentProps } from "@prismicio/vue"
  *
  * 	defineProps(getTableComponentProps.table())
- * 	```
  */
 export const table = (): {
 	table: { type: PropType<TableField<"filled">>; required: true }
@@ -36,12 +34,10 @@ export const table = (): {
  * Props are: `["head"]`
  *
  * @example
- * 	```javascript
  * 	// Defining a new rich text component
  * 	import { getTableComponentProps } from "@prismicio/vue"
  *
  * 	defineProps(getTableComponentProps.thead())
- * 	```
  */
 export const thead = (): {
 	head: { type: PropType<TableFieldHead>; required: true }
@@ -56,12 +52,10 @@ export const thead = (): {
  * Props are: `["body"]`
  *
  * @example
- * 	```javascript
  * 	// Defining a new rich text component
  * 	import { getTableComponentProps } from "@prismicio/vue"
  *
  * 	defineProps(getTableComponentProps.body())
- * 	```
  */
 export const tbody = (): {
 	body: { type: PropType<TableFieldBody>; required: true }
@@ -76,12 +70,10 @@ export const tbody = (): {
  * Props are: `["row"]`
  *
  * @example
- * 	```javascript
  * 	// Defining a new rich text component
  * 	import { getTableComponentProps } from "@prismicio/vue"
  *
  * 	defineProps(getTableComponentProps.tr())
- * 	```
  */
 export const tr = (): {
 	row: {
@@ -102,12 +94,10 @@ export const tr = (): {
  * Props are: `["cell"]`
  *
  * @example
- * 	```javascript
  * 	// Defining a new rich text component
  * 	import { getTableComponentProps } from "@prismicio/vue"
  *
  * 	defineProps(getTableComponentProps.th())
- * 	```
  */
 export const th = (): {
 	cell: { type: PropType<TableFieldHeaderCell>; required: true }
@@ -122,12 +112,10 @@ export const th = (): {
  * Props are: `["cell"]`
  *
  * @example
- * 	```javascript
  * 	// Defining a new rich text component
  * 	import { getTableComponentProps } from "@prismicio/vue"
  *
  * 	defineProps(getTableComponentProps.td())
- * 	```
  */
 export const td = (): {
 	cell: { type: PropType<TableFieldDataCell>; required: true }
