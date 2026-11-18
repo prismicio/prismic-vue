@@ -40,20 +40,16 @@ type DefineComponentSliceComponentProps<
  * Props are: `["slice", "index", "slices", "context"]`
  *
  * @example
- * 	```typescript
  * 	// Defining a new slice component
  * 	import { getSliceComponentProps } from "@prismicio/vue"
  *
  * 	defineProps(getSliceComponentProps())
- * 	```
  *
  * @example
- * 	```typescript
  * 	// Defining a new slice component with visual hint
  * 	import { getSliceComponentProps } from "@prismicio/vue"
  *
  * 	defineProps(getSliceComponentProps(["slice", "index", "slices", "context"]))
- * 	```
  *
  * @typeParam TSlice - The Slice type
  * @typeParam TContext - Arbitrary data passed to `<SliceZone />` and made available to all Slice
